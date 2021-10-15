@@ -3,10 +3,16 @@
 namespace state {
 
 
+state::Element::Element(){
+    this->nName = DEFAULT_NAME;
+    
+}
+
+
 state::Element::Element (std::string rName, int rX, int rY) {
     this->nName = rName;
-    this->nOrigine.setMX(rX);
-    this->nOrigine.setMX(rY);
+    this->setMX(rX);
+    this->setMY(rY);
 }
 
 std::string state::Element::GetName() {

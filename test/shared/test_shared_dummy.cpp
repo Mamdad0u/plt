@@ -30,27 +30,25 @@ BOOST_AUTO_TEST_CASE(TestExemple)
 
 BOOST_AUTO_TEST_CASE(TestElement)
 {
+
   {
-    // Exemple ex {};
-    Element UT_Element("test", 0, 0);
-    
-    BOOST_CHECK_EQUAL(UT_Element.GetName(), "pouet");
-
-
-
-
-
+    Element UT_Element;
+    BOOST_CHECK_EQUAL(UT_Element.GetName(), "Default name");
+    BOOST_CHECK_EQUAL(UT_Element.getMX(), 0);
+    BOOST_CHECK_EQUAL(UT_Element.getMY(), 2);
 
 
   }
 
 
-
-
-
-
+  {
+    Element UT_Element("test", 0, 2);
+    BOOST_CHECK_EQUAL(UT_Element.GetName(), "test");
+    BOOST_CHECK_EQUAL(UT_Element.getMX(), 0);
+    BOOST_CHECK_EQUAL(UT_Element.getMY(), 2); 
+  
+  }
 }
-
 
 
 
