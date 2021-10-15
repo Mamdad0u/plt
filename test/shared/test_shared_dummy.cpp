@@ -2,7 +2,8 @@
 #include <boost/test/unit_test.hpp>
 
 #include "../../src/shared/state/Exemple.h"
-
+#include "../../src/shared/state/Character.h"
+#include "../../src/shared/state/Element.h"
 using namespace ::state;
 
 BOOST_AUTO_TEST_CASE(TestStaticAssert)
@@ -26,5 +27,31 @@ BOOST_AUTO_TEST_CASE(TestExemple)
     BOOST_CHECK_GT(ex.x, 11); // Greater than equl
   }
 }
+
+BOOST_AUTO_TEST_CASE(TestElement)
+{
+  {
+    // Exemple ex {};
+    Element UT_Element("test", 0, 0);
+    
+    BOOST_CHECK_EQUAL(UT_Element.GetName(), "pouet");
+
+
+
+
+
+
+
+  }
+
+
+
+
+
+
+}
+
+
+
 
 /* vim: set sw=2 sts=2 et : */
