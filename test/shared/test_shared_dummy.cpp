@@ -28,27 +28,33 @@ BOOST_AUTO_TEST_CASE(TestExemple)
   }
 }
 
-BOOST_AUTO_TEST_CASE(TestElement)
+BOOST_AUTO_TEST_CASE(TestElement) 
 {
 
   {
     Element UT_Element;
     BOOST_CHECK_EQUAL(UT_Element.GetName(), "Default name");
     BOOST_CHECK_EQUAL(UT_Element.getMX(), 0);
-    BOOST_CHECK_EQUAL(UT_Element.getMY(), 2);
+    BOOST_CHECK_EQUAL(UT_Element.getMY(), 0);
 
 
-  }
-
-
-  {
-    Element UT_Element("test", 0, 2);
-    BOOST_CHECK_EQUAL(UT_Element.GetName(), "test");
-    BOOST_CHECK_EQUAL(UT_Element.getMX(), 0);
-    BOOST_CHECK_EQUAL(UT_Element.getMY(), 2); 
-  
   }
 }
+
+BOOST_AUTO_TEST_CASE(TestCharacter) 
+{
+  {
+    
+    Character UT_Character(ELEC);
+    BOOST_CHECK_EQUAL(UT_Character.GetMajor(), ELEC);
+
+  }
+
+
+
+
+}
+
 
 
 
