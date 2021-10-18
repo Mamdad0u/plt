@@ -24,7 +24,7 @@ void State::ChangeCombatState(CombatStatus rNewState) {
     
 }
 
-void State::InitializeCharacter() {
+void State::InitializeEnemyCharacters() {
     
 }
 
@@ -32,7 +32,7 @@ void State::InitializeMap() {
     
 }
 
-void State::BeginFight(std::vector<Character> rListOfCharacter) {
+void State::BeginFight() {
     
 }
 
