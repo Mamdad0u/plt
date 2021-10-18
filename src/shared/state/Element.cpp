@@ -19,10 +19,6 @@ std::string state::Element::GetName() {
     return this->nName;
 }
 
-Position state::Element::GetPosition() {
-    
-}
-
 const std::string& state::Element::getNName() const {
     
 }
@@ -31,11 +27,5 @@ void state::Element::setNName(const std::string& nName) {
     
 }
 
-const Position& state::Element::getNOrigine() const {
-    
-}
 
-void state::Element::setNOrigine(const Position& nOrigine) {
-    
-}
 }

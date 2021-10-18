@@ -39,10 +39,6 @@ state::Character::Character(Major rCharacterMajor) {
 
 }
 
-int state::Character::DoAttack() {
-    
-}
-
 int state::Character::GetStats() {
     
 }

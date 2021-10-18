@@ -20,17 +20,14 @@ void State::MoveNextTurn() {
     
 }
 
-void State::ChangeCombatState(CombatStatus rNewState) {
+void State::ChangeCombatState() {
     
 }
 
-void State::InitializeEnemyCharacters() {
+void State::InitializeEnemyCharactersList() {
     
 }
 
-void State::InitializeMap() {
-    
-}
 
 void State::BeginFight() {
     
