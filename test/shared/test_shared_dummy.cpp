@@ -49,12 +49,19 @@ BOOST_AUTO_TEST_CASE(TestCharacter)
     BOOST_CHECK_EQUAL(UT_Character.GetMajor(), ELEC);
 
   }
+}
+
+BOOST_AUTO_TEST_CASE(TestState)
+{
+  {
+
+    State UT_State;
 
 
+  }
 
 
 }
-
 
 
 
