@@ -13,11 +13,11 @@ Stats::Stats() {
     this->mPower = DEFAULT_STATS_VALUE;
 }
 
-int Stats::Get_life_points_max() {
+int Stats::Get_max_life_points() {
     return this->mMax_life_points;
 }
 
-void Stats::Set_life_points_max(int rValue) {
+void Stats::Set_max_life_points(int rValue) {
     this->mMax_life_points = rValue;
 }
 

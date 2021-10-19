@@ -5,9 +5,8 @@ namespace state {
 
 
 State::State() {
-
-
-
+int test = ELEC;
+    
 
     
 }
