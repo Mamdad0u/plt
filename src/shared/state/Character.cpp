@@ -31,9 +31,6 @@ state::Character::Character(Major rCharacterMajor) {
     }
 }
 
-CharacterStatus state::Character::GetState() {
-    
-}
 
 void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
     switch (rStatsName)
@@ -110,9 +107,6 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
 
 }
 
-void state::Character::SetState(CharacterStatus rNewState) {
-    
-}
 
 int state::Character::GetMajor() {
     return this->mCharacterMajor;
