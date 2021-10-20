@@ -3,32 +3,10 @@
 namespace state {
 
 
-state::Character::Character(Major rCharacterMajor) {
-    switch (rCharacterMajor)
-    {
-    case ELEC:
-        this->mCharacterMajor = ELEC;
-        break;
-    
-    case SIGNAL:
-        this->mCharacterMajor = SIGNAL;
-        break;
+state::Character::Character(Major rCharacterMajor, CharacterStatus rCharacterStatus) {
 
-    case AUTO:
-        this->mCharacterMajor = AUTO;
-        break;
-
-    case INFO:
-        this->mCharacterMajor = INFO;
-        break;
-
-    case SCIENCES_HUMAINES:
-        this->mCharacterMajor = SCIENCES_HUMAINES;
-        break;
-
-    default:
-        break;
-    }
+    this->mCharacterMajor = rCharacterMajor;
+    this->mCharacterStatus = rCharacterStatus;
 }
 
 
@@ -111,4 +89,20 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
 int state::Character::GetMajor() {
     return this->mCharacterMajor;
 }
+
+
+void state::Character::SetCharacterStatus(CharacterStatus rNewStatus){
+    this->mCharacterStatus = rNewStatus;
+
+}
+
+CharacterStatus state::Character::GetCharacterStatus(){
+
+    return this->mCharacterStatus;
+
+}
+
+
+
+
 }

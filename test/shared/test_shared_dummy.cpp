@@ -45,10 +45,11 @@ BOOST_AUTO_TEST_CASE(TestCharacter)
 {
   {
     
-    Character UT_Character(ELEC);
+    Character UT_Character(ELEC, DEAD);
     UT_Character.SetCharacterStats(ATTACK, 15);
     
     BOOST_CHECK_EQUAL(UT_Character.GetMajor(), ELEC);
+    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStatus(), ALIVE);
     BOOST_CHECK_EQUAL(UT_Character.GetCharacterStats(ATTACK), 15);
 
   }

@@ -5,7 +5,7 @@ namespace state {
 
 
 State::State() {
-int test = ELEC;
+    this->mCombatNumber = 0;
     
 
     
@@ -19,7 +19,7 @@ void State::MoveNextTurn() {
     
 }
 
-void State::ChangeCombatState() {
+void State::ChangeCombatState (CombatStatus rNewCombatState) {
     
 }
 
