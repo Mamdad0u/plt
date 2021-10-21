@@ -86,7 +86,7 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
 }
 
 
-int state::Character::GetMajor() {
+Major state::Character::GetMajor() {
     return this->mCharacterMajor;
 }
 
