@@ -16,16 +16,12 @@ void testSFML() {
 
 using namespace std;
 using namespace state;
+using namespace sf;
+
 
 int main(int argc,char* argv[])
 {
-    Exemple exemple;
-    exemple.setX(53);
-
-    cout << "It works !" << endl;
-
-
-    if(argc > 0){
+    if(argc > 1){
         if(strcmp(argv[1], "hello") == 0){
             cout << "Bonjour le monde" << endl;
         }
@@ -33,6 +29,7 @@ int main(int argc,char* argv[])
 
     }
 
+    RenderWindow app(VideoMode(800, 600, 32), "Ma premiere fenetre SFML ! ");
 
 
 
