@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <render/Surface.h>
+
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
 
@@ -14,13 +16,19 @@ void testSFML() {
 
 #include <state.h>
 
+
+
 using namespace std;
 using namespace state;
 using namespace sf;
-
+using namespace render;
 
 int main(int argc,char* argv[])
 {
+
+    Surface test;
+    sf::Sprite sprite;
+
     if(argc > 1){
         if(strcmp(argv[1], "hello") == 0){
             cout << "Bonjour le monde" << endl;
@@ -30,6 +38,9 @@ int main(int argc,char* argv[])
     }
 
     RenderWindow app(VideoMode(800, 600, 32), "Ma premiere fenetre SFML ! ");
+
+    test.LoadTexture("ENSEA_logo.png");
+    sprite.setTexture(test.GetTexture());
 
     while (app.isOpen())
     {
@@ -41,7 +52,9 @@ int main(int argc,char* argv[])
             if (event.type == Event::Closed){
                 app.close();
             }
+            
             app.clear(Color::Black);
+            app.draw(sprite);
             app.display();  
         }
 
