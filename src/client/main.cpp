@@ -31,7 +31,21 @@ int main(int argc,char* argv[])
 
     RenderWindow app(VideoMode(800, 600, 32), "Ma premiere fenetre SFML ! ");
 
+    while (app.isOpen())
+    {
 
+        Event event;
+
+        while (app.pollEvent(event))
+        {
+            if (event.type == Event::Closed){
+                app.close();
+            }
+            app.clear(Color::Black);
+            app.display();  
+        }
+
+    }
 
     return 0;
 }
