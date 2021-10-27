@@ -37,31 +37,41 @@ int main(int argc,char* argv[])
 
     }
 
-    RenderWindow app(VideoMode(800, 600, 32), "ENSEAi");
+    RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
 
     // test.LoadTexture("ENSEA_logo.png");
     // sprite.setTexture(test.GetTexture());
-    test.LoadTexture("ENSEA_logo.png");
-    while (app.isOpen())
+    test.LoadTexture("Rue_ENSEA_16Bits.jpg");
+
+
+    while (window.isOpen())
     {
 
         Event event;
 
-        while (app.pollEvent(event))
+        while (window.pollEvent(event))
         {
             if (event.type == Event::Closed){
-                app.close();
+                window.close();
             }
             
 
         }
-            app.clear(Color::Black);
+            window.clear(Color::Black);
 
-            test.TestTransform();
+            /*ZONE DE DESSIN*/
+            
+            
+           // test.TestTransform();
+            test.TestView(window);
 
 
-            test.Draw(app);
-            app.display();  
+            /*FIN ZONE DE DESSIN*/
+
+            test.Draw(window);
+            window.display();  
+
+            
     }
 
     return 0;
