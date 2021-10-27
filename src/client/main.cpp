@@ -37,11 +37,11 @@ int main(int argc,char* argv[])
 
     }
 
-    RenderWindow app(VideoMode(800, 600, 32), "Ma premiere fenetre SFML ! ");
+    RenderWindow app(VideoMode(800, 600, 32), "ENSEAi");
 
+    // test.LoadTexture("ENSEA_logo.png");
+    // sprite.setTexture(test.GetTexture());
     test.LoadTexture("ENSEA_logo.png");
-    sprite.setTexture(test.GetTexture());
-
     while (app.isOpen())
     {
 
@@ -53,11 +53,15 @@ int main(int argc,char* argv[])
                 app.close();
             }
             
-            app.clear(Color::Black);
-            app.draw(sprite);
-            app.display();  
-        }
 
+        }
+            app.clear(Color::Black);
+
+            test.TestTransform();
+
+
+            test.Draw(app);
+            app.display();  
     }
 
     return 0;

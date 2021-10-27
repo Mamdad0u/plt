@@ -9,20 +9,35 @@ namespace render {
 
         string lResPath = "res/" + rTextureName;
 
-        if (!texture.loadFromFile(lResPath,sf::IntRect(10, 10, 32, 32)))
+        if (!texture.loadFromFile(lResPath,sf::IntRect(100, 100, 500, 500)))
         {
             cout << "ERROR : Failed to load texture " << rTextureName <<endl;
             return -1;
+        }
+
+        else{
+            sprite.setTexture(texture);
+
         }
 
         return 0;
 
     }
 
-    sf::Texture render::Surface::GetTexture(){
-        return this->texture;
+    void render::Surface::Draw(sf::RenderWindow& rWindow){
+        rWindow.draw(sprite);
+
     }
 
+    void render::Surface::TestTransform(){
 
+        
+            sprite.setScale(sf::Vector2f(0.25f, 0.5f));
+        
+            sprite.rotate(1.f);
+
+
+
+    }
 }
 
