@@ -12,11 +12,11 @@ namespace render {
 
 
 
-    int render::Surface::LoadTexture(std::string rTextureName){
+    int render::Surface::LoadTexture(std::string rTextureName, int rX, int rY, int rWidth, int rHeight){
 
         string lResPath = "res/" + rTextureName;
 
-        if (!texture.loadFromFile(lResPath,sf::IntRect(0, 0, 1400, 1050)))
+        if (!texture.loadFromFile(lResPath,sf::IntRect(rX, rY, rWidth, rHeight)))
         {
             cout << "ERROR : Failed to load texture " << rTextureName <<endl;
             return -1;
@@ -24,8 +24,6 @@ namespace render {
 
         else{
             sprite.setTexture(texture);
-            sprite.setScale(sf::Vector2f(0.8f,0.6f));
-
         }
 
         return 0;
