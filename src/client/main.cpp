@@ -26,53 +26,57 @@ using namespace render;
 int main(int argc,char* argv[])
 {
 
-    Surface test;
+    Surface lDrawSurface;
     sf::Sprite sprite;
 
     if(argc > 1){
         if(strcmp(argv[1], "hello") == 0){
             cout << "Bonjour le monde" << endl;
         }
-            
-
-    }
-
-    RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
-
-    // test.LoadTexture("ENSEA_logo.png");
-    // sprite.setTexture(test.GetTexture());
-    test.LoadTexture("Rue_ENSEA_16Bits.jpg");
 
 
-    while (window.isOpen())
-    {
+        else if(strcmp(argv[1], "render") == 0){
+            RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
 
-        Event event;
+        
+            lDrawSurface.LoadTexture("Arena_1.png", 0, 0, 1600, 600);
 
-        while (window.pollEvent(event))
-        {
-            if (event.type == Event::Closed){
-                window.close();
-            }
-            
+            while (window.isOpen())
+            {
+
+                Event event;
+
+                while (window.pollEvent(event))
+                {
+                    if (event.type == Event::Closed){
+                        window.close();
+                    }
+                    
+
+                }
+                    window.clear(Color::Black);
+
+                    /*ZONE DE DESSIN*/
+                    
+                    
+                    
+
+
+                    /*FIN ZONE DE DESSIN*/
+
+                    lDrawSurface.Draw(window);
+                    window.display();  
+
+                    
+            }       
+
 
         }
-            window.clear(Color::Black);
-
-            /*ZONE DE DESSIN*/
             
-            
-           // test.TestTransform();
-            test.TestView(window);
 
-
-            /*FIN ZONE DE DESSIN*/
-
-            test.Draw(window);
-            window.display();  
-
-            
     }
+
+    
 
     return 0;
 }
