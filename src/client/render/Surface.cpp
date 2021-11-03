@@ -6,7 +6,7 @@ using namespace std;
 
 namespace render {
     render::Surface::Surface(){
-        view.reset(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
+        mView.reset(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
     }
 
 
@@ -16,14 +16,14 @@ namespace render {
 
         string lResPath = "res/" + rTextureName;
 
-        if (!texture.loadFromFile(lResPath,sf::IntRect(rX, rY, rWidth, rHeight)))
+        if (!mTexture.loadFromFile(lResPath,sf::IntRect(rX, rY, rWidth, rHeight)))
         {
             cout << "ERROR : Failed to load texture " << rTextureName <<endl;
             return -1;
         }
 
         else{
-            sprite.setTexture(texture);
+            mSprite.setTexture(mTexture);
         }
 
         return 0;
@@ -31,19 +31,19 @@ namespace render {
     }
 
     void render::Surface::Draw(sf::RenderWindow& rWindow){
-        rWindow.draw(sprite);
+        rWindow.draw(mSprite);
 
     }
 
-    void render::Surface::TestTransform(){
 
-        
+    void render::Surface::ChangeViewArena(sf::RenderWindow& rWindow){
+        rWindow.setView(mView);
+        mView.move(sf::Vector2f(1.f,0.f));
+
     }
 
-    void render::Surface::TestView(sf::RenderWindow& rWindow){
-        rWindow.setView(view);
-        //view.setRotation(20.f);
-        view.move(sf::Vector2f(1.f,0.f));
-    }
+
+
+
 }
 
