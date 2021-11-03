@@ -13,7 +13,7 @@
 # Projet Logiciel Transversal : ENSEA<sup>i</sup>
 
   [![c++ version][cpp-ver-shield]][cpp-ver]
-  [![software version][version-shield]][cpp-ver]
+  [![software version][version-shield]][last_version]
 
   </div>
 </p>
@@ -171,3 +171,4 @@ Distributed under the MIT License. See [LICENSE][license-url] for more informati
 [cpp-ver]: https://en.wikipedia.org/wiki/C%2B%2B11
 
 [version-shield]: https://img.shields.io/github/v/release/Mamdad0u/plt?style=flat-square
+[last_version]: https://github.com/Mamdad0u/plt/releases/tag/1.final
