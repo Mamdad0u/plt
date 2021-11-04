@@ -38,8 +38,7 @@ int main(int argc,char* argv[])
         else if(strcmp(argv[1], "render") == 0){
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
 
-        
-            lDrawSurface.LoadTexture("Arena_1.png", 0, 0, 1600, 600);
+            lDrawSurface.LoadSurface("Rue_ENSEA_16Bits.jpg", 0, 0, 800, 600);          
 
             while (window.isOpen())
             {
@@ -58,14 +57,15 @@ int main(int argc,char* argv[])
 
                     /*ZONE DE DESSIN*/
                     
-                    
+                   
                     
 
 
                     /*FIN ZONE DE DESSIN*/
-
-                    lDrawSurface.Draw(window);
-                    window.display();  
+                window.draw(lDrawSurface);
+                
+                    //lDrawSurface.Draw(window);
+                window.display();  
 
                     
             }       
