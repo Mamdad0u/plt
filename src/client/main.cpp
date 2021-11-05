@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <render/Surface.h>
+#include <render/RenderLayer.h>
 
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
@@ -26,8 +26,7 @@ using namespace render;
 int main(int argc,char* argv[])
 {
 
-    Surface lDrawSurface;
-    sf::Sprite sprite;
+    RenderLayer lRender;
 
     if(argc > 1){
         if(strcmp(argv[1], "hello") == 0){
@@ -37,8 +36,7 @@ int main(int argc,char* argv[])
 
         else if(strcmp(argv[1], "render") == 0){
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
-
-            lDrawSurface.LoadSurface("Rue_ENSEA_16Bits.jpg", 0, 0, 800, 600);          
+            lRender.LoadBackground();
 
             while (window.isOpen())
             {
@@ -53,16 +51,16 @@ int main(int argc,char* argv[])
                     
 
                 }
-                    window.clear(Color::Black);
+                window.clear(Color::Black);
 
                     /*ZONE DE DESSIN*/
                     
-                   
+                    lRender.draw(window);
                     
 
 
                     /*FIN ZONE DE DESSIN*/
-                window.draw(lDrawSurface);
+                
                 
                     //lDrawSurface.Draw(window);
                 window.display();  
