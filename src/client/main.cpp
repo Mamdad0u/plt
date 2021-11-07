@@ -25,7 +25,7 @@ using namespace render;
 
 int main(int argc,char* argv[])
 {
-
+    sf::Clock clock;
     RenderLayer lRender;
 
     if(argc > 1){
@@ -52,15 +52,18 @@ int main(int argc,char* argv[])
                     
 
                 }
-                window.clear(Color::Black);
 
-                    /*ZONE DE DESSIN*/
+
+                window.clear();
+
+                lRender.draw(window);
                     
-                    lRender.draw(window);
+                if(clock.getElapsedTime().asSeconds() > 0.2f){
+                    lRender.AnimateCharacters();
+                    clock.restart();
+                }
+
                     
-
-
-                    /*FIN ZONE DE DESSIN*/
                 
                 
                     //lDrawSurface.Draw(window);

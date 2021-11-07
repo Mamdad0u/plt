@@ -40,14 +40,16 @@ namespace render {
         return 0;
     }
 
-
-
-
     int render::Surface::LoadCharacterSprite(const std::string& rTextureName, int rX, int rY){
 
         string lResPath = "res/" + rTextureName;
+        mCharacterRectSource.left = 0;
+        mCharacterRectSource.top = 0;
+        mCharacterRectSource.width = 16;
+        mCharacterRectSource.height = 24;
 
-        if (!mTexture.loadFromFile(lResPath,sf::IntRect(0, 0, 16, 26)))
+        
+        if (!mTexture.loadFromFile(lResPath))
         {
             cout << "ERROR : Failed to load texture " << rTextureName <<endl;
             return -1;
@@ -56,7 +58,8 @@ namespace render {
         else{
             cout << "Loading sprite " << rTextureName << endl;
             mSprite.setTexture(mTexture);
-
+            mSprite.setTextureRect(mCharacterRectSource);
+            
             mSprite.move((sf::Vector2f)sf::Vector2u(rX, rY));
             mSprite.scale(sf::Vector2f(2.f,2.f));
         }
@@ -64,7 +67,6 @@ namespace render {
         return 0;
 
     }
-
 
     int render::Surface::LoadBackgroundSprite(const std::string& rTextureName){
         string lResPath = "res/" + rTextureName;
@@ -78,6 +80,7 @@ namespace render {
         else{
             cout << "Loading sprite " << rTextureName << endl;
             mSprite.setTexture(mTexture);
+           
         }
 
 
@@ -89,6 +92,27 @@ namespace render {
 
 
     }
+
+    void render::Surface::ChangeCharacterAnimation(int rNewAnimation){
+        
+        mCharacterRectSource.left += 16;
+
+
+        if(mCharacterRectSource.left == 64){
+            mCharacterRectSource.left = 0;
+        }
+
+        mSprite.setTextureRect(mCharacterRectSource);
+        
+    }
+
+
+
+
+
+
+
+
 
 
 /*     void render::Surface::draw(sf::RenderTarget& target, sf::RenderStates states) const {

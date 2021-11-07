@@ -21,19 +21,18 @@ namespace render {
             cout << "ERROR : Failed to load character " << endl;
             return -1;
         }
-        
-        else{
-            
-
-
-        }
-
 
         return 0;
     }
 
 
-    
+    void render::RenderLayer::AnimateCharacters(){
+        mCharactersSurface.ChangeCharacterAnimation(0);
+
+    }
+
+
+
 
 
     
