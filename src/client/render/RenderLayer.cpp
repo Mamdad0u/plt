@@ -17,7 +17,7 @@ namespace render {
 
     int render::RenderLayer::LoadCharacters(int rCharacterSelected, int rX, int rY){
         
-        if(mCharactersSurface.LoadCharacterSprite("Character1.png", rX, rY)){
+        if(mCharactersSurface.LoadCharacterSprite("Character4.png", rX, rY)){
             cout << "ERROR : Failed to load character " << endl;
             return -1;
         }
@@ -27,7 +27,7 @@ namespace render {
 
 
     void render::RenderLayer::AnimateCharacters(){
-        mCharactersSurface.ChangeCharacterAnimation(0);
+        mCharactersSurface.ChangeCharacterAnimation(1);
 
     }
 

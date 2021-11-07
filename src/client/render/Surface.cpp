@@ -46,7 +46,7 @@ namespace render {
         mCharacterRectSource.left = 0;
         mCharacterRectSource.top = 0;
         mCharacterRectSource.width = 16;
-        mCharacterRectSource.height = 24;
+        mCharacterRectSource.height = 23;
 
         
         if (!mTexture.loadFromFile(lResPath))
@@ -61,7 +61,7 @@ namespace render {
             mSprite.setTextureRect(mCharacterRectSource);
             
             mSprite.move((sf::Vector2f)sf::Vector2u(rX, rY));
-            mSprite.scale(sf::Vector2f(2.f,2.f));
+            mSprite.scale(sf::Vector2f(2.5f,2.5f));
         }
 
         return 0;
@@ -95,10 +95,23 @@ namespace render {
 
     void render::Surface::ChangeCharacterAnimation(int rNewAnimation){
         
+        switch(rNewAnimation){
+            case 0:
+                mCharacterRectSource.top = 0;
+                break;
+
+            case 1:
+                mCharacterRectSource.top = 32;
+                break;
+        }
+
+
+
+
         mCharacterRectSource.left += 16;
 
 
-        if(mCharacterRectSource.left == 64){
+        if(mCharacterRectSource.left == 96){
             mCharacterRectSource.left = 0;
         }
 
