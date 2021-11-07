@@ -27,6 +27,7 @@ int main(int argc,char* argv[])
 {
     sf::Clock clock;
     RenderLayer lRender;
+    int lMovingProgress = 0;
 
     if(argc > 1){
         if(strcmp(argv[1], "hello") == 0){
@@ -56,17 +57,21 @@ int main(int argc,char* argv[])
 
                 window.clear();
 
-                lRender.draw(window);
-                    
                 if(clock.getElapsedTime().asSeconds() > 0.1f){
                     lRender.AnimateCharacters();
                     clock.restart();
                 }
 
+                
+                if(lMovingProgress < 800){
+                    lMovingProgress = lRender.GoNextCombat(window);
+                }
+                
+
+                
+
+                lRender.draw(window);
                     
-                
-                
-                    //lDrawSurface.Draw(window);
                 window.display();  
 
                     

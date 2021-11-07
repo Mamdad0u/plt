@@ -8,6 +8,10 @@ namespace render {
 
     // NOUVELLE VERSION
 
+    render::Surface::Surface(){
+        mView.reset(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
+    }
+
     int render::Surface::LoadShape(const std::string& rTextureName, float rX, float rY){
         string lResPath = "res/" + rTextureName;
         sf::Vector2f lTextureSize;
@@ -87,13 +91,7 @@ namespace render {
         return 0;
     }
 
-    void render::Surface::draw(sf::RenderWindow& rWindow){
-        rWindow.draw(mSprite);
-
-
-    }
-
-    void render::Surface::ChangeCharacterAnimation(int rNewAnimation){
+    void render::Surface::SetCharacterAnimation(int rNewAnimation){
         
         switch(rNewAnimation){
             case 0:
@@ -104,10 +102,10 @@ namespace render {
                 mCharacterRectSource.top = 32;
                 break;
         }
+        
+    }
 
-
-
-
+    void render::Surface::UpdateCharacterAnimation(){
         mCharacterRectSource.left += 16;
 
 
@@ -116,17 +114,22 @@ namespace render {
         }
 
         mSprite.setTextureRect(mCharacterRectSource);
-        
+
     }
 
+    void render::Surface::MoveBackgroundView(sf::RenderWindow& rWindow){
+        rWindow.setView(mView);
+        mView.move(sf::Vector2f(1.f,0.f));
+    }
 
+    void render::Surface::MoveCharacterSprite(){
+        mSprite.move(1.f, 0.f);
 
+    }
 
-
-
-
-
-
+    void render::Surface::draw(sf::RenderWindow& rWindow){
+        rWindow.draw(mSprite);
+    }
 
 /*     void render::Surface::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         
@@ -143,29 +146,6 @@ namespace render {
     } */
 
 
-
-
-
-
-
-    // ANCIENNE VERSION DU RENDU 
-    /* render::Surface::Surface(){
-        mView.reset(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
-    }
-
-
-    
-
-    
-
-
-
-
-    void render::Surface::ChangeViewArena(sf::RenderWindow& rWindow){
-        rWindow.setView(mView);
-        mView.move(sf::Vector2f(1.f,0.f));
-
-    } */
 
 
 

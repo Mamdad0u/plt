@@ -22,25 +22,36 @@ namespace render {
             return -1;
         }
 
+        mCharactersSurface.SetCharacterAnimation(1);
         return 0;
     }
 
 
     void render::RenderLayer::AnimateCharacters(){
-        mCharactersSurface.ChangeCharacterAnimation(1);
+        mCharactersSurface.UpdateCharacterAnimation();
 
     }
 
+    int render::RenderLayer::GoNextCombat(sf::RenderWindow& rWindow){
+        if(mMovingProgress == 0){
+            mCharactersSurface.SetCharacterAnimation(1);
+        }
+        else if(mMovingProgress == 799){
+            mCharactersSurface.SetCharacterAnimation(0);
+        }
 
-
-
-
-    
+        mBackgroundSurface.MoveBackgroundView(rWindow);
+        mCharactersSurface.MoveCharacterSprite();
+        
+        mMovingProgress++;
+        return mMovingProgress;
+    }
 
     void render::RenderLayer::draw(sf::RenderWindow& rWindow){
         mBackgroundSurface.draw(rWindow);
         mCharactersSurface.draw(rWindow);
     }
+    
 
 }
 
