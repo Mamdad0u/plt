@@ -7,32 +7,40 @@ using namespace std;
 namespace render {
     
     int render::RenderLayer::LoadBackground(){
-        if(mBackgroundSurface.LoadSurface("Arena_1.png", 0, 0, 3200, 600)){
-            cout << "ERROR : Failed to load Background " << endl;
+        if(mBackgroundSurface.LoadBackgroundSprite("Arena_1.png")){
+            cout << "ERROR : Failed to load background " << endl;
             return -1;
         }
         
         return 0;
     }
 
-    int render::RenderLayer::LoadCharacters(int rCharacterSelected){
+    int render::RenderLayer::LoadCharacters(int rCharacterSelected, int rX, int rY){
         
-        switch(rCharacterSelected){
-            case 0:
-                
-                break;
-
-
+        if(mCharactersSurface.LoadCharacterSprite("Character1.png", rX, rY)){
+            cout << "ERROR : Failed to load character " << endl;
+            return -1;
+        }
+        
+        else{
+            
 
 
         }
 
+
+        return 0;
     }
 
 
-    void render::RenderLayer::draw(sf::RenderWindow& rWindow){
-        rWindow.draw(mBackgroundSurface);
+    
 
+
+    
+
+    void render::RenderLayer::draw(sf::RenderWindow& rWindow){
+        mBackgroundSurface.draw(rWindow);
+        mCharactersSurface.draw(rWindow);
     }
 
 }
