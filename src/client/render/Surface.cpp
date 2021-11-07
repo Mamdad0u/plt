@@ -8,7 +8,65 @@ namespace render {
 
     // NOUVELLE VERSION
 
-    int render::Surface::LoadSurface(const std::string& rTextureName, float rX, float rY, float rWidth, float rHeight){
+    int render::Surface::LoadShape(const std::string& rTextureName, float rX, float rY){
+        string lResPath = "res/" + rTextureName;
+        sf::Vector2f lTextureSize;
+
+        if (!mTexture.loadFromFile(lResPath))
+        {
+            cout << "ERROR : Failed to load texture " << rTextureName <<endl;
+            return -1;
+        }
+
+        else{
+            lTextureSize = (sf::Vector2f)mTexture.getSize();
+            mQuad.setPrimitiveType(sf::Quads); // Setting interpretation of primitive as quads 
+            mQuad.resize(lTextureSize.x * lTextureSize.y * 4);
+
+            //mQuad[0].position = (sf::Vector2f)mTexture.getSize();
+
+            mQuad[0].position = sf::Vector2f(rX, rY); 
+            mQuad[1].position = sf::Vector2f(rX + lTextureSize.x, rY);
+            mQuad[2].position = sf::Vector2f(rX + lTextureSize.x, rY + lTextureSize.y);
+            mQuad[3].position = sf::Vector2f(rX, rY + lTextureSize.y);
+            
+            
+            mQuad[0].texCoords = sf::Vector2f(rX, rY);
+            mQuad[1].texCoords = sf::Vector2f(rX + lTextureSize.x, rY);
+            mQuad[2].texCoords = sf::Vector2f(rX + lTextureSize.x, rY + lTextureSize.y);
+            mQuad[3].texCoords = sf::Vector2f(rX, rY + lTextureSize.y);
+        }
+
+        return 0;
+    }
+
+
+
+
+    int render::Surface::LoadCharacterSprite(const std::string& rTextureName, int rX, int rY){
+
+        string lResPath = "res/" + rTextureName;
+
+        if (!mTexture.loadFromFile(lResPath,sf::IntRect(0, 0, 16, 26)))
+        {
+            cout << "ERROR : Failed to load texture " << rTextureName <<endl;
+            return -1;
+        }
+
+        else{
+            cout << "Loading sprite " << rTextureName << endl;
+            mSprite.setTexture(mTexture);
+
+            mSprite.move((sf::Vector2f)sf::Vector2u(rX, rY));
+            mSprite.scale(sf::Vector2f(2.f,2.f));
+        }
+
+        return 0;
+
+    }
+
+
+    int render::Surface::LoadBackgroundSprite(const std::string& rTextureName){
         string lResPath = "res/" + rTextureName;
 
         if (!mTexture.loadFromFile(lResPath))
@@ -18,26 +76,22 @@ namespace render {
         }
 
         else{
-            mQuad.setPrimitiveType(sf::Quads); // Setting interpretation of primitive as quads 
-            mQuad.resize(rWidth * rHeight * 4);
-
-            mQuad[0].position = sf::Vector2f(rX, rY);
-            mQuad[1].position = sf::Vector2f(rX + rWidth, rX);
-            mQuad[2].position = sf::Vector2f(rX + rWidth, rY + rHeight);
-            mQuad[3].position = sf::Vector2f(rX, rY + rHeight);
-            
-            
-            mQuad[0].texCoords = sf::Vector2f(rX, rY);
-            mQuad[1].texCoords = sf::Vector2f(rX + rWidth, rX);
-            mQuad[2].texCoords = sf::Vector2f(rX + rWidth, rY + rHeight);
-            mQuad[3].texCoords = sf::Vector2f(rX, rY + rHeight);
+            cout << "Loading sprite " << rTextureName << endl;
+            mSprite.setTexture(mTexture);
         }
+
 
         return 0;
     }
 
+    void render::Surface::draw(sf::RenderWindow& rWindow){
+        rWindow.draw(mSprite);
 
-    void render::Surface::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+
+    }
+
+
+/*     void render::Surface::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         
         // on applique la transformation
         states.transform *= getTransform();
@@ -49,7 +103,7 @@ namespace render {
         target.draw(mQuad, states);
         
 
-    }
+    } */
 
 
 
@@ -65,23 +119,7 @@ namespace render {
 
     
 
-    int render::Surface::LoadTexture(std::string rTextureName, int rX, int rY, int rWidth, int rHeight){
-
-        string lResPath = "res/" + rTextureName;
-
-        if (!mTexture.loadFromFile(lResPath,sf::IntRect(rX, rY, rWidth, rHeight)))
-        {
-            cout << "ERROR : Failed to load texture " << rTextureName <<endl;
-            return -1;
-        }
-
-        else{
-            mSprite.setTexture(mTexture);
-        }
-
-        return 0;
-
-    }
+    
 
 
 
