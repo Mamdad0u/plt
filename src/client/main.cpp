@@ -34,7 +34,7 @@ int main(int argc,char* argv[])
             cout << "Bonjour le monde" << endl;
         }
 
-
+//
         else if(strcmp(argv[1], "render") == 0){
             
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
