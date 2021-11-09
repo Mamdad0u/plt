@@ -48,6 +48,13 @@ namespace render {
         return 0;
     }
 
+    void render::RenderLayer::LoadUI(){
+        mUI.CreateWindow(0,500,800,100);
+
+
+    }
+
+
     void render::RenderLayer::AnimateCharacters(){
         int lLastCharacterPosition = mPlayerCharactersSurface.size();
 
@@ -82,13 +89,19 @@ namespace render {
     }
 
     void render::RenderLayer::draw(sf::RenderWindow& rWindow){
-        mBackgroundSurface.draw(rWindow);
-
-        for(int i=0;i<mPlayerCharactersSurface.size();i++){
-            mPlayerCharactersSurface[i].draw(rWindow);
-        }
+        mBackgroundSurface.DrawSprite(rWindow);
+      //  mCharactersSurface.draw(rWindow);
 
         
+
+        for(int i=0;i<mPlayerCharactersSurface.size();i++){
+            
+            mPlayerCharactersSurface[i].DrawSprite(rWindow);
+
+
+        }
+
+        rWindow.draw(mUI);
     }
     
 
