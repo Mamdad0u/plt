@@ -45,7 +45,7 @@ int main(int argc,char* argv[])
             lRender.LoadCharacter(2,100,200);
             lRender.LoadCharacter(3,100,300);
             lRender.LoadCharacter(4,100,400);
-
+            lRender.LoadUI();
 
             while (window.isOpen())
             {
@@ -70,9 +70,9 @@ int main(int argc,char* argv[])
                 }
 
                 
-                if(lMovingProgress < 800){
+/*                 if(lMovingProgress < 800){
                     lMovingProgress = lRender.GoNextCombat(window);
-                }
+                } */
                 
 
                 
@@ -89,6 +89,7 @@ int main(int argc,char* argv[])
             
 
     }
+
 
     
 
