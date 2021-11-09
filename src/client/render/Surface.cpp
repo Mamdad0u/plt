@@ -50,7 +50,7 @@ namespace render {
         mCharacterRectSource.left = 0;
         mCharacterRectSource.top = 0;
         mCharacterRectSource.width = 16;
-        mCharacterRectSource.height = 23;
+        mCharacterRectSource.height = 24;
 
         
         if (!mTexture.loadFromFile(lResPath))
