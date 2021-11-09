@@ -48,7 +48,6 @@ namespace render {
         return 0;
     }
 
-
     void render::RenderLayer::AnimateCharacters(){
         int lLastCharacterPosition = mPlayerCharactersSurface.size();
 
@@ -84,16 +83,12 @@ namespace render {
 
     void render::RenderLayer::draw(sf::RenderWindow& rWindow){
         mBackgroundSurface.draw(rWindow);
-      //  mCharactersSurface.draw(rWindow);
-
-        
 
         for(int i=0;i<mPlayerCharactersSurface.size();i++){
-            
             mPlayerCharactersSurface[i].draw(rWindow);
-
-
         }
+
+        
     }
     
 
