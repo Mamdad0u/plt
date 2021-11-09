@@ -36,9 +36,15 @@ int main(int argc,char* argv[])
 
 
         else if(strcmp(argv[1], "render") == 0){
+            
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
             lRender.LoadBackground();
-            lRender.LoadCharacters(1, 200, 400);
+            //lRender.LoadCharacters(1, 200, 400);
+
+            lRender.LoadManyCharacters(1,100,200);
+            lRender.LoadManyCharacters(2,100,300);
+            lRender.LoadManyCharacters(3,100,400);
+            lRender.LoadManyCharacters(4,100,500);
 
             while (window.isOpen())
             {
