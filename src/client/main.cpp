@@ -41,10 +41,10 @@ int main(int argc,char* argv[])
             lRender.LoadBackground();
             //lRender.LoadCharacters(1, 200, 400);
 
-            lRender.LoadManyCharacters(1,100,100);
-            lRender.LoadManyCharacters(2,100,200);
-            lRender.LoadManyCharacters(3,100,300);
-            lRender.LoadManyCharacters(4,100,400);
+            lRender.LoadCharacter(1,100,100);
+            lRender.LoadCharacter(2,100,200);
+            lRender.LoadCharacter(3,100,300);
+            lRender.LoadCharacter(4,100,400);
 
 
             while (window.isOpen())

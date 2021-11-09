@@ -8,7 +8,7 @@ namespace render {
 
 
     render::RenderLayer::RenderLayer(){
-        mManyCharactersSurface.reserve(4);
+        mPlayerCharactersSurface.reserve(4);
 
     }
     
@@ -21,38 +21,26 @@ namespace render {
         return 0;
     }
 
-    int render::RenderLayer::LoadCharacters(int rCharacterSelected, int rX, int rY){
-        string lCharacterString = "Character" + to_string(rCharacterSelected);
-        lCharacterString = lCharacterString + ".png";
 
-        if(mCharactersSurface.LoadCharacterSprite(lCharacterString, rX, rY)){
-            cout << "ERROR : Failed to load character " << endl;
-            return -1;
-        }
-
-        mCharactersSurface.SetCharacterAnimation(1);
-        return 0;
-    }
-
-    int render::RenderLayer::LoadManyCharacters(int rCharacterSelected, int rX, int rY){
+    int render::RenderLayer::LoadCharacter(int rCharacterSelected, int rX, int rY){
         Surface lCharactertoAdd;
-        int lLastCharacterPosition = mManyCharactersSurface.size();
+        int lLastCharacterPosition = mPlayerCharactersSurface.size();
         string lCharacterString = "Character" + to_string(rCharacterSelected);
         
         lCharacterString = lCharacterString + ".png";
 
 
         
-        mManyCharactersSurface.push_back(*(new Surface));
+        mPlayerCharactersSurface.push_back(*(new Surface));
         
-        if(mManyCharactersSurface[lLastCharacterPosition].LoadCharacterSprite(lCharacterString, rX, rY)){
+        if(mPlayerCharactersSurface[lLastCharacterPosition].LoadCharacterSprite(lCharacterString, rX, rY)){
             cout << "ERROR : Failed to load character " << endl;
             return -1;
         }
 
 
 
-        mManyCharactersSurface[lLastCharacterPosition].SetCharacterAnimation(1);
+        mPlayerCharactersSurface[lLastCharacterPosition].SetCharacterAnimation(0);
         
         
        
@@ -62,30 +50,28 @@ namespace render {
 
 
     void render::RenderLayer::AnimateCharacters(){
-        int lLastCharacterPosition = mManyCharactersSurface.size();
+        int lLastCharacterPosition = mPlayerCharactersSurface.size();
 
         for(int i=0;i<lLastCharacterPosition;i++){
-            mManyCharactersSurface[i].UpdateCharacterAnimation();
+            mPlayerCharactersSurface[i].UpdateCharacterAnimation();
         }
 
-
-        //mCharactersSurface.UpdateCharacterAnimation();
 
     }
 
     int render::RenderLayer::GoNextCombat(sf::RenderWindow& rWindow){
-        int lLastCharacterPosition = mManyCharactersSurface.size();
+        int lLastCharacterPosition = mPlayerCharactersSurface.size();
 
 
         for(int i=0;i<lLastCharacterPosition;i++){
             if(mMovingProgress == 0){
-                mManyCharactersSurface[i].SetCharacterAnimation(1);
+                mPlayerCharactersSurface[i].SetCharacterAnimation(1);
             }
             else if(mMovingProgress == 799){
-                mManyCharactersSurface[i].SetCharacterAnimation(0);
+                mPlayerCharactersSurface[i].SetCharacterAnimation(0);
             }
 
-            mManyCharactersSurface[i].MoveCharacterSprite();
+            mPlayerCharactersSurface[i].MoveCharacterSprite();
         }
 
 
@@ -102,9 +88,9 @@ namespace render {
 
         
 
-        for(int i=0;i<mManyCharactersSurface.size();i++){
+        for(int i=0;i<mPlayerCharactersSurface.size();i++){
             
-            mManyCharactersSurface[i].draw(rWindow);
+            mPlayerCharactersSurface[i].draw(rWindow);
 
 
         }
