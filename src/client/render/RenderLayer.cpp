@@ -5,6 +5,12 @@
 using namespace std;
 
 namespace render {
+
+
+    render::RenderLayer::RenderLayer(){
+        mManyCharactersSurface.reserve(4);
+
+    }
     
     int render::RenderLayer::LoadBackground(){
         if(mBackgroundSurface.LoadBackgroundSprite("Arena_1.png")){
@@ -30,21 +36,25 @@ namespace render {
 
     int render::RenderLayer::LoadManyCharacters(int rCharacterSelected, int rX, int rY){
         Surface lCharactertoAdd;
-
+        int lLastCharacterPosition = mManyCharactersSurface.size();
         string lCharacterString = "Character" + to_string(rCharacterSelected);
+        
         lCharacterString = lCharacterString + ".png";
 
 
-        int lLastCharacterPosition = mManyCharactersSurface.size();
-        mManyCharactersSurface.push_back(lCharactertoAdd);
-
+        
+        mManyCharactersSurface.push_back(*(new Surface));
+        
         if(mManyCharactersSurface[lLastCharacterPosition].LoadCharacterSprite(lCharacterString, rX, rY)){
             cout << "ERROR : Failed to load character " << endl;
             return -1;
         }
 
-        mManyCharactersSurface[lLastCharacterPosition].SetCharacterAnimation(1);
 
+
+        mManyCharactersSurface[lLastCharacterPosition].SetCharacterAnimation(1);
+        
+        
        
 
         return 0;
