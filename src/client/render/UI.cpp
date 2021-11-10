@@ -44,22 +44,18 @@ namespace render {
         
     }
 
-    void render::UI::AddTextWindow(const std::string& rText){
+    void render::UI::AddTextWindow(const std::string& rText, int rX, int rY){
+        
+
+
 
         mText.setString(rText);
-        mText.setPosition(sf::Vector2f(700.f,550.f));
+        mText.setPosition(sf::Vector2f((float)rX,(float)rY));
         
 
 
     }
 
-
-    void render::UI::PrintText(sf::RenderWindow& rWindow){
-        rWindow.draw(mText);
-
-
-
-    }
 
     void render::UI::draw(sf::RenderTarget& target, sf::RenderStates states) const{
         states.transform *= getTransform();
