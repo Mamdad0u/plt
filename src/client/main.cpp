@@ -38,6 +38,8 @@ int main(int argc,char* argv[])
         else if(strcmp(argv[1], "render") == 0){
             
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
+            window.setFramerateLimit(60);
+
             lRender.LoadBackground();
             //lRender.LoadCharacters(1, 200, 400);
 
