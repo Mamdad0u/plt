@@ -50,6 +50,7 @@ namespace render {
 
     void render::RenderLayer::LoadUI(){
         mUI.CreateWindow(0,500,800,100);
+        mUI.AddTextWindow("MENU ACTION");
 
     }
 

@@ -1,7 +1,25 @@
 #include <render/UI.h>  // Included from library shared_static
 #include "UI.h"
+#include <iostream>
+
+using namespace std;
 
 namespace render {
+
+    render::UI::UI(){
+        
+        if (!mFont.loadFromFile("res/font.ttf"))
+        {
+            cout << "ERROR : Failed to policy " << endl;
+        }
+
+        else{
+            mText.setFont(mFont);
+            mText.setCharacterSize(24);
+        }
+
+    }
+
 
     void render::UI::CreateWindow(int rX, int rY, int rWidth, int rHeight){
         mVertices.setPrimitiveType(sf::Quads);
@@ -26,12 +44,28 @@ namespace render {
         
     }
 
+    void render::UI::AddTextWindow(const std::string& rText){
+
+        mText.setString(rText);
+        mText.setPosition(sf::Vector2f(700.f,550.f));
+        
+
+
+    }
+
+
+    void render::UI::PrintText(sf::RenderWindow& rWindow){
+        rWindow.draw(mText);
+
+
+
+    }
 
     void render::UI::draw(sf::RenderTarget& target, sf::RenderStates states) const{
         states.transform *= getTransform();
 
         target.draw(mVertices, states);
-
+        target.draw(mText);
     }
 
 }
