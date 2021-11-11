@@ -50,8 +50,9 @@ namespace render {
 
     void render::RenderLayer::LoadUI(){
         mUI.CreateWindow(0,500,800,100);
-        mUI.AddTextWindow("MENU ACTION",300,550);
-
+       // mUI.AddTextWindow("ENSEAi Beta V2.1",0,0);
+        mUI.SetTextVersion("Beta V2.1");
+        
     }
 
 
