@@ -20,7 +20,7 @@ namespace render {
 
             mDebugTextState.setFont(mFont);
             mDebugTextState.setCharacterSize(24);
-            mDebugTextState.setPosition(sf::Vector2f(400.f,300.f));
+            mDebugTextState.setPosition(sf::Vector2f(400.f,0.f));
 
             
         }
@@ -50,9 +50,6 @@ namespace render {
         
         
     }
-
-
-
 
     sf::Text render::UI::GetTextVersion(){
         return this->mTextVersion;

@@ -72,6 +72,7 @@ int main(int argc,char* argv[])
                         break;
 
                     case OUT_COMBAT:
+                        lRender.DEBUG_SetRenderState(OUT_COMBAT);
                         if(lMovingProgress < 800){
                             lMovingProgress = lRender.GoNextCombat(window);
                         }
