@@ -98,6 +98,7 @@ namespace render {
             }
             else if(mMovingProgress == 799){
                 mPlayerCharactersSurface[i].SetCharacterAnimation(0);
+                mMovingProgress = 0;
             }
 
             mPlayerCharactersSurface[i].MoveCharacterSprite();
