@@ -26,6 +26,7 @@ using namespace render;
 int main(int argc,char* argv[])
 {
     sf::Clock clock;
+    sf::Clock clockState;
     RenderLayer lRender;
     State GameStatus(IN_COMBAT);
     int lMovingProgress = 0;
@@ -35,17 +36,17 @@ int main(int argc,char* argv[])
             cout << "Bonjour le monde" << endl;
         }
 
-//
+
         else if(strcmp(argv[1], "render") == 0){
             
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
             window.setFramerateLimit(60);
             lRender.LoadBackground();
 
-            lRender.LoadCharacter(1,100,100);
-            lRender.LoadCharacter(2,100,200);
-            lRender.LoadCharacter(3,100,300);
-            lRender.LoadCharacter(4,100,400);
+            lRender.LoadCharacter(9,100,100);
+            lRender.LoadCharacter(5,100,200);
+            lRender.LoadCharacter(8,100,300);
+            lRender.LoadCharacter(7,100,400);
             
             lRender.LoadUI();
             
@@ -76,6 +77,10 @@ int main(int argc,char* argv[])
                         if(lMovingProgress < 800){
                             lMovingProgress = lRender.GoNextCombat(window);
                         }
+
+                        else if(lMovingProgress == 800){
+                            GameStatus.SetCombatState(IN_COMBAT);
+                        }
                         break;
 
 
@@ -90,7 +95,10 @@ int main(int argc,char* argv[])
                 }
 
                 
-
+                if(clockState.getElapsedTime().asSeconds() > 5.f && clockState.getElapsedTime().asSeconds() < 6.f){
+                    GameStatus.SetCombatState(OUT_COMBAT);
+                    
+                }
                 
 
                 
