@@ -49,8 +49,8 @@ namespace render {
     }
 
     void render::RenderLayer::LoadUI(){
-        sf::Text test = mUI.GetTextVersion();
-        mUI.CreateWindow(0,500,800,100);
+        
+        mUI.CreateWindow(0,500,3200,100);
         mUI.SetTextVersion("Beta V2.1");
         
     }
@@ -98,7 +98,7 @@ namespace render {
             }
             else if(mMovingProgress == 799){
                 mPlayerCharactersSurface[i].SetCharacterAnimation(0);
-                mMovingProgress = 0;
+                
             }
 
             mPlayerCharactersSurface[i].MoveCharacterSprite();
@@ -107,7 +107,7 @@ namespace render {
 
         mBackgroundSurface.MoveBackgroundView(rWindow);
         
-        
+        mUI.MoveUI();
         mMovingProgress++;
         return mMovingProgress;
     }
