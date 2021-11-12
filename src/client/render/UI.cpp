@@ -22,6 +22,9 @@ namespace render {
             mDebugTextState.setCharacterSize(24);
             mDebugTextState.setPosition(sf::Vector2f(400.f,0.f));
 
+            mMenuAction.setFont(mFont);
+            mMenuAction.setCharacterSize(24);
+            mMenuAction.setPosition(sf::Vector2f(350.f,550.f));
             
         }
 
@@ -69,6 +72,14 @@ namespace render {
         mDebugTextState.setPosition(sf::Vector2f(mDebugTextState.getPosition().x,mDebugTextState.getPosition().y));
     }
 
+    void render::UI::DEBUG_SetTextAction(std::string rTextAction){
+
+        mMenuAction.setString(rTextAction);
+
+    }
+
+    
+
     void render::UI::MoveUI(){
         mTextVersion.move(sf::Vector2f(1.f,0.f));
         mDebugTextState.move(sf::Vector2f(1.f,0.f));
@@ -82,6 +93,7 @@ namespace render {
         target.draw(mVertices, states);
         target.draw(mTextVersion);
         target.draw(mDebugTextState);
+        target.draw(mMenuAction);
 
     }
 

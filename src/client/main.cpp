@@ -66,7 +66,8 @@ int main(int argc,char* argv[])
                 
 
                 window.clear();
-
+                
+                /*TEST DE LA MODIFICATION DU RENDU EN FONCTION DE L'ETAT DU JEU*/
                 switch(GameStatus.GetCombatState()){
                     case IN_COMBAT:
                         lRender.DEBUG_SetRenderState(IN_COMBAT);

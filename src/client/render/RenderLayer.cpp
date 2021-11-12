@@ -52,7 +52,7 @@ namespace render {
         
         mUI.CreateWindow(0,500,3200,100);
         mUI.SetTextVersion("Beta V2.1");
-        
+        mUI.DEBUG_SetTextAction("MENU ACTION");
     }
 
 
