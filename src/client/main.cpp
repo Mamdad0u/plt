@@ -31,6 +31,7 @@ int main(int argc,char* argv[])
     State GameStatus(IN_COMBAT);
     int lMovingProgress = 0;
 
+
     if(argc > 1){
         if(strcmp(argv[1], "hello") == 0){
             cout << "Bonjour le monde" << endl;
