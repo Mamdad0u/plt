@@ -51,9 +51,6 @@ namespace render {
         
     }
 
-    sf::Text render::UI::GetTextVersion(){
-        return this->mTextVersion;
-    }
 
     void render::UI::AddTextWindow(const std::string& rText, int rX, int rY){
         mText.setString(rText);
@@ -69,7 +66,15 @@ namespace render {
 
     void render::UI::DEBUG_SetTextCombatState(std::string rTextState){
         mDebugTextState.setString(rTextState);
+        mDebugTextState.setPosition(sf::Vector2f(mDebugTextState.getPosition().x,mDebugTextState.getPosition().y));
     }
+
+    void render::UI::MoveUI(){
+        mTextVersion.move(sf::Vector2f(1.f,0.f));
+        mDebugTextState.move(sf::Vector2f(1.f,0.f));
+
+    }
+
 
     void render::UI::draw(sf::RenderTarget& target, sf::RenderStates states) const{
         states.transform *= getTransform();
