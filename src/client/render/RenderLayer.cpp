@@ -49,10 +49,32 @@ namespace render {
     }
 
     void render::RenderLayer::LoadUI(){
+        sf::Text test = mUI.GetTextVersion();
         mUI.CreateWindow(0,500,800,100);
-       // mUI.AddTextWindow("ENSEAi Beta V2.1",0,0);
         mUI.SetTextVersion("Beta V2.1");
         
+    }
+
+
+    void render::RenderLayer::DEBUG_SetRenderState(state::CombatStatus rNewState){
+
+        switch(rNewState){
+            case state::IN_COMBAT:
+                mUI.DEBUG_SetTextCombatState("IN_COMBAT");
+
+                break;
+
+            case state::OUT_COMBAT:
+                mUI.DEBUG_SetTextCombatState("OUT_COMBAT");
+                break;
+
+
+
+
+        }
+
+
+
     }
 
 
@@ -91,8 +113,7 @@ namespace render {
 
     void render::RenderLayer::draw(sf::RenderWindow& rWindow){
         mBackgroundSurface.DrawSprite(rWindow);
-      //  mCharactersSurface.draw(rWindow);
-
+      
         
 
         for(int i=0;i<mPlayerCharactersSurface.size();i++){

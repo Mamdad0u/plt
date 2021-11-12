@@ -27,6 +27,7 @@ int main(int argc,char* argv[])
 {
     sf::Clock clock;
     RenderLayer lRender;
+    State GameStatus(IN_COMBAT);
     int lMovingProgress = 0;
 
     if(argc > 1){
@@ -40,7 +41,6 @@ int main(int argc,char* argv[])
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
             window.setFramerateLimit(60);
             lRender.LoadBackground();
-            //lRender.LoadCharacters(1, 200, 400);
 
             lRender.LoadCharacter(1,100,100);
             lRender.LoadCharacter(2,100,200);
@@ -62,9 +62,26 @@ int main(int argc,char* argv[])
                     
 
                 }
-
+                
 
                 window.clear();
+
+                switch(GameStatus.GetCombatState()){
+                    case IN_COMBAT:
+                        lRender.DEBUG_SetRenderState(IN_COMBAT);
+                        break;
+
+                    case OUT_COMBAT:
+                        if(lMovingProgress < 800){
+                            lMovingProgress = lRender.GoNextCombat(window);
+                        }
+                        break;
+
+
+
+
+                }
+
 
                 if(clock.getElapsedTime().asSeconds() > 0.1f){
                     lRender.AnimateCharacters();
@@ -72,9 +89,7 @@ int main(int argc,char* argv[])
                 }
 
                 
-/*                 if(lMovingProgress < 800){
-                    lMovingProgress = lRender.GoNextCombat(window);
-                } */
+
                 
 
                 

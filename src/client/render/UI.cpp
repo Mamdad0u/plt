@@ -16,6 +16,13 @@ namespace render {
         else{
             mTextVersion.setFont(mFont);
             mTextVersion.setCharacterSize(16);
+            mTextVersion.setPosition(0,0);
+
+            mDebugTextState.setFont(mFont);
+            mDebugTextState.setCharacterSize(24);
+            mDebugTextState.setPosition(sf::Vector2f(400.f,300.f));
+
+            
         }
 
     }
@@ -44,17 +51,27 @@ namespace render {
         
     }
 
+
+
+
+    sf::Text render::UI::GetTextVersion(){
+        return this->mTextVersion;
+    }
+
     void render::UI::AddTextWindow(const std::string& rText, int rX, int rY){
         mText.setString(rText);
         mText.setPosition(sf::Vector2f((float)rX,(float)rY));
-
+        
     }
 
     void render::UI::SetTextVersion(string rTextVersion){
         rTextVersion = "ENSEAi " + rTextVersion;
         mTextVersion.setString(rTextVersion);
-        mTextVersion.setPosition(0,0);
 
+    }
+
+    void render::UI::DEBUG_SetTextCombatState(std::string rTextState){
+        mDebugTextState.setString(rTextState);
     }
 
     void render::UI::draw(sf::RenderTarget& target, sf::RenderStates states) const{
@@ -62,6 +79,8 @@ namespace render {
 
         target.draw(mVertices, states);
         target.draw(mTextVersion);
+        target.draw(mDebugTextState);
+
     }
 
 }
