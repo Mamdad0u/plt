@@ -5,7 +5,7 @@ namespace state {
 
 
 State::State(CombatStatus rCombatStatus) {
-    
+    this->mCombatStatus = rCombatStatus;
 }
 
 std::vector<Character> State::GetCharacter() {
