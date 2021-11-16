@@ -31,7 +31,10 @@ jobs:
       
     - name: install SFML
       run: sudo apt-get install libsfml-dev
-    
+
+    - name: install X11
+      run: sudo apt-get install xorg openbox
+      
     - name: make
       run: make
       
