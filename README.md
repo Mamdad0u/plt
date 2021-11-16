@@ -7,18 +7,13 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-# ENSEA PLT Project 2021-2022: ?
+[![forthebadge](https://forthebadge.com/images/badges/made-with-c-plus-plus.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 
-<p align="center">
- 
-  <!-- logo of the project/game here -->
-  <img height="300" src="https://perso-etis.ensea.fr/neurocyber/web/images/logo_ensea.png" alt="logo"/>  
-
-  <div align="center">
+# Projet Logiciel Transversal : ENSEA<sup>i</sup>
 
   [![c++ version][cpp-ver-shield]][cpp-ver]
-  [![software version][version-shield]][cpp-ver]
-  [![build status][build-status-shield]][build-status]
+  [![software version][version-shield]][last_version]
 
   </div>
 </p>
@@ -26,9 +21,6 @@
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
-* [About the Game](#about-the-game)
-  * [Presentation](#Presentation)
-  * [Rules](#rules)
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
@@ -39,42 +31,21 @@
 * [Contributing](#contributing)
 * [License](#license)
 
+
+<!-- Release 1.Final -->
+
+
+
+
+
+
+
+
 <!-- Introduction -->
 ## Introduction
 
 The [*PLT*] **P**rojet **L**ogiciel **T**ransversal (Transversal Software Project) is the third year project in specialization [*IS*] **I**nformatique et **S**ystèmes (computer science and system) at [ENSEA](https://www.ensea.fr/fr). 
 
-<!-- ABOUT THE PROJECT -->
-# About the game
-
-## Presentation
-
-* Genre : ?
-* Players : ? to N players
-
-*Game presentation here ...*
-
-*Object of the game here ...*
-
-*Gameplay here ...*
-
-## Rules
-
-### Starting
-
-*When the game starts ...*
- 
-### Permitted moves
- 
-*There are ... moves possible ...*
-
-#### move 1
-
-*Players can make a "move 1" ...*
- 
-#### move 2
-
-*Players can make a "move 2" ...*
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -130,60 +101,33 @@ Print a hello world message
 plt$ bin/client hello
 ```
 
-Render demo
+Execute unit testing
 ```sh
-plt$ bin/client render
+plt$ make test
+```
+
+Check code coverage
+```sh
+plt$ cd build
+plt$ make code-coverage
 ```
 
 <!-- RELEASE HISTORY-->
 ## Release History
+* <a href="https://github.com/Mamdad0u/plt/releases/tag/2.1">2.1</a>
+    * Rapport section 3 : Description et Conception des du rendu selon les états du jeu
+    * Code : Implémentation du rendu du jeu en fonction de ses états.
 
-* <a href="/[username]/[reponame]/releases/tag/1.1">1.1</a>
-    * Environnement de d´eveloppement
-    * Ressources
-    * Rapport section 1 : Présentation générale
-    * Code : affichage message `./bin/client hello`
 
-* <a href="/[username]/[reponame]/releases/tag/1.final">1.final</a>
+* <a href="https://github.com/Mamdad0u/plt/releases/tag/1.final">1.final</a>
     * Rapport section 2 : Description et Conception des états
-    * Code : implantation et tests unitaires états `./bin/client state`
+    * Code : Implémentation des tests unitaires d'états. Test avec `make test`
 
-* <a href="/[username]/[reponame]/releases/tag/2.1">2.1</a>
-    * Rapport section 3 : Description et Conception du Rendu
-    * Code : rendu d’un état `./bin/client render`
-
-* <a href="/[username]/[reponame]/releases/tag/2.2">2.2</a>
-    * Rapport section 4 : Règles de changement d’états et moteur de jeu
-    * Code : changement d’état `./bin/client engine`
-
-* <a href="/[username]/[reponame]/releases/tag/2.final">2.final</a>
-    * Rapport section 5 : Intelligence Artificielle
-    * Code : IA `./bin/client random_ai`
-
-* <a href="/[username]/[reponame]/releases/tag/3.1">3.1</a>
-    * Rapport section 5 : Intelligence Artificielle
-    * Code : IA `./bin/client heuristic_ai`
-
-* <a href="/[username]/[reponame]/releases/tag/3.final">3.final</a>
-    * Rapport section 5 : Intelligence Artificielle
-    * Code : IA `./bin/client rollback`
-    * Code : IA `./bin/client deep_ai`
-
-* <a href="/[username]/[reponame]/releases/tag/4.1">4.1</a>
-    * Rapport section 6 : Modularisation
-    * Code : Threads `./bin/client thread`
-    * Code : Enregistrer `./bin/server record`
-    * Code : Rejouer `./bin/client play`
-
-* <a href="/[username]/[reponame]/releases/tag/4.2">4.2</a>
-    * Rapport section 6 : Modularisation
-    * Code : Serveur `./bin/server listen`
-    * Code : Client réseau `./bin/client network`
-
-* <a href="/[username]/[reponame]/releases/tag/4.final">4.final</a>
-    * Rapport section 6 : Modularisation
-    * Code : Serveur `./bin/server listen`
-    * Code : Client réseau  `./bin/client network`
+* <a href="https://github.com/Mamdad0u/plt/releases/tag/1.1">1.1</a>
+    * Environnement de d´eveloppement
+    * Ajout des ressources utilisées
+    * Rapport section 1 : Présentation générale
+    * Code : Affichage message `./bin/client hello`
 
 ## Built With
 
@@ -208,29 +152,27 @@ inspire, and create. Any contributions you make are **greatly appreciated**.
 <!-- LICENSE -->
 ## License
 
-Distributed under the *license* License. See [LICENSE](license-url) for more information.
+Distributed under the MIT License. See [LICENSE][license-url] for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/[username]/[reponame].svg?style=flat-square
-[contributors-url]: https://github.com/[username]/[reponame]/graphs/contributors
+[contributors-shield]: https://img.shields.io/github/contributors/Mamdad0u/plt.svg?style=flat-square
+[contributors-url]: https://github.com/Mamdad0u/plt/graphs/contributors
 
-[forks-shield]: https://img.shields.io/github/forks/[username]/[reponame].svg?style=flat-square
-[forks-url]: https://github.com/[username]/[reponame]/network/members
+[forks-shield]: https://img.shields.io/github/forks/Mamdad0u/plt.svg?style=flat-square
+[forks-url]: https://github.com/Mamdad0u/plt/network/members
 
-[stars-shield]: https://img.shields.io/github/stars/[username]/[reponame].svg?style=flat-square
-[stars-url]: https://github.com/[username]/[reponame]/stargazers
+[stars-shield]: https://img.shields.io/github/stars/Mamdad0u/plt.svg?style=flat-square
+[stars-url]: https://github.com/Mamdad0u/plt/stargazers
 
-[issues-shield]: https://img.shields.io/github/issues/[username]/[reponame].svg?style=flat-square
-[issues-url]: https://github.com/[username]/[reponame]/issues
+[issues-shield]: https://img.shields.io/github/issues/Mamdad0u/plt.svg?style=flat-square
+[issues-url]: https://github.com/Mamdad0u/plt/issues
 
-[license-shield]: https://img.shields.io/github/license/[username]/[reponame].svg?style=flat-square
-[license-url]: https://github.com/[username]/[reponame]/blob/[branch]/LICENSE
+[license-shield]: https://img.shields.io/github/license/Mamdad0u/plt?style=flat-square
+[license-url]: https://github.com/Mamdad0u/plt/blob/master/LICENSE
 
 [cpp-ver-shield]: https://img.shields.io/badge/C%2B%2B-11-blue.svg
 [cpp-ver]: https://en.wikipedia.org/wiki/C%2B%2B11
 
-[build-status-shield]: https://github.com/[username]/[reponame]/workflows/CI/badge.svg
-[build-status]: https://github.com/[username]/[reponame]/actions
-
-[version-shield]: https://img.shields.io/badge/version-0.0-blue.svg?cacheSeconds=2592000
+[version-shield]: https://img.shields.io/github/v/release/Mamdad0u/plt?style=flat-square
+[last_version]: https://github.com/Mamdad0u/plt/releases/tag/1.final

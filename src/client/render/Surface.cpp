@@ -127,23 +127,11 @@ namespace render {
 
     }
 
-    void render::Surface::draw(sf::RenderWindow& rWindow){
+    void render::Surface::DrawSprite(sf::RenderWindow& rWindow){
         rWindow.draw(mSprite);
     }
 
-/*     void render::Surface::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-        
-        // on applique la transformation
-        states.transform *= getTransform();
 
-        // on applique la texture du tileset
-        states.texture = &mTexture;
-
-        // et on dessine enfin le tableau de vertex
-        target.draw(mQuad, states);
-        
-
-    } */
 
 
 
