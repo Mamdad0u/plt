@@ -20,8 +20,8 @@ jobs:
     - name: install gcovr
       run: sudo apt-get install gcovr
       
-    - name: install ps2pdf
-      run: sudo apt-get install ps2pdf
+    - name: install ghostscript
+      run: sudo apt-get install ghostscript
       
     - name: install dia
       run: sudo apt-get install dia
