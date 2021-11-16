@@ -28,6 +28,9 @@ jobs:
       
     - name: install libboost
       run: sudo apt-get install libboost-all-dev
+      
+    - name: install SFML
+      run: sudo apt-get install libsfml-dev
     
     - name: make
       run: make
