@@ -8,7 +8,7 @@ namespace render {
 
 
     render::RenderLayer::RenderLayer(){
-        mManyCharactersSurface.reserve(4);
+        mPlayerCharactersSurface.reserve(4);
 
     }
     
@@ -21,38 +21,26 @@ namespace render {
         return 0;
     }
 
-    int render::RenderLayer::LoadCharacters(int rCharacterSelected, int rX, int rY){
-        string lCharacterString = "Character" + to_string(rCharacterSelected);
-        lCharacterString = lCharacterString + ".png";
 
-        if(mCharactersSurface.LoadCharacterSprite(lCharacterString, rX, rY)){
-            cout << "ERROR : Failed to load character " << endl;
-            return -1;
-        }
-
-        mCharactersSurface.SetCharacterAnimation(1);
-        return 0;
-    }
-
-    int render::RenderLayer::LoadManyCharacters(int rCharacterSelected, int rX, int rY){
+    int render::RenderLayer::LoadCharacter(int rCharacterSelected, int rX, int rY){
         Surface lCharactertoAdd;
-        int lLastCharacterPosition = mManyCharactersSurface.size();
+        int lLastCharacterPosition = mPlayerCharactersSurface.size();
         string lCharacterString = "Character" + to_string(rCharacterSelected);
         
         lCharacterString = lCharacterString + ".png";
 
 
         
-        mManyCharactersSurface.push_back(*(new Surface));
+        mPlayerCharactersSurface.push_back(*(new Surface));
         
-        if(mManyCharactersSurface[lLastCharacterPosition].LoadCharacterSprite(lCharacterString, rX, rY)){
+        if(mPlayerCharactersSurface[lLastCharacterPosition].LoadCharacterSprite(lCharacterString, rX, rY)){
             cout << "ERROR : Failed to load character " << endl;
             return -1;
         }
 
 
 
-        mManyCharactersSurface[lLastCharacterPosition].SetCharacterAnimation(1);
+        mPlayerCharactersSurface[lLastCharacterPosition].SetCharacterAnimation(0);
         
         
        
@@ -60,54 +48,83 @@ namespace render {
         return 0;
     }
 
+    void render::RenderLayer::LoadUI(){
+        
+        mUI.CreateWindow(0,500,3200,100);
+        mUI.SetTextVersion("Release V2.1");
+        mUI.DEBUG_SetTextAction("MENU ACTION");
+    }
 
-    void render::RenderLayer::AnimateCharacters(){
-        int lLastCharacterPosition = mManyCharactersSurface.size();
 
-        for(int i=0;i<lLastCharacterPosition;i++){
-            mManyCharactersSurface[i].UpdateCharacterAnimation();
+    void render::RenderLayer::DEBUG_SetRenderState(state::CombatStatus rNewState){
+
+        switch(rNewState){
+            case state::IN_COMBAT:
+                mUI.DEBUG_SetTextCombatState("IN_COMBAT");
+
+                break;
+
+            case state::OUT_COMBAT:
+                mUI.DEBUG_SetTextCombatState("OUT_COMBAT");
+                break;
+
+
+
+
         }
 
 
-        //mCharactersSurface.UpdateCharacterAnimation();
+
+    }
+
+
+    void render::RenderLayer::AnimateCharacters(){
+        int lLastCharacterPosition = mPlayerCharactersSurface.size();
+
+        for(int i=0;i<lLastCharacterPosition;i++){
+            mPlayerCharactersSurface[i].UpdateCharacterAnimation();
+        }
+
 
     }
 
     int render::RenderLayer::GoNextCombat(sf::RenderWindow& rWindow){
-        int lLastCharacterPosition = mManyCharactersSurface.size();
+        int lLastCharacterPosition = mPlayerCharactersSurface.size();
 
 
         for(int i=0;i<lLastCharacterPosition;i++){
             if(mMovingProgress == 0){
-                mManyCharactersSurface[i].SetCharacterAnimation(1);
+                mPlayerCharactersSurface[i].SetCharacterAnimation(1);
             }
             else if(mMovingProgress == 799){
-                mManyCharactersSurface[i].SetCharacterAnimation(0);
+                mPlayerCharactersSurface[i].SetCharacterAnimation(0);
+                
             }
 
-            mManyCharactersSurface[i].MoveCharacterSprite();
+            mPlayerCharactersSurface[i].MoveCharacterSprite();
         }
 
 
         mBackgroundSurface.MoveBackgroundView(rWindow);
         
-        
+        mUI.MoveUI();
         mMovingProgress++;
         return mMovingProgress;
     }
 
     void render::RenderLayer::draw(sf::RenderWindow& rWindow){
-        mBackgroundSurface.draw(rWindow);
-      //  mCharactersSurface.draw(rWindow);
-
+        mBackgroundSurface.DrawSprite(rWindow);
+      
         
 
-        for(int i=0;i<mManyCharactersSurface.size();i++){
+        for(int i=0;i<mPlayerCharactersSurface.size();i++){
             
-            mManyCharactersSurface[i].draw(rWindow);
+            mPlayerCharactersSurface[i].DrawSprite(rWindow);
 
 
         }
+
+        rWindow.draw(mUI);
     }
     
 
