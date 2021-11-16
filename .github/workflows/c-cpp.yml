@@ -17,6 +17,9 @@ jobs:
     - name: install lcov
       run: sudo apt-get install lcov
     
+    - name: install gcovr
+      run: sudo apt-get install gcovr
+    
     - name: make
       run: make
 
