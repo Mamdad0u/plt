@@ -25,6 +25,9 @@ jobs:
       
     - name: install dia
       run: sudo apt-get install dia
+      
+    - name: install dia
+      run: sudo apt-get libboost-all-dev
     
     - name: make
       run: make
