@@ -35,6 +35,9 @@ jobs:
     - name: install X11
       run: sudo apt-get install xorg openbox
       
+    - name: configure display 
+      run: export DISPLAY=:0.0
+      
     - name: make
       run: make
       
