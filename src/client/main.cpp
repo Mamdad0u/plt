@@ -48,6 +48,8 @@ int main(int argc,char* argv[])
             lRender.LoadCharacter(5,100,200);
             lRender.LoadCharacter(8,100,300);
             lRender.LoadCharacter(7,100,400);
+            int lEnemy=1;
+            
             
             lRender.LoadUI();
             
@@ -64,6 +66,9 @@ int main(int argc,char* argv[])
                     
 
                 }
+                
+                
+
                 
 
                 window.clear();
@@ -90,6 +95,11 @@ int main(int argc,char* argv[])
 
                 }
 
+                if(lEnemy==1){
+                    lRender.LoadEnemy(4,600,250);
+                    lEnemy=0;
+
+                }
 
                 if(clock.getElapsedTime().asSeconds() > 0.1f){
                     lRender.AnimateCharacters();

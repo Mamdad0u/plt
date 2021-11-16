@@ -21,6 +21,21 @@ namespace render {
         return 0;
     }
 
+    int render::RenderLayer::LoadEnemy(int rEnemySelected,int rX, int rY){
+        
+        string lEnemyString = "Character" + to_string(rEnemySelected) + "Evil";
+        
+        lEnemyString = lEnemyString +".png";
+
+        if(mEnemySurface.LoadCharacterSprite(lEnemyString, rX, rY)){
+            cout << "ERROR : Failed to load character " << endl;
+            return -1;
+        }
+        mEnemySurface.SetCharacterAnimation(0);
+
+        return 0;
+
+    }
 
     int render::RenderLayer::LoadCharacter(int rCharacterSelected, int rX, int rY){
         Surface lCharactertoAdd;
@@ -85,6 +100,7 @@ namespace render {
             mPlayerCharactersSurface[i].UpdateCharacterAnimation();
         }
 
+        mEnemySurface.UpdateCharacterAnimation();
 
     }
 
@@ -103,6 +119,7 @@ namespace render {
 
             mPlayerCharactersSurface[i].MoveCharacterSprite();
         }
+        mEnemySurface.MoveCharacterSprite();
 
 
         mBackgroundSurface.MoveBackgroundView(rWindow);
@@ -114,6 +131,10 @@ namespace render {
 
     void render::RenderLayer::draw(sf::RenderWindow& rWindow){
         mBackgroundSurface.DrawSprite(rWindow);
+
+        if(mMovingProgress==800){
+            mEnemySurface.DrawSprite(rWindow);
+        }
       
         
 
