@@ -32,8 +32,19 @@ jobs:
     - name: install SFML
       run: sudo apt-get install libsfml-dev
       
+    - name: install xvfb
+      run: sudo apt install xvfb
+      
+    - name: configure xvfb 
+      run: |
+        echo 'Xvfb :99 &' >> ~/.bashrc
+        echo  'export DISPLAY=:99' >> ~/.bashrc 
+      
     - name: make
       run: make
+      
+    - name: run test
+      run: make test
       
 
 
