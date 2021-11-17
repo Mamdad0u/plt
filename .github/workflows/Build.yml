@@ -1,0 +1,37 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ action-test ]
+  pull_request:
+    branches: [ action-test ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: install librairies 
+      run: |
+        sudo apt-get install lcov
+        sudo apt-get install gcovr
+        sudo apt-get install ghostscript
+        sudo apt-get install dia
+        sudo apt-get install libboost-all-dev
+        sudo apt-get install libsfml-dev
+        sudo apt install xvfb
+      
+    - name: configure xvfb 
+      run: |
+        echo 'Xvfb :99 &' >> ~/.bashrc
+        echo  'export DISPLAY=:99' >> ~/.bashrc 
+      
+      
+    - name: make
+      run: make
+      
+    - name: run test
+      run: xvfb-run --auto-servernum --server-num=1 make test
