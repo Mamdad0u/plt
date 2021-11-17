@@ -42,10 +42,6 @@ int main(int argc,char* argv[])
             
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
             window.setFramerateLimit(60);
-<<<<<<< HEAD
-
-=======
->>>>>>> 1e4c663b7b5964083f8106d96bf74a51f50dd1d5
             lRender.LoadBackground();
 
             lRender.LoadCharacter(9,100,100);
