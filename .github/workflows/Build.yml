@@ -33,3 +33,5 @@ jobs:
     - name: make
       run: make
       
+    - name: run test
+      run: xvfb-run --auto-servernum --server-num=1 make test
