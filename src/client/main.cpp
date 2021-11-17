@@ -26,8 +26,11 @@ using namespace render;
 int main(int argc,char* argv[])
 {
     sf::Clock clock;
+    sf::Clock clockState;
     RenderLayer lRender;
+    State GameStatus(IN_COMBAT);
     int lMovingProgress = 0;
+
 
     if(argc > 1){
         if(strcmp(argv[1], "hello") == 0){
@@ -39,16 +42,19 @@ int main(int argc,char* argv[])
             
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
             window.setFramerateLimit(60);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1e4c663b7b5964083f8106d96bf74a51f50dd1d5
             lRender.LoadBackground();
-            //lRender.LoadCharacters(1, 200, 400);
 
-            lRender.LoadManyCharacters(1,100,100);
-            lRender.LoadManyCharacters(2,100,200);
-            lRender.LoadManyCharacters(3,100,300);
-            lRender.LoadManyCharacters(4,100,400);
-
-
+            lRender.LoadCharacter(9,100,100);
+            lRender.LoadCharacter(5,100,200);
+            lRender.LoadCharacter(8,100,300);
+            lRender.LoadCharacter(7,100,400);
+            
+            lRender.LoadUI();
+            
             while (window.isOpen())
             {
 
@@ -62,9 +68,32 @@ int main(int argc,char* argv[])
                     
 
                 }
-
+                
 
                 window.clear();
+                
+                /*TEST DE LA MODIFICATION DU RENDU EN FONCTION DE L'ETAT DU JEU*/
+                switch(GameStatus.GetCombatState()){
+                    case IN_COMBAT:
+                        lRender.DEBUG_SetRenderState(IN_COMBAT);
+                        break;
+
+                    case OUT_COMBAT:
+                        lRender.DEBUG_SetRenderState(OUT_COMBAT);
+                        if(lMovingProgress < 800){
+                            lMovingProgress = lRender.GoNextCombat(window);
+                        }
+
+                        else if(lMovingProgress == 800){
+                            GameStatus.SetCombatState(IN_COMBAT);
+                        }
+                        break;
+
+
+
+
+                }
+
 
                 if(clock.getElapsedTime().asSeconds() > 0.1f){
                     lRender.AnimateCharacters();
@@ -72,8 +101,9 @@ int main(int argc,char* argv[])
                 }
 
                 
-                if(lMovingProgress < 800){
-                    lMovingProgress = lRender.GoNextCombat(window);
+                if(clockState.getElapsedTime().asSeconds() > 5.f && clockState.getElapsedTime().asSeconds() < 6.f){
+                    GameStatus.SetCombatState(OUT_COMBAT);
+                    
                 }
                 
 
@@ -91,6 +121,7 @@ int main(int argc,char* argv[])
             
 
     }
+
 
     
 
