@@ -39,6 +39,9 @@ jobs:
       run: |
         echo 'Xvfb :99 &' >> ~/.bashrc
         echo  'export DISPLAY=:99' >> ~/.bashrc 
+        
+    - name: reset
+      run: sudo reset
       
     - name: make
       run: make
