@@ -79,7 +79,7 @@ int main(int argc,char* argv[])
                         if(lMovingProgress < 800){
                             lMovingProgress = lRender.GoNextCombat(window);
                         }
-
+                    
                         else if(lMovingProgress == 800){
                             GameStatus.SetCombatState(IN_COMBAT);
                         }
