@@ -37,9 +37,6 @@ void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
         mCharacterStats.Set_luck(rValue);
         break;
 
-    case ALACRITY:
-        mCharacterStats.Set_alacrity(rValue);
-        break;
         
     default:
         break;
@@ -73,9 +70,6 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
         return this->mCharacterStats.Get_luck();
         break;
 
-    case ALACRITY:
-        return this->mCharacterStats.Get_alacrity();
-        break;
         
     default:
         break;
