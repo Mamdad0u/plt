@@ -96,6 +96,12 @@ CharacterStatus state::Character::GetCharacterStatus(){
 
 }
 
+void state::Character::MakeAction(ActionList rActionType){
+
+
+    
+}
+
 
 
 
