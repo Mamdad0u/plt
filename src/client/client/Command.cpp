@@ -3,8 +3,8 @@
 
 
 namespace client {
-    float client::Command::ComputeWeakAndStrength(state::Major rOpponentMajor_1, state::Major rOpponentMajor_2){
-        
+    float client::Command::ComputeWeakAndStrength(state::Major rAttackerMajor, state::Major rVictimMajor){
+
 
         
     }
