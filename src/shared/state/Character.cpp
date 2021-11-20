@@ -97,11 +97,11 @@ CharacterStatus state::Character::GetCharacterStatus(){
 }
 
 
-void* state::Character::MakeAction(ActionList rActionType){
+Action* state::Character::MakeAction(ActionListCommand rActionType){
     switch (rActionType)
     {
     case ATTACK_1:
-        return this->mCharacterAction.GetAttack(1);
+        return this->mCharacterAction.GetAction(1);
     
     default:
         break;
