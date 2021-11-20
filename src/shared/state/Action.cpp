@@ -7,5 +7,16 @@ namespace state {
 
     }
 
+    Attack* state::Action::GetAttack(int rAttackNumber){
+
+        Attack* lReturnAttack = nullptr;
+
+        lReturnAttack = &mAttackList[rAttackNumber];
+        return lReturnAttack;
+
+    }
+
+    
+
 
 }
