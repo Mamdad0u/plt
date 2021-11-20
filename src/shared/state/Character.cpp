@@ -100,7 +100,7 @@ CharacterStatus state::Character::GetCharacterStatus(){
 void* state::Character::MakeAction(ActionList rActionType){
     switch (rActionType)
     {
-    case Attack_1:
+    case ATTACK_1:
         return this->mCharacterAction.GetAttack(1);
     
     default:
