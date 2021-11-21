@@ -1,5 +1,8 @@
 #include <client/Command.h>  // Included from library shared_static
 #include "Command.h"
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+
 
 using namespace state;
 
@@ -104,5 +107,68 @@ namespace client {
         
     }
 
+    float client::Command::ComputePVLost(state::Character rAttacker, state::Character rVictim, CommandID rActionMade){
+        float lCoeffMajor;
+        int lCriticalHit;
+        int lAttackDamage;
+        int lVictimDefense;
+        int lAttackStat;
+        int lPVLost;
+        const float lMagicCoefficiant = 0.44;
+        Action* lActionGot = nullptr;
 
+        /*Récupération du type d'action*/
+        switch (rActionMade)
+        {
+        case ATTACK_1:
+            lActionGot = rAttacker.MakeAction(state::ATTACK_1);
+            break;
+        
+        case ATTACK_2:
+            lActionGot = rAttacker.MakeAction(state::ATTACK_2);
+            break;
+
+        case SPELL_1:
+            lActionGot = rAttacker.MakeAction(state::SPELL_1);
+            break;
+
+        case SPELL_2:
+            lActionGot = rAttacker.MakeAction(state::SPELL_2);
+            break;
+
+        }
+
+        /*Calcul*/
+        lCoeffMajor = ComputeWeakAndStrength(rAttacker.GetMajor(), rVictim.GetMajor()); // Calcul avantage/désavantage majeur
+        lCriticalHit = ComputeCriticalHit(rAttacker.GetCharacterStats(StatsName::LUCK)); // Calcul coup critique
+        lAttackDamage = lActionGot->GetDamage(); // Dégâts de l'attaque
+        lVictimDefense = rVictim.GetCharacterStats(StatsName::DEFENSE); // Défense de la victime
+        lAttackStat = rAttacker.GetCharacterStats(StatsName::ATTACK); // Attaque de l'attaquant
+
+        lPVLost = ((lCoeffMajor * lCriticalHit * lAttackDamage * lAttackStat) / lVictimDefense) * lMagicCoefficiant;
+
+        return lPVLost;
+        
+
+
+    }
+
+
+    float client::Command::ComputeCriticalHit(int rCharacterLuck){
+        int lRandomResult;
+        int lCriticalHit;
+        
+        srand(time(NULL));
+        lRandomResult = rand() % 100 + 1;
+
+        if(lRandomResult <= rCharacterLuck*100){
+            lCriticalHit = 2;
+        }
+        else{
+            lCriticalHit = 1;
+        }
+
+        return lCriticalHit;
+
+    }
 }
