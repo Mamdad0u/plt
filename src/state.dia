@@ -1177,7 +1177,7 @@
             <dia:string>#mCharacterAction#</dia:string>
           </dia:attribute>
           <dia:attribute name="type">
-            <dia:string>#ActionList#</dia:string>
+            <dia:string>#Action#</dia:string>
           </dia:attribute>
           <dia:attribute name="value">
             <dia:string>##</dia:string>
@@ -1491,7 +1491,7 @@
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="type">
-            <dia:string>#Action*#</dia:string>
+            <dia:string>#void*#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -1517,7 +1517,7 @@
                 <dia:string>#rActionType#</dia:string>
               </dia:attribute>
               <dia:attribute name="type">
-                <dia:string>#ActionListCommand#</dia:string>
+                <dia:string>#ActionList#</dia:string>
               </dia:attribute>
               <dia:attribute name="value">
                 <dia:string>##</dia:string>
@@ -4200,7 +4200,7 @@
       <dia:attribute name="operations">
         <dia:composite type="umloperation">
           <dia:attribute name="name">
-            <dia:string>#ActionList#</dia:string>
+            <dia:string>#Action#</dia:string>
           </dia:attribute>
           <dia:attribute name="stereotype">
             <dia:string>##</dia:string>
