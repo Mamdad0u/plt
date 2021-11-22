@@ -9,6 +9,12 @@ using namespace std;
 using namespace state;
 
 namespace client {
+
+    client::Command::Command(){
+        srand(time(NULL));
+
+    }
+
     float client::Command::ComputeWeakAndStrength(state::Major rAttackerMajor, state::Major rVictimMajor){
         
         switch(rAttackerMajor){
@@ -160,9 +166,8 @@ namespace client {
         int lRandomResult;
         int lCriticalHit;
         
-        srand(time(NULL));
         lRandomResult = rand() % 100 + 1;
-
+        
         if(lRandomResult <= rCharacterLuck){
             lCriticalHit = 2;
             cout << "Critical hit !" << endl;
