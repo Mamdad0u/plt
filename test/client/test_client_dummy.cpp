@@ -7,6 +7,10 @@
 using namespace ::client;
 using namespace ::state;
 
+const float STRENGTH     = 2;
+const float  NEUTRAL     = 1;
+const float WEAK     = 0.5;
+
 BOOST_AUTO_TEST_CASE(TestStaticAssert)
 {
   BOOST_CHECK(1);
@@ -42,6 +46,8 @@ BOOST_AUTO_TEST_CASE(TestEngine){
     BOOST_CHECK_EQUAL(UUT_Engine.DEBUG_GetGameStatus(), state::IN_COMBAT);
 
     //UUT_Engine.mCommand.ComputePVLost(*(&UUT_Character_IS), *(&UUT_Character_SIA), CommandID::ATTACK_1);
+    BOOST_CHECK_EQUAL(UUT_Engine.mCommand.ComputeWeakAndStrength(UUT_Character_SIA.GetMajor(), UUT_Character_IS.GetMajor()), WEAK);
+    
 
     for(int i = 0; i<100;i++){
       UUT_Engine.mCommand.ComputeCriticalHit(UUT_Character_IS.GetCharacterStats(LUCK));
