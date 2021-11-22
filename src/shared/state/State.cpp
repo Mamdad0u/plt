@@ -42,7 +42,7 @@ void State::GotoNextArena() {
 }
 
 void State::AddPlayerCharacter(Character rNewCharacter) {
-    
+    mPlayersCharacters.push_back(rNewCharacter);
 }
 
 }
