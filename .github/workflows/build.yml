@@ -21,6 +21,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
+    - name: refresh update depository
+      run: sudo apt-get update
     - name: install librairies 
       run: |
         sudo apt-get install lcov
