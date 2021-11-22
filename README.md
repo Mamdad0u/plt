@@ -114,6 +114,10 @@ plt$ make code-coverage
 
 <!-- RELEASE HISTORY-->
 ## Release History
+* <a href="https://github.com/Mamdad0u/plt/releases/tag/2.1">2.1</a>
+    * Rapport section 3 : Description et Conception des du rendu selon les états du jeu
+    * Code : Implémentation du rendu du jeu en fonction de ses états.
+
 
 * <a href="https://github.com/Mamdad0u/plt/releases/tag/1.final">1.final</a>
     * Rapport section 2 : Description et Conception des états
