@@ -24,6 +24,14 @@ namespace state {
         this->mSpellList[rSpellNumber].SetDamage(rDamageValue);
     }
 
+    void state::ActionList::SetAttackBuff(int rAttackNumber, StatsName rStatBuffname, int rStatBuffValue, bool rBeneficial){
+        this->mAttackList[rAttackNumber].SetStatBuffName(rStatBuffname);
+        this->mAttackList[rAttackNumber].SetStatBuffValue(rStatBuffValue);
+        this->mAttackList[rAttackNumber].SetBuffBeneficial(rBeneficial);
+
+
+
+    }
 
 
     

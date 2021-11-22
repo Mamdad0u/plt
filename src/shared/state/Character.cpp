@@ -102,6 +102,20 @@ void state::Character::SetCharacterAction(ActionListCommand rAction, int rValue)
 
 }
 
+void state::Character::SetCharacterBuffAction(ActionListCommand rAction, StatsName rStatBuffName, int rBuffValue, bool rBeneficial){
+    switch (rAction)
+    {
+    case ATTACK_1:
+        mCharacterAction.SetAttackBuff(1, rStatBuffName, rBuffValue, rBeneficial);
+        break;
+
+    case ATTACK_2:
+        mCharacterAction.SetAttackBuff(2, rStatBuffName, rBuffValue, rBeneficial);
+        break;
+
+    
+    }
+}
 
 Major state::Character::GetMajor() {
     return this->mCharacterMajor;
