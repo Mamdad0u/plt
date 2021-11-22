@@ -87,7 +87,16 @@ void state::Character::SetCharacterAction(ActionListCommand rAction, int rValue)
         mCharacterAction.SetAttack(1, rValue);
         break;
     
-    default:
+    case ATTACK_2:
+        mCharacterAction.SetAttack(2, rValue);
+        break;
+
+    case SPELL_1:
+        mCharacterAction.SetSpell(1, rValue);
+        break;
+
+    case SPELL_2:
+        mCharacterAction.SetSpell(2, rValue);
         break;
     }
 

@@ -20,6 +20,12 @@ namespace state {
         this->mAttackList[rAttackNumber].SetDamage(rDamageValue);
     }
 
+    void state::ActionList::SetSpell(int rSpellNumber, int rDamageValue){
+        this->mSpellList[rSpellNumber].SetDamage(rDamageValue);
+    }
+
+
+
     
 
 
