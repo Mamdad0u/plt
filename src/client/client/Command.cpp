@@ -153,7 +153,7 @@ namespace client {
         lVictimDefense = rVictim.GetCharacterStats(StatsName::DEFENSE); // Défense de la victime
         lAttackStat = rAttacker.GetCharacterStats(StatsName::ATTACK); // Attaque de l'attaquant
        
-       
+
         lPVLost = ((lCoeffMajor * lCriticalHit * lAttackDamage * lAttackStat) / lVictimDefense) * lMagicCoefficiant;
         cout << rAttacker.GetName() << " inflicted " << lPVLost << " on " << rVictim.GetName() << endl;; 
         return lPVLost;
@@ -161,7 +161,6 @@ namespace client {
 
 
     }
-
 
     float client::Command::ComputeCriticalHit(int rCharacterLuck){
         int lRandomResult;
@@ -179,6 +178,13 @@ namespace client {
         }
 
         return lCriticalHit;
+
+    }
+
+    float client::Command::ComputeBuffEffect(state::Character& rAttacker){
+
+        
+
 
     }
 }
