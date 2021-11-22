@@ -87,12 +87,41 @@ void state::Character::SetCharacterAction(ActionListCommand rAction, int rValue)
         mCharacterAction.SetAttack(1, rValue);
         break;
     
-    default:
+    case ATTACK_2:
+        mCharacterAction.SetAttack(2, rValue);
+        break;
+
+    case SPELL_1:
+        mCharacterAction.SetSpell(1, rValue);
+        break;
+
+    case SPELL_2:
+        mCharacterAction.SetSpell(2, rValue);
         break;
     }
 
 }
 
+void state::Character::SetCharacterBuffAction(ActionListCommand rAction, StatsName rStatBuffName, int rBuffValue, bool rBeneficial){
+    switch (rAction)
+    {
+    case ATTACK_1:
+        mCharacterAction.SetAttackBuff(1, rStatBuffName, rBuffValue, rBeneficial);
+        break;
+
+    case ATTACK_2:
+        mCharacterAction.SetAttackBuff(2, rStatBuffName, rBuffValue, rBeneficial);
+        break;
+
+    case SPELL_1:
+         mCharacterAction.SetSpellBuff(1, rStatBuffName, rBuffValue, rBeneficial);
+         break;
+
+    case SPELL_2:
+         mCharacterAction.SetSpellBuff(2, rStatBuffName, rBuffValue, rBeneficial);
+         break;
+    }
+}
 
 Major state::Character::GetMajor() {
     return this->mCharacterMajor;

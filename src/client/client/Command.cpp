@@ -9,6 +9,12 @@ using namespace std;
 using namespace state;
 
 namespace client {
+
+    client::Command::Command(){
+        srand(time(NULL));
+
+    }
+
     float client::Command::ComputeWeakAndStrength(state::Major rAttackerMajor, state::Major rVictimMajor){
         
         switch(rAttackerMajor){
@@ -115,7 +121,7 @@ namespace client {
         int lAttackDamage;
         int lVictimDefense;
         int lAttackStat;
-        int lPVLost;
+        float lPVLost;
         const float lMagicCoefficiant = 0.44;
         Action* lActionGot = nullptr;
 
@@ -146,24 +152,23 @@ namespace client {
         lAttackDamage = lActionGot->GetDamage(); // Dégâts de l'attaque
         lVictimDefense = rVictim.GetCharacterStats(StatsName::DEFENSE); // Défense de la victime
         lAttackStat = rAttacker.GetCharacterStats(StatsName::ATTACK); // Attaque de l'attaquant
+       
 
         lPVLost = ((lCoeffMajor * lCriticalHit * lAttackDamage * lAttackStat) / lVictimDefense) * lMagicCoefficiant;
-        cout << rAttacker.getMName() << " inflicted " << lPVLost << " on " << rVictim.getMName() << endl;; 
+        cout << rAttacker.GetName() << " inflicted " << lPVLost << " on " << rVictim.GetName() << endl;; 
         return lPVLost;
         
 
 
     }
 
-
     float client::Command::ComputeCriticalHit(int rCharacterLuck){
         int lRandomResult;
         int lCriticalHit;
         
-        srand(time(NULL));
         lRandomResult = rand() % 100 + 1;
 
-        if(lRandomResult <= rCharacterLuck*100){
+        if(lRandomResult <= rCharacterLuck){
             lCriticalHit = 2;
             cout << "Critical hit !" << endl;
         }
@@ -173,6 +178,13 @@ namespace client {
         }
 
         return lCriticalHit;
+
+    }
+
+    float client::Command::ComputeBuffEffect(state::Character& rAttacker){
+
+        
+
 
     }
 }

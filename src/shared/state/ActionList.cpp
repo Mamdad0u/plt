@@ -20,6 +20,24 @@ namespace state {
         this->mAttackList[rAttackNumber].SetDamage(rDamageValue);
     }
 
+    void state::ActionList::SetSpell(int rSpellNumber, int rDamageValue){
+        this->mSpellList[rSpellNumber].SetDamage(rDamageValue);
+    }
+
+    void state::ActionList::SetAttackBuff(int rAttackNumber, StatsName rStatBuffname, int rStatBuffValue, bool rBeneficial){
+        this->mAttackList[rAttackNumber].SetStatBuffName(rStatBuffname);
+        this->mAttackList[rAttackNumber].SetStatBuffValue(rStatBuffValue);
+        this->mAttackList[rAttackNumber].SetBuffBeneficial(rBeneficial);
+
+    }
+
+    void state::ActionList::SetSpellBuff(int rSpellNumber, StatsName rStatBuffname, int rStatBuffValue, bool rBeneficial){
+        this->mSpellList[rSpellNumber].SetStatBuffName(rStatBuffname);
+        this->mSpellList[rSpellNumber].SetStatBuffValue(rStatBuffValue);
+        this->mSpellList[rSpellNumber].SetBuffBeneficial(rBeneficial);
+    }
+
+
     
 
 

@@ -7,6 +7,13 @@ namespace client {
 
     }
 
+    void client::Engine::GameLoop(){
+        
+
+        
+    }
+
+
     state::CombatStatus client::Engine::DEBUG_GetGameStatus(){
 
         return mCurrentState.GetCombatState();
