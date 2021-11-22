@@ -113,7 +113,13 @@ void state::Character::SetCharacterBuffAction(ActionListCommand rAction, StatsNa
         mCharacterAction.SetAttackBuff(2, rStatBuffName, rBuffValue, rBeneficial);
         break;
 
-    
+    case SPELL_1:
+         mCharacterAction.SetSpellBuff(1, rStatBuffName, rBuffValue, rBeneficial);
+         break;
+
+    case SPELL_2:
+         mCharacterAction.SetSpellBuff(2, rStatBuffName, rBuffValue, rBeneficial);
+         break;
     }
 }
 
