@@ -2,8 +2,8 @@
 #include "ActionList.h"
 namespace state {
     state::ActionList::ActionList(){
-        mAttackList.reserve(2);
-        mSpellList.reserve(2);
+        mAttackList.reserve(3);
+        mSpellList.reserve(3);
 
     }
 

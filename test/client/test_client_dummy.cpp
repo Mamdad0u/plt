@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_CASE(TestEngine){
     UUT_Character_IS.SetCharacterAction(state::ATTACK_1, 80);
     UUT_Character_IS.SetCharacterAction(state::ATTACK_2, 60);
 
-    UUT_Character_IS.SetCharacterBuffAction(state::ATTACK_1, POWER, 20, true);
+    UUT_Character_IS.SetCharacterBuffAction(state::ATTACK_2, POWER, 20, true);
 
 
 
