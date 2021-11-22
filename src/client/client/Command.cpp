@@ -2,7 +2,9 @@
 #include "Command.h"
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+#include <iostream>
 
+using namespace std;
 
 using namespace state;
 
@@ -107,7 +109,7 @@ namespace client {
         
     }
 
-    float client::Command::ComputePVLost(state::Character rAttacker, state::Character rVictim, CommandID rActionMade){
+    float client::Command::ComputePVLost(state::Character &rAttacker, state::Character &rVictim, CommandID rActionMade){
         float lCoeffMajor;
         int lCriticalHit;
         int lAttackDamage;
@@ -146,7 +148,7 @@ namespace client {
         lAttackStat = rAttacker.GetCharacterStats(StatsName::ATTACK); // Attaque de l'attaquant
 
         lPVLost = ((lCoeffMajor * lCriticalHit * lAttackDamage * lAttackStat) / lVictimDefense) * lMagicCoefficiant;
-
+        cout << rAttacker.getMName() << " inflicted " << lPVLost << " on " << rVictim.getMName() << endl;; 
         return lPVLost;
         
 
@@ -163,9 +165,11 @@ namespace client {
 
         if(lRandomResult <= rCharacterLuck*100){
             lCriticalHit = 2;
+            cout << "Critical hit !" << endl;
         }
         else{
             lCriticalHit = 1;
+            cout << "No critical hit" << endl;
         }
 
         return lCriticalHit;
