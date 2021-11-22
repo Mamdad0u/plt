@@ -42,15 +42,17 @@ BOOST_AUTO_TEST_CASE(TestEngine){
     UUT_Character_SIA.SetCharacterStats(POWER, 150);
     UUT_Character_SIA.SetCharacterStats(DEFENSE, 60);
     UUT_Character_SIA.SetCharacterStats(LUCK, 3);
+    UUT_Character_SIA.SetCharacterAction(state::ATTACK_1, 60);
 
     BOOST_CHECK_EQUAL(UUT_Engine.DEBUG_GetGameStatus(), state::IN_COMBAT);
 
     
-    BOOST_CHECK_EQUAL(UUT_Engine.mCommand.ComputeWeakAndStrength(UUT_Character_SIA.GetMajor(), UUT_Character_IS.GetMajor()), WEAK);
-    //UUT_Engine.mCommand.ComputePVLost(*(&UUT_Character_IS), *(&UUT_Character_SIA), CommandID::ATTACK_1);
+    BOOST_CHECK_EQUAL(UUT_Engine.mCommand.ComputeWeakAndStrength(UUT_Character_SIA.GetMajor(), UUT_Character_IS.GetMajor()), STRENGTH);
+    
 
-    for(int i = 0; i<100;i++){
-      UUT_Engine.mCommand.ComputeCriticalHit(UUT_Character_IS.GetCharacterStats(LUCK));
+    for(int i = 0; i<1000;i++){
+      //UUT_Engine.mCommand.ComputeCriticalHit(UUT_Character_IS.GetCharacterStats(LUCK));
+      UUT_Engine.mCommand.ComputePVLost(*(&UUT_Character_SIA), *(&UUT_Character_IS), CommandID::ATTACK_1);
     }
       
 
