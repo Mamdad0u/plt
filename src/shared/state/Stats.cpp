@@ -5,7 +5,6 @@ namespace state {
 
 Stats::Stats() {
     this->mDefense = DEFAULT_STATS_VALUE;
-    this->mAlacrity = DEFAULT_STATS_VALUE;
     this->mAttack = DEFAULT_STATS_VALUE;
     this->mLife_points = DEFAULT_STATS_VALUE;
     this->mLuck = DEFAULT_STATS_VALUE;
@@ -61,11 +60,4 @@ void Stats::Set_luck(int rValue) {
     this->mLuck = rValue;
 }
 
-int Stats::Get_alacrity() {
-    return this->mAlacrity;
-}
-
-void Stats::Set_alacrity(int rValue) {
-    this->mAlacrity = rValue;
-}
 }
