@@ -163,7 +163,7 @@ namespace client {
         srand(time(NULL));
         lRandomResult = rand() % 100 + 1;
 
-        if(lRandomResult <= rCharacterLuck*100){
+        if(lRandomResult <= rCharacterLuck){
             lCriticalHit = 2;
             cout << "Critical hit !" << endl;
         }
