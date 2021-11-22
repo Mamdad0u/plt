@@ -5,7 +5,7 @@ namespace state {
 
 state::Character::Character(std::string rCharacterName, Major rCharacterMajor, CharacterStatus rCharacterStatus) {
 
-    
+    this->mName = rCharacterName;
     this->mCharacterMajor = rCharacterMajor;
     this->mCharacterStatus = rCharacterStatus;
 }
