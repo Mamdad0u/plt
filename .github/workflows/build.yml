@@ -5,11 +5,13 @@ on:
     branches: 
       - master
       - master-pre-release
+      - engine
       
   pull_request:
     branches: 
       - master
       - master-pre-release
+      - engine
 
 jobs:
   build:
