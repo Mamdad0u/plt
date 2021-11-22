@@ -29,8 +29,9 @@ int main(int argc,char* argv[]){
     sf::Clock clockState;
     sf::Clock clockInter;
     RenderLayer lRender;
+    sf:: Vector2i LocalPosition;
     State GameStatus(IN_COMBAT);
-    int lMovingProgress = 0;
+    int lMovingProgress = 1;
     if(argc > 1){
         if(strcmp(argv[1], "hello") == 0){
             cout << "Bonjour le monde" << endl;
@@ -90,14 +91,16 @@ int main(int argc,char* argv[]){
                          break;
                 }
                 if((lMovingProgress%800==0)){
-                    compteur++;
+                    if((sf::Mouse::getPosition(window).y>500) && (sf::Mouse::getPosition(window).y<800) && 
+                    (sf::Mouse::getPosition(window).x>0) && (sf::Mouse::getPosition(window).x<600)){
                     
-                    if(compteur==100){
-                        GameStatus.SetCombatState(OUT_COMBAT);
-                        lMovingProgress = lRender.GoNextCombat(window);
-                        lEnemyIndex++;
-                        compteur=0;
+                    
+                        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+                            GameStatus.SetCombatState(OUT_COMBAT);
+                            lMovingProgress = lRender.GoNextCombat(window);
+                            lEnemyIndex++;
                         }
+                    }
                 }
 
 
@@ -113,11 +116,18 @@ int main(int argc,char* argv[]){
                     clock.restart();
                 }
 
-                
-                if(clockState.getElapsedTime().asSeconds() > 15.f && clockState.getElapsedTime().asSeconds() < 16.f){
-                    GameStatus.SetCombatState(OUT_COMBAT);
-                    lEnemyIndex=1;
+                if(lMovingProgress==1){
+                    if((sf::Mouse::getPosition(window).y>500) && (sf::Mouse::getPosition(window).y<600) && 
+                    (sf::Mouse::getPosition(window).x>0) && (sf::Mouse::getPosition(window).x<800)){
+                        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+                            GameStatus.SetCombatState(OUT_COMBAT);
+                            lEnemyIndex=1;
+                            //LocalPosition = sf::Mouse::getPosition(window);
+                            LocalPosition = sf::Mouse::getPosition(window);
+                            std::cout << LocalPosition.x << ";" << LocalPosition.y << endl;
                     
+                    }
+                    }
                 }
                 
 
