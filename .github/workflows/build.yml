@@ -5,11 +5,13 @@ on:
     branches: 
       - master
       - master-pre-release
+      - engine
       
   pull_request:
     branches: 
       - master
       - master-pre-release
+      - engine
 
 jobs:
   build:
@@ -19,6 +21,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
+    - name: refresh update depository
+      run: sudo apt-get update
     - name: install librairies 
       run: |
         sudo apt-get install lcov
