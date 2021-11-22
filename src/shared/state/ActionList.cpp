@@ -7,13 +7,17 @@ namespace state {
 
     }
 
-    Action* state::ActionList::GetAction (int rAttackNumber){
+    Action* state::ActionList::GetAttack (int rAttackNumber){
 
         Action* lReturnAttack = nullptr;
 
         lReturnAttack = &mAttackList[rAttackNumber];
         return lReturnAttack;
 
+    }
+
+    void state::ActionList::SetAttack(int rAttackNumber, int rDamageValue){
+        this->mAttackList[rAttackNumber].SetDamage(rDamageValue);
     }
 
     

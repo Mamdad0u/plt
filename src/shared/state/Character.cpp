@@ -80,6 +80,19 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
 
 }
 
+void state::Character::SetCharacterAction(ActionListCommand rAction, int rValue){
+    switch (rAction)
+    {
+    case ATTACK_1:
+        mCharacterAction.SetAttack(1, rValue);
+        break;
+    
+    default:
+        break;
+    }
+
+}
+
 
 Major state::Character::GetMajor() {
     return this->mCharacterMajor;
@@ -102,7 +115,7 @@ Action* state::Character::MakeAction(ActionListCommand rActionType){
     switch (rActionType)
     {
     case ATTACK_1:
-        return this->mCharacterAction.GetAction(1);
+        return this->mCharacterAction.GetAttack(1);
     
     default:
         break;
