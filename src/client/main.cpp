@@ -61,7 +61,7 @@ int main(int argc,char* argv[]){
                 if ((event.type == Event::Closed)){
                         window.close();
                     }
-             if(lEnemyIndex==2){
+             if(lEnemyIndex==4){
                     window.close();
                 }
                     
@@ -114,7 +114,7 @@ int main(int argc,char* argv[]){
                 }
 
                 
-                if(clockState.getElapsedTime().asSeconds() > 2.f && clockState.getElapsedTime().asSeconds() < 3.f){
+                if(clockState.getElapsedTime().asSeconds() > 15.f && clockState.getElapsedTime().asSeconds() < 16.f){
                     GameStatus.SetCombatState(OUT_COMBAT);
                     lEnemyIndex=1;
                     
