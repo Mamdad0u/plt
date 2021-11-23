@@ -140,7 +140,7 @@ CharacterStatus state::Character::GetCharacterStatus(){
 }
 
 
-Action* state::Character::MakeAction(ActionListCommand rActionType){
+Action* state::Character::GetAction(ActionListCommand rActionType){
     switch (rActionType)
     {
     case ATTACK_1:

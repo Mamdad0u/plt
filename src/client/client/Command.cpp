@@ -143,19 +143,19 @@ namespace client {
         switch (rActionMade)
         {
         case ATTACK_1:
-            lActionGot = rAttacker.MakeAction(state::ATTACK_1);
+            lActionGot = rAttacker.GetAction(state::ATTACK_1);
             break;
         
         case ATTACK_2:
-            lActionGot = rAttacker.MakeAction(state::ATTACK_2);
+            lActionGot = rAttacker.GetAction(state::ATTACK_2);
             break;
 
         case SPELL_1:
-            lActionGot = rAttacker.MakeAction(state::SPELL_1);
+            lActionGot = rAttacker.GetAction(state::SPELL_1);
             break;
 
         case SPELL_2:
-            lActionGot = rAttacker.MakeAction(state::SPELL_2);
+            lActionGot = rAttacker.GetAction(state::SPELL_2);
             break;
 
         }
@@ -168,6 +168,10 @@ namespace client {
         lAttackStat = rAttacker.GetCharacterStats(StatsName::ATTACK); // Attaque de l'attaquant
 
         lPVLost = ((lCoeffMajor * lCriticalHit * lAttackDamage * lAttackStat) / lVictimDefense) * lMagicCoefficiant;
+        
+        /*Application de la perte de PV*/
+        
+        
         cout  << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " inflicted " << lPVLost << " PV lost on " << rVictim.GetName() << endl;
         
         /*Calcul de l'effet du buff*/
