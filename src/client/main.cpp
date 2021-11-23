@@ -105,14 +105,28 @@ int main(int argc,char* argv[])
                 } */
 
                 if(lMovingProgress==0){
-                    if((sf::Mouse::getPosition(window).y>500) && (sf::Mouse::getPosition(window).y<600) && 
-                    (sf::Mouse::getPosition(window).x>0) && (sf::Mouse::getPosition(window).x<800)){
+                    if((sf::Mouse::getPosition(window).y>510) && (sf::Mouse::getPosition(window).y<535) && 
+                    (sf::Mouse::getPosition(window).x>35) && (sf::Mouse::getPosition(window).x<120)){
                         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-                            GameStatus.SetCombatState(OUT_COMBAT);
+                            //GameStatus.SetCombatState(OUT_COMBAT);
 
                             //LocalPosition = sf::Mouse::getPosition(window);
                             LocalPosition = sf::Mouse::getPosition(window);
-                            std::cout << LocalPosition.x << ";" << LocalPosition.y << endl;
+                            //std::cout << LocalPosition.x << ";" << LocalPosition.y << endl;
+                            std::cout << "Action 1" << endl;
+                    
+                    }
+                    }
+
+                    if((sf::Mouse::getPosition(window).y>550) && (sf::Mouse::getPosition(window).y<575) && 
+                    (sf::Mouse::getPosition(window).x>35) && (sf::Mouse::getPosition(window).x<120)){
+                        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+                            //GameStatus.SetCombatState(OUT_COMBAT);
+
+                            //LocalPosition = sf::Mouse::getPosition(window);
+                            LocalPosition = sf::Mouse::getPosition(window);
+                            //std::cout << LocalPosition.x << ";" << LocalPosition.y << endl;
+                            std::cout << "Action 2" << endl;
                     
                     }
                     }
