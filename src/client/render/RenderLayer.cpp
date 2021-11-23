@@ -51,7 +51,7 @@ namespace render {
     void render::RenderLayer::LoadUI(){
         
         mUI.CreateWindow(0,500,800,100);
-        mUI.SetTextVersion("Release V2.1");
+        mUI.SetTextVersion("Release V2.2");
         mUI.DEBUG_SetTextAction1("Action 1");
         mUI.DEBUG_SetTextAction2("Action 2");
         mUI.DEBUG_SetTextAction3("Action 3");

@@ -27,6 +27,7 @@ int main(int argc,char* argv[])
 {
     sf::Clock clock;
     sf::Clock clockState;
+
     RenderLayer lRender;
     State GameStatus(IN_COMBAT);
     int lMovingProgress = 0;
@@ -43,6 +44,7 @@ int main(int argc,char* argv[])
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
             window.setFramerateLimit(120);
             lRender.LoadBackground();
+            sf::Vector2i LocalPosition;
 
             lRender.LoadCharacter(9,100,100);
             lRender.LoadCharacter(5,100,200);
@@ -97,10 +99,26 @@ int main(int argc,char* argv[])
                 }
 
                 
-                if(clockState.getElapsedTime().asSeconds() > 5.f && clockState.getElapsedTime().asSeconds() < 6.f){
+                /* if(clockState.getElapsedTime().asSeconds() > 5.f && clockState.getElapsedTime().asSeconds() < 6.f){
                     GameStatus.SetCombatState(OUT_COMBAT);
                     
+                } */
+
+                if(lMovingProgress==0){
+                    if((sf::Mouse::getPosition(window).y>500) && (sf::Mouse::getPosition(window).y<600) && 
+                    (sf::Mouse::getPosition(window).x>0) && (sf::Mouse::getPosition(window).x<800)){
+                        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+                            GameStatus.SetCombatState(OUT_COMBAT);
+
+                            //LocalPosition = sf::Mouse::getPosition(window);
+                            LocalPosition = sf::Mouse::getPosition(window);
+                            std::cout << LocalPosition.x << ";" << LocalPosition.y << endl;
+                    
+                    }
+                    }
                 }
+                
+
                 
 
                 

@@ -29,6 +29,7 @@ namespace render {
             mMenuAction1.setFont(mFont);
             mMenuAction1.setCharacterSize(20);
             mMenuAction1.setPosition(sf::Vector2f(35.f,510.f));
+            mRectAction1.setPosition(sf::Vector2f(35.f,510.f));
 
             mMenuAction3.setFont(mFont);
             mMenuAction3.setCharacterSize(20);
@@ -89,6 +90,10 @@ namespace render {
     void render::UI::DEBUG_SetTextAction1(std::string rTextAction){
 
         mMenuAction1.setString(rTextAction);
+        mRectAction1.setSize(sf::Vector2f(85,25));
+        mRectAction1.setFillColor(sf::Color::Transparent);
+        mRectAction1.setOutlineThickness(2);
+        mRectAction1.setOutlineColor(sf::Color::Red);
 
     }
 
@@ -126,6 +131,7 @@ namespace render {
         target.draw(mMenuAction2);
         target.draw(mMenuAction3);
         target.draw(mMenuAction4);
+        target.draw(mRectAction1);
 
     }
 
