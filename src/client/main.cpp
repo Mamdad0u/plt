@@ -57,7 +57,7 @@ int main(int argc,char* argv[]){
             int lEnemyIndex=0;
             int compteur=0;
 
-            lRender.LoadUI();
+            //lRender.LoadUI();
 
 
             while (window.isOpen()){
@@ -69,6 +69,9 @@ int main(int argc,char* argv[]){
              if(lEnemyIndex==4){
                     window.close();
                 }
+            if(lCursor.ClickAction4(window)){
+                window.close();
+            }
                     
 
                 }
@@ -77,6 +80,7 @@ int main(int argc,char* argv[]){
                 /*TEST DE LA MODIFICATION DU RENDU EN FONCTION DE L'ETAT DU JEU*/
                 switch(GameStatus.GetCombatState()){
                     case IN_COMBAT:
+                        
                         lRender.DEBUG_SetRenderState(IN_COMBAT);
                         break;
 
@@ -87,6 +91,7 @@ int main(int argc,char* argv[]){
                         }
 
                         else if(lMovingProgress%800==0){
+                            
                             GameStatus.SetCombatState(IN_COMBAT);
                             clockInter.restart();
                             
@@ -95,15 +100,12 @@ int main(int argc,char* argv[]){
                          break;
                 }
                 if((lMovingProgress%800==0)){
-                    if((sf::Mouse::getPosition(window).y>500) && (sf::Mouse::getPosition(window).y<800) && 
-                    (sf::Mouse::getPosition(window).x>0) && (sf::Mouse::getPosition(window).x<600)){
                     
-                    
-                        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-                            GameStatus.SetCombatState(OUT_COMBAT);
-                            lMovingProgress = lRender.GoNextCombat(window);
-                            lEnemyIndex++;
-                        }
+                    if(lCursor.ClickAction1(window)){
+                        GameStatus.SetCombatState(OUT_COMBAT);
+                        lMovingProgress = lRender.GoNextCombat(window);
+                        lEnemyIndex++;
+                        
                     }
                 }
 
@@ -121,6 +123,7 @@ int main(int argc,char* argv[]){
                 }
 
                 if(lMovingProgress==1){
+                    lRender.LoadUI();
                     lCursor.GetPositionCursor(window);
                     if(lCursor.ClickAction1(window)){
                             GameStatus.SetCombatState(OUT_COMBAT);
