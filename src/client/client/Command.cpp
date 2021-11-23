@@ -131,6 +131,8 @@ namespace client {
         int lAttackDamage;
         int lVictimDefense;
         int lAttackStat;
+        int lVictimLifePoints;
+        int lVictimStat;
         float lPVLost;
         const float lMagicCoefficiant = 0.44;
         int lBuffValue;
@@ -166,13 +168,15 @@ namespace client {
         lAttackDamage = lActionGot->GetDamage(); // Dégâts de l'attaque
         lVictimDefense = rVictim.GetCharacterStats(StatsName::DEFENSE); // Défense de la victime
         lAttackStat = rAttacker.GetCharacterStats(StatsName::ATTACK); // Attaque de l'attaquant
-
+        lVictimLifePoints = rVictim.GetCharacterStats(LIFE_POINTS);
+        
         lPVLost = ((lCoeffMajor * lCriticalHit * lAttackDamage * lAttackStat) / lVictimDefense) * lMagicCoefficiant;
         
         /*Application de la perte de PV*/
-        
+        rVictim.SetCharacterStats(LIFE_POINTS, lVictimLifePoints - lPVLost);
         
         cout  << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " inflicted " << lPVLost << " PV lost on " << rVictim.GetName() << endl;
+        cout << rVictim.GetName() << " life points is now " << rVictim.GetCharacterStats(LIFE_POINTS) << endl;
         
         /*Calcul de l'effet du buff*/
         lBuffValue = lActionGot->GetStatBuffValue();
@@ -181,12 +185,22 @@ namespace client {
 
         if(!lBeneficial){ // Buff non bénéfique
             lBuffValue = lBuffValue * (-1);
+            lVictimStat = rVictim.GetCharacterStats(lBuffName);
+            rVictim.SetCharacterStats(lBuffName, lVictimStat + lBuffValue);
+            
             cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " inflicted " << lBuffValue << " " <<mStatsNameMap[lBuffName] << " disadvantageous on " << rVictim.GetName() << endl;
+            cout << rVictim.GetName() << " "<<  mStatsNameMap[lBuffName] << " is now " << rVictim.GetCharacterStats(lBuffName) << endl;
+
         }
-        else{ // Buff bénéfique
+        else{ // Buff bénéfique c'est l'attaquant qui reçoit le buff
+            lVictimStat = rAttacker.GetCharacterStats(lBuffName);
+            rAttacker.SetCharacterStats(lBuffName, lVictimStat + lBuffValue);
+            
             cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " got +" << lBuffValue << " " << mStatsNameMap[lBuffName] << " beneficial" << endl;
+            cout << rAttacker.GetName() << " "<<  mStatsNameMap[lBuffName] << " is now " << rAttacker.GetCharacterStats(lBuffName) << endl;
         }
 
+        
         
         return lPVLost;
         
