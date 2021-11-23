@@ -8,3 +8,4 @@ src/*/*/*.h
 .idea
 *.autosave
 .vscode/
+.vscode/launch.json
