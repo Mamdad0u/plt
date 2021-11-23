@@ -3,8 +3,9 @@
 namespace state {
 
 
-state::Character::Character(Major rCharacterMajor, CharacterStatus rCharacterStatus) {
+state::Character::Character(std::string rCharacterName, Major rCharacterMajor, CharacterStatus rCharacterStatus) {
 
+    this->mName = rCharacterName;
     this->mCharacterMajor = rCharacterMajor;
     this->mCharacterStatus = rCharacterStatus;
 }
@@ -37,9 +38,6 @@ void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
         mCharacterStats.Set_luck(rValue);
         break;
 
-    case ALACRITY:
-        mCharacterStats.Set_alacrity(rValue);
-        break;
         
     default:
         break;
@@ -73,9 +71,6 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
         return this->mCharacterStats.Get_luck();
         break;
 
-    case ALACRITY:
-        return this->mCharacterStats.Get_alacrity();
-        break;
         
     default:
         break;
@@ -85,6 +80,48 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
 
 }
 
+void state::Character::SetCharacterAction(ActionListCommand rAction, int rValue){
+    switch (rAction)
+    {
+    case ATTACK_1:
+        mCharacterAction.SetAttack(1, rValue);
+        break;
+    
+    case ATTACK_2:
+        mCharacterAction.SetAttack(2, rValue);
+        break;
+
+    case SPELL_1:
+        mCharacterAction.SetSpell(1, rValue);
+        break;
+
+    case SPELL_2:
+        mCharacterAction.SetSpell(2, rValue);
+        break;
+    }
+
+}
+
+void state::Character::SetCharacterBuffAction(ActionListCommand rAction, StatsName rStatBuffName, int rBuffValue, bool rBeneficial){
+    switch (rAction)
+    {
+    case ATTACK_1:
+        mCharacterAction.SetAttackBuff(1, rStatBuffName, rBuffValue, rBeneficial);
+        break;
+
+    case ATTACK_2:
+        mCharacterAction.SetAttackBuff(2, rStatBuffName, rBuffValue, rBeneficial);
+        break;
+
+    case SPELL_1:
+         mCharacterAction.SetSpellBuff(1, rStatBuffName, rBuffValue, rBeneficial);
+         break;
+
+    case SPELL_2:
+         mCharacterAction.SetSpellBuff(2, rStatBuffName, rBuffValue, rBeneficial);
+         break;
+    }
+}
 
 Major state::Character::GetMajor() {
     return this->mCharacterMajor;
@@ -100,6 +137,20 @@ CharacterStatus state::Character::GetCharacterStatus(){
 
     return this->mCharacterStatus;
 
+}
+
+
+Action* state::Character::MakeAction(ActionListCommand rActionType){
+    switch (rActionType)
+    {
+    case ATTACK_1:
+        return this->mCharacterAction.GetAttack(1);
+    
+    default:
+        break;
+    }
+
+    
 }
 
 
