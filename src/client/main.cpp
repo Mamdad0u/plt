@@ -4,6 +4,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <render/RenderLayer.h>
+#include <client.h>
+#include <client/WindowCursor.h>
 
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
@@ -30,6 +32,7 @@ int main(int argc,char* argv[]){
     sf::Clock clockInter;
     RenderLayer lRender;
     sf:: Vector2i LocalPosition;
+    client::WindowCursor lCursor;
     State GameStatus(IN_COMBAT);
     int lMovingProgress = 1;
     if(argc > 1){
@@ -49,6 +52,7 @@ int main(int argc,char* argv[]){
             lRender.LoadEnemy(3,600,250,0);
             lRender.LoadEnemy(1,600,250,0);
             lRender.LoadEnemy(2,600,250,0);
+            
 
             int lEnemyIndex=0;
             int compteur=0;
@@ -117,16 +121,15 @@ int main(int argc,char* argv[]){
                 }
 
                 if(lMovingProgress==1){
-                    if((sf::Mouse::getPosition(window).y>500) && (sf::Mouse::getPosition(window).y<600) && 
-                    (sf::Mouse::getPosition(window).x>0) && (sf::Mouse::getPosition(window).x<800)){
-                        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+                    lCursor.GetPositionCursor(window);
+                    if(lCursor.ClickAction1(window)){
                             GameStatus.SetCombatState(OUT_COMBAT);
                             lEnemyIndex=1;
                             //LocalPosition = sf::Mouse::getPosition(window);
                             LocalPosition = sf::Mouse::getPosition(window);
                             std::cout << LocalPosition.x << ";" << LocalPosition.y << endl;
                     
-                    }
+                    
                     }
                 }
                 
@@ -145,6 +148,10 @@ int main(int argc,char* argv[]){
         
             
 
+    
+        else if(strcmp(argv[1], "engine") == 0){
+            
+        }
     
 
 
