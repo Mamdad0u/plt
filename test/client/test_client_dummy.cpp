@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_CASE(TestEngine){
     UUT_Character_IS.SetCharacterAction(state::ATTACK_1, 80);
     UUT_Character_IS.SetCharacterAction(state::ATTACK_2, 60);
 
-    UUT_Character_IS.SetCharacterBuffAction(state::ATTACK_2, POWER, 20, true);
+    UUT_Character_IS.SetCharacterBuffAction(state::ATTACK_1, POWER, 20, true);
 
 
 
@@ -51,6 +51,9 @@ BOOST_AUTO_TEST_CASE(TestEngine){
     UUT_Character_SIA.SetCharacterAction(state::ATTACK_1, 60); 
 
     BOOST_CHECK_EQUAL(UUT_Engine.DEBUG_GetGameStatus(), state::IN_COMBAT);
+
+    UUT_Engine.mCommand.ComputeAction(*(&UUT_Character_IS), *(&UUT_Character_SIA), CommandID::ATTACK_1);
+
     //BOOST_CHECK_EQUAL(UUT_Character_IS.GetCharacterStats(POWER), 160);
     
     //BOOST_CHECK_EQUAL(UUT_Engine.mCommand.ComputeWeakAndStrength(UUT_Character_SIA.GetMajor(), UUT_Character_IS.GetMajor()), STRENGTH);
