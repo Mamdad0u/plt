@@ -25,6 +25,10 @@ CombatStatus State::GetCombatState(){
     return this->mCombatStatus;
 }
 
+Player_Status State::GetPlayerStatus(){
+    return this->mPlayerStatus;
+}
+
 void State::InitializeEnemyCharactersList() {
     
 }
