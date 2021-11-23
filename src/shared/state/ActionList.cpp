@@ -16,6 +16,13 @@ namespace state {
 
     }
 
+    Action* state::ActionList::GetSpell (int rSpellNumber){
+        Action* lReturnSpell = nullptr;
+
+        lReturnSpell = &mAttackList[rSpellNumber];
+        return lReturnSpell;
+    }
+
     void state::ActionList::SetAttack(int rAttackNumber, int rDamageValue){
         this->mAttackList[rAttackNumber].SetDamage(rDamageValue);
     }
