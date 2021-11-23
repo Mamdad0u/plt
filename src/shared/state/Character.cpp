@@ -7,11 +7,10 @@
 namespace state {
 
 
-state::Character::Character(Major rCharacterMajor, CharacterStatus rCharacterStatus, Options rCharacterOption) {
+state::Character::Character(Major rCharacterMajor, CharacterStatus rCharacterStatus) {
 
     this->mCharacterMajor = rCharacterMajor;
     this->mCharacterStatus = rCharacterStatus;
-    this->mCharacterOption = rCharacterOption;
 }
 
 
@@ -49,11 +48,13 @@ void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
 
 int state::Character::GetCharacterStats(StatsName rStatsName) {
    
+   /*
    ifstream ifs("res/JSON_files/statistics.json");
     Json::Reader reader;
     Json::Value obj;
 
     reader.parse(ifs,obj);
+    */
 
     switch (rStatsName)
     {
@@ -113,12 +114,13 @@ CharacterStatus state::Character::GetCharacterStatus(){
 
 }
 
+/*
 Options state::Character::GetCharacterOption() {
 
     return this->mCharacterOption;
 
 }
-
+*/
 
 
 

@@ -50,10 +50,16 @@ namespace render {
 
     void render::RenderLayer::LoadUI(){
         
-        mUI.CreateWindow(0,500,3200,100);
+        mUI.CreateWindow(0,500,800,100);
         mUI.SetTextVersion("Release V2.1");
-        mUI.DEBUG_SetTextAction("MENU ACTION");
+        mUI.DEBUG_SetTextAction1("Action 1");
+        mUI.DEBUG_SetTextAction2("Action 2");
+        mUI.DEBUG_SetTextAction3("Action 3");
+        mUI.DEBUG_SetTextAction4("Action 4");
+        
+
     }
+
 
 
     void render::RenderLayer::DEBUG_SetRenderState(state::CombatStatus rNewState){
@@ -69,9 +75,12 @@ namespace render {
                 break;
 
 
-
-
         }
+
+
+
+
+
 
 
 
