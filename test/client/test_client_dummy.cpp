@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_CASE(TestEngine){
     UUT_Character_IS.SetCharacterStats(POWER, 140);
     UUT_Character_IS.SetCharacterStats(DEFENSE, 80);
     UUT_Character_IS.SetCharacterStats(LUCK, 5);
-    UUT_Character_IS.SetCharacterAction(state::ATTACK_1, 80, LUCK, 0, true);
+    UUT_Character_IS.SetCharacterAction(state::ATTACK_1, 80, LUCK, 3, true);
    // UUT_Character_IS.SetCharacterAction(state::ATTACK_2, 60, LUCK, 60, 0, false);
 
 
@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE(TestEngine){
     UUT_Character_SIA.SetCharacterStats(POWER, 150);
     UUT_Character_SIA.SetCharacterStats(DEFENSE, 60);
     UUT_Character_SIA.SetCharacterStats(LUCK, 3);
-    UUT_Character_SIA.SetCharacterAction(state::ATTACK_1, 80, LUCK, 2, true); 
+    UUT_Character_SIA.SetCharacterAction(state::ATTACK_1, 80, LUCK, 0, true); 
 
     BOOST_CHECK_EQUAL(UUT_Engine.DEBUG_GetGameStatus(), state::IN_COMBAT);
 
@@ -63,6 +63,7 @@ BOOST_AUTO_TEST_CASE(TestEngine){
     for(int i = 0; i<2;i++){
       //UUT_Engine.mCommand.ComputeCriticalHit(UUT_Character_IS.GetCharacterStats(LUCK));
       UUT_Engine.mCommand.ComputeAction(*(&UUT_Character_SIA), *(&UUT_Character_IS), CommandID::ATTACK_1);
+      UUT_Engine.mCommand.ComputeAction(*(&UUT_Character_IS), *(&UUT_Character_SIA), CommandID::ATTACK_1);
       
     }
      
