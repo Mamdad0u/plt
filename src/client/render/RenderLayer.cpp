@@ -14,7 +14,7 @@ namespace render {
     }
     
     int render::RenderLayer::LoadBackground(){
-        if(mBackgroundSurface.LoadBackgroundSprite("Arena_1.png")){
+        if(mBackgroundSurface.LoadBackgroundSprite("rue_map.png")){
             cout << "ERROR : Failed to load background " << endl;
             return -1;
         }
@@ -68,10 +68,16 @@ namespace render {
 
     void render::RenderLayer::LoadUI(){
         
-        mUI.CreateWindow(0,500,3200,100);
-        mUI.SetTextVersion("Release V2.1");
-        mUI.DEBUG_SetTextAction("MENU ACTION");
+        mUI.CreateWindow(0,500,800,100);
+        mUI.SetTextVersion("Release V2.2");
+        mUI.DEBUG_SetTextAction1("Action 1");
+        mUI.DEBUG_SetTextAction2("Action 2");
+        mUI.DEBUG_SetTextAction3("Action 3");
+        mUI.DEBUG_SetTextAction4("Action 4");
+        
+
     }
+
 
 
     void render::RenderLayer::DEBUG_SetRenderState(state::CombatStatus rNewState){
@@ -87,9 +93,12 @@ namespace render {
                 break;
 
 
-
-
         }
+
+
+
+
+
 
 
 

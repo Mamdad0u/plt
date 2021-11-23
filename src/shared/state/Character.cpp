@@ -1,5 +1,9 @@
 #include <state/Character.h>  // Included from library shared_static
 #include "Character.h"
+#include <fstream>
+//#include <jsoncpp/json/json.h>
+//#include "jsoncpp/json/value.h"
+#include <iostream>
 namespace state {
 
 
@@ -37,7 +41,6 @@ void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
     case LUCK:
         mCharacterStats.Set_luck(rValue);
         break;
-
         
     default:
         break;
@@ -45,10 +48,20 @@ void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
 }
 
 int state::Character::GetCharacterStats(StatsName rStatsName) {
+   
+   /*
+   ifstream ifs("res/JSON_files/statistics.json");
+    Json::Reader reader;
+    Json::Value obj;
+
+    reader.parse(ifs,obj);
+    */
+
     switch (rStatsName)
     {
     case MAX_LIFE_POINTS:
         return this->mCharacterStats.Get_max_life_points();
+        //return obj["Statistics"][this->mCharacterOption]["PV"];
         break;
 
     case LIFE_POINTS:
@@ -57,24 +70,29 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
 
     case ATTACK:
         return this->mCharacterStats.Get_attack();
+        //return obj["Statistics"][this->mCharacterOption]["ATTACK"];
         break;
 
     case POWER:
         return this->mCharacterStats.Get_power();
+        //return obj["Statistics"][this->mCharacterOption]["POWER"];
         break;
     
     case DEFENSE:
         return this->mCharacterStats.Get_defense();
+        //return obj["Statistics"][this->mCharacterOption]["DEFENSE"];
         break;
 
     case LUCK:
         return this->mCharacterStats.Get_luck();
+        //return obj["Statistics"][this->mCharacterOption]["LUCK"];
         break;
-
         
     default:
         break;
     } 
+
+    
 
 
 
@@ -139,6 +157,13 @@ CharacterStatus state::Character::GetCharacterStatus(){
 
 }
 
+/*
+Options state::Character::GetCharacterOption() {
+
+    return this->mCharacterOption;
+
+}
+*/
 
 Action* state::Character::MakeAction(ActionListCommand rActionType){
     switch (rActionType)

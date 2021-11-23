@@ -42,16 +42,16 @@ int main(int argc,char* argv[]){
         else if(strcmp(argv[1], "render") == 0){
 
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
-            window.setFramerateLimit(60);
+            window.setFramerateLimit(120);
             lRender.LoadBackground();
-            lRender.LoadCharacter(1,100,100,1);
-            lRender.LoadCharacter(2,100,200,1);
-            lRender.LoadCharacter(5,100,300,1);
+            lRender.LoadCharacter(1,250,250,1);
+            lRender.LoadCharacter(2,200,300,1);
+            lRender.LoadCharacter(5,150,350,1);
             lRender.LoadCharacter(7,100,400,1);
-            lRender.LoadEnemy(1, 600,250,0);
-            lRender.LoadEnemy(3,600,250,0);
-            lRender.LoadEnemy(1,600,250,0);
-            lRender.LoadEnemy(2,600,250,0);
+            lRender.LoadEnemy(1, 600,325,0);
+            lRender.LoadEnemy(3,600,325,0);
+            lRender.LoadEnemy(1,600,325,0);
+            lRender.LoadEnemy(2,600,325,0);
             
 
             int lEnemyIndex=0;
