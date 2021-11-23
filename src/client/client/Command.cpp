@@ -213,10 +213,5 @@ namespace client {
 
     }
 
-    float client::Command::ComputeBuffEffect(state::Character& rAttacker){
 
-        
-
-
-    }
 }
