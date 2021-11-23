@@ -145,9 +145,20 @@ Action* state::Character::MakeAction(ActionListCommand rActionType){
     {
     case ATTACK_1:
         return this->mCharacterAction.GetAttack(1);
-    
-    default:
         break;
+    
+    case ATTACK_2:
+        return this->mCharacterAction.GetAttack(2);
+        break;
+
+    case SPELL_1:
+        return this->mCharacterAction.GetSpell(1);
+        break;
+    
+    case SPELL_2:
+        return this->mCharacterAction.GetSpell(2);
+        break;
+
     }
 
     
