@@ -55,7 +55,7 @@ namespace client {
         mX=lLocalPosition.x;
         mY=lLocalPosition.y;
 
-        if((mX<500)&&(mX>0)&&(mY<600)&&(mY>500)){
+        if((mX<265)&&(mX>180)&&(mY<535)&&(mY>510)){
             if( sf::Mouse::isButtonPressed(sf::Mouse::Left)){
                 return true;
             }
@@ -86,7 +86,7 @@ namespace client {
         mX=lLocalPosition.x;
         mY=lLocalPosition.y;
 
-        if((mX<800)&&(mX>0)&&(mY<600)&&(mY>500)){
+        if((mX<265)&&(mX>180)&&(mY<585)&&(mY>560)){
             if( sf::Mouse::isButtonPressed(sf::Mouse::Left)){
                 return true;
             }

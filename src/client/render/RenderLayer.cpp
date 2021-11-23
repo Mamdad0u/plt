@@ -70,7 +70,7 @@ namespace render {
         
         mUI.CreateWindow(0,500,800,100);
         mUI.SetTextVersion("Release V2.2");
-        mUI.DEBUG_SetTextAction1("Attaque/Sorts");
+        mUI.DEBUG_SetTextAction1("Attack/Spell");
         mUI.DEBUG_SetTextAction2("Objets");
         mUI.DEBUG_SetTextAction3("Menu");
         mUI.DEBUG_SetTextAction4("Quitter le jeu");
@@ -81,7 +81,6 @@ namespace render {
 
 
     void render::RenderLayer::DEBUG_SetRenderState(state::CombatStatus rNewState){
-
         switch(rNewState){
             case state::IN_COMBAT:
                 mUI.DEBUG_SetTextCombatState("IN_COMBAT");
