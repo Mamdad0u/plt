@@ -19,8 +19,10 @@ namespace client {
         mStatsNameMap[DEFENSE] = "DEFENSE";
         mStatsNameMap[LUCK] = "LUCK";
 
-
-
+        mActionMap[ATTACK_1] = "ATTACK_1";
+        mActionMap[ATTACK_2] = "ATTACK_2";
+        mActionMap[SPELL_1] = "SPELL_1";
+        mActionMap[SPELL_2] = "SPELL_2";
     }
 
     float client::Command::ComputeWeakAndStrength(state::Major rAttackerMajor, state::Major rVictimMajor){
@@ -166,7 +168,7 @@ namespace client {
         lAttackStat = rAttacker.GetCharacterStats(StatsName::ATTACK); // Attaque de l'attaquant
 
         lPVLost = ((lCoeffMajor * lCriticalHit * lAttackDamage * lAttackStat) / lVictimDefense) * lMagicCoefficiant;
-        cout << rAttacker.GetName() << " inflicted " << lPVLost << " PV lost on " << rVictim.GetName() << endl;
+        cout  << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " inflicted " << lPVLost << " PV lost on " << rVictim.GetName() << endl;
         
         /*Calcul de l'effet du buff*/
         lBuffValue = lActionGot->GetStatBuffValue();
@@ -175,10 +177,10 @@ namespace client {
 
         if(!lBeneficial){ // Buff non bénéfique
             lBuffValue = lBuffValue * (-1);
-            cout << rAttacker.GetName() << " inflicted " << lBuffValue << " " <<mStatsNameMap[lBuffName] << " on " << rVictim.GetName() << endl;
+            cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " inflicted " << lBuffValue << " " <<mStatsNameMap[lBuffName] << " disadvantageous on " << rVictim.GetName() << endl;
         }
         else{ // Buff bénéfique
-            cout << rAttacker.GetName() << " got +" << lBuffValue << " " << mStatsNameMap[lBuffName] << " beneficial" << endl;
+            cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " got +" << lBuffValue << " " << mStatsNameMap[lBuffName] << " beneficial" << endl;
         }
 
         
