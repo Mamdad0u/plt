@@ -125,7 +125,7 @@ namespace client {
         
     }
 
-    float client::Command::ComputeAction(state::Character &rAttacker, state::Character &rVictim, CommandID rActionMade){
+    void client::Command::ComputeAction(state::Character &rAttacker, state::Character &rVictim, CommandID rActionMade){
         float lCoeffMajor;
         int lCriticalHit;
         int lAttackDamage;
@@ -199,10 +199,6 @@ namespace client {
             cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " got +" << lBuffValue << " " << mStatsNameMap[lBuffName] << " beneficial" << endl;
             cout << rAttacker.GetName() << " "<<  mStatsNameMap[lBuffName] << " is now " << rAttacker.GetCharacterStats(lBuffName) << endl;
         }
-
-        
-        
-        return lPVLost;
         
 
 
