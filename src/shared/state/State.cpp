@@ -13,8 +13,12 @@ std::vector<Character> State::GetCharacter() {
     
 }
 
-void State::MoveNextTurn() {
-    
+void State::MoveNextCombat() {
+    this->mCombatNumber++;
+}
+
+int State::GetCombatNumber(){
+    return this->mCombatNumber;
 }
 
 void State::SetCombatState(CombatStatus rNewCombatState) {
