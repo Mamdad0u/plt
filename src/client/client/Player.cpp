@@ -8,6 +8,6 @@ namespace client {
     }
 
     CommandID client::Player::GetStatusCommand(){
-        return this->CommandStatus;
+        return this->mCommandStatus;
     }
 }
