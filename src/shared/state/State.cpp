@@ -33,7 +33,11 @@ Player_Status State::GetPlayerStatus(){
     return this->mPlayerStatus;
 }
 
-void State::InitializeEnemyCharactersList() {
+void State::SetPlayerStatus(Player_Status rNewPlayerStatus){
+    this->mPlayerStatus = rNewPlayerStatus;
+}
+
+void State::InitializeEnemy() {
     
 }
 
@@ -50,7 +54,20 @@ void State::GotoNextArena() {
 }
 
 void State::AddPlayerCharacter(Character rNewCharacter) {
+
     mPlayersCharacters.push_back(rNewCharacter);
+}
+
+Character State::GetActivePlayerCharacter(){
+    
+    for(int lIndex=mActivePlayerCharacter; lIndex<MAX_CHARACTER; lIndex++){
+        if((mPlayersCharacters[lIndex].GetCharacterStatus() != DEAD)){
+            return this->mPlayersCharacters[lIndex];
+        }
+    }
+    
+
+
 }
 
 }
