@@ -2,6 +2,10 @@
 #include "Character.h"
 namespace state {
 
+state::Character::Character(){
+
+
+}
 
 state::Character::Character(std::string rCharacterName, Major rCharacterMajor, CharacterStatus rCharacterStatus) {
 
@@ -9,6 +13,7 @@ state::Character::Character(std::string rCharacterName, Major rCharacterMajor, C
     this->mCharacterMajor = rCharacterMajor;
     this->mCharacterStatus = rCharacterStatus;
 }
+
 
 
 void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
