@@ -4,9 +4,11 @@ namespace state {
     
 
 
-State::State(CombatStatus rCombatStatus) {
+State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
     this->mCombatStatus = rCombatStatus;
+    this->mPlayerStatus = rPlayerStatus;
     mPlayersCharacters.reserve(MAX_CHARACTER);
+    mEnemyCharacters.reserve(MAX_ENEMY_NUMBER);
 }
 
 std::vector<Character> State::GetCharacter() {
@@ -53,7 +55,7 @@ void State::GotoNextArena() {
     
 }
 
-void State::AddPlayerCharacter(Character rNewCharacter) {
+void State::AddPlayerCharacter(Character& rNewCharacter) {
 
     mPlayersCharacters.push_back(rNewCharacter);
 }
@@ -62,11 +64,34 @@ Character State::GetActivePlayerCharacter(){
     
     for(int lIndex=mActivePlayerCharacter; lIndex<MAX_CHARACTER; lIndex++){
         if((mPlayersCharacters[lIndex].GetCharacterStatus() != DEAD)){
-            return this->mPlayersCharacters[lIndex];
+            return this->mPlayersCharacters[lIndex]; //Returning 1st character not dead since the last one active
         }
     }
     
+}
 
+Character State::GetEnemyCharacter(){
+    return this->mEnemyCharacters[0];
+
+
+}
+
+void State::MoveActivePlayer(){
+    if(mActivePlayerCharacter < MAX_CHARACTER){
+        mActivePlayerCharacter++;
+
+        if((mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() != DEAD)  && mActivePlayerCharacter < MAX_CHARACTER){
+            mActivePlayerCharacter++;
+        }
+
+        else{
+            mActivePlayerCharacter = 0;
+        }
+    }
+
+    else{
+        mActivePlayerCharacter = 0;
+    }
 
 }
 
