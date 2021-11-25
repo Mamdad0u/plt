@@ -39,7 +39,7 @@ namespace client {
 
     void client::EngineObserver::Update ( PlayerObserver* rNewPlayerObserver) {
         
-        cout << "New player action is " << rNewPlayerObserver->GetStatusCommand();
+        cout << "New player action is " << rNewPlayerObserver->GetStatusCommand() << endl;;
         
         mInputCommandID = rNewPlayerObserver->GetStatusCommand();
         mIsNewPlayerCommand = true;
