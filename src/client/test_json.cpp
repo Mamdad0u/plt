@@ -7,12 +7,12 @@ using namespace std;
 
 int main(void) {
 
-    ifstream ifs("rules.json");
+    ifstream ifs("/home/mamdadou/Projet_PLT/plt/res/JSON_files/statistics.json");
     Json::Reader reader;
     Json::Value obj;
 
     reader.parse(ifs,obj);
-    cout << "Character's statistics : \n" << obj["Statistics"]["IS"]["PV"] <<endl;
+    cout << "Character's statistics : \n" << obj["Statistics"]["IS"]["PV"].asInt() <<endl;
 
     return 0;
 }
