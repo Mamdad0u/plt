@@ -1,5 +1,8 @@
 #include <client/Engine.h>  // Included from library shared_static
 #include "Engine.h"
+#include <iostream>
+
+using namespace std;
 
 namespace client {
     client::Engine::Engine(){
@@ -16,7 +19,7 @@ namespace client {
         UUT_Character_IS.SetCharacterStats(state::DEFENSE, 80);
         UUT_Character_IS.SetCharacterStats(state::LUCK, 5);
         UUT_Character_IS.SetCharacterAction(state::ATTACK_1, 80, state::LUCK, 3, true);
-        // UUT_Character_IS.SetCharacterAction(state::ATTACK_2, 60, LUCK, 60, 0, false);
+        UUT_Character_IS.SetCharacterAction(state::ATTACK_2, 60, state::LUCK, 0, true);
 
 
 
@@ -28,16 +31,16 @@ namespace client {
         UUT_Character_SIA.SetCharacterAction(state::ATTACK_1, 80, state::LUCK, 0, true); 
 
         mCurrentState.AddPlayerCharacter(*(&UUT_Character_IS));
-        mCurrentState.AddPlayerCharacter(*(&UUT_Character_SIA));
+        mCurrentState.AddEnemyCharacter(*(&UUT_Character_SIA));
     }
 
     void client::Engine::GameLoop(){
-        
+       
         state::CombatStatus lGameStatus = mCurrentState.GetCombatState();
         state::Player_Status lPlayerStatus = mCurrentState.GetPlayerStatus();
-        state::Character lActivePlayerCharacter = mCurrentState.GetActivePlayerCharacter();
-        state::Character lEnemyCharacter = mCurrentState.GetEnemyCharacter();
-
+        state::Character lActivePlayerCharacter = *(mCurrentState.GetActivePlayerCharacter());
+        state::Character lEnemyCharacter = *(mCurrentState.GetEnemyCharacter());
+        
         switch (lGameStatus)
         {
         case state::IN_COMBAT:

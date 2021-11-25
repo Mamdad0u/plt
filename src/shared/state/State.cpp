@@ -60,18 +60,23 @@ void State::AddPlayerCharacter(Character& rNewCharacter) {
     mPlayersCharacters.push_back(rNewCharacter);
 }
 
-Character State::GetActivePlayerCharacter(){
+void State::AddEnemyCharacter(Character& rNewCharacter){
+    mEnemyCharacters.push_back(rNewCharacter);
+
+}
+
+Character* State::GetActivePlayerCharacter(){
     
     for(int lIndex=mActivePlayerCharacter; lIndex<MAX_CHARACTER; lIndex++){
         if((mPlayersCharacters[lIndex].GetCharacterStatus() != DEAD)){
-            return this->mPlayersCharacters[lIndex]; //Returning 1st character not dead since the last one active
+            return &this->mPlayersCharacters[lIndex]; //Returning 1st character not dead since the last one active
         }
     }
     
 }
 
-Character State::GetEnemyCharacter(){
-    return this->mEnemyCharacters[0];
+Character* State::GetEnemyCharacter(){
+    return &this->mEnemyCharacters[0];
 
 
 }
