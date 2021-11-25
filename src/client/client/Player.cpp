@@ -3,11 +3,11 @@
 
 namespace client {
     void client::Player::SetStatusCommand(CommandID NewCommand){
-        
+        mInputCommand = NewCommand;
         NotifyNewPlayerCommand();
     }
 
-    CommandID client::Player::GetStatusCommand(){
-        return this->mCommandStatus;
+    CommandID client::Player::GetStatusCommand () const{
+        return this->mInputCommand;
     }
 }
