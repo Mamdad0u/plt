@@ -7,9 +7,9 @@
 namespace state {
 
 
-state::Character::Character(Major rCharacterMajor, CharacterStatus rCharacterStatus, std::string rCharacterName) {
+state::Character::Character(std::string rCharacterName, Major rCharacterMajor, CharacterStatus rCharacterStatus) {
 
-    this->mCharacterName = rCharacterName;
+    this->mName = rCharacterName;
     this->mCharacterMajor = rCharacterMajor;
     this->mCharacterStatus = rCharacterStatus;
 }
@@ -98,6 +98,26 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
 
 }
 
+void state::Character::SetCharacterAction(ActionListCommand rAction, int rDamageValue, StatsName rStatsBuffName, int rStatsBuffValue, bool rBeneficial){
+    switch (rAction)
+    {
+    case ATTACK_1:
+        mCharacterAction.SetAttack(1, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
+        break;
+    
+    case ATTACK_2:
+        mCharacterAction.SetAttack(2, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
+        break;
+
+    case SPELL_1:
+        mCharacterAction.SetSpell(1, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
+        break;
+
+    case SPELL_2:
+        mCharacterAction.SetSpell(2, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
+        break;
+    }
+}
 
 Major state::Character::GetMajor() {
     return this->mCharacterMajor;
@@ -122,6 +142,36 @@ Options state::Character::GetCharacterOption() {
 
 }
 */
+
+Action* state::Character::GetAction(ActionListCommand rActionType){
+    switch (rActionType)
+    {
+    case ATTACK_1:
+        return this->mCharacterAction.GetAttack(1);
+        break;
+    
+    case ATTACK_2:
+        return this->mCharacterAction.GetAttack(2);
+        break;
+
+    case SPELL_1:
+        return this->mCharacterAction.GetSpell(1);
+        break;
+    
+    case SPELL_2:
+        return this->mCharacterAction.GetSpell(2);
+        break;
+
+    }
+
+    
+}
+
+
+
+    
+
+
 
 
 

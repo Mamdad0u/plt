@@ -6,6 +6,7 @@ namespace state {
 
 State::State(CombatStatus rCombatStatus) {
     this->mCombatStatus = rCombatStatus;
+    mPlayersCharacters.reserve(MAX_CHARACTER);
 }
 
 std::vector<Character> State::GetCharacter() {
@@ -22,6 +23,10 @@ void State::SetCombatState(CombatStatus rNewCombatState) {
 
 CombatStatus State::GetCombatState(){
     return this->mCombatStatus;
+}
+
+Player_Status State::GetPlayerStatus(){
+    return this->mPlayerStatus;
 }
 
 void State::InitializeEnemyCharactersList() {
@@ -41,7 +46,7 @@ void State::GotoNextArena() {
 }
 
 void State::AddPlayerCharacter(Character rNewCharacter) {
-    
+    mPlayersCharacters.push_back(rNewCharacter);
 }
 
 }

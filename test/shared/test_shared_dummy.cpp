@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE(TestCharacter)
 {
   {
        
-    Character UT_Character(ELEC, DEAD, "ESE");
+    Character UT_Character("SIA", ELEC, DEAD);
 
     UT_Character.SetCharacterStats(ATTACK, 15);
     
@@ -60,9 +60,7 @@ BOOST_AUTO_TEST_CASE(TestState)
 {
   {
 
-    State UT_State(PLAYER_TURN);
 
-    BOOST_CHECK_EQUAL(UT_State.GetCombatState(), PLAYER_TURN);
   }
 
 
