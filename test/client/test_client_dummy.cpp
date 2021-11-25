@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "client/Engine.h"
+#include "client/Player.h"
 
 using namespace ::client;
 using namespace ::state;
@@ -27,7 +28,7 @@ BOOST_AUTO_TEST_CASE(TestSFML)
   }
 }
 
-BOOST_AUTO_TEST_CASE(TestEngine){
+BOOST_AUTO_TEST_CASE(TestCommand){
   {
     Engine UUT_Engine;
     state::Character UUT_Character_IS("IS", state::INFO, state::ALIVE);
@@ -60,12 +61,12 @@ BOOST_AUTO_TEST_CASE(TestEngine){
     
     
 
-    for(int i = 0; i<2;i++){
+/*     for(int i = 0; i<2;i++){
       //UUT_Engine.mCommand.ComputeCriticalHit(UUT_Character_IS.GetCharacterStats(LUCK));
       UUT_Engine.mCommand.ComputeAction(*(&UUT_Character_SIA), *(&UUT_Character_IS), CommandID::ATTACK_1);
       UUT_Engine.mCommand.ComputeAction(*(&UUT_Character_IS), *(&UUT_Character_SIA), CommandID::ATTACK_1);
       
-    }
+    } */
      
 
   }
@@ -75,5 +76,18 @@ BOOST_AUTO_TEST_CASE(TestEngine){
 
 }
 
+BOOST_AUTO_TEST_CASE(TestEngine){
+  {
+  Engine NewEngine;
+  Player NewPlayer;
+  
+  NewPlayer.AddEngineObserver(&NewEngine);
+  NewPlayer.SetStatusCommand(CommandID::ATTACK_1);
+
+  NewEngine.GameLoop();
+  NewPlayer.SetStatusCommand(CommandID::ATTACK_2);
+  
+  }
+}
 
 BOOST_AUTO_TEST_SUITE_END()
