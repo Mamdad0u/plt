@@ -69,6 +69,8 @@ namespace client {
                 3. Execute command
                 4. Move next turn                
                 */
+
+                mCurrentState.SetPlayerStatus(state::PLAYER_TURN);
                 break;
             
 
