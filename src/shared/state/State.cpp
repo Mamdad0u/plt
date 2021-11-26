@@ -144,7 +144,26 @@ bool State::GetAlivePlayer(){
 
     return true;
 
+}
+
+bool State::GetAliveEnemy(){
+    int lDeadCharacter = 0;
+
+    for(int i=0;i<mEnemyCharacters.size();i++){
+        if(mEnemyCharacters[i].GetCharacterStatus() == DEAD){
+            lDeadCharacter++;
+        }
+    }
+
+    if(lDeadCharacter == mEnemyCharacters.size()){
+        return false;
+    }
+
+    return true;
+
 
 }
+
+
 
 }
