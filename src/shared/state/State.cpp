@@ -1,10 +1,18 @@
 #include <state/State.h>  // Included from library shared_static
 #include "State.h"
+#include <iostream>
+
+using namespace std;
+
 namespace state {
     
 
 
 State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
+    
+    mPlayerStatusStringMap[PLAYER_TURN] = "PAYER TURN";
+    mPlayerStatusStringMap[IA_TURN] = "IA TURN";
+    
     this->mCombatStatus = rCombatStatus;
     this->mPlayerStatus = rPlayerStatus;
     mPlayersCharacters.reserve(MAX_CHARACTER);
@@ -36,7 +44,9 @@ Player_Status State::GetPlayerStatus(){
 }
 
 void State::SetPlayerStatus(Player_Status rNewPlayerStatus){
+
     this->mPlayerStatus = rNewPlayerStatus;
+    cout << "************ IT IS NOW " << mPlayerStatusStringMap[mPlayerStatus] << " ! ************" << endl;
 }
 
 void State::InitializeEnemy() {

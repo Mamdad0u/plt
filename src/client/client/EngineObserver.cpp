@@ -38,8 +38,13 @@ namespace client {
     }
 
     void client::EngineObserver::Update ( PlayerObserver* rNewPlayerObserver) {
-        
-        cout << "New player action is " << rNewPlayerObserver->GetStatusCommand() << endl;;
+        std::map<CommandID,std::string> lCommandIDStringMap;
+        lCommandIDStringMap[ATTACK_1] = "ATTACK 1";
+        lCommandIDStringMap[ATTACK_2] = "ATTACK 2";
+        lCommandIDStringMap[SPELL_1] = "SPELL 1";
+        lCommandIDStringMap[SPELL_2] = "SPELL 2";
+
+        cout << "New player action is " << lCommandIDStringMap[rNewPlayerObserver->GetStatusCommand()] << endl;
         
         mInputCommandID = rNewPlayerObserver->GetStatusCommand();
         mIsNewPlayerCommand = true;
