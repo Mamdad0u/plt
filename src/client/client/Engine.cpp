@@ -5,6 +5,7 @@
 using namespace std;
 
 namespace client {
+
     client::Engine::Engine(){
         /*INITIALISATION*/
 
@@ -49,7 +50,7 @@ namespace client {
             case state::PLAYER_TURN:
                 if(mIsNewPlayerCommand){ // 1. Wait for input command
 
-                    mCommand.ComputeAction(*(&lActivePlayerCharacter), *(&lEnemyCharacter), mInputCommandID);
+                    mCommand.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), mInputCommandID); // Le joueur attaque l'IA
                     mIsNewPlayerCommand = false; // The command has been executed
                     mCurrentState.SetPlayerStatus(state::IA_TURN); // Give the turn to opponent 
                     
@@ -69,7 +70,11 @@ namespace client {
                 3. Execute command
                 4. Move next turn                
                 */
+                if(mIsNewAICommand){
+                    mCommand.ComputeAction(*(mCurrentState.GetEnemyCharacter()), *(mCurrentState.GetActivePlayerCharacter()), mInputCommandID); // L'IA attaque le joueur
 
+                }
+                mIsNewAICommand = false;
                 mCurrentState.SetPlayerStatus(state::PLAYER_TURN);
                 break;
             
@@ -85,6 +90,8 @@ namespace client {
 
             // Check alive player 
         }
+
+        
 
 
         
