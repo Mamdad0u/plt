@@ -48,6 +48,7 @@ namespace client {
         
         mInputCommandID = rNewPlayerObserver->GetStatusCommand();
         mIsNewPlayerCommand = true;
+        mIsNewAICommand = true;
     }
 
 
