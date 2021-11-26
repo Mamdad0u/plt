@@ -31,16 +31,15 @@ namespace client {
         UUT_Character_SIA.SetCharacterStats(state::LUCK, 3);
         UUT_Character_SIA.SetCharacterAction(state::ATTACK_1, 80, state::LUCK, 0, true); 
 
-        mCurrentState.AddPlayerCharacter(*(&UUT_Character_IS));
-        mCurrentState.AddEnemyCharacter(*(&UUT_Character_SIA));
+        mCurrentState.AddPlayerCharacter(*(&UUT_Character_SIA));
+        mCurrentState.AddEnemyCharacter(*(&UUT_Character_IS));
     }
 
-    void client::Engine::GameLoop(){
+    state::CombatStatus client::Engine::GameLoop(){
        
         state::CombatStatus lGameStatus = mCurrentState.GetCombatState();
         state::Player_Status lPlayerStatus = mCurrentState.GetPlayerStatus();
-        state::Character lActivePlayerCharacter = *(mCurrentState.GetActivePlayerCharacter());
-        state::Character lEnemyCharacter = *(mCurrentState.GetEnemyCharacter());
+
         
         switch (lGameStatus)
         {
@@ -82,19 +81,32 @@ namespace client {
 
 
             }
+            
+            mCurrentState.SetAlivePlayer();
+            mCurrentState.SetAliveEnemy();
+
+            if(mCurrentState.GetAlivePlayer() == false){
+                mCurrentState.SetCombatState(state::GAME_OVER);
+
+            }
+
+            if(mCurrentState.GetAliveEnemy() == false){
+                mCurrentState.SetCombatState(state::OUT_COMBAT);
+            }
             break;
         
+
         case state::OUT_COMBAT:
 
             break;
 
             // Check alive player 
+
         }
+        // Check alive player 
 
-        
 
-
-        
+        return mCurrentState.GetCombatState();
         
     }
 
