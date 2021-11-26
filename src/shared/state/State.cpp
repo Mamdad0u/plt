@@ -10,7 +10,7 @@ namespace state {
 
 State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
     
-    mPlayerStatusStringMap[PLAYER_TURN] = "PAYER TURN";
+    mPlayerStatusStringMap[PLAYER_TURN] = "PLAYER TURN";
     mPlayerStatusStringMap[IA_TURN] = "IA TURN";
     
     this->mCombatStatus = rCombatStatus;
@@ -107,6 +107,43 @@ void State::MoveActivePlayer(){
     else{
         mActivePlayerCharacter = 0;
     }
+
+}
+
+void State::SetAlivePlayer(){
+
+    for(int i=0;i<mPlayersCharacters.size();i++){
+        if(mPlayersCharacters[i].GetCharacterStats(LIFE_POINTS) == 0){
+            mPlayersCharacters[i].SetCharacterStatus(DEAD);
+        }
+    }
+}
+
+
+void State::SetAliveEnemy(){
+
+    for(int i=0;i<mEnemyCharacters.size();i++){
+        if(mEnemyCharacters[i].GetCharacterStats(LIFE_POINTS) == 0){
+            mEnemyCharacters[i].SetCharacterStatus(DEAD);
+        }
+    }
+}
+
+bool State::GetAlivePlayer(){
+    int lDeadCharacter = 0;
+
+    for(int i=0;i<mPlayersCharacters.size();i++){
+        if(mPlayersCharacters[i].GetCharacterStatus() == DEAD){
+            lDeadCharacter++;
+        }
+    }
+
+    if(lDeadCharacter == mPlayersCharacters.size()){
+        return false;
+    }
+
+    return true;
+
 
 }
 
