@@ -1,6 +1,11 @@
 #include <state/Action.h>  // Included from library shared_static
 #include "Action.h"
 namespace state {
+    
+    state::Action::Action(){
+        this->mDamage = 0;
+        this->mStatBuffValue = 0;
+    }
 
     void state::Action::SetDamage(int rDamageValue){
         this->mDamage = rDamageValue;

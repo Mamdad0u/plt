@@ -56,18 +56,6 @@ BOOST_AUTO_TEST_CASE(TestCharacter)
   }
 }
 
-BOOST_AUTO_TEST_CASE(TestState)
-{
-  {
-
-    State UT_State(PLAYER_TURN);
-
-    BOOST_CHECK_EQUAL(UT_State.GetCombatState(), PLAYER_TURN);
-  }
-
-
-}
-
 
 
 /* vim: set sw=2 sts=2 et : */
