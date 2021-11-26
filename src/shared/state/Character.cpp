@@ -15,7 +15,6 @@ state::Character::Character(std::string rCharacterName, Major rCharacterMajor, C
 }
 
 
-
 void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
     switch (rStatsName)
     {
@@ -42,7 +41,6 @@ void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
     case LUCK:
         mCharacterStats.Set_luck(rValue);
         break;
-
         
     default:
         break;

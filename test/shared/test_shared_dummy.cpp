@@ -60,7 +60,9 @@ BOOST_AUTO_TEST_CASE(TestState)
 {
   {
 
+    State UT_State(PLAYER_TURN);
 
+    BOOST_CHECK_EQUAL(UT_State.GetCombatState(), PLAYER_TURN);
   }
 
 
