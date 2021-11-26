@@ -22,9 +22,24 @@ namespace render {
             mDebugTextState.setCharacterSize(24);
             mDebugTextState.setPosition(sf::Vector2f(400.f,0.f));
 
-            mMenuAction.setFont(mFont);
-            mMenuAction.setCharacterSize(24);
-            mMenuAction.setPosition(sf::Vector2f(350.f,550.f));
+            mMenuAction2.setFont(mFont);
+            mMenuAction2.setCharacterSize(20);
+            mMenuAction2.setPosition(sf::Vector2f(35.f,550.f));
+
+            mMenuAction1.setFont(mFont);
+            mMenuAction1.setCharacterSize(20);
+            mMenuAction1.setPosition(sf::Vector2f(35.f,510.f));
+            mRectAction1.setPosition(sf::Vector2f(35.f,510.f));
+
+            mMenuAction3.setFont(mFont);
+            mMenuAction3.setCharacterSize(20);
+            mMenuAction3.setPosition(sf::Vector2f(180.f,510.f));
+
+            mMenuAction4.setFont(mFont);
+            mMenuAction4.setCharacterSize(20);
+            mMenuAction4.setPosition(sf::Vector2f(180.f,550.f));
+
+            
             
         }
 
@@ -72,10 +87,29 @@ namespace render {
         mDebugTextState.setPosition(sf::Vector2f(mDebugTextState.getPosition().x,mDebugTextState.getPosition().y));
     }
 
-    void render::UI::DEBUG_SetTextAction(std::string rTextAction){
+    void render::UI::DEBUG_SetTextAction1(std::string rTextAction){
 
-        mMenuAction.setString(rTextAction);
+        mMenuAction1.setString(rTextAction);
+        mRectAction1.setSize(sf::Vector2f(85,25));
+        mRectAction1.setFillColor(sf::Color::Transparent);
+        mRectAction1.setOutlineThickness(2);
+        mRectAction1.setOutlineColor(sf::Color::Red);
 
+    }
+
+    void render::UI::DEBUG_SetTextAction2(std::string rTextAction) {
+
+        mMenuAction2.setString(rTextAction);
+    }
+
+    void render::UI::DEBUG_SetTextAction3(std::string rTextAction) {
+
+        mMenuAction3.setString(rTextAction);
+    }
+
+    void render::UI::DEBUG_SetTextAction4(std::string rTextAction) {
+
+        mMenuAction4.setString(rTextAction);
     }
 
     
@@ -93,7 +127,11 @@ namespace render {
         target.draw(mVertices, states);
         target.draw(mTextVersion);
         target.draw(mDebugTextState);
-        target.draw(mMenuAction);
+        target.draw(mMenuAction1);
+        target.draw(mMenuAction2);
+        target.draw(mMenuAction3);
+        target.draw(mMenuAction4);
+        target.draw(mRectAction1);
 
     }
 

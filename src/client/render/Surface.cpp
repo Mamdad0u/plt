@@ -44,13 +44,23 @@ namespace render {
         return 0;
     }
 
-    int render::Surface::LoadCharacterSprite(const std::string& rTextureName, int rX, int rY){
-
+    int render::Surface::LoadCharacterSprite(const std::string& rTextureName, int rX, int rY, int rSide){
         string lResPath = "res/" + rTextureName;
-        mCharacterRectSource.left = 0;
-        mCharacterRectSource.top = 0;
-        mCharacterRectSource.width = 16;
-        mCharacterRectSource.height = 24;
+        if(rSide==1){ //Si le Character est un personnage du joueur
+             cout << "Joueur" << endl;
+             mCharacterRectSource.left = 0;
+             mCharacterRectSource.top = 0;
+             mCharacterRectSource.width = 16;
+             mCharacterRectSource.height = 24;
+        }
+        if(rSide==0){ //Si le Character est un boss
+            
+             mCharacterRectSource.left = 96;
+             mCharacterRectSource.top = 0;
+             mCharacterRectSource.width = 16;
+             mCharacterRectSource.height = 24;
+        }
+       
 
         
         if (!mTexture.loadFromFile(lResPath))
@@ -105,21 +115,28 @@ namespace render {
         
     }
 
-    void render::Surface::UpdateCharacterAnimation(){
+    void render::Surface::UpdateCharacterAnimation(int rSize){
         mCharacterRectSource.left += 16;
 
-
-        if(mCharacterRectSource.left == 96){
-            mCharacterRectSource.left = 0;
+        if(rSize==0){
+            if(mCharacterRectSource.left == 192){
+                mCharacterRectSource.left = 96;
+            }
+        }
+        if(rSize==1){
+            if(mCharacterRectSource.left == 96){
+                mCharacterRectSource.left = 0;
+            }
         }
 
         mSprite.setTextureRect(mCharacterRectSource);
 
     }
 
-    void render::Surface::MoveBackgroundView(sf::RenderWindow& rWindow){
+    void render::Surface::MoveBackgroundView(sf::RenderWindow& rWindow, int rMovingProgress){
         rWindow.setView(mView);
         mView.move(sf::Vector2f(1.f,0.f));
+        
     }
 
     void render::Surface::MoveCharacterSprite(){

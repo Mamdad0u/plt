@@ -1,10 +1,15 @@
 #include <state/Character.h>  // Included from library shared_static
 #include "Character.h"
+#include <fstream>
+//#include <jsoncpp/json/json.h>
+//#include "jsoncpp/json/value.h"
+#include <iostream>
 namespace state {
 
 
-state::Character::Character(Major rCharacterMajor, CharacterStatus rCharacterStatus) {
+state::Character::Character(std::string rCharacterName, Major rCharacterMajor, CharacterStatus rCharacterStatus) {
 
+    this->mName = rCharacterName;
     this->mCharacterMajor = rCharacterMajor;
     this->mCharacterStatus = rCharacterStatus;
 }
@@ -36,10 +41,6 @@ void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
     case LUCK:
         mCharacterStats.Set_luck(rValue);
         break;
-
-    case ALACRITY:
-        mCharacterStats.Set_alacrity(rValue);
-        break;
         
     default:
         break;
@@ -47,10 +48,20 @@ void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
 }
 
 int state::Character::GetCharacterStats(StatsName rStatsName) {
+   
+   /*
+   ifstream ifs("res/JSON_files/statistics.json");
+    Json::Reader reader;
+    Json::Value obj;
+
+    reader.parse(ifs,obj);
+    */
+
     switch (rStatsName)
     {
     case MAX_LIFE_POINTS:
         return this->mCharacterStats.Get_max_life_points();
+        //return obj["Statistics"][this->mCharacterOption]["PV"];
         break;
 
     case LIFE_POINTS:
@@ -59,32 +70,76 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
 
     case ATTACK:
         return this->mCharacterStats.Get_attack();
+        //return obj["Statistics"][this->mCharacterOption]["ATTACK"];
         break;
 
     case POWER:
         return this->mCharacterStats.Get_power();
+        //return obj["Statistics"][this->mCharacterOption]["POWER"];
         break;
     
     case DEFENSE:
         return this->mCharacterStats.Get_defense();
+        //return obj["Statistics"][this->mCharacterOption]["DEFENSE"];
         break;
 
     case LUCK:
         return this->mCharacterStats.Get_luck();
-        break;
-
-    case ALACRITY:
-        return this->mCharacterStats.Get_alacrity();
+        //return obj["Statistics"][this->mCharacterOption]["LUCK"];
         break;
         
     default:
         break;
     } 
 
+    
+
 
 
 }
 
+void state::Character::SetCharacterAction(ActionListCommand rAction, int rValue){
+    switch (rAction)
+    {
+    case ATTACK_1:
+        mCharacterAction.SetAttack(1, rValue);
+        break;
+    
+    case ATTACK_2:
+        mCharacterAction.SetAttack(2, rValue);
+        break;
+
+    case SPELL_1:
+        mCharacterAction.SetSpell(1, rValue);
+        break;
+
+    case SPELL_2:
+        mCharacterAction.SetSpell(2, rValue);
+        break;
+    }
+
+}
+
+void state::Character::SetCharacterBuffAction(ActionListCommand rAction, StatsName rStatBuffName, int rBuffValue, bool rBeneficial){
+    switch (rAction)
+    {
+    case ATTACK_1:
+        mCharacterAction.SetAttackBuff(1, rStatBuffName, rBuffValue, rBeneficial);
+        break;
+
+    case ATTACK_2:
+        mCharacterAction.SetAttackBuff(2, rStatBuffName, rBuffValue, rBeneficial);
+        break;
+
+    case SPELL_1:
+         mCharacterAction.SetSpellBuff(1, rStatBuffName, rBuffValue, rBeneficial);
+         break;
+
+    case SPELL_2:
+         mCharacterAction.SetSpellBuff(2, rStatBuffName, rBuffValue, rBeneficial);
+         break;
+    }
+}
 
 Major state::Character::GetMajor() {
     return this->mCharacterMajor;
@@ -100,6 +155,27 @@ CharacterStatus state::Character::GetCharacterStatus(){
 
     return this->mCharacterStatus;
 
+}
+
+/*
+Options state::Character::GetCharacterOption() {
+
+    return this->mCharacterOption;
+
+}
+*/
+
+Action* state::Character::MakeAction(ActionListCommand rActionType){
+    switch (rActionType)
+    {
+    case ATTACK_1:
+        return this->mCharacterAction.GetAttack(1);
+    
+    default:
+        break;
+    }
+
+    
 }
 
 
