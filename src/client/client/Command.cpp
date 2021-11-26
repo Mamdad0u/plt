@@ -125,17 +125,12 @@ namespace client {
         
     }
 
-<<<<<<< HEAD
     void client::Command::ComputeAction(state::Character &rAttacker, state::Character &rVictim, CommandID rActionMade){
-=======
-    float client::Command::ComputePVLost(state::Character &rAttacker, state::Character &rVictim, CommandID rActionMade){
->>>>>>> 670e6c8504b1e6739934b7c95b669947e1dd986d
         float lCoeffMajor;
         int lCriticalHit;
         int lAttackDamage;
         int lVictimDefense;
         int lAttackStat;
-<<<<<<< HEAD
         int lVictimLifePoints;
         int lVictimStat;
         float lPVLost;
@@ -144,17 +139,12 @@ namespace client {
         StatsName lBuffName;
         bool lBeneficial;
         
-=======
-        float lPVLost;
-        const float lMagicCoefficiant = 0.44;
->>>>>>> 670e6c8504b1e6739934b7c95b669947e1dd986d
         Action* lActionGot = nullptr;
 
         /*Récupération du type d'action*/
         switch (rActionMade)
         {
         case ATTACK_1:
-<<<<<<< HEAD
             lActionGot = rAttacker.GetAction(state::ATTACK_1);
             break;
         
@@ -168,37 +158,17 @@ namespace client {
 
         case SPELL_2:
             lActionGot = rAttacker.GetAction(state::SPELL_2);
-=======
-            lActionGot = rAttacker.MakeAction(state::ATTACK_1);
-            break;
-        
-        case ATTACK_2:
-            lActionGot = rAttacker.MakeAction(state::ATTACK_2);
-            break;
-
-        case SPELL_1:
-            lActionGot = rAttacker.MakeAction(state::SPELL_1);
-            break;
-
-        case SPELL_2:
-            lActionGot = rAttacker.MakeAction(state::SPELL_2);
->>>>>>> 670e6c8504b1e6739934b7c95b669947e1dd986d
             break;
 
         }
 
-<<<<<<< HEAD
 
         /*Calcul du nombre de PV perdu*/
-=======
-        /*Calcul*/
->>>>>>> 670e6c8504b1e6739934b7c95b669947e1dd986d
         lCoeffMajor = ComputeWeakAndStrength(rAttacker.GetMajor(), rVictim.GetMajor()); // Calcul avantage/désavantage majeur
         lCriticalHit = ComputeCriticalHit(rAttacker.GetCharacterStats(StatsName::LUCK)); // Calcul coup critique
         lAttackDamage = lActionGot->GetDamage(); // Dégâts de l'attaque
         lVictimDefense = rVictim.GetCharacterStats(StatsName::DEFENSE); // Défense de la victime
         lAttackStat = rAttacker.GetCharacterStats(StatsName::ATTACK); // Attaque de l'attaquant
-<<<<<<< HEAD
         lVictimLifePoints = rVictim.GetCharacterStats(LIFE_POINTS);
         
         lPVLost = ((lCoeffMajor * lCriticalHit * lAttackDamage * lAttackStat) / lVictimDefense) * lMagicCoefficiant;
@@ -237,13 +207,6 @@ namespace client {
             }
         }
         
-=======
-       
-
-        lPVLost = ((lCoeffMajor * lCriticalHit * lAttackDamage * lAttackStat) / lVictimDefense) * lMagicCoefficiant;
-        cout << rAttacker.GetName() << " inflicted " << lPVLost << " on " << rVictim.GetName() << endl;; 
-        return lPVLost;
->>>>>>> 670e6c8504b1e6739934b7c95b669947e1dd986d
         
 
 
@@ -268,14 +231,4 @@ namespace client {
 
     }
 
-<<<<<<< HEAD
-
-=======
-    float client::Command::ComputeBuffEffect(state::Character& rAttacker){
-
-        
-
-
-    }
->>>>>>> 670e6c8504b1e6739934b7c95b669947e1dd986d
 }
