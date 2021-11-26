@@ -4,6 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <render/RenderLayer.h>
+#include <client/Engine.h>
 
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
@@ -22,13 +23,14 @@ using namespace std;
 using namespace state;
 using namespace sf;
 using namespace render;
+using namespace client;
 
 int main(int argc,char* argv[])
 {
     sf::Clock clock;
     sf::Clock clockState;
     RenderLayer lRender;
-    State GameStatus(IN_COMBAT);
+    State GameStatus(IN_COMBAT, PLAYER_TURN);
     int lMovingProgress = 0;
 
 
@@ -116,7 +118,9 @@ int main(int argc,char* argv[])
         }
             
         else if(strcmp(argv[1], "engine") == 0){
-            
+            Engine GameEngine;
+            GameEngine.GameLoop();
+    
         }
     }
 
