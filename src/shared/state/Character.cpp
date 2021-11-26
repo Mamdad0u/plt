@@ -1,9 +1,14 @@
 #include <state/Character.h>  // Included from library shared_static
 #include "Character.h"
+#include <iostream>
+
+using namespace std;
+
 namespace state {
 
 state::Character::Character(){
-
+    mCharacterStatusStringMap[ALIVE] = "ALIVE";
+    mCharacterStatusStringMap[DEAD] = "DEAD";
 
 }
 
@@ -12,6 +17,9 @@ state::Character::Character(std::string rCharacterName, Major rCharacterMajor, C
     this->mName = rCharacterName;
     this->mCharacterMajor = rCharacterMajor;
     this->mCharacterStatus = rCharacterStatus;
+
+    mCharacterStatusStringMap[ALIVE] = "ALIVE";
+    mCharacterStatusStringMap[DEAD] = "DEAD";
 }
 
 
@@ -110,6 +118,7 @@ Major state::Character::GetMajor() {
 
 
 void state::Character::SetCharacterStatus(CharacterStatus rNewStatus){
+    cout << this->mName << " is now " <<  mCharacterStatusStringMap[rNewStatus] << endl;
     this->mCharacterStatus = rNewStatus;
 
 }
