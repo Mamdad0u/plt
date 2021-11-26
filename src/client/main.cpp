@@ -33,7 +33,7 @@ int main(int argc,char* argv[]){
     RenderLayer lRender;
     sf:: Vector2i LocalPosition;
     client::WindowCursor lCursor;
-    State GameStatus(IN_COMBAT);
+    State GameStatus(IN_COMBAT, PLAYER_TURN);
     int lMovingProgress = 1;
     if(argc > 1){
         if(strcmp(argv[1], "hello") == 0){
