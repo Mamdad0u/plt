@@ -80,46 +80,24 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
 
 }
 
-void state::Character::SetCharacterAction(ActionListCommand rAction, int rValue){
+void state::Character::SetCharacterAction(ActionListCommand rAction, int rDamageValue, StatsName rStatsBuffName, int rStatsBuffValue, bool rBeneficial){
     switch (rAction)
     {
     case ATTACK_1:
-        mCharacterAction.SetAttack(1, rValue);
+        mCharacterAction.SetAttack(1, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
         break;
     
     case ATTACK_2:
-        mCharacterAction.SetAttack(2, rValue);
+        mCharacterAction.SetAttack(2, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
         break;
 
     case SPELL_1:
-        mCharacterAction.SetSpell(1, rValue);
+        mCharacterAction.SetSpell(1, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
         break;
 
     case SPELL_2:
-        mCharacterAction.SetSpell(2, rValue);
+        mCharacterAction.SetSpell(2, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
         break;
-    }
-
-}
-
-void state::Character::SetCharacterBuffAction(ActionListCommand rAction, StatsName rStatBuffName, int rBuffValue, bool rBeneficial){
-    switch (rAction)
-    {
-    case ATTACK_1:
-        mCharacterAction.SetAttackBuff(1, rStatBuffName, rBuffValue, rBeneficial);
-        break;
-
-    case ATTACK_2:
-        mCharacterAction.SetAttackBuff(2, rStatBuffName, rBuffValue, rBeneficial);
-        break;
-
-    case SPELL_1:
-         mCharacterAction.SetSpellBuff(1, rStatBuffName, rBuffValue, rBeneficial);
-         break;
-
-    case SPELL_2:
-         mCharacterAction.SetSpellBuff(2, rStatBuffName, rBuffValue, rBeneficial);
-         break;
     }
 }
 
@@ -140,18 +118,34 @@ CharacterStatus state::Character::GetCharacterStatus(){
 }
 
 
-Action* state::Character::MakeAction(ActionListCommand rActionType){
+Action* state::Character::GetAction(ActionListCommand rActionType){
     switch (rActionType)
     {
     case ATTACK_1:
         return this->mCharacterAction.GetAttack(1);
-    
-    default:
         break;
+    
+    case ATTACK_2:
+        return this->mCharacterAction.GetAttack(2);
+        break;
+
+    case SPELL_1:
+        return this->mCharacterAction.GetSpell(1);
+        break;
+    
+    case SPELL_2:
+        return this->mCharacterAction.GetSpell(2);
+        break;
+
     }
 
     
 }
+
+
+
+    
+
 
 
 
