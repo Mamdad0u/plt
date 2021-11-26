@@ -1,12 +1,25 @@
 #include <state/Character.h>  // Included from library shared_static
 #include "Character.h"
+#include <iostream>
+
+using namespace std;
+
 namespace state {
 
+state::Character::Character(){
+    mCharacterStatusStringMap[ALIVE] = "ALIVE";
+    mCharacterStatusStringMap[DEAD] = "DEAD";
 
-state::Character::Character(Major rCharacterMajor, CharacterStatus rCharacterStatus) {
+}
 
+state::Character::Character(std::string rCharacterName, Major rCharacterMajor, CharacterStatus rCharacterStatus) {
+
+    this->mName = rCharacterName;
     this->mCharacterMajor = rCharacterMajor;
     this->mCharacterStatus = rCharacterStatus;
+
+    mCharacterStatusStringMap[ALIVE] = "ALIVE";
+    mCharacterStatusStringMap[DEAD] = "DEAD";
 }
 
 
@@ -35,10 +48,6 @@ void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
 
     case LUCK:
         mCharacterStats.Set_luck(rValue);
-        break;
-
-    case ALACRITY:
-        mCharacterStats.Set_alacrity(rValue);
         break;
         
     default:
@@ -73,9 +82,6 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
         return this->mCharacterStats.Get_luck();
         break;
 
-    case ALACRITY:
-        return this->mCharacterStats.Get_alacrity();
-        break;
         
     default:
         break;
@@ -85,6 +91,26 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
 
 }
 
+void state::Character::SetCharacterAction(ActionListCommand rAction, int rDamageValue, StatsName rStatsBuffName, int rStatsBuffValue, bool rBeneficial){
+    switch (rAction)
+    {
+    case ATTACK_1:
+        mCharacterAction.SetAttack(1, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
+        break;
+    
+    case ATTACK_2:
+        mCharacterAction.SetAttack(2, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
+        break;
+
+    case SPELL_1:
+        mCharacterAction.SetSpell(1, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
+        break;
+
+    case SPELL_2:
+        mCharacterAction.SetSpell(2, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
+        break;
+    }
+}
 
 Major state::Character::GetMajor() {
     return this->mCharacterMajor;
@@ -92,6 +118,7 @@ Major state::Character::GetMajor() {
 
 
 void state::Character::SetCharacterStatus(CharacterStatus rNewStatus){
+    cout << this->mName << " is now " <<  mCharacterStatusStringMap[rNewStatus] << endl;
     this->mCharacterStatus = rNewStatus;
 
 }
@@ -101,6 +128,36 @@ CharacterStatus state::Character::GetCharacterStatus(){
     return this->mCharacterStatus;
 
 }
+
+
+Action* state::Character::GetAction(ActionListCommand rActionType){
+    switch (rActionType)
+    {
+    case ATTACK_1:
+        return this->mCharacterAction.GetAttack(1);
+        break;
+    
+    case ATTACK_2:
+        return this->mCharacterAction.GetAttack(2);
+        break;
+
+    case SPELL_1:
+        return this->mCharacterAction.GetSpell(1);
+        break;
+    
+    case SPELL_2:
+        return this->mCharacterAction.GetSpell(2);
+        break;
+
+    }
+
+    
+}
+
+
+
+    
+
 
 
 
