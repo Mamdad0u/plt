@@ -13,15 +13,17 @@ State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
     mPlayerStatusStringMap[PLAYER_TURN] = "PLAYER TURN";
     mPlayerStatusStringMap[IA_TURN] = "IA TURN";
     
+    mCombatStatusStringMap[IN_COMBAT] = "IN_COMBAT";
+    mCombatStatusStringMap[OUT_COMBAT] = "OUT_COMBAT";
+    mCombatStatusStringMap[GAME_OVER] = "GAME_OVER";
+
     this->mCombatStatus = rCombatStatus;
     this->mPlayerStatus = rPlayerStatus;
     mPlayersCharacters.reserve(MAX_CHARACTER);
     mEnemyCharacters.reserve(MAX_ENEMY_NUMBER);
 }
 
-std::vector<Character> State::GetCharacter() {
-    
-}
+
 
 void State::MoveNextCombat() {
     this->mCombatNumber++;
@@ -33,6 +35,7 @@ int State::GetCombatNumber(){
 
 void State::SetCombatState(CombatStatus rNewCombatState) {
     this->mCombatStatus = rNewCombatState;
+    cout << "Game is now in " << mCombatStatusStringMap[mCombatStatus] << " state" << endl;;
 }
 
 CombatStatus State::GetCombatState(){
@@ -49,20 +52,9 @@ void State::SetPlayerStatus(Player_Status rNewPlayerStatus){
     cout << "************ IT IS NOW " << mPlayerStatusStringMap[mPlayerStatus] << " ! ************" << endl;
 }
 
-void State::InitializeEnemy() {
-    
-}
 
-void State::BeginFight() {
-    
-}
-
-void State::BeginRandomEvent() {
-    
-}
-
-void State::GotoNextArena() {
-    
+void State::GoToNextArena() {
+    this->mArenaNumber++;
 }
 
 void State::AddPlayerCharacter(Character& rNewCharacter) {
