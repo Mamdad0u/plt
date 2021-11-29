@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE(TestCharacter)
 {
   {
        
-    Character UT_Character("SIA", ELEC, DEAD);
+    Character UT_Character(ELEC, DEAD, "ESE");
 
     UT_Character.SetCharacterStats(ATTACK, 15);
     
