@@ -134,7 +134,21 @@ int main(int argc,char* argv[]){
                             lEnemyIndex=1;
                             //LocalPosition = sf::Mouse::getPosition(window);
                             LocalPosition = sf::Mouse::getPosition(window);
-                            std::cout << LocalPosition.x << ";" << LocalPosition.y << endl;
+                            //std::cout << LocalPosition.x << ";" << LocalPosition.y << endl;
+                            std::cout << "Action 1" << endl;
+                    
+                    }
+                    }
+
+                    if((sf::Mouse::getPosition(window).y>550) && (sf::Mouse::getPosition(window).y<575) && 
+                    (sf::Mouse::getPosition(window).x>35) && (sf::Mouse::getPosition(window).x<120)){
+                        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+                            //GameStatus.SetCombatState(OUT_COMBAT);
+
+                            //LocalPosition = sf::Mouse::getPosition(window);
+                            LocalPosition = sf::Mouse::getPosition(window);
+                            //std::cout << LocalPosition.x << ";" << LocalPosition.y << endl;
+                            std::cout << "Action 2" << endl;
                     
                     
                     }
