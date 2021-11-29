@@ -73,6 +73,10 @@ Install python package with pip (or pip3)
 pip install gcovr
 ```
 
+Install jsoncpp lib
+```sh
+sudo apt install libjsoncpp-dev
+```
 ### Installation
 
 1. Clone the repo
