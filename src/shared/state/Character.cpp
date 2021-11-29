@@ -80,8 +80,8 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
 
     case LUCK:
         return this->mCharacterStats.Get_luck();
-        //return obj["Statistics"][this->mCharacterOption]["LUCK"];
         break;
+
         
     default:
         break;
