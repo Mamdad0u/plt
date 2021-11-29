@@ -48,8 +48,8 @@ void State::SetPlayerStatus(Player_Status rNewPlayerStatus){
 }
 
 
-void State::GotoNextArena() {
-    
+void State::GoToNextArena() {
+    this->mArenaNumber++;
 }
 
 void State::AddPlayerCharacter(Character& rNewCharacter) {
