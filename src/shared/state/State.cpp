@@ -19,9 +19,7 @@ State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
     mEnemyCharacters.reserve(MAX_ENEMY_NUMBER);
 }
 
-std::vector<Character> State::GetCharacter() {
-    
-}
+
 
 void State::MoveNextCombat() {
     this->mCombatNumber++;
@@ -49,17 +47,6 @@ void State::SetPlayerStatus(Player_Status rNewPlayerStatus){
     cout << "************ IT IS NOW " << mPlayerStatusStringMap[mPlayerStatus] << " ! ************" << endl;
 }
 
-void State::InitializeEnemy() {
-    
-}
-
-void State::BeginFight() {
-    
-}
-
-void State::BeginRandomEvent() {
-    
-}
 
 void State::GotoNextArena() {
     
