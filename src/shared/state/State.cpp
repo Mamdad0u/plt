@@ -13,6 +13,10 @@ State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
     mPlayerStatusStringMap[PLAYER_TURN] = "PLAYER TURN";
     mPlayerStatusStringMap[IA_TURN] = "IA TURN";
     
+    mCombatStatusStringMap[IN_COMBAT] = "IN_COMBAT";
+    mCombatStatusStringMap[OUT_COMBAT] = "OUT_COMBAT";
+    mCombatStatusStringMap[GAME_OVER] = "GAME_OVER";
+
     this->mCombatStatus = rCombatStatus;
     this->mPlayerStatus = rPlayerStatus;
     mPlayersCharacters.reserve(MAX_CHARACTER);
@@ -31,6 +35,7 @@ int State::GetCombatNumber(){
 
 void State::SetCombatState(CombatStatus rNewCombatState) {
     this->mCombatStatus = rNewCombatState;
+    cout << "Game is now in " << mCombatStatusStringMap[mCombatStatus] << " state" << endl;;
 }
 
 CombatStatus State::GetCombatState(){
