@@ -24,7 +24,7 @@ namespace client {
         int lRandomInt = 0;
         static CommandID lRandomCommand;
 
-        lRandomInt = rand() % 3;
+        lRandomInt = rand() % 4;
         lRandomCommand = lCommandIDTab[lRandomInt];
         SetStatusCommand(lRandomCommand);
     }
