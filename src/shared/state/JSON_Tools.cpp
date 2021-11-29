@@ -1,4 +1,4 @@
-#include <state/JSON_Tools.h>
+#include <state/JSON_tools.h>
 #include "Character.h"
 #include <iostream>
 #include <fstream>
@@ -16,11 +16,11 @@ namespace state {
         reader.parse(ifs,obj);
 
 
-        int newPV = obj["Statistics"][rCharacter.mCharacterName]["PV"].asInt();
-        int newATTACK = obj["Statistics"][rCharacter.mCharacterName]["ATTACK"].asInt();
-        int newPOWER = obj["Statistics"][rCharacter.mCharacterName]["POWER"].asInt();
-        int newDEFENSE = obj["Statistics"][rCharacter.mCharacterName]["DEFENSE"].asInt();
-        int newLUCK = obj["Statistics"][rCharacter.mCharacterName]["LUCK"].asInt();
+        int newPV = obj["Statistics"][rCharacter.GetName()]["PV"].asInt();
+        int newATTACK = obj["Statistics"][rCharacter.GetName()]["ATTACK"].asInt();
+        int newPOWER = obj["Statistics"][rCharacter.GetName()]["POWER"].asInt();
+        int newDEFENSE = obj["Statistics"][rCharacter.GetName()]["DEFENSE"].asInt();
+        int newLUCK = obj["Statistics"][rCharacter.GetName()]["LUCK"].asInt();
 
         rCharacter.SetCharacterStats(LIFE_POINTS, newPV);
         rCharacter.SetCharacterStats(ATTACK, newATTACK);
