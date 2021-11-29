@@ -1,8 +1,8 @@
-
 #include <boost/test/unit_test.hpp>
 
 #include <SFML/Graphics.hpp>
-#include "client/Engine.h"
+#include "client.h"
+
 
 using namespace ::client;
 using namespace ::state;
@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_CASE(TestSFML)
   }
 }
 
-BOOST_AUTO_TEST_CASE(TestEngine){
+BOOST_AUTO_TEST_CASE(TestCommand){
   {
     Engine UUT_Engine;
     state::Character UUT_Character_IS("IS", state::INFO, state::ALIVE);
@@ -38,8 +38,11 @@ BOOST_AUTO_TEST_CASE(TestEngine){
     UUT_Character_IS.SetCharacterStats(POWER, 140);
     UUT_Character_IS.SetCharacterStats(DEFENSE, 80);
     UUT_Character_IS.SetCharacterStats(LUCK, 5);
-    UUT_Character_IS.SetCharacterAction(state::ATTACK_1, 80, LUCK, 3, true);
-   // UUT_Character_IS.SetCharacterAction(state::ATTACK_2, 60, LUCK, 60, 0, false);
+    UUT_Character_IS.SetCharacterAction(state::ATTACK_1, 80, LUCK, 0, true);
+    UUT_Character_IS.SetCharacterAction(state::ATTACK_2, 60, POWER, 20, true);
+    UUT_Character_IS.SetCharacterAction(state::SPELL_1, 80, POWER, 0, true);
+    UUT_Character_IS.SetCharacterAction(state::SPELL_2, 60, ATTACK, 20, true);
+
 
 
 
@@ -48,7 +51,11 @@ BOOST_AUTO_TEST_CASE(TestEngine){
     UUT_Character_SIA.SetCharacterStats(POWER, 150);
     UUT_Character_SIA.SetCharacterStats(DEFENSE, 60);
     UUT_Character_SIA.SetCharacterStats(LUCK, 3);
-    UUT_Character_SIA.SetCharacterAction(state::ATTACK_1, 80, LUCK, 0, true); 
+    UUT_Character_SIA.SetCharacterAction(state::ATTACK_1, 60, LUCK, 3, false); 
+    UUT_Character_SIA.SetCharacterAction(state::ATTACK_2, 80, LUCK, 0, true); 
+
+    UUT_Character_SIA.SetCharacterAction(state::SPELL_1, 80, LUCK, 0, true); 
+    UUT_Character_SIA.SetCharacterAction(state::SPELL_2, 60, LUCK, 3, true); 
 
     BOOST_CHECK_EQUAL(UUT_Engine.DEBUG_GetGameStatus(), state::IN_COMBAT);
 
@@ -60,12 +67,12 @@ BOOST_AUTO_TEST_CASE(TestEngine){
     
     
 
-    for(int i = 0; i<2;i++){
+/*     for(int i = 0; i<2;i++){
       //UUT_Engine.mCommand.ComputeCriticalHit(UUT_Character_IS.GetCharacterStats(LUCK));
       UUT_Engine.mCommand.ComputeAction(*(&UUT_Character_SIA), *(&UUT_Character_IS), CommandID::ATTACK_1);
       UUT_Engine.mCommand.ComputeAction(*(&UUT_Character_IS), *(&UUT_Character_SIA), CommandID::ATTACK_1);
       
-    }
+    } */
      
 
   }
@@ -75,5 +82,20 @@ BOOST_AUTO_TEST_CASE(TestEngine){
 
 }
 
+BOOST_AUTO_TEST_CASE(TestEngine){
+  {
+  Engine NewEngine;
+  Player NewPlayer;
+  IA NewIA;
+  
+  NewPlayer.AddEngineObserver(&NewEngine);
+  NewPlayer.SetStatusCommand(CommandID::ATTACK_1);
+
+  NewEngine.GameLoop();
+  NewIA.SetStatusCommand(CommandID::ATTACK_2);
+  NewEngine.GameLoop();
+  
+  }
+}
 
 BOOST_AUTO_TEST_SUITE_END()

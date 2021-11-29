@@ -26,6 +26,10 @@ int Stats::Get_life_points() {
 
 void Stats::Set_life_points(int rValue) {
     this->mLife_points = rValue;
+
+    if(mLife_points<0){
+        mLife_points = 0;
+    }
 }
 
 int Stats::Get_attack() {

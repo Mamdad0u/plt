@@ -114,6 +114,12 @@ plt$ make code-coverage
 
 <!-- RELEASE HISTORY-->
 ## Release History
+
+* <a href="https://github.com/Mamdad0u/plt/releases/tag/2.2">2.2</a>
+    * Rapport section 4 : Règles de changement d’états et moteur de jeu
+    * Code : Implémentation d'un moteur de jeu modifiant l'état du jeu selon les règles établies.
+
+
 * <a href="https://github.com/Mamdad0u/plt/releases/tag/2.1">2.1</a>
     * Rapport section 3 : Description et Conception des du rendu selon les états du jeu
     * Code : Implémentation du rendu du jeu en fonction de ses états.
@@ -175,4 +181,4 @@ Distributed under the MIT License. See [LICENSE][license-url] for more informati
 [cpp-ver]: https://en.wikipedia.org/wiki/C%2B%2B11
 
 [version-shield]: https://img.shields.io/github/v/release/Mamdad0u/plt?style=flat-square
-[last_version]: https://github.com/Mamdad0u/plt/releases/tag/1.final
+[last_version]: https://github.com/Mamdad0u/plt/releases/tag/2.2

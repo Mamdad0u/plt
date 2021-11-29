@@ -1,17 +1,25 @@
 #include <state/Character.h>  // Included from library shared_static
 #include "Character.h"
-#include <fstream>
-#include <jsoncpp/json/json.h>
-#include "jsoncpp/json/value.h"
 #include <iostream>
+
+using namespace std;
+
 namespace state {
 
+state::Character::Character(){
+    mCharacterStatusStringMap[ALIVE] = "ALIVE";
+    mCharacterStatusStringMap[DEAD] = "DEAD";
+
+}
 
 state::Character::Character(std::string rCharacterName, Major rCharacterMajor, CharacterStatus rCharacterStatus) {
 
     this->mName = rCharacterName;
     this->mCharacterMajor = rCharacterMajor;
     this->mCharacterStatus = rCharacterStatus;
+
+    mCharacterStatusStringMap[ALIVE] = "ALIVE";
+    mCharacterStatusStringMap[DEAD] = "DEAD";
 }
 
 
@@ -48,20 +56,10 @@ void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
 }
 
 int state::Character::GetCharacterStats(StatsName rStatsName) {
-   
-   /*
-   ifstream ifs("res/JSON_files/statistics.json");
-    Json::Reader reader;
-    Json::Value obj;
-
-    reader.parse(ifs,obj);
-    */
-
     switch (rStatsName)
     {
     case MAX_LIFE_POINTS:
         return this->mCharacterStats.Get_max_life_points();
-        //return obj["Statistics"][this->mCharacterOption]["PV"];
         break;
 
     case LIFE_POINTS:
@@ -70,17 +68,14 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
 
     case ATTACK:
         return this->mCharacterStats.Get_attack();
-        //return obj["Statistics"][this->mCharacterOption]["ATTACK"];
         break;
 
     case POWER:
         return this->mCharacterStats.Get_power();
-        //return obj["Statistics"][this->mCharacterOption]["POWER"];
         break;
     
     case DEFENSE:
         return this->mCharacterStats.Get_defense();
-        //return obj["Statistics"][this->mCharacterOption]["DEFENSE"];
         break;
 
     case LUCK:
@@ -91,8 +86,6 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
     default:
         break;
     } 
-
-    
 
 
 
@@ -125,6 +118,7 @@ Major state::Character::GetMajor() {
 
 
 void state::Character::SetCharacterStatus(CharacterStatus rNewStatus){
+    cout << this->mName << " is now " <<  mCharacterStatusStringMap[rNewStatus] << endl;
     this->mCharacterStatus = rNewStatus;
 
 }
@@ -135,13 +129,6 @@ CharacterStatus state::Character::GetCharacterStatus(){
 
 }
 
-/*
-Options state::Character::GetCharacterOption() {
-
-    return this->mCharacterOption;
-
-}
-*/
 
 Action* state::Character::GetAction(ActionListCommand rActionType){
     switch (rActionType)
