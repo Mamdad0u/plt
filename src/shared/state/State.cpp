@@ -60,6 +60,7 @@ void State::GoToNextArena() {
 void State::AddPlayerCharacter(Character& rNewCharacter) {
 
     mPlayersCharacters.push_back(rNewCharacter);
+    cout << rNewCharacter.GetName() << " has joined the player team !" << endl;
 }
 
 void State::AddEnemyCharacter(Character& rNewCharacter){
@@ -152,7 +153,10 @@ bool State::GetAliveEnemy(){
     }
 
     return true;
+}
 
+int State::GetPlayerRosterSize(){
+    return this->mPlayersCharacters.size();
 
 }
 
