@@ -14,7 +14,10 @@ namespace client {
         state::Character UUT_Character_IS("IS", state::INFO, state::ALIVE);
         state::Character UUT_Character_SIA("SIA", state::SIGNAL, state::ALIVE);
 
-        UUT_Character_IS.SetCharacterStats(state::LIFE_POINTS, 80);
+
+        
+
+        /* UUT_Character_IS.SetCharacterStats(state::LIFE_POINTS, 80);
         UUT_Character_IS.SetCharacterStats(state::ATTACK, 140);
         UUT_Character_IS.SetCharacterStats(state::POWER, 140);
         UUT_Character_IS.SetCharacterStats(state::DEFENSE, 80);
@@ -29,10 +32,10 @@ namespace client {
         UUT_Character_SIA.SetCharacterStats(state::POWER, 150);
         UUT_Character_SIA.SetCharacterStats(state::DEFENSE, 60);
         UUT_Character_SIA.SetCharacterStats(state::LUCK, 3);
-        UUT_Character_SIA.SetCharacterAction(state::ATTACK_1, 80, state::LUCK, 0, true); 
-
+        UUT_Character_SIA.SetCharacterAction(state::ATTACK_1, 80, state::LUCK, 0, true);  */
+/* 
         mCurrentState.AddPlayerCharacter(*(&UUT_Character_SIA));
-        mCurrentState.AddEnemyCharacter(*(&UUT_Character_IS));
+        mCurrentState.AddEnemyCharacter(*(&UUT_Character_IS)); */
     }
 
     state::CombatStatus client::Engine::GameLoop(){
@@ -97,6 +100,10 @@ namespace client {
         
 
         case state::OUT_COMBAT:
+            /*Player win, adding the enemy in his roster*/
+            if(mCurrentState.GetPlayerRosterSize() < mCurrentState.MAX_CHARACTER){
+                mCurrentState.AddPlayerCharacter(*(mCurrentState.GetEnemyCharacter()));
+            }
 
             break;
 
