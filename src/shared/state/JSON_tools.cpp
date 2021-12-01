@@ -8,7 +8,7 @@
 
 namespace state {
 
-    void JSON_Configure_Character (Character &rCharacter) {
+    void JSON_tools::JSON_Configure_Character (Character& rCharacter) {
         std::ifstream ifs("res/JSON_files/statistics.json");
         
         Json::Reader reader;
