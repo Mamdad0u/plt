@@ -25,6 +25,7 @@ namespace render {
             mMenuAction2.setFont(mFont);
             mMenuAction2.setCharacterSize(20);
             mMenuAction2.setPosition(sf::Vector2f(35.f,550.f));
+            mRectAction2.setPosition(sf::Vector2f(35.f,550.f));
           
 
             mMenuAction1.setFont(mFont);
@@ -35,11 +36,13 @@ namespace render {
             mMenuAction3.setFont(mFont);
             mMenuAction3.setCharacterSize(20);
             mMenuAction3.setPosition(sf::Vector2f(180.f,510.f));
+            mRectAction3.setPosition(sf::Vector2f(180.f,510.f));
             
 
             mMenuAction4.setFont(mFont);
             mMenuAction4.setCharacterSize(20);
             mMenuAction4.setPosition(sf::Vector2f(180.f,550.f));
+            mRectAction4.setPosition(sf::Vector2f(180.f,550.f));
            
             
             
@@ -102,6 +105,10 @@ namespace render {
     void render::UI::DEBUG_SetTextAction2(std::string rTextAction) {
 
         mMenuAction2.setString(rTextAction);
+        mRectAction2.setSize(sf::Vector2f(85,25));
+        mRectAction2.setFillColor(sf::Color::Transparent);
+        mRectAction2.setOutlineThickness(2);
+        mRectAction2.setOutlineColor(sf::Color::Red);
         
        
     }
@@ -109,6 +116,10 @@ namespace render {
     void render::UI::DEBUG_SetTextAction3(std::string rTextAction) {
 
         mMenuAction3.setString(rTextAction);
+        mRectAction3.setSize(sf::Vector2f(85,25));
+        mRectAction3.setFillColor(sf::Color::Transparent);
+        mRectAction3.setOutlineThickness(2);
+        mRectAction3.setOutlineColor(sf::Color::Red);
         
        
     }
@@ -116,6 +127,10 @@ namespace render {
     void render::UI::DEBUG_SetTextAction4(std::string rTextAction) {
 
         mMenuAction4.setString(rTextAction);
+        mRectAction4.setSize(sf::Vector2f(85,25));
+        mRectAction4.setFillColor(sf::Color::Transparent);
+        mRectAction4.setOutlineThickness(2);
+        mRectAction4.setOutlineColor(sf::Color::Red);
 
     }
 
@@ -139,6 +154,9 @@ namespace render {
         target.draw(mMenuAction3);
         target.draw(mMenuAction4);
         target.draw(mRectAction1);
+        target.draw(mRectAction2);
+        target.draw(mRectAction3);
+        target.draw(mRectAction4);
 
     }
 
