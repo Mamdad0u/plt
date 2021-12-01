@@ -7,35 +7,7 @@ using namespace std;
 namespace client {
 
     client::Engine::Engine(){
-        /*INITIALISATION*/
-
-        /*TEST*/
-        
-       /*  state::Character UUT_Character_IS("IS", state::INFO, state::ALIVE);
-        state::Character UUT_Character_SIA("SIA", state::SIGNAL, state::ALIVE);
- */
-
-        
-
-        /* UUT_Character_IS.SetCharacterStats(state::LIFE_POINTS, 80);
-        UUT_Character_IS.SetCharacterStats(state::ATTACK, 140);
-        UUT_Character_IS.SetCharacterStats(state::POWER, 140);
-        UUT_Character_IS.SetCharacterStats(state::DEFENSE, 80);
-        UUT_Character_IS.SetCharacterStats(state::LUCK, 5);
-        UUT_Character_IS.SetCharacterAction(state::ATTACK_1, 80, state::LUCK, 3, true);
-        UUT_Character_IS.SetCharacterAction(state::ATTACK_2, 60, state::LUCK, 0, true);
-
-
-
-        UUT_Character_SIA.SetCharacterStats(state::LIFE_POINTS, 110);
-        UUT_Character_SIA.SetCharacterStats(state::ATTACK, 80);
-        UUT_Character_SIA.SetCharacterStats(state::POWER, 150);
-        UUT_Character_SIA.SetCharacterStats(state::DEFENSE, 60);
-        UUT_Character_SIA.SetCharacterStats(state::LUCK, 3);
-        UUT_Character_SIA.SetCharacterAction(state::ATTACK_1, 80, state::LUCK, 0, true);  */
-/* 
-        mCurrentState.AddPlayerCharacter(*(&UUT_Character_SIA));
-        mCurrentState.AddEnemyCharacter(*(&UUT_Character_IS)); */
+        mCurrentState.AddPlayerCharacter(state::IS);
     }
 
     state::CombatStatus client::Engine::GameLoop(){
@@ -47,7 +19,17 @@ namespace client {
         switch (lGameStatus)
         {
 
-            
+        
+        case state::INITIALISATION:
+            if(mCurrentState.GetPlayerRosterSize() < 1){
+                cout << "Waiting for player to choose a character" << endl;
+            }
+
+            else{
+                mCurrentState.SetCombatState(state::IN_COMBAT);
+            }
+            break;
+
         case state::IN_COMBAT:
             switch (lPlayerStatus)
             {
