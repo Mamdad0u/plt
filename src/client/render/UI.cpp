@@ -95,7 +95,7 @@ namespace render {
     void render::UI::DEBUG_SetTextAction1(std::string rTextAction){
 
         mMenuAction1.setString(rTextAction);
-        mRectAction1.setSize(sf::Vector2f(85,25));
+        mRectAction1.setSize(sf::Vector2f(130,25));
         mRectAction1.setFillColor(sf::Color::Transparent);
         mRectAction1.setOutlineThickness(2);
         mRectAction1.setOutlineColor(sf::Color::Red);
@@ -105,7 +105,7 @@ namespace render {
     void render::UI::DEBUG_SetTextAction2(std::string rTextAction) {
 
         mMenuAction2.setString(rTextAction);
-        mRectAction2.setSize(sf::Vector2f(85,25));
+        mRectAction2.setSize(sf::Vector2f(60,25));
         mRectAction2.setFillColor(sf::Color::Transparent);
         mRectAction2.setOutlineThickness(2);
         mRectAction2.setOutlineColor(sf::Color::Red);
@@ -116,7 +116,7 @@ namespace render {
     void render::UI::DEBUG_SetTextAction3(std::string rTextAction) {
 
         mMenuAction3.setString(rTextAction);
-        mRectAction3.setSize(sf::Vector2f(85,25));
+        mRectAction3.setSize(sf::Vector2f(45,25));
         mRectAction3.setFillColor(sf::Color::Transparent);
         mRectAction3.setOutlineThickness(2);
         mRectAction3.setOutlineColor(sf::Color::Red);
@@ -127,7 +127,7 @@ namespace render {
     void render::UI::DEBUG_SetTextAction4(std::string rTextAction) {
 
         mMenuAction4.setString(rTextAction);
-        mRectAction4.setSize(sf::Vector2f(85,25));
+        mRectAction4.setSize(sf::Vector2f(155,25));
         mRectAction4.setFillColor(sf::Color::Transparent);
         mRectAction4.setOutlineThickness(2);
         mRectAction4.setOutlineColor(sf::Color::Red);
