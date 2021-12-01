@@ -12,9 +12,10 @@ state::Character::Character(){
 
 }
 
-state::Character::Character(CharacterName rCharacterName, Major rCharacterMajor, CharacterStatus rCharacterStatus) {
+state::Character::Character(CharacterName rCharacterName) {
     mCharacterStatusStringMap[ALIVE] = "ALIVE";
     mCharacterStatusStringMap[DEAD] = "DEAD";
+    
     mCharacterNameMap[IS] = "IS";
     mCharacterNameMap[SIA] = "SIA";
     mCharacterNameMap[EVE] = "EVE";
@@ -25,14 +26,57 @@ state::Character::Character(CharacterName rCharacterName, Major rCharacterMajor,
     mCharacterNameMap[ESC] = "ESC";
     mCharacterNameMap[AUDENCIA] = "AUDENCIA";
 
-
+    this->mCharacterNameNumber = rCharacterName;
     this->mName = mCharacterNameMap[rCharacterName];
-    this->mCharacterMajor = rCharacterMajor;
-    this->mCharacterStatus = rCharacterStatus;
+    
+    
 
+    switch (rCharacterName)
+    {
+    case IS:
+        this->mCharacterMajor = INFO;
+        break;
+
+    case SIA:
+        this->mCharacterMajor = SIGNAL;
+        break;
+
+    case EVE:
+        this->mCharacterMajor = SIGNAL;
+        break;
+
+    case MSC:
+        this->mCharacterMajor = AUTO;
+        break;
+
+    case ESE:
+        this->mCharacterMajor = ELEC;
+        break;
+
+    case AEI:
+        this->mCharacterMajor = AUTO;
+        break;
+
+    case RT:
+        this->mCharacterMajor = SIGNAL;
+        break;
+
+    case ESC:
+        this->mCharacterMajor = ELEC;
+        break;
+
+    case AUDENCIA:
+        this->mCharacterMajor = SCIENCES_HUMAINES;
+        break;
+        
+
+
+    }
 
 }
-
+CharacterName state::Character::GetCharacterNameNumber(){
+    return this->mCharacterNameNumber;
+}
 
 void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
     switch (rStatsName)

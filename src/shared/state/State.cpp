@@ -57,10 +57,13 @@ void State::GoToNextArena() {
     this->mArenaNumber++;
 }
 
-void State::AddPlayerCharacter(Character& rNewCharacter) {
-
-    mPlayersCharacters.push_back(rNewCharacter);
-    cout << rNewCharacter.GetName() << " has joined the player team !" << endl;
+void State::AddPlayerCharacter(CharacterName rNewCharacter) {
+    Character lNewCharacter(rNewCharacter);
+    JSON_tools NewTool;
+    
+    
+    // mPlayersCharacters.push_back(rNewCharacter);
+    cout << lNewCharacter.GetName() << " has joined the player team !" << endl;
 }
 
 void State::AddEnemyCharacter(Character& rNewCharacter){

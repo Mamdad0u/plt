@@ -11,9 +11,9 @@ namespace client {
 
         /*TEST*/
         
-        state::Character UUT_Character_IS("IS", state::INFO, state::ALIVE);
+       /*  state::Character UUT_Character_IS("IS", state::INFO, state::ALIVE);
         state::Character UUT_Character_SIA("SIA", state::SIGNAL, state::ALIVE);
-
+ */
 
         
 
@@ -46,6 +46,8 @@ namespace client {
         
         switch (lGameStatus)
         {
+
+            
         case state::IN_COMBAT:
             switch (lPlayerStatus)
             {
@@ -101,8 +103,9 @@ namespace client {
 
         case state::OUT_COMBAT:
             /*Player win, adding the enemy in his roster*/
+            state::Character* lActiveEnemy  = mCurrentState.GetEnemyCharacter();
             if(mCurrentState.GetPlayerRosterSize() < mCurrentState.MAX_CHARACTER){
-                mCurrentState.AddPlayerCharacter(*(mCurrentState.GetEnemyCharacter()));
+                mCurrentState.AddPlayerCharacter(lActiveEnemy->GetCharacterNameNumber());
             }
 
             break;
