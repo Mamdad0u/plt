@@ -59,10 +59,10 @@ void State::GoToNextArena() {
 
 void State::AddPlayerCharacter(CharacterName rNewCharacter) {
     Character lNewCharacter(rNewCharacter);
-    JSON_tools NewTool;
+    JSON.JSON_Configure_Character(lNewCharacter);
     
     
-    // mPlayersCharacters.push_back(rNewCharacter);
+    mPlayersCharacters.push_back(lNewCharacter);
     cout << lNewCharacter.GetName() << " has joined the player team !" << endl;
 }
 
