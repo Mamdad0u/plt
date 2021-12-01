@@ -12,14 +12,25 @@ state::Character::Character(){
 
 }
 
-state::Character::Character(std::string rCharacterName, Major rCharacterMajor, CharacterStatus rCharacterStatus) {
+state::Character::Character(CharacterName rCharacterName, Major rCharacterMajor, CharacterStatus rCharacterStatus) {
+    mCharacterStatusStringMap[ALIVE] = "ALIVE";
+    mCharacterStatusStringMap[DEAD] = "DEAD";
+    mCharacterNameMap[IS] = "IS";
+    mCharacterNameMap[SIA] = "SIA";
+    mCharacterNameMap[EVE] = "EVE";
+    mCharacterNameMap[MSC] = "MSC";
+    mCharacterNameMap[ESE] = "ESE";
+    mCharacterNameMap[AEI] = "AEI";
+    mCharacterNameMap[RT] = "RT";
+    mCharacterNameMap[ESC] = "ESC";
+    mCharacterNameMap[AUDENCIA] = "AUDENCIA";
 
-    this->mName = rCharacterName;
+
+    this->mName = mCharacterNameMap[rCharacterName];
     this->mCharacterMajor = rCharacterMajor;
     this->mCharacterStatus = rCharacterStatus;
 
-    mCharacterStatusStringMap[ALIVE] = "ALIVE";
-    mCharacterStatusStringMap[DEAD] = "DEAD";
+
 }
 
 
