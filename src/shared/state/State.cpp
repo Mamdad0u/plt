@@ -66,8 +66,13 @@ void State::AddPlayerCharacter(CharacterName rNewCharacter) {
     cout << lNewCharacter.GetName() << " has joined the player team !" << endl;
 }
 
-void State::AddEnemyCharacter(Character& rNewCharacter){
-    mEnemyCharacters.push_back(rNewCharacter);
+void State::AddEnemyCharacter(CharacterName rNewCharacter){
+    Character lNewCharacter(rNewCharacter);
+    JSON.JSON_Configure_Character(lNewCharacter);
+    
+    
+    mEnemyCharacters.push_back(lNewCharacter);
+    cout << lNewCharacter.GetName() << " has joined the enemy team !" << endl;
 
 }
 

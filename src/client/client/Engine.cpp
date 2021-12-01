@@ -8,6 +8,7 @@ namespace client {
 
     client::Engine::Engine(){
         mCurrentState.AddPlayerCharacter(state::IS);
+        mCurrentState.AddEnemyCharacter(state::EVE);
     }
 
     state::CombatStatus client::Engine::GameLoop(){

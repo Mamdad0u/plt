@@ -3956,7 +3956,7 @@
                 <dia:string>#rNewCharacter#</dia:string>
               </dia:attribute>
               <dia:attribute name="type">
-                <dia:string>#Character&amp;#</dia:string>
+                <dia:string>#CharacterName#</dia:string>
               </dia:attribute>
               <dia:attribute name="value">
                 <dia:string>##</dia:string>
