@@ -7615,7 +7615,7 @@
         <dia:point val="17.85,-32.55"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="17.8,-32.6;38.805,-29.1"/>
+        <dia:rectangle val="17.8,-32.6;38.805,-28.3"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="17.85,-32.55"/>
@@ -7624,7 +7624,7 @@
         <dia:real val="20.905000000000001"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
-        <dia:real val="3.3999999999999999"/>
+        <dia:real val="4.2000000000000002"/>
       </dia:attribute>
       <dia:attribute name="name">
         <dia:string>#JSON_tools#</dia:string>
@@ -7744,6 +7744,36 @@
       <dia:attribute name="operations">
         <dia:composite type="umloperation">
           <dia:attribute name="name">
+            <dia:string>#JSON_tools#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="stereotype">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="type">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="visibility">
+            <dia:enum val="0"/>
+          </dia:attribute>
+          <dia:attribute name="comment">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="abstract">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+          <dia:attribute name="inheritance_type">
+            <dia:enum val="2"/>
+          </dia:attribute>
+          <dia:attribute name="query">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+          <dia:attribute name="class_scope">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+          <dia:attribute name="parameters"/>
+        </dia:composite>
+        <dia:composite type="umloperation">
+          <dia:attribute name="name">
             <dia:string>#JSON_Configure_Character#</dia:string>
           </dia:attribute>
           <dia:attribute name="stereotype">
@@ -7802,7 +7832,7 @@
         <dia:point val="8.57187,-18.2752"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="8.52187,-31.3;18.2497,-18.2252"/>
+        <dia:rectangle val="8.52187,-30.9;18.2497,-18.2252"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -7810,8 +7840,8 @@
       <dia:attribute name="orth_points">
         <dia:point val="8.57187,-18.2752"/>
         <dia:point val="12.9858,-18.2752"/>
-        <dia:point val="12.9858,-30.85"/>
-        <dia:point val="17.7997,-30.85"/>
+        <dia:point val="12.9858,-30.45"/>
+        <dia:point val="17.7997,-30.45"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="0"/>
@@ -7847,7 +7877,7 @@
       </dia:attribute>
       <dia:connections>
         <dia:connection handle="0" to="O12" connection="72"/>
-        <dia:connection handle="1" to="O36" connection="12"/>
+        <dia:connection handle="1" to="O36" connection="14"/>
       </dia:connections>
       <dia:childnode parent="O0"/>
     </dia:object>
