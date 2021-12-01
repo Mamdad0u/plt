@@ -152,6 +152,7 @@ namespace render {
 
         if(GameStatus.GetCombatState()==state::IN_COMBAT){
             mArenaEnemySurface[rEnemyIndex].DrawSprite(rWindow);
+            rWindow.draw(mUI);
         }
         
 
@@ -162,7 +163,7 @@ namespace render {
 
         }
 
-        rWindow.draw(mUI);
+        
     }
     
 
