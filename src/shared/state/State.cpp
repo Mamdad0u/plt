@@ -163,6 +163,10 @@ int State::GetPlayerRosterSize(){
 
 }
 
+int State::GetEnemyRosterSize(){
+    return this->mEnemyCharacters.size();
+}
+
 
 
 }

@@ -25,6 +25,10 @@ namespace client {
                 cout << "Waiting for player to choose a character" << endl;
             }
 
+            else if(mCurrentState.GetEnemyRosterSize() < 1){
+                cout << "Waiting for enemy to choose a character" << endl;
+            }
+
             else{
                 mCurrentState.SetCombatState(state::IN_COMBAT);
             }
