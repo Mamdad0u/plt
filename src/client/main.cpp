@@ -314,7 +314,7 @@ int main(int argc,char* argv[]){
             sf:: Vector2i LocalPosition;
             client::WindowCursor lCursor;
             State Debug_State(IN_COMBAT, PLAYER_TURN);
-            CombatStatus GameStatus = IN_COMBAT;
+            CombatStatus GameStatus = INITIALISATION;
             int turn = 0;
 
             IA_1.AddEngineObserver(&GameEngine);
@@ -413,11 +413,11 @@ int main(int argc,char* argv[]){
                 lCursor.GetPositionCursor(window);
 
                 if(GameClock.getElapsedTime().asSeconds() > 3.f){
-                    if(turn%2 == 0){
+                    if(turn%2 == 0 && GameStatus == IN_COMBAT){
                         IA_1.GenerarateRandomCommand();
                     }
 
-                    else{
+                    else if(GameStatus == IN_COMBAT){
                         IA_2.GenerarateRandomCommand();
                     }
                     
