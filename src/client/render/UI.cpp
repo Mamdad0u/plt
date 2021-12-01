@@ -25,6 +25,7 @@ namespace render {
             mMenuAction2.setFont(mFont);
             mMenuAction2.setCharacterSize(20);
             mMenuAction2.setPosition(sf::Vector2f(35.f,550.f));
+          
 
             mMenuAction1.setFont(mFont);
             mMenuAction1.setCharacterSize(20);
@@ -34,11 +35,12 @@ namespace render {
             mMenuAction3.setFont(mFont);
             mMenuAction3.setCharacterSize(20);
             mMenuAction3.setPosition(sf::Vector2f(180.f,510.f));
+            
 
             mMenuAction4.setFont(mFont);
             mMenuAction4.setCharacterSize(20);
             mMenuAction4.setPosition(sf::Vector2f(180.f,550.f));
-
+           
             
             
         }
@@ -100,16 +102,21 @@ namespace render {
     void render::UI::DEBUG_SetTextAction2(std::string rTextAction) {
 
         mMenuAction2.setString(rTextAction);
+        
+       
     }
 
     void render::UI::DEBUG_SetTextAction3(std::string rTextAction) {
 
         mMenuAction3.setString(rTextAction);
+        
+       
     }
 
     void render::UI::DEBUG_SetTextAction4(std::string rTextAction) {
 
         mMenuAction4.setString(rTextAction);
+
     }
 
     

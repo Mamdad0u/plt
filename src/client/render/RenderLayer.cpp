@@ -69,7 +69,7 @@ namespace render {
     void render::RenderLayer::LoadUI(){
         
         mUI.CreateWindow(0,500,800,100);
-        mUI.SetTextVersion("Release V2.2");
+        mUI.SetTextVersion(BUILD_VERSION);
         mUI.DEBUG_SetTextAction1("Attack/Spell");
         mUI.DEBUG_SetTextAction2("Objets");
         mUI.DEBUG_SetTextAction3("Menu");
