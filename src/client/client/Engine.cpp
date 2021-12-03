@@ -1,15 +1,27 @@
 #include <client/Engine.h>  // Included from library shared_static
 #include "Engine.h"
 #include <iostream>
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
 
 using namespace std;
 
 namespace client {
 
     client::Engine::Engine(){
+        int lRandomNumber = 0;
+        srand (time(NULL));
+
+        for(int lIndex=0;lIndex<state::State::MAX_COMBAT_NB; lIndex++){
+            lRandomNumber = rand() % state::State::MAX_COMBAT_NB;
+            mRandomEnemyList[lIndex] = (state::CharacterName)lRandomNumber;
+        }
+
+
+
         mCurrentState.AddPlayerCharacter(state::IS);
         mCurrentState.AddPlayerCharacter(state::AEI);
-        mCurrentState.AddEnemyCharacter(state::MSC);
+        mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
     }
 
     state::CombatStatus client::Engine::GameLoop(){
@@ -95,7 +107,7 @@ namespace client {
             if(mCurrentState.GetPlayerRosterSize() < mCurrentState.MAX_CHARACTER){
                 mCurrentState.AddPlayerCharacter(lActiveEnemy->GetCharacterNameNumber());
             }
-
+            mCurrentState.SetCombatState(state::IN_COMBAT);
             break;
 
             // Check alive player 
