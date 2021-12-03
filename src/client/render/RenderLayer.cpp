@@ -14,7 +14,7 @@ namespace render {
     }
     
     int render::RenderLayer::LoadBackground(){
-        if(mBackgroundSurface.LoadBackgroundSprite("rue_map.png")){
+        if(mBackgroundSurface.LoadBackgroundSprite("map_background.png")){
             cout << "ERROR : Failed to load background " << endl;
             return -1;
         }
@@ -25,7 +25,7 @@ namespace render {
     int render::RenderLayer::LoadEnemy(int rEnemySelected,int rX, int rY, int rSide){
         Surface lEnemytoAdd;
         int lLastEnemyPosition=mArenaEnemySurface.size();
-        string lEnemyString = "Character" + to_string(rEnemySelected);
+        string lEnemyString = "sprites/Character" + to_string(rEnemySelected);
         
         lEnemyString = lEnemyString +".png";
         mArenaEnemySurface.push_back(*(new Surface));
@@ -43,7 +43,7 @@ namespace render {
     int render::RenderLayer::LoadCharacter(int rCharacterSelected, int rX, int rY, int rSide){
         Surface lCharactertoAdd;
         int lLastCharacterPosition = mPlayerCharactersSurface.size();
-        string lCharacterString = "Character" + to_string(rCharacterSelected);
+        string lCharacterString = "sprites/Character" + to_string(rCharacterSelected);
         
         lCharacterString = lCharacterString + ".png";
 
