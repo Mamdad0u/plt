@@ -3382,7 +3382,7 @@
             <dia:string>#MAX_COMBAT_NB#</dia:string>
           </dia:attribute>
           <dia:attribute name="type">
-            <dia:string>#const int#</dia:string>
+            <dia:string>#static const int#</dia:string>
           </dia:attribute>
           <dia:attribute name="value">
             <dia:string>#9#</dia:string>
