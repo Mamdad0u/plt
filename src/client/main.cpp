@@ -314,7 +314,7 @@ int main(int argc,char* argv[]){
             sf:: Vector2i LocalPosition;
             client::WindowCursor lCursor;
             State Debug_State(IN_COMBAT, PLAYER_TURN);
-            CombatStatus GameStatus = IN_COMBAT;
+            CombatStatus GameStatus = INITIALISATION;
             int turn = 0;
 
             IA_1.AddEngineObserver(&GameEngine);
@@ -358,7 +358,11 @@ int main(int argc,char* argv[]){
 
 
                 /*TEST DE LA MODIFICATION DU RENDU EN FONCTION DE L'ETAT DU JEU*/
-                switch(GameStatus){
+                /**
+                 * @brief Désactivé car non compatible avec Engine 2.Final
+                 * 
+                 */
+/*                 switch(GameStatus){
                     case IN_COMBAT:
                         
                         lRender.DEBUG_SetRenderState(IN_COMBAT);
@@ -378,7 +382,7 @@ int main(int argc,char* argv[]){
                             
                         }
                          break;
-                }
+                } */
                 if((lMovingProgress%800==0)){
                     
                     /* if(lCursor.ClickAction1(window)){
@@ -412,12 +416,12 @@ int main(int argc,char* argv[]){
                 
                 lCursor.GetPositionCursor(window);
 
-                if(GameClock.getElapsedTime().asSeconds() > 3.f){
-                    if(turn%2 == 0){
+                if(GameClock.getElapsedTime().asSeconds() > 0.1f){
+                    if(turn%2 == 0 && GameStatus == IN_COMBAT){
                         IA_1.GenerarateRandomCommand();
                     }
 
-                    else{
+                    else if(GameStatus == IN_COMBAT){
                         IA_2.GenerarateRandomCommand();
                     }
                     

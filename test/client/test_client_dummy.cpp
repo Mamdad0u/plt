@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(TestSFML)
 
 BOOST_AUTO_TEST_CASE(TestCommand){
   {
-    Engine UUT_Engine;
+/*     Engine UUT_Engine;
     state::Character UUT_Character_IS("IS", state::INFO, state::ALIVE);
     state::Character UUT_Character_SIA("SIA", state::SIGNAL, state::ALIVE);
 
@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_CASE(TestCommand){
     UUT_Character_SIA.SetCharacterAction(state::SPELL_2, 60, LUCK, 3, true); 
 
     BOOST_CHECK_EQUAL(UUT_Engine.DEBUG_GetGameStatus(), state::IN_COMBAT);
-
+ */
 
 
 
@@ -87,14 +87,15 @@ BOOST_AUTO_TEST_CASE(TestEngine){
   Engine NewEngine;
   Player NewPlayer;
   IA NewIA;
-  
+  JSON_tools tools;
+  Character test;
   NewPlayer.AddEngineObserver(&NewEngine);
   NewPlayer.SetStatusCommand(CommandID::ATTACK_1);
 
   NewEngine.GameLoop();
   NewIA.SetStatusCommand(CommandID::ATTACK_2);
   NewEngine.GameLoop();
-  
+  tools.JSON_Configure_Character(test);
   }
 }
 

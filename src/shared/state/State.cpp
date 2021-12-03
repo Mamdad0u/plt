@@ -57,13 +57,25 @@ void State::GoToNextArena() {
     this->mArenaNumber++;
 }
 
-void State::AddPlayerCharacter(Character& rNewCharacter) {
-
-    mPlayersCharacters.push_back(rNewCharacter);
+void State::AddPlayerCharacter(CharacterName rNewCharacter) {
+    Character lNewCharacter(rNewCharacter);
+    JSON.JSON_Configure_Character(lNewCharacter);
+    
+    
+    mPlayersCharacters.push_back(lNewCharacter);
+    cout << lNewCharacter.GetName() << " has joined the player team !" << endl;
 }
 
-void State::AddEnemyCharacter(Character& rNewCharacter){
-    mEnemyCharacters.push_back(rNewCharacter);
+void State::AddEnemyCharacter(CharacterName rNewCharacter){
+    Character lNewCharacter(rNewCharacter);
+    JSON.JSON_Configure_Character(lNewCharacter);
+    
+    if(GetEnemyRosterSize()==1){
+        mEnemyCharacters.pop_back();
+    }
+    
+    mEnemyCharacters.push_back(lNewCharacter);
+    cout << lNewCharacter.GetName() << " has joined the enemy team !" << endl;
 
 }
 
@@ -84,14 +96,14 @@ Character* State::GetEnemyCharacter(){
 }
 
 void State::MoveActivePlayer(){
-    if(mActivePlayerCharacter < MAX_CHARACTER){
+    if(mActivePlayerCharacter < mPlayersCharacters.size()){
         mActivePlayerCharacter++;
 
-        if((mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() != DEAD)  && mActivePlayerCharacter < MAX_CHARACTER){
+        if((mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() == DEAD)  && mActivePlayerCharacter < mPlayersCharacters.size()){
             mActivePlayerCharacter++;
         }
 
-        else{
+        else if(mActivePlayerCharacter == mPlayersCharacters.size()){
             mActivePlayerCharacter = 0;
         }
     }
@@ -152,8 +164,15 @@ bool State::GetAliveEnemy(){
     }
 
     return true;
+}
 
+int State::GetPlayerRosterSize(){
+    return this->mPlayersCharacters.size();
 
+}
+
+int State::GetEnemyRosterSize(){
+    return this->mEnemyCharacters.size();
 }
 
 
