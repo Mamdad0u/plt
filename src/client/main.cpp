@@ -416,7 +416,7 @@ int main(int argc,char* argv[]){
                 
                 lCursor.GetPositionCursor(window);
 
-                if(GameClock.getElapsedTime().asSeconds() > 0.1f){
+                if(GameClock.getElapsedTime().asSeconds() > 3.f){
                     if(turn%2 == 0 && GameStatus == IN_COMBAT){
                         IA_1.GenerarateRandomCommand();
                     }
