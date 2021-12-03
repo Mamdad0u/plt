@@ -70,6 +70,9 @@ void State::AddEnemyCharacter(CharacterName rNewCharacter){
     Character lNewCharacter(rNewCharacter);
     JSON.JSON_Configure_Character(lNewCharacter);
     
+    if(GetEnemyRosterSize()==1){
+        mEnemyCharacters.pop_back();
+    }
     
     mEnemyCharacters.push_back(lNewCharacter);
     cout << lNewCharacter.GetName() << " has joined the enemy team !" << endl;

@@ -9,18 +9,19 @@ using namespace std;
 namespace client {
 
     client::Engine::Engine(){
-        int lRandomNumber = 0;
-        srand (time(NULL));
+        int lRandomPlayerCharacter = 0;
+        int lRandomEnemyCharacter = 0;
+       
 
         for(int lIndex=0;lIndex<state::State::MAX_COMBAT_NB; lIndex++){
-            lRandomNumber = rand() % state::State::MAX_COMBAT_NB;
-            mRandomEnemyList[lIndex] = (state::CharacterName)lRandomNumber;
+            lRandomEnemyCharacter = rand() % state::State::MAX_COMBAT_NB;
+            lRandomPlayerCharacter = rand() % state::State::MAX_COMBAT_NB;
+            mRandomEnemyList[lIndex] = (state::CharacterName)lRandomEnemyCharacter;
         }
 
 
 
-        mCurrentState.AddPlayerCharacter(state::IS);
-        mCurrentState.AddPlayerCharacter(state::AEI);
+        mCurrentState.AddPlayerCharacter((state::CharacterName)lRandomPlayerCharacter);
         mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
     }
 
@@ -33,7 +34,11 @@ namespace client {
         switch (lGameStatus)
         {
 
-        
+        case state::GAME_OVER:
+            cout << "You loose on combat " << mCurrentState.GetCombatNumber() << endl;
+            
+            break;
+
         case state::INITIALISATION:
             if(mCurrentState.GetPlayerRosterSize() < 1){
                 cout << "Waiting for player to choose a character" << endl;
@@ -102,16 +107,21 @@ namespace client {
         
 
         case state::OUT_COMBAT:
+            
             /*Player win, adding the enemy in his roster*/
             state::Character* lActiveEnemy  = mCurrentState.GetEnemyCharacter();
             if(mCurrentState.GetPlayerRosterSize() < mCurrentState.MAX_CHARACTER){
                 mCurrentState.AddPlayerCharacter(lActiveEnemy->GetCharacterNameNumber());
             }
+
+            mCurrentState.MoveNextCombat();
+            mCurrentState.AddEnemyCharacter(mRandomEnemyList[mCurrentState.GetCombatNumber()]);
             mCurrentState.SetCombatState(state::IN_COMBAT);
             break;
 
-            // Check alive player 
-
+        
+        
+        
         }
         // Check alive player 
 
