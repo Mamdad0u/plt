@@ -8,7 +8,8 @@ namespace client {
 
     client::Engine::Engine(){
         mCurrentState.AddPlayerCharacter(state::IS);
-        mCurrentState.AddEnemyCharacter(state::EVE);
+        mCurrentState.AddPlayerCharacter(state::AEI);
+        mCurrentState.AddEnemyCharacter(state::MSC);
     }
 
     state::CombatStatus client::Engine::GameLoop(){
@@ -44,7 +45,7 @@ namespace client {
                     mCommand.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), mInputCommandID); // Le joueur attaque l'IA
                     mIsNewPlayerCommand = false; // The command has been executed
                     mCurrentState.SetPlayerStatus(state::IA_TURN); // Give the turn to opponent 
-                    
+                    mCurrentState.MoveActivePlayer();
                 }
 
             /*  1. Wait for input command
