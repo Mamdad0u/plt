@@ -131,17 +131,17 @@
             "DEFENSE" : 80,
             "LUCK" : 1,
             "ACTION_1" : {
-                "TYPE" : 2,
+                "TYPE" : "ATTACK",
                 "DAMAGE" : 80,
-                "STATS" : "NONE",
+                "STATS" : 0,
                 "BUFF" : 0
             },
             "ACTION_2" : {
                 "TYPE" : "ATTACK",
                 "DAMAGE" : 100,
                 "STATS" : 1,
-                "BUFF" : 40
-                // Perte de PV pour le l'attaquant
+                "BUFF" : 40 
+                
             },
             "ACTION_3" : {
                 "TYPE" : "SPELL",
@@ -168,7 +168,7 @@
                 "DAMAGE" : 0,
                 "STATS" : 1,
                 "BUFF" : 25
-                // Même chose
+                
             },
             "ACTION_3" : {
                 "TYPE" : "SPELL",
