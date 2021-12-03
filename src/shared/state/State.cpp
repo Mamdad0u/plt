@@ -93,14 +93,14 @@ Character* State::GetEnemyCharacter(){
 }
 
 void State::MoveActivePlayer(){
-    if(mActivePlayerCharacter < MAX_CHARACTER){
+    if(mActivePlayerCharacter < mPlayersCharacters.size()){
         mActivePlayerCharacter++;
 
-        if((mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() != DEAD)  && mActivePlayerCharacter < MAX_CHARACTER){
+        if((mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() == DEAD)  && mActivePlayerCharacter < mPlayersCharacters.size()){
             mActivePlayerCharacter++;
         }
 
-        else{
+        else if(mActivePlayerCharacter == mPlayersCharacters.size()){
             mActivePlayerCharacter = 0;
         }
     }
