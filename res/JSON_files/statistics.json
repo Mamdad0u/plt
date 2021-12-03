@@ -8,7 +8,7 @@
     "Statistics" : {
         "IS" : {
             "PV" : 80,
-            "Attack" : 140,
+            "ATTACK" : 140,
             "POWER" : 140,
             "DEFENSE" : 80,
             "LUCK" : 5,
@@ -42,7 +42,7 @@
 
         "SIA" : {
             "PV" : 110,
-            "Attack" : 80,
+            "ATTACK" : 80,
             "POWER" : 150,
             "DEFENSE" : 60,
             "LUCK" : 3,
@@ -70,7 +70,7 @@
 
         "RT" : {
             "PV" : 80,
-            "Attack" : 140,
+            "ATTACK" : 140,
             "POWER" : 140,
             "DEFENSE" : 80,
             "LUCK" : 5,
