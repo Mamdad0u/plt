@@ -1,38 +1,28 @@
 #include <client/Engine.h>  // Included from library shared_static
 #include "Engine.h"
 #include <iostream>
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
 
 using namespace std;
 
 namespace client {
 
     client::Engine::Engine(){
-        /*INITIALISATION*/
+        int lRandomPlayerCharacter = 0;
+        int lRandomEnemyCharacter = 0;
+       
 
-        /*TEST*/
-        
-        state::Character UUT_Character_IS("IS", state::INFO, state::ALIVE);
-        state::Character UUT_Character_SIA("SIA", state::SIGNAL, state::ALIVE);
-
-        UUT_Character_IS.SetCharacterStats(state::LIFE_POINTS, 80);
-        UUT_Character_IS.SetCharacterStats(state::ATTACK, 140);
-        UUT_Character_IS.SetCharacterStats(state::POWER, 140);
-        UUT_Character_IS.SetCharacterStats(state::DEFENSE, 80);
-        UUT_Character_IS.SetCharacterStats(state::LUCK, 5);
-        UUT_Character_IS.SetCharacterAction(state::ATTACK_1, 80, state::LUCK, 3, true);
-        UUT_Character_IS.SetCharacterAction(state::ATTACK_2, 60, state::LUCK, 0, true);
+        for(int lIndex=0;lIndex<state::State::MAX_COMBAT_NB; lIndex++){
+            lRandomEnemyCharacter = rand() % state::State::MAX_COMBAT_NB;
+            lRandomPlayerCharacter = rand() % state::State::MAX_COMBAT_NB;
+            mRandomEnemyList[lIndex] = (state::CharacterName)lRandomEnemyCharacter;
+        }
 
 
 
-        UUT_Character_SIA.SetCharacterStats(state::LIFE_POINTS, 110);
-        UUT_Character_SIA.SetCharacterStats(state::ATTACK, 80);
-        UUT_Character_SIA.SetCharacterStats(state::POWER, 150);
-        UUT_Character_SIA.SetCharacterStats(state::DEFENSE, 60);
-        UUT_Character_SIA.SetCharacterStats(state::LUCK, 3);
-        UUT_Character_SIA.SetCharacterAction(state::ATTACK_1, 80, state::LUCK, 0, true); 
-
-        mCurrentState.AddPlayerCharacter(*(&UUT_Character_SIA));
-        mCurrentState.AddEnemyCharacter(*(&UUT_Character_IS));
+        mCurrentState.AddPlayerCharacter((state::CharacterName)lRandomPlayerCharacter);
+        mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
     }
 
     state::CombatStatus client::Engine::GameLoop(){
@@ -43,6 +33,26 @@ namespace client {
         
         switch (lGameStatus)
         {
+
+        case state::GAME_OVER:
+            cout << "You loose on combat " << mCurrentState.GetCombatNumber() << endl;
+            
+            break;
+
+        case state::INITIALISATION:
+            if(mCurrentState.GetPlayerRosterSize() < 1){
+                cout << "Waiting for player to choose a character" << endl;
+            }
+
+            else if(mCurrentState.GetEnemyRosterSize() < 1){
+                cout << "Waiting for enemy to choose a character" << endl;
+            }
+
+            else{
+                mCurrentState.SetCombatState(state::IN_COMBAT);
+            }
+            break;
+
         case state::IN_COMBAT:
             switch (lPlayerStatus)
             {
@@ -52,7 +62,7 @@ namespace client {
                     mCommand.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), mInputCommandID); // Le joueur attaque l'IA
                     mIsNewPlayerCommand = false; // The command has been executed
                     mCurrentState.SetPlayerStatus(state::IA_TURN); // Give the turn to opponent 
-                    
+                    mCurrentState.MoveActivePlayer();
                 }
 
             /*  1. Wait for input command
@@ -97,11 +107,21 @@ namespace client {
         
 
         case state::OUT_COMBAT:
+            
+            /*Player win, adding the enemy in his roster*/
+            state::Character* lActiveEnemy  = mCurrentState.GetEnemyCharacter();
+            if(mCurrentState.GetPlayerRosterSize() < mCurrentState.MAX_CHARACTER){
+                mCurrentState.AddPlayerCharacter(lActiveEnemy->GetCharacterNameNumber());
+            }
 
+            mCurrentState.MoveNextCombat();
+            mCurrentState.AddEnemyCharacter(mRandomEnemyList[mCurrentState.GetCombatNumber()]);
+            mCurrentState.SetCombatState(state::IN_COMBAT);
             break;
 
-            // Check alive player 
-
+        
+        
+        
         }
         // Check alive player 
 
