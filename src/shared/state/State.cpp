@@ -1,6 +1,7 @@
 #include <state/State.h>  // Included from library shared_static
 #include "State.h"
 #include <iostream>
+#include <assert.h> 
 
 using namespace std;
 
@@ -87,7 +88,7 @@ Character* State::GetActivePlayerCharacter(){
             return &this->mPlayersCharacters[lIndex]; //Returning 1st character not dead since the last one active
         }
     }
-    
+
 }
 
 Character* State::GetEnemyCharacter(){
@@ -97,7 +98,7 @@ Character* State::GetEnemyCharacter(){
 }
 
 void State::MoveActivePlayer(){
-    if(mActivePlayerCharacter < mPlayersCharacters.size()){
+    if((mActivePlayerCharacter < mPlayersCharacters.size()) && (mActivePlayerCharacter < mPlayersCharacters.size() < MAX_CHARACTER)){
         mActivePlayerCharacter++;
 
         if((mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() == DEAD)  && mActivePlayerCharacter < mPlayersCharacters.size()){
