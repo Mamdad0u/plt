@@ -21,6 +21,7 @@ State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
     this->mPlayerStatus = rPlayerStatus;
     mPlayersCharacters.reserve(MAX_CHARACTER);
     mEnemyCharacters.reserve(MAX_ENEMY_NUMBER);
+    mActivePlayerCharacter = 0;
 }
 
 
@@ -117,7 +118,7 @@ void State::MoveActivePlayer(){
 void State::SetAlivePlayer(){
 
     for(int i=0;i<mPlayersCharacters.size();i++){
-        if(mPlayersCharacters[i].GetCharacterStats(LIFE_POINTS) == 0){
+        if((mPlayersCharacters[i].GetCharacterStats(LIFE_POINTS) == 0) && (mPlayersCharacters[i].GetCharacterStatus() != DEAD)){
             mPlayersCharacters[i].SetCharacterStatus(DEAD);
         }
     }
