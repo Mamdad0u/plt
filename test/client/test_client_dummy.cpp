@@ -85,17 +85,34 @@ BOOST_AUTO_TEST_CASE(TestCommand){
 BOOST_AUTO_TEST_CASE(TestEngine){
   {
   Engine NewEngine;
-  Player NewPlayer;
-  IA NewIA;
+  
+  IA IA1;
+  IA IA2;
   JSON_tools tools;
   Character test;
-  NewPlayer.AddEngineObserver(&NewEngine);
-  NewPlayer.SetStatusCommand(CommandID::ATTACK_1);
+  CombatStatus GameStatus = INITIALISATION;
+  int turn = 0;
 
+
+  IA1.AddEngineObserver(&NewEngine);
+  IA2.AddEngineObserver(&NewEngine);
+
+  while(GameStatus != GAME_OVER){
+
+    if(turn%2 == 0 && GameStatus == IN_COMBAT){
+        IA1.GenerarateRandomCommand();
+    }
+
+    else if(GameStatus == IN_COMBAT){
+        IA2.GenerarateRandomCommand();
+    }
+    turn++;
+    GameStatus = NewEngine.GameLoop();
+  }
+  
   NewEngine.GameLoop();
-  NewIA.SetStatusCommand(CommandID::ATTACK_2);
-  NewEngine.GameLoop();
-  tools.JSON_Configure_Character(test);
+ 
+ 
   }
 }
 
