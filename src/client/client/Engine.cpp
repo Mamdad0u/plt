@@ -58,11 +58,11 @@ namespace client {
             {
             case state::PLAYER_TURN:
                 if(mIsNewPlayerCommand){ // 1. Wait for input command
-
+                    mCurrentState.MoveActivePlayer();
                     mCommand.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), mInputCommandID); // Le joueur attaque l'IA
                     mIsNewPlayerCommand = false; // The command has been executed
                     mCurrentState.SetPlayerStatus(state::IA_TURN); // Give the turn to opponent 
-                    mCurrentState.MoveActivePlayer();
+                    
                 }
 
             /*  1. Wait for input command

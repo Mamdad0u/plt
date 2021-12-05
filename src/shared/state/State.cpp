@@ -1,6 +1,7 @@
 #include <state/State.h>  // Included from library shared_static
 #include "State.h"
 #include <iostream>
+#include <assert.h> 
 
 using namespace std;
 
@@ -21,6 +22,7 @@ State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
     this->mPlayerStatus = rPlayerStatus;
     mPlayersCharacters.reserve(MAX_CHARACTER);
     mEnemyCharacters.reserve(MAX_ENEMY_NUMBER);
+    mActivePlayerCharacter = 0;
 }
 
 
@@ -49,6 +51,7 @@ Player_Status State::GetPlayerStatus(){
 void State::SetPlayerStatus(Player_Status rNewPlayerStatus){
 
     this->mPlayerStatus = rNewPlayerStatus;
+    cout << endl;
     cout << "************ IT IS NOW " << mPlayerStatusStringMap[mPlayerStatus] << " ! ************" << endl;
 }
 
@@ -86,7 +89,7 @@ Character* State::GetActivePlayerCharacter(){
             return &this->mPlayersCharacters[lIndex]; //Returning 1st character not dead since the last one active
         }
     }
-    
+
 }
 
 Character* State::GetEnemyCharacter(){
@@ -96,14 +99,30 @@ Character* State::GetEnemyCharacter(){
 }
 
 void State::MoveActivePlayer(){
-    if(mActivePlayerCharacter < mPlayersCharacters.size()){
+    int lIndex = 0;
+    if(mActivePlayerCharacter == mPlayersCharacters.size()-1){
+        mActivePlayerCharacter = 0;
+    }
+    else{
+        mActivePlayerCharacter++;
+    }
+
+    if( mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() == DEAD){ // If New active character is dead
+        for(int lIndex = mActivePlayerCharacter; mPlayersCharacters[lIndex].GetCharacterStatus() == DEAD; lIndex++);
+        mActivePlayerCharacter = lIndex;
+    }
+    
+    
+
+
+/*     if((mActivePlayerCharacter < mPlayersCharacters.size()-1) && (mActivePlayerCharacter < MAX_CHARACTER)){
         mActivePlayerCharacter++;
 
         if((mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() == DEAD)  && mActivePlayerCharacter < mPlayersCharacters.size()){
             mActivePlayerCharacter++;
         }
 
-        else if(mActivePlayerCharacter == mPlayersCharacters.size()){
+        else if((mActivePlayerCharacter == mPlayersCharacters.size()) || (mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() == DEAD)){
             mActivePlayerCharacter = 0;
         }
     }
@@ -111,13 +130,13 @@ void State::MoveActivePlayer(){
     else{
         mActivePlayerCharacter = 0;
     }
-
+ */
 }
 
 void State::SetAlivePlayer(){
 
     for(int i=0;i<mPlayersCharacters.size();i++){
-        if(mPlayersCharacters[i].GetCharacterStats(LIFE_POINTS) == 0){
+        if((mPlayersCharacters[i].GetCharacterStats(LIFE_POINTS) == 0) && (mPlayersCharacters[i].GetCharacterStatus() != DEAD)){
             mPlayersCharacters[i].SetCharacterStatus(DEAD);
         }
     }
