@@ -126,14 +126,14 @@ namespace client {
     }
 
     void client::Command::ComputeAction(state::Character &rAttacker, state::Character &rVictim, CommandID rActionMade){
-        float lCoeffMajor;
-        int lCriticalHit;
-        int lAttackDamage;
-        int lVictimDefense;
-        int lAttackStat;
-        int lVictimLifePoints;
-        int lVictimStat;
-        float lPVLost;
+        float lCoeffMajor = 0;
+        int lCriticalHit = 0;
+        int lAttackDamage = 0;
+        int lVictimDefense = 0;
+        int lAttackStat = 0;
+        int lVictimLifePoints = 0;
+        int lVictimStat = 0;
+        float lPVLost = 0;
         const float lMagicCoefficiant = 0.44;
         int lBuffValue = 0;
         StatsName lBuffName;
