@@ -51,6 +51,7 @@ Player_Status State::GetPlayerStatus(){
 void State::SetPlayerStatus(Player_Status rNewPlayerStatus){
 
     this->mPlayerStatus = rNewPlayerStatus;
+    cout << endl;
     cout << "************ IT IS NOW " << mPlayerStatusStringMap[mPlayerStatus] << " ! ************" << endl;
 }
 
@@ -98,14 +99,30 @@ Character* State::GetEnemyCharacter(){
 }
 
 void State::MoveActivePlayer(){
-    if((mActivePlayerCharacter < mPlayersCharacters.size()) && (mActivePlayerCharacter < mPlayersCharacters.size() < MAX_CHARACTER)){
+    int lIndex = 0;
+    if(mActivePlayerCharacter == mPlayersCharacters.size()-1){
+        mActivePlayerCharacter = 0;
+    }
+    else{
+        mActivePlayerCharacter++;
+    }
+
+    if( mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() == DEAD){ // If New active character is dead
+        for(int lIndex = mActivePlayerCharacter; mPlayersCharacters[lIndex].GetCharacterStatus() == DEAD; lIndex++);
+        mActivePlayerCharacter = lIndex;
+    }
+    
+    
+
+
+/*     if((mActivePlayerCharacter < mPlayersCharacters.size()-1) && (mActivePlayerCharacter < MAX_CHARACTER)){
         mActivePlayerCharacter++;
 
         if((mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() == DEAD)  && mActivePlayerCharacter < mPlayersCharacters.size()){
             mActivePlayerCharacter++;
         }
 
-        else if(mActivePlayerCharacter == mPlayersCharacters.size()){
+        else if((mActivePlayerCharacter == mPlayersCharacters.size()) || (mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() == DEAD)){
             mActivePlayerCharacter = 0;
         }
     }
@@ -113,7 +130,7 @@ void State::MoveActivePlayer(){
     else{
         mActivePlayerCharacter = 0;
     }
-
+ */
 }
 
 void State::SetAlivePlayer(){
