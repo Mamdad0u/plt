@@ -44,11 +44,20 @@ namespace render {
             mMenuAction4.setPosition(sf::Vector2f(180.f,550.f));
             mRectAction4.setPosition(sf::Vector2f(180.f,550.f));
 
-            mRectLifePoints.setPosition(sf::Vector2f(150.f,350.f));
-            mRectLifePoints.setOutlineThickness(2);
-            mRectLifePoints.setOutlineColor(sf::Color::White);
-            mRectLifePoints.setFillColor(sf::Color::Green);
+            mRectLifePointsP1.setPosition(sf::Vector2f(450.f,550.f));
+            mRectLifePointsP1.setOutlineThickness(2);
+            mRectLifePointsP1.setOutlineColor(sf::Color::White);
+            mRectLifePointsP1.setFillColor(sf::Color::Green);
            
+            mRectLifePointsP2.setPosition(sf::Vector2f(500.f,550.f));
+            mRectLifePointsP2.setOutlineThickness(2);
+            mRectLifePointsP2.setOutlineColor(sf::Color::White);
+            mRectLifePointsP2.setFillColor(sf::Color::Green);
+
+            mRectLifePointsP3.setPosition(sf::Vector2f(450.f,600.f));
+            mRectLifePointsP3.setOutlineThickness(2);
+            mRectLifePointsP3.setOutlineColor(sf::Color::White);
+            mRectLifePointsP3.setFillColor(sf::Color::Green);
             
             
         }
@@ -139,9 +148,12 @@ namespace render {
 
     }
 
-    void render::UI::DEBUG_Set_LifePoints() {
+    void render::UI::DEBUG_Set_Life_Points() {
 
-        mRectLifePoints.setSize(sf::Vector2f(9,20));
+        mRectLifePointsP1.setSize(sf::Vector2f(70,10));
+        mRectLifePointsP2.setSize(sf::Vector2f(70,10));
+        mRectLifePointsP3.setSize(sf::Vector2f(70,10));
+        mRectLifePointsP4.setSize(sf::Vector2f(70,10));
 
     }
 
@@ -168,7 +180,10 @@ namespace render {
         target.draw(mRectAction2);
         target.draw(mRectAction3);
         target.draw(mRectAction4);
-        target.draw(mRectLifePoints);
+        target.draw(mRectLifePointsP1);
+        target.draw(mRectLifePointsP2);
+        target.draw(mRectLifePointsP3);
+        target.draw(mRectLifePointsP4);
 
     }
 
