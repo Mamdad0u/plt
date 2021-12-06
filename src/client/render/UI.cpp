@@ -43,6 +43,11 @@ namespace render {
             mMenuAction4.setCharacterSize(20);
             mMenuAction4.setPosition(sf::Vector2f(180.f,550.f));
             mRectAction4.setPosition(sf::Vector2f(180.f,550.f));
+
+            mRectLifePoints.setPosition(sf::Vector2f(150.f,350.f));
+            mRectLifePoints.setOutlineThickness(2);
+            mRectLifePoints.setOutlineColor(sf::Color::White);
+            mRectLifePoints.setFillColor(sf::Color::Green);
            
             
             
@@ -134,6 +139,12 @@ namespace render {
 
     }
 
+    void render::UI::DEBUG_Set_LifePoints() {
+
+        mRectLifePoints.setSize(sf::Vector2f(9,20));
+
+    }
+
     
 
     void render::UI::MoveUI(){
@@ -157,6 +168,7 @@ namespace render {
         target.draw(mRectAction2);
         target.draw(mRectAction3);
         target.draw(mRectAction4);
+        target.draw(mRectLifePoints);
 
     }
 

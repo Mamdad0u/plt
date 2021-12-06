@@ -74,7 +74,14 @@ namespace render {
         mUI.DEBUG_SetTextAction2("Objets");
         mUI.DEBUG_SetTextAction3("Menu");
         mUI.DEBUG_SetTextAction4("Quitter le jeu");
+        mUI.DEBUG_Set_LifePoints();
         
+
+    }
+
+    void render::RenderLayer::DispLifePoints() {
+
+
 
     }
 
