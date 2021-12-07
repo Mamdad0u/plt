@@ -1,23 +1,29 @@
 #include <client/Engine.h>  // Included from library shared_static
 #include "Engine.h"
+#include <algorithm>    // std::find
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+#include <random>
 
 using namespace std;
 
 namespace client {
 
     client::Engine::Engine(){
-        int lRandomPlayerCharacter = 0;
-        int lRandomEnemyCharacter = 0;
-       
+        int lRandomPlayerCharacter;
+        srand (time(NULL));
+        
+        lRandomPlayerCharacter = rand() % state::State::MAX_COMBAT_NB;
 
-        for(int lIndex=0;lIndex<state::State::MAX_COMBAT_NB; lIndex++){
-            lRandomEnemyCharacter = rand() % state::State::MAX_COMBAT_NB;
-            lRandomPlayerCharacter = rand() % state::State::MAX_COMBAT_NB;
-            mRandomEnemyList[lIndex] = (state::CharacterName)lRandomEnemyCharacter;
-        }
+        int lRandomInt[9] = {1, 2, 3, 4, 5, 6, 7, 8};
+        std::random_shuffle(lRandomInt, lRandomInt + 8);
+
+            for(int lIndex=0;lIndex<state::State::MAX_COMBAT_NB; lIndex++){
+
+                mRandomEnemyList[lIndex] = (state::CharacterName)lRandomInt[lIndex];
+
+            }
 
 
 
