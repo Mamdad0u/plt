@@ -146,7 +146,7 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
 
 }
 
-void state::Character::SetCharacterAction(ActionListCommand rAction, int rDamageValue, StatsName rStatsBuffName, int rStatsBuffValue, bool rBeneficial){
+void state::Character::SetCharacterAction(ActionListCommand rAction, int rDamageValue, StatsName rStatsBuffName, int rStatsBuffValue, BuffType rBeneficial){
     switch (rAction)
     {
     case ATTACK_1:

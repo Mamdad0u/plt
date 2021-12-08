@@ -12,7 +12,7 @@ namespace state {
     typedef struct ActionContainer{
         int damage;
         StatsName stat;
-        bool beneficial;
+        int beneficial;
         int buff;
 
     }ActionContainer;
@@ -49,26 +49,26 @@ namespace state {
                     break;
 
                 case 3:
-                    lActionList[lIndex_Action].beneficial = (StatsName)obj["Statistics"][rCharacter.GetName()][lAction_Name[lIndex_Action]]["BENEFICIAL"].asBool();
+                    lActionList[lIndex_Action].beneficial = (StatsName)obj["Statistics"][rCharacter.GetName()][lAction_Name[lIndex_Action]]["BENEFICIAL"].asInt();
                     break;
                 }
 
                 switch (lIndex_Action)
                 {
                 case 0:
-                    rCharacter.SetCharacterAction(ATTACK_1, lActionList[0].damage, lActionList[0].stat, lActionList[0].buff, lActionList[0].beneficial);
+                    rCharacter.SetCharacterAction(ATTACK_1, lActionList[0].damage, lActionList[0].stat, lActionList[0].buff, (BuffType)lActionList[0].beneficial);
                     break;
 
                 case 1:
-                    rCharacter.SetCharacterAction(ATTACK_2, lActionList[1].damage, lActionList[1].stat, lActionList[1].buff, lActionList[1].beneficial);
+                    rCharacter.SetCharacterAction(ATTACK_2, lActionList[1].damage, lActionList[1].stat, lActionList[1].buff, (BuffType)lActionList[1].beneficial);
                     break;
 
                 case 2:
-                    rCharacter.SetCharacterAction(SPELL_1, lActionList[2].damage, lActionList[2].stat, lActionList[2].buff, lActionList[2].beneficial);
+                    rCharacter.SetCharacterAction(SPELL_1, lActionList[2].damage, lActionList[2].stat, lActionList[2].buff, (BuffType)lActionList[2].beneficial);
                     break;
 
                 case 3:
-                    rCharacter.SetCharacterAction(SPELL_2, lActionList[3].damage, lActionList[3].stat, lActionList[3].buff, lActionList[3].beneficial);
+                    rCharacter.SetCharacterAction(SPELL_2, lActionList[3].damage, lActionList[3].stat, lActionList[3].buff, (BuffType)lActionList[3].beneficial);
                     break;
                 }
             }

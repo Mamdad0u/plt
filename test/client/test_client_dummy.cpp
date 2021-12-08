@@ -82,7 +82,7 @@ BOOST_AUTO_TEST_CASE(TestCommand){
 
 }
 
-/* BOOST_AUTO_TEST_CASE(TestEngine){
+BOOST_AUTO_TEST_CASE(TestEngine){
   {
   Engine NewEngine;
   
@@ -114,6 +114,6 @@ BOOST_AUTO_TEST_CASE(TestCommand){
  
  
   }
-} */
+}
 
 BOOST_AUTO_TEST_SUITE_END()

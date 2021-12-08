@@ -23,7 +23,7 @@
                 "DAMAGE" : 65,
                 "STATS" : 3,
                 "BUFF" : 20,
-                "BENEFICIAL" : true
+                "BENEFICIAL" : 0
             },
             "ACTION_3" : {
                 "TYPE" : "SPELL",
@@ -36,7 +36,7 @@
                 "DAMAGE" : 65,
                 "STATS" : 2,
                 "BUFF" : 20,
-                "BENEFICIAL" : true 
+                "BENEFICIAL" : 0 
             }
         },
 
@@ -51,7 +51,7 @@
                 "DAMAGE" : 60,
                 "STATS" : 5,
                 "BUFF" : 1,
-                "BENEFICIAL" : false
+                "BENEFICIAL" : 1
             },
             "ACTION_2" : {
                 "TYPE" : "SPELL",
@@ -64,7 +64,7 @@
                 "DAMAGE" : 50,
                 "STATS" : 5,
                 "BUFF" : 3,
-                "BENEFICIAL" : false
+                "BENEFICIAL" : 0
             }
         },
 
@@ -75,7 +75,7 @@
             "DEFENSE" : 80,
             "LUCK" : 5,
             "ACTION_1" : {
-                "TYPE" : "2",
+                "TYPE" : "ATTACK",
                 "DAMAGE" : 80,
                 "STATS" : 0,
                 "BUFF" : 0
@@ -85,14 +85,14 @@
                 "DAMAGE" : 50,
                 "STATS" : 2,
                 "BUFF" : 10,
-                "BENEFICIAL" : true 
+                "BENEFICIAL" : 0 
             },
             "ACTION_3" : {
                 "TYPE" : "SPELL",
                 "DAMAGE" : 60,
                 "STATS" : 2,
                 "BUFF" : 10,
-                "BENEFICIAL" : false
+                "BENEFICIAL" : 1
             }
         },
 
@@ -113,14 +113,14 @@
                 "DAMAGE" : 40,
                 "STATS" : 1,
                 "BUFF" : 15,
-                "BENEFICIAL" : true
+                "BENEFICIAL" : 0
             },
             "ACTION_3" : {
                 "TYPE" : "SPELL",
                 "DAMAGE" : 60,
                 "STATS" : 5,
                 "BUFF" : 1,  
-                "BENEFICIAL" : false
+                "BENEFICIAL" : 3
             }
         },
 
@@ -140,14 +140,15 @@
                 "TYPE" : "ATTACK",
                 "DAMAGE" : 100,
                 "STATS" : 1,
-                "BUFF" : 40 
+                "BUFF" : 40,
+                "BENEFICIAL" : 2
                 
             },
             "ACTION_3" : {
                 "TYPE" : "SPELL",
                 "DAMAGE" : 60,
                 "STATS" : 5,
-                "BUFF" : 1  
+                "BUFF" : 0
             }
         },
 
@@ -167,7 +168,8 @@
                 "TYPE" : "SPELL",
                 "DAMAGE" : 0,
                 "STATS" : 1,
-                "BUFF" : 25
+                "BUFF" : 25,
+                "BENEFICIAL" : true
                 
             },
             "ACTION_3" : {
@@ -195,7 +197,8 @@
                 "TYPE" : "ATTACK",
                 "DAMAGE" : 60,
                 "STATS" : 4,
-                "BUFF" : 10
+                "BUFF" : 10,
+                "BENEFICIAL" : true
             },
             "ACTION_3" : {
                 "TYPE" : "ATTACK",
@@ -221,7 +224,7 @@
                 "TYPE" : "SPELL",
                 "DAMAGE" : 90,
                 "STATS" : 1,
-                "BUFF" : 10
+                "BUFF" : 0
             }
         },
 
@@ -241,7 +244,8 @@
                 "TYPE" : "SPELL",
                 "DAMAGE" : 0,
                 "STATS" : 1,
-                "BUFF" : 10  
+                "BUFF" : 30,
+                "BENEFICIAL" : true
             }
         }
     }

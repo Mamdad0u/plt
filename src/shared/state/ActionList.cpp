@@ -30,14 +30,14 @@ namespace state {
         return lReturnSpell;
     }
 
-    void state::ActionList::SetAttack(int rAttackNumber, int rDamageValue, StatsName rStatsBuffName, int rStatsBuffValue, bool rBeneficial){
+    void state::ActionList::SetAttack(int rAttackNumber, int rDamageValue, StatsName rStatsBuffName, int rStatsBuffValue, BuffType rBeneficial){
         this->mAttackList[rAttackNumber-1].SetDamage(rDamageValue);
         this->mAttackList[rAttackNumber-1].SetStatBuffName(rStatsBuffName);
         this->mAttackList[rAttackNumber-1].SetStatBuffValue(rStatsBuffValue);
         this->mAttackList[rAttackNumber-1].SetBuffBeneficial(rBeneficial);
     }
 
-    void state::ActionList::SetSpell(int rSpellNumber, int rDamageValue, StatsName rStatsBuffName, int rStatsBuffValue, bool rBeneficial){
+    void state::ActionList::SetSpell(int rSpellNumber, int rDamageValue, StatsName rStatsBuffName, int rStatsBuffValue, BuffType rBeneficial){
         this->mSpellList[rSpellNumber-1].SetDamage(rDamageValue);
         this->mSpellList[rSpellNumber-1].SetStatBuffName(rStatsBuffName);
         this->mSpellList[rSpellNumber-1].SetStatBuffValue(rStatsBuffValue);

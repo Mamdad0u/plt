@@ -133,11 +133,12 @@ namespace client {
         int lAttackStat = 0;
         int lVictimLifePoints = 0;
         int lVictimStat = 0;
+        int lAttackerStat = 0;
         float lPVLost = 0;
         const float lMagicCoefficiant = 0.44;
         int lBuffValue = 0;
         StatsName lBuffName;
-        bool lBeneficial;
+        BuffType lBeneficial;
         
         Action* lActionGot = nullptr;
 
@@ -189,22 +190,38 @@ namespace client {
 
         if(lBuffValue > 0){ // Si l'action possède un buff
 
-            if(!lBeneficial){ // Buff non bénéfique
-                lBuffValue = lBuffValue * (-1);
-                lVictimStat = rVictim.GetCharacterStats(lBuffName);
-                rVictim.SetCharacterStats(lBuffName, lVictimStat + lBuffValue);
-                
-                cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " inflicted " << lBuffValue << " " <<mStatsNameMap[lBuffName] << " disadvantageous on " << rVictim.GetName() << endl;
-                cout << rVictim.GetName() << " "<<  mStatsNameMap[lBuffName] << " is now " << rVictim.GetCharacterStats(lBuffName) << endl;
+
+            switch(lBeneficial){
+                case BENEFICIAL_ATTACKER: // Buff bénéfique c'est l'attaquant qui reçoit le buff
+                    lVictimStat = rAttacker.GetCharacterStats(lBuffName);
+                    rAttacker.SetCharacterStats(lBuffName, lVictimStat + lBuffValue);
+                    
+                    cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " got +" << lBuffValue << " " << mStatsNameMap[lBuffName] << " beneficial" << endl;
+                    cout << rAttacker.GetName() << " "<<  mStatsNameMap[lBuffName] << " is now " << rAttacker.GetCharacterStats(lBuffName) << endl;
+                    break;
+
+
+                case NEGATIVE_VICTIM: // Buff non bénéfique pour la victime (adversaire)
+                    lBuffValue = lBuffValue * (-1);
+                    lVictimStat = rVictim.GetCharacterStats(lBuffName);
+                    rVictim.SetCharacterStats(lBuffName, lVictimStat + lBuffValue);
+                    
+                    cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " inflicted " << lBuffValue << " " <<mStatsNameMap[lBuffName] << " disadvantageous on " << rVictim.GetName() << endl;
+                    cout << rVictim.GetName() << " "<<  mStatsNameMap[lBuffName] << " is now " << rVictim.GetCharacterStats(lBuffName) << endl;
+                    break;
+
+                case NEGATIVE_ATTACKER: // Buff non bénéfique pour l'attaquant
+                    lBuffValue = lBuffValue * (-1);
+                    lAttackerStat = rAttacker.GetCharacterStats(lBuffName);
+                    rAttacker.SetCharacterStats(lBuffName, lAttackerStat + lBuffValue);
+                    
+                    cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " inflicted " << lBuffValue << " " <<mStatsNameMap[lBuffName] << " disadvantageous on " << rAttacker.GetName() << endl;
+                    cout << rAttacker.GetName() << " "<<  mStatsNameMap[lBuffName] << " is now " << rAttacker.GetCharacterStats(lBuffName) << endl;
+                    break;
+
 
             }
-            else{ // Buff bénéfique c'est l'attaquant qui reçoit le buff
-                lVictimStat = rAttacker.GetCharacterStats(lBuffName);
-                rAttacker.SetCharacterStats(lBuffName, lVictimStat + lBuffValue);
-                
-                cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " got +" << lBuffValue << " " << mStatsNameMap[lBuffName] << " beneficial" << endl;
-                cout << rAttacker.GetName() << " "<<  mStatsNameMap[lBuffName] << " is now " << rAttacker.GetCharacterStats(lBuffName) << endl;
-            }
+
         }
         
         
