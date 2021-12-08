@@ -26,7 +26,7 @@ namespace state {
     Action* state::ActionList::GetSpell (int rSpellNumber){
         Action* lReturnSpell = nullptr;
 
-        lReturnSpell = &mAttackList[rSpellNumber-1];
+        lReturnSpell = &mSpellList[rSpellNumber-1];
         return lReturnSpell;
     }
 
