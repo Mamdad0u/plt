@@ -438,8 +438,41 @@ int main(int argc,char* argv[]){
             }
         }
         
+     else if(strcmp(argv[1], "test") == 0){
+        Engine NewEngine;
+        
+        IA IA1;
+        IA IA2;
+        JSON_tools tools;
+        Character test;
+        CombatStatus GameStatus = INITIALISATION;
+        int turn = 0;
 
+
+        IA1.AddEngineObserver(&NewEngine);
+        IA2.AddEngineObserver(&NewEngine);
+
+        while(GameStatus != GAME_OVER){
+
+            if(turn%2 == 0 && GameStatus == IN_COMBAT){
+                IA1.GenerarateRandomCommand();
+            }
+
+            else if(GameStatus == IN_COMBAT){
+                IA2.GenerarateRandomCommand();
+            }
+            turn++;
+            GameStatus = NewEngine.GameLoop();
+        }
+        
+        NewEngine.GameLoop();
+
+     }
     
     }
+
+
+
+
     return 0;
 }
