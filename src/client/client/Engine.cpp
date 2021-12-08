@@ -27,8 +27,7 @@ namespace client {
 
 
 
-        // mCurrentState.AddPlayerCharacter((state::CharacterName)lRandomPlayerCharacter);
-        mCurrentState.AddPlayerCharacter(state::AEI);
+        mCurrentState.AddPlayerCharacter((state::CharacterName)lRandomPlayerCharacter);
         mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
     }
 
