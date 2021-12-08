@@ -16,8 +16,8 @@ namespace client {
         
         lRandomPlayerCharacter = rand() % state::State::MAX_COMBAT_NB;
 
-        int lRandomInt[9] = {1, 2, 3, 4, 5, 6, 7, 8};
-        std::random_shuffle(lRandomInt, lRandomInt + 8);
+        int lRandomInt[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+        std::random_shuffle(lRandomInt, lRandomInt + state::State::MAX_COMBAT_NB);
 
             for(int lIndex=0;lIndex<state::State::MAX_COMBAT_NB; lIndex++){
 
@@ -118,6 +118,10 @@ namespace client {
             state::Character* lActiveEnemy  = mCurrentState.GetEnemyCharacter();
             if(mCurrentState.GetPlayerRosterSize() < mCurrentState.MAX_CHARACTER){
                 mCurrentState.AddPlayerCharacter(lActiveEnemy->GetCharacterNameNumber());
+            }
+
+            else if(mCurrentState.GetPlayerRosterSize() > mCurrentState.MAX_CHARACTER){
+                cout << "Equipe pleine ! " << endl;
             }
 
             mCurrentState.MoveNextCombat();
