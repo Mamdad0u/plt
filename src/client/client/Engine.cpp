@@ -27,7 +27,8 @@ namespace client {
 
 
 
-        mCurrentState.AddPlayerCharacter((state::CharacterName)lRandomPlayerCharacter);
+        // mCurrentState.AddPlayerCharacter((state::CharacterName)lRandomPlayerCharacter);
+        mCurrentState.AddPlayerCharacter(state::AEI);
         mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
     }
 
@@ -65,7 +66,7 @@ namespace client {
             case state::PLAYER_TURN:
                 if(mIsNewPlayerCommand){ // 1. Wait for input command
                     mCurrentState.MoveActivePlayer();
-                    mCommand.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), mInputCommandID); // Le joueur attaque l'IA
+                    mCommand_Player.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), mInputCommandID); // Le joueur attaque l'IA
                     mIsNewPlayerCommand = false; // The command has been executed
                     mCurrentState.SetPlayerStatus(state::IA_TURN); // Give the turn to opponent 
                     
@@ -86,7 +87,7 @@ namespace client {
                 4. Move next turn                
                 */
                 if(mIsNewAICommand){
-                    mCommand.ComputeAction(*(mCurrentState.GetEnemyCharacter()), *(mCurrentState.GetActivePlayerCharacter()), mInputCommandID); // L'IA attaque le joueur
+                    mCommand_IA.ComputeAction(*(mCurrentState.GetEnemyCharacter()), *(mCurrentState.GetActivePlayerCharacter()), mInputCommandID); // L'IA attaque le joueur
 
                 }
                 mIsNewAICommand = false;

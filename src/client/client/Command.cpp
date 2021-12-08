@@ -137,6 +137,7 @@ namespace client {
         float lPVLost = 0;
         const float lMagicCoefficiant = 0.44;
         int lBuffValue = 0;
+    
         StatsName lBuffName;
         BuffType lBeneficial;
         
@@ -172,7 +173,7 @@ namespace client {
         lAttackStat = rAttacker.GetCharacterStats(StatsName::ATTACK); // Attaque de l'attaquant
         lVictimLifePoints = rVictim.GetCharacterStats(LIFE_POINTS);
         
-        lPVLost = ((lCoeffMajor * lCriticalHit * lAttackDamage * lAttackStat) / lVictimDefense) * lMagicCoefficiant;
+        lPVLost = ((lCoeffMajor * lCriticalHit * lAttackDamage * lAttackStat*mUniqueTeamBuff) / lVictimDefense) * lMagicCoefficiant;
         
         /*Application de la perte de PV*/
         rVictim.SetCharacterStats(LIFE_POINTS, lVictimLifePoints - lPVLost);
@@ -180,6 +181,7 @@ namespace client {
         cout  << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " inflicted " << lPVLost << " PV lost on " << rVictim.GetName() << endl;
         cout << rVictim.GetName() << " life points is now " << rVictim.GetCharacterStats(LIFE_POINTS) << endl;
         
+        mUniqueTeamBuff = 1; // Reset du team buff
         /*Calcul de l'effet du buff*/
         
         lBuffValue = lActionGot->GetStatBuffValue();
@@ -219,6 +221,17 @@ namespace client {
                     cout << rAttacker.GetName() << " "<<  mStatsNameMap[lBuffName] << " is now " << rAttacker.GetCharacterStats(lBuffName) << endl;
                     break;
 
+                case BENEFICIAL_TEAM: // Buff ayant un effet au tour n+1
+                    switch (lBuffName)
+                    {
+                    case ATTACK:
+                        mUniqueTeamBuff = (float)lBuffValue/10; // En %
+                        cout << rAttacker.GetName() << " give a team buff attack of " << lBuffValue << "% for next combat" << endl;
+                        break;
+                    
+
+                    }
+                    break;
 
             }
 
