@@ -118,8 +118,8 @@
             "ACTION_3" : {
                 "TYPE" : "SPELL",
                 "DAMAGE" : 60,
-                "STATS" : 5,
-                "BUFF" : 1,  
+                "STATS" : 1,
+                "BUFF" : 5,  
                 "BENEFICIAL" : 3
             }
         },
@@ -255,7 +255,7 @@
                 "TYPE" : "SPELL",
                 "DAMAGE" : 0,
                 "STATS" : 1,
-                "BUFF" : 5,
+                "BUFF" : 20,
                 "BENEFICIAL" : 3
             }
         }
