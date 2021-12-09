@@ -31,6 +31,14 @@ void State::MoveNextCombat() {
     this->mCombatNumber++;
 }
 
+void State::MoveNextTurn(){
+    this->mTurn++;
+}
+
+int State::GetTurn(){
+    return this->mTurn;
+}
+
 int State::GetCombatNumber(){
     return this->mCombatNumber;
 }
