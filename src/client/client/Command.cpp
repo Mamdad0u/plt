@@ -188,15 +188,20 @@ namespace client {
         lBeneficial = lActionGot->GetBuffBeneficial();
         lBuffName = lActionGot->GetStatBuffName();
         
-        if(mUniqueTeamLPBuff > 0){//Check if there is an active life point team buff
+        if(mActiveLPBuffTurnTime > 0){//Check if there is an active life point team buff
             lAttackerStat = rAttacker.GetCharacterStats(lBuffName);
             rAttacker.SetCharacterStats(LIFE_POINTS, lAttackerStat + mUniqueTeamLPBuff);
             
             cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " got +" << mUniqueTeamLPBuff << " " << mStatsNameMap[LIFE_POINTS] << " team beneficial" << endl;
             cout << rAttacker.GetName() << " "<<  mStatsNameMap[LIFE_POINTS] << " is now " << rAttacker.GetCharacterStats(LIFE_POINTS) << endl;
-            mUniqueTeamLPBuff = 0;
+            mActiveLPBuffTurnTime--;
         
         }
+
+
+
+        
+
 
         if(lBuffValue > 0){ // Si l'action possède un buff
 
@@ -239,13 +244,13 @@ namespace client {
 
                     case LIFE_POINTS:
                         mUniqueTeamLPBuff = lBuffValue;
-                        cout << rAttacker.GetName() << " give a team buff Life points of " << lBuffValue << " life points for next turn" << endl;
+                        cout << rAttacker.GetName() << " give a team buff Life points of " << lBuffValue << " life points for next 4 turns" << endl;
+                        mActiveLPBuffTurnTime = 4;
                         break;
 
                     }
 
 
-                    break;
 
             }
 
