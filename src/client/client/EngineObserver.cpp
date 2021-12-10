@@ -51,6 +51,9 @@ namespace client {
         mIsNewAICommand = true;
     }
 
+    void client::EngineObserver::Update ( ai::AIObserver* rNewAIObserver) {
 
+
+    }
 
 }
