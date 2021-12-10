@@ -31,11 +31,11 @@ namespace state {
         mStatBuffValue = rStatBuffValue;
     }
 
-    void state::Action::SetBuffBeneficial(bool rValue){
+    void state::Action::SetBuffBeneficial(BuffType rValue){
         mBeneficial = rValue;
     }
 
-    bool state::Action::GetBuffBeneficial(){
+    BuffType state::Action::GetBuffBeneficial(){
         return this->mBeneficial; 
     }
 
