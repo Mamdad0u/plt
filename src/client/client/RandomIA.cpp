@@ -3,6 +3,10 @@
 #include <stdio.h>      /* printf, scanf, puts, NULL */
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+#include <iterator>
+#include <algorithm>
+#include <vector>
+#include <iostream>
 
 namespace client {
     client::RandomIA::RandomIA(){
@@ -27,5 +31,13 @@ namespace client {
         lRandomInt = rand() % 4;
         lRandomCommand = lCommandIDTab[lRandomInt];
         SetStatusCommand(lRandomCommand);
+
+        std::list<EngineObserver*>::iterator lIterator;
+
+        lIterator = this->mEngineObserverList.begin();
+       
+        std::cout << "pouet :"<<(*lIterator)->mCurrentState.GetAlivePlayer() << std::endl;
+        
+
     }
 }
