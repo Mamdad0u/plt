@@ -154,7 +154,7 @@ namespace render {
 
     }
 
-    void render::UI::DEBUG_Set_Life_Points() {
+    void render::UI::DEBUG_SetLifePoints() {
 
         mRectLifePointsP1.setSize(sf::Vector2f(100,15));
         mRectLifePointsP2.setSize(sf::Vector2f(100,15));

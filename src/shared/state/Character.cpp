@@ -11,15 +11,70 @@ state::Character::Character() {
   mCharacterStatusStringMap[DEAD] = "DEAD";
 }
 
-state::Character::Character(std::string rCharacterName, Major rCharacterMajor,
-                            CharacterStatus rCharacterStatus) {
+state::Character::Character(CharacterName rCharacterName) {
+    mCharacterStatusStringMap[ALIVE] = "ALIVE";
+    mCharacterStatusStringMap[DEAD] = "DEAD";
+    
+    mCharacterNameMap[IS] = "IS";
+    mCharacterNameMap[SIA] = "SIA";
+    mCharacterNameMap[EVE] = "EVE";
+    mCharacterNameMap[MSC] = "MSC";
+    mCharacterNameMap[ESE] = "ESE";
+    mCharacterNameMap[AEI] = "AEI";
+    mCharacterNameMap[RT] = "RT";
+    mCharacterNameMap[ESC] = "ESC";
+    mCharacterNameMap[AUDENCIA] = "AUDENCIA";
 
-  this->mName = rCharacterName;
-  this->mCharacterMajor = rCharacterMajor;
-  this->mCharacterStatus = rCharacterStatus;
+    this->mCharacterNameNumber = rCharacterName;
+    this->mName = mCharacterNameMap[rCharacterName];
+    
+    
 
-  mCharacterStatusStringMap[ALIVE] = "ALIVE";
-  mCharacterStatusStringMap[DEAD] = "DEAD";
+    switch (rCharacterName)
+    {
+    case IS:
+        this->mCharacterMajor = INFO;
+        break;
+
+    case SIA:
+        this->mCharacterMajor = SIGNAL;
+        break;
+
+    case EVE:
+        this->mCharacterMajor = SIGNAL;
+        break;
+
+    case MSC:
+        this->mCharacterMajor = AUTO;
+        break;
+
+    case ESE:
+        this->mCharacterMajor = ELEC;
+        break;
+
+    case AEI:
+        this->mCharacterMajor = AUTO;
+        break;
+
+    case RT:
+        this->mCharacterMajor = SIGNAL;
+        break;
+
+    case ESC:
+        this->mCharacterMajor = ELEC;
+        break;
+
+    case AUDENCIA:
+        this->mCharacterMajor = SCIENCES_HUMAINES;
+        break;
+        
+
+
+    }
+
+}
+CharacterName state::Character::GetCharacterNameNumber(){
+    return this->mCharacterNameNumber;
 }
 
 void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
@@ -78,33 +133,28 @@ int state::Character::GetCharacterStats(StatsName rStatsName) {
   }
 }
 
-void state::Character::SetCharacterAction(ActionListCommand rAction,
-                                          int rDamageValue,
-                                          StatsName rStatsBuffName,
-                                          int rStatsBuffValue,
-                                          bool rBeneficial) {
-  switch (rAction) {
-  case ATTACK_1:
-    mCharacterAction.SetAttack(1, rDamageValue, rStatsBuffName, rStatsBuffValue,
-                               rBeneficial);
-    break;
+void state::Character::SetCharacterAction(ActionListCommand rAction, int rDamageValue, StatsName rStatsBuffName, int rStatsBuffValue, BuffType rBeneficial){
+    switch (rAction)
+    {
+    case ATTACK_1:
+        mCharacterAction.SetAttack(1, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
+        break;
+    
+    case ATTACK_2:
+        mCharacterAction.SetAttack(2, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
+        break;
 
-  case ATTACK_2:
-    mCharacterAction.SetAttack(2, rDamageValue, rStatsBuffName, rStatsBuffValue,
-                               rBeneficial);
-    break;
+    case SPELL_1:
+        mCharacterAction.SetSpell(1, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
+        break;
 
-  case SPELL_1:
-    mCharacterAction.SetSpell(1, rDamageValue, rStatsBuffName, rStatsBuffValue,
-                              rBeneficial);
-    break;
-
-  case SPELL_2:
-    mCharacterAction.SetSpell(2, rDamageValue, rStatsBuffName, rStatsBuffValue,
-                              rBeneficial);
-    break;
-  }
+    case SPELL_2:
+        mCharacterAction.SetSpell(2, rDamageValue, rStatsBuffName, rStatsBuffValue, rBeneficial);
+        break;
+    }
 }
+
+
 
 Major state::Character::GetMajor() { return this->mCharacterMajor; }
 

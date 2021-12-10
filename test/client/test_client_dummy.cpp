@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(TestSFML)
 
 BOOST_AUTO_TEST_CASE(TestCommand){
   {
-    Engine UUT_Engine;
+/*     Engine UUT_Engine;
     state::Character UUT_Character_IS("IS", state::INFO, state::ALIVE);
     state::Character UUT_Character_SIA("SIA", state::SIGNAL, state::ALIVE);
 
@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_CASE(TestCommand){
     UUT_Character_SIA.SetCharacterAction(state::SPELL_2, 60, LUCK, 3, true); 
 
     BOOST_CHECK_EQUAL(UUT_Engine.DEBUG_GetGameStatus(), state::IN_COMBAT);
-
+ */
 
 
 
@@ -82,20 +82,38 @@ BOOST_AUTO_TEST_CASE(TestCommand){
 
 }
 
-BOOST_AUTO_TEST_CASE(TestEngine){
+/* BOOST_AUTO_TEST_CASE(TestEngine){
   {
   Engine NewEngine;
-  Player NewPlayer;
-  IA NewIA;
   
-  NewPlayer.AddEngineObserver(&NewEngine);
-  NewPlayer.SetStatusCommand(CommandID::ATTACK_1);
+  IA IA1;
+  IA IA2;
+  JSON_tools tools;
+  Character test;
+  CombatStatus GameStatus = INITIALISATION;
+  int turn = 0;
 
-  NewEngine.GameLoop();
-  NewIA.SetStatusCommand(CommandID::ATTACK_2);
-  NewEngine.GameLoop();
-  
+
+  IA1.AddEngineObserver(&NewEngine);
+  IA2.AddEngineObserver(&NewEngine);
+
+  while(GameStatus != GAME_OVER){
+
+    if(turn%2 == 0 && GameStatus == IN_COMBAT){
+        IA1.GenerarateRandomCommand();
+    }
+
+    else if(GameStatus == IN_COMBAT){
+        IA2.GenerarateRandomCommand();
+    }
+    turn++;
+    GameStatus = NewEngine.GameLoop();
   }
-}
+  
+  NewEngine.GameLoop();
+ 
+ 
+  }
+} */
 
 BOOST_AUTO_TEST_SUITE_END()

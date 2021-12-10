@@ -30,6 +30,10 @@ void Stats::Set_life_points(int rValue) {
     if(mLife_points<0){
         mLife_points = 0;
     }
+
+    if(mLife_points>mMax_life_points){
+        mLife_points = mMax_life_points;
+    }
 }
 
 int Stats::Get_attack() {
@@ -54,6 +58,10 @@ int Stats::Get_defense() {
 
 void Stats::Set_defense(int rValue) {
     this->mDefense = rValue;
+
+    if(mDefense > 200){
+        mDefense = 200;
+    }
 }
 
 int Stats::Get_luck() {
