@@ -44,20 +44,25 @@ namespace render {
             mMenuAction4.setPosition(sf::Vector2f(180.f,550.f));
             mRectAction4.setPosition(sf::Vector2f(180.f,550.f));
 
-            mRectLifePointsP1.setPosition(sf::Vector2f(450.f,550.f));
+            mRectLifePointsP1.setPosition(sf::Vector2f(450.f,580.f));
             mRectLifePointsP1.setOutlineThickness(2);
             mRectLifePointsP1.setOutlineColor(sf::Color::White);
             mRectLifePointsP1.setFillColor(sf::Color::Green);
            
-            mRectLifePointsP2.setPosition(sf::Vector2f(500.f,550.f));
+            mRectLifePointsP2.setPosition(sf::Vector2f(600.f,580.f));
             mRectLifePointsP2.setOutlineThickness(2);
             mRectLifePointsP2.setOutlineColor(sf::Color::White);
             mRectLifePointsP2.setFillColor(sf::Color::Green);
 
-            mRectLifePointsP3.setPosition(sf::Vector2f(450.f,600.f));
+            mRectLifePointsP3.setPosition(sf::Vector2f(450.f,530.f));
             mRectLifePointsP3.setOutlineThickness(2);
             mRectLifePointsP3.setOutlineColor(sf::Color::White);
             mRectLifePointsP3.setFillColor(sf::Color::Green);
+
+            mRectLifePointsP4.setPosition(sf::Vector2f(600.f,530.f));
+            mRectLifePointsP4.setOutlineThickness(2);
+            mRectLifePointsP4.setOutlineColor(sf::Color::White);
+            mRectLifePointsP4.setFillColor(sf::Color::Green);
             
             
         }
