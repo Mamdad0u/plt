@@ -2,6 +2,7 @@
 #include "UI.h"
 #include <iostream>
 
+
 using namespace std;
 
 namespace render {
@@ -155,12 +156,14 @@ namespace render {
 
     void render::UI::DEBUG_Set_Life_Points() {
 
-        mRectLifePointsP1.setSize(sf::Vector2f(70,10));
-        mRectLifePointsP2.setSize(sf::Vector2f(70,10));
-        mRectLifePointsP3.setSize(sf::Vector2f(70,10));
-        mRectLifePointsP4.setSize(sf::Vector2f(70,10));
+        mRectLifePointsP1.setSize(sf::Vector2f(100,15));
+        mRectLifePointsP2.setSize(sf::Vector2f(100,15));
+        mRectLifePointsP3.setSize(sf::Vector2f(100,15));
+        mRectLifePointsP4.setSize(sf::Vector2f(100,15));
 
     }
+
+
 
     
 
