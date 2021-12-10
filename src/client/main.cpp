@@ -169,7 +169,7 @@ int main(int argc,char* argv[]){
         else if(strcmp(argv[1], "engine") == 0){
             Engine GameEngine;
             Player NewPlayer;
-            IA NewIA;
+            RandomIA NewIA;
             int turn = 0;
 
             sf::Clock clock;
@@ -303,8 +303,8 @@ int main(int argc,char* argv[]){
         else if(strcmp(argv[1], "random_ai") == 0){
             Engine GameEngine;
             Player NewPlayer;
-            IA IA_1;
-            IA IA_2;
+            RandomIA IA_1;
+            RandomIA IA_2;
            
             sf::Clock clock;
             sf::Clock clockState;
@@ -441,8 +441,8 @@ int main(int argc,char* argv[]){
      else if(strcmp(argv[1], "test") == 0){
         Engine NewEngine;
         
-        IA IA1;
-        IA IA2;
+        RandomIA IA1;
+        RandomIA IA2;
         JSON_tools tools;
         Character test;
         CombatStatus GameStatus = INITIALISATION;

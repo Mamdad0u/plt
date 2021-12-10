@@ -86,8 +86,8 @@ BOOST_AUTO_TEST_CASE(TestCommand){
   {
   Engine NewEngine;
   
-  IA IA1;
-  IA IA2;
+  RandomIA IA1;
+  RandomIA IA2;
   JSON_tools tools;
   Character test;
   CombatStatus GameStatus = INITIALISATION;

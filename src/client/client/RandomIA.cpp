@@ -1,25 +1,25 @@
-#include <client/IA.h>  // Included from library shared_static
-#include "IA.h"
+#include <client/RandomIA.h>  // Included from library shared_static
+#include "RandomIA.h"
 #include <stdio.h>      /* printf, scanf, puts, NULL */
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
 namespace client {
-    client::IA::IA(){
+    client::RandomIA::RandomIA(){
         srand (time(NULL));
     }
 
 
-    void client::IA::SetStatusCommand(CommandID NewCommand){
+    void client::RandomIA::SetStatusCommand(CommandID NewCommand){
         mInputCommand = NewCommand;
         NotifyNewPlayerCommand();
     }
 
-    CommandID client::IA::GetStatusCommand () const{
+    CommandID client::RandomIA::GetStatusCommand () const{
         return this->mInputCommand;
     }
 
-    void client::IA::GenerarateRandomCommand(){
+    void client::RandomIA::GenerarateRandomCommand(){
         CommandID lCommandIDTab[] = {ATTACK_1, ATTACK_2, SPELL_1, SPELL_2}; 
         int lRandomInt = 0;
         static CommandID lRandomCommand;
