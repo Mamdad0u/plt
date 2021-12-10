@@ -9,6 +9,7 @@ namespace state {
     
 
 
+
 State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
     
     mPlayerStatusStringMap[PLAYER_TURN] = "PLAYER TURN";
@@ -125,16 +126,13 @@ void State::MoveActivePlayer(){
 
 /*     if((mActivePlayerCharacter < mPlayersCharacters.size()-1) && (mActivePlayerCharacter < MAX_CHARACTER)){
         mActivePlayerCharacter++;
-
         if((mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() == DEAD)  && mActivePlayerCharacter < mPlayersCharacters.size()){
             mActivePlayerCharacter++;
         }
-
         else if((mActivePlayerCharacter == mPlayersCharacters.size()) || (mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() == DEAD)){
             mActivePlayerCharacter = 0;
         }
     }
-
     else{
         mActivePlayerCharacter = 0;
     }
