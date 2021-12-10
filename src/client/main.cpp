@@ -362,7 +362,7 @@ int main(int argc,char* argv[]){
                  * @brief Désactivé car non compatible avec Engine 2.Final
                  * 
                  */
-/*                 switch(GameStatus){
+                switch(GameStatus){
                     case IN_COMBAT:
                         
                         lRender.DEBUG_SetRenderState(IN_COMBAT);
@@ -382,7 +382,7 @@ int main(int argc,char* argv[]){
                             
                         }
                          break;
-                } */
+                }
                 if((lMovingProgress%800==0)){
                     
                     /* if(lCursor.ClickAction1(window)){
