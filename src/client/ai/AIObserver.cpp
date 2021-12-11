@@ -24,6 +24,11 @@ namespace ai {
     }
 
 
+    void ai::AIObserver::AddEngineObserver(client::EngineObserver* rNewobserver){
+        mEngineObserverList.push_back(rNewobserver);
+        rNewobserver->AddAIObserver(this);
+    }
+
 
 
 
