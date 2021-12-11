@@ -32,11 +32,7 @@ namespace client {
         lRandomCommand = lCommandIDTab[lRandomInt];
         SetStatusCommand(lRandomCommand);
 
-        std::list<EngineObserver*>::iterator lIterator;
 
-        lIterator = this->mEngineObserverList.begin();
-       
-        std::cout << "pouet :"<<(*lIterator)->mCurrentState.GetAlivePlayer() << std::endl;
         
 
     }
