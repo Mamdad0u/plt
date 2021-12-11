@@ -11,7 +11,7 @@
             // "program": "${workspaceFolder}/build/test/client/test_client_dummy",
             // "program": "${workspaceFolder}/test/stress_test.sh",
             "program": "${workspaceFolder}/bin/client",
-            "args": ["test"],
+            "args": ["heuristic_ai"],
             "stopAtEntry": false,
             "cwd": "/home/paul/plt",
             "environment": [],
