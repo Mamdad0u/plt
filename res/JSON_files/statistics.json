@@ -138,7 +138,7 @@
             },
             "ACTION_2" : {
                 "TYPE" : "ATTACK",
-                "DAMAGE" : 100,
+                "DAMAGE" : 104,
                 "STATS" : 1,
                 "BUFF" : 40,
                 "BENEFICIAL" : 2
@@ -161,7 +161,7 @@
             "LUCK" : 1,
             "ACTION_1" : {
                 "TYPE" : "ATTACK",
-                "DAMAGE" : 60,
+                "DAMAGE" : 50,
                 "STATS" : 0,
                 "BUFF" : 0
             },
@@ -176,9 +176,9 @@
             "ACTION_3" : {
                 "TYPE" : "SPELL",
                 "DAMAGE" : 0,
-                "STATS" : 4,
+                "STATS" : 1,
                 "BUFF" : 10,
-                "BENEFICIAL" : 0
+                "BENEFICIAL" : 3
             }
         },
 
@@ -202,7 +202,7 @@
                 "BENEFICIAL" : 0
             },
             "ACTION_3" : {
-                "TYPE" : "ATTACK",
+                "TYPE" : "SPELL",
                 "DAMAGE" : 60,
                 "STATS" : 5,
                 "BUFF" : 1  
