@@ -178,16 +178,16 @@
                 "BUFF" : 0
             },
             "ACTION_2" : {
-                "TYPE" : 1,
-                "DAMAGE" : 0,
+                "TYPE" : 2,
+                "DAMAGE" : 10,
                 "STATS" : 1,
-                "BUFF" : 25,
+                "BUFF" : 20,
                 "BENEFICIAL" : 0
                 
             },
             "ACTION_3" : {
-                "TYPE" : 2,
-                "DAMAGE" : 0,
+                "TYPE" : 3,
+                "DAMAGE" : 10,
                 "STATS" : 1,
                 "BUFF" : 10,
                 "BENEFICIAL" : 3

@@ -27,7 +27,11 @@ namespace ai {
         Character* lActiveCharacter; // Character actif joueur durant ce tour
         Character* lActiveEnemyCharacter;
         CharacterName lSpeciality;
+        state::Player_Status lPlayerTurn = lGameStatus.GetPlayerStatus();
+
         const int lMax_luck = 25;
+        int lPlayer_RosterSize = lGameStatus.GetPlayerRosterSize();
+
         int lEnemy_MaxLifePoints = 0; 
         int lEnemy_LifePoints = 0;
         int lEnemy_Luck = 0;
@@ -38,12 +42,12 @@ namespace ai {
         int lPlayer_Luck = 0;
         int lPlayer_Defense = 0;
 
-        if(lGameStatus.GetPlayerStatus() == PLAYER_TURN){ // Si c'est le tour de l'IA joueur de jouer
+        if(lPlayerTurn == PLAYER_TURN){ // Si c'est le tour de l'IA joueur de jouer
             lActiveCharacter = lGameStatus.GetActivePlayerCharacter(); // Récupération du character actif de l'IA joueur en train d'être joué
             lActiveEnemyCharacter = lGameStatus.GetEnemyCharacter();
         }
 
-        else if((lGameStatus.GetPlayerStatus() == IA_TURN)){ //  Si c'est le tour de l'IA enemy de jouer
+        else if((lPlayerTurn == IA_TURN)){ //  Si c'est le tour de l'IA enemy de jouer
             lActiveCharacter = lGameStatus.GetEnemyCharacter(); // Récupération de son character
             lActiveEnemyCharacter = lGameStatus.GetActivePlayerCharacter();
         }
@@ -108,17 +112,17 @@ namespace ai {
             break;
 
         case MSC: // Tank
-            if(lPlayer_LifePoints < (lLife_threshold * lPlayer_MaxLifePoints)){ // Si la vie du character joueur est < à 60%
+
+            if(lPlayer_RosterSize >1 && lPlayerTurn == PLAYER_TURN){ // Si il y a encore plus d'un character dans la team player
+                lHeuristicCommand = client::SPELL_1; // buff de LP pour la team
+            }
+            else if(lPlayer_LifePoints < (lLife_threshold * lPlayer_MaxLifePoints)){ // Si la vie du character joueur est < à 60%
                 lHeuristicCommand = client::ATTACK_2; // On privilégie la montée de sa vie
            
             }
 
-            else if(lEnemy_LifePoints < (lLife_threshold * lEnemy_MaxLifePoints)){ // Si la vie du character adverse est < à 60%
+            else{ // Sinon 
                 lHeuristicCommand = client::ATTACK_1; //On privilégie une attaque de dégats
-            }
-
-            else{ // Sinon buff de LP pour la team
-                lHeuristicCommand = client::SPELL_1;
             }
 
             break;
@@ -138,8 +142,9 @@ namespace ai {
             break;
 
         case EVE: // Support/soin
-            if(lEnemy_LifePoints < (lLife_threshold * lEnemy_MaxLifePoints)){ // Si la vie du character adverse est < à 60%
-                lHeuristicCommand = client::ATTACK_1; //On privilégie une attaque de dégats
+
+            if(lPlayer_RosterSize >1 && lPlayerTurn == PLAYER_TURN){ // Si il y a encore plus d'un character dans la team player
+                lHeuristicCommand = client::SPELL_2;
             }
 
             else if(lPlayer_LifePoints < (lLife_threshold * lPlayer_MaxLifePoints)){ // Si la vie du character joueur est < à 60%
@@ -147,8 +152,8 @@ namespace ai {
            
             }
 
-            else{ // Sinon buff de LP pour la team
-                lHeuristicCommand = client::SPELL_2;
+            else{ // Sinon on privilégie une attaque de dégats
+                lHeuristicCommand = client::ATTACK_1; 
             }
             break;
 
@@ -175,8 +180,9 @@ namespace ai {
             break;
 
         case AUDENCIA: // Support/soin
-            if(lEnemy_LifePoints < (lLife_threshold * lEnemy_MaxLifePoints)){ // Si la vie du character adverse est < à 60%
-                lHeuristicCommand = client::ATTACK_1; //On privilégie une attaque de dégats
+
+            if(lPlayer_RosterSize >1 && lPlayerTurn == PLAYER_TURN){ // Si il y a encore plus d'un character dans la team player
+                lHeuristicCommand = client::SPELL_2; // Buff pour la team
             }
 
             else if(lPlayer_LifePoints < (lLife_threshold * lPlayer_MaxLifePoints)){ // Si la vie du character joueur est < à 60%
@@ -184,8 +190,8 @@ namespace ai {
            
             }
 
-            else{ // Sinon buff de LP pour la team
-                lHeuristicCommand = client::SPELL_2;
+            else{ 
+                lHeuristicCommand = client::ATTACK_1; //On privilégie une attaque de dégats
             }
             break;
 
