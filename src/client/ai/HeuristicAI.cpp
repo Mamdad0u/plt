@@ -30,7 +30,7 @@ namespace ai {
         state::Player_Status lPlayerTurn = lGameStatus.GetPlayerStatus();
 
         const int lMax_luck = 25;
-        int lPlayer_RosterSize = lGameStatus.GetPlayerRosterSize();
+        int lAlivePlayer = lGameStatus.GetAlivePlayer();
 
         int lEnemy_MaxLifePoints = 0; 
         int lEnemy_LifePoints = 0;
@@ -113,7 +113,7 @@ namespace ai {
 
         case MSC: // Tank
 
-            if(lPlayer_RosterSize >1 && lPlayerTurn == PLAYER_TURN){ // Si il y a encore plus d'un character dans la team player
+            if(lAlivePlayer >1 && lPlayerTurn == PLAYER_TURN){ // Si il y a encore plus d'un character dans la team player
                 lHeuristicCommand = client::SPELL_1; // buff de LP pour la team
             }
             else if(lPlayer_LifePoints < (lLife_threshold * lPlayer_MaxLifePoints)){ // Si la vie du character joueur est < à 60%
@@ -143,7 +143,7 @@ namespace ai {
 
         case EVE: // Support/soin
 
-            if(lPlayer_RosterSize >1 && lPlayerTurn == PLAYER_TURN){ // Si il y a encore plus d'un character dans la team player
+            if(lAlivePlayer >1 && lPlayerTurn == PLAYER_TURN){ // Si il y a encore plus d'un character dans la team player
                 lHeuristicCommand = client::SPELL_2;
             }
 
@@ -181,7 +181,7 @@ namespace ai {
 
         case AUDENCIA: // Support/soin
 
-            if(lPlayer_RosterSize >1 && lPlayerTurn == PLAYER_TURN){ // Si il y a encore plus d'un character dans la team player
+            if(lAlivePlayer >1 && lPlayerTurn == PLAYER_TURN){ // Si il y a encore plus d'un character dans la team player
                 lHeuristicCommand = client::SPELL_2; // Buff pour la team
             }
 
