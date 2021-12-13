@@ -19,7 +19,7 @@ namespace ai {
 
 
     client::CommandID ai::HeuristicAI::GenerateHeuristicCommand(){
-        const float lLife_threshold = 0.6f;
+        const float lLife_threshold = 0.8f;
         CommandID lHeuristicCommand;
         std::list<EngineObserver*>::iterator lRunningEngine;
         lRunningEngine = this->mEngineObserverList.begin(); // Récupération des paramètres de l'engine 
@@ -27,7 +27,7 @@ namespace ai {
         Character* lActiveCharacter; // Character actif joueur durant ce tour
         Character* lActiveEnemyCharacter;
         CharacterName lSpeciality;
-    
+        const int lMax_luck = 25;
         int lEnemy_MaxLifePoints = 0; 
         int lEnemy_LifePoints = 0;
         int lEnemy_Luck = 0;
@@ -56,7 +56,8 @@ namespace ai {
 
         lPlayer_MaxLifePoints = lActiveCharacter->GetCharacterStats(MAX_LIFE_POINTS);
         lPlayer_LifePoints = lActiveCharacter->GetCharacterStats(LIFE_POINTS);
-
+        lPlayer_Luck = lActiveCharacter->GetCharacterStats(LUCK);
+        
         /**
          * @brief Les lignes suivantes détaillent le fonctionnement du choix d'une commande selon des heuristiques
          * 
@@ -75,21 +76,23 @@ namespace ai {
             break;
         
         case SIA: // Magicien
-            if(lEnemy_LifePoints < (lLife_threshold * lEnemy_MaxLifePoints)){ // Si la vie du character adverse est < à 60%
-                lHeuristicCommand = client::SPELL_1; //On privilégie une attaque de dégats
+            
+            if(lPlayer_Luck < lMax_luck){ // Priorité : augmenter sa luck
+                lHeuristicCommand = client::SPELL_2;
             }
 
             else if(lEnemy_Luck > 0){ // Sinon on cherche à baisser sa luck
                 lHeuristicCommand = client::ATTACK_1;
             }
 
-            else{ // Et enfin à augmenter la sienne
-                lHeuristicCommand = client::SPELL_2;
+            else{ 
+                lHeuristicCommand = client::SPELL_1; //On privilégie une attaque de dégats
             }
 
             break;
 
         case RT: // Attaquant
+        
             if(lEnemy_LifePoints < (lLife_threshold * lEnemy_MaxLifePoints)){ // Si la vie du character adverse est < à 60%
                 lHeuristicCommand = client::ATTACK_1; //On privilégie une attaque de dégats
             }
