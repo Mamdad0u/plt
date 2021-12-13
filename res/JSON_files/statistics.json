@@ -12,27 +12,29 @@
             "POWER" : 140,
             "DEFENSE" : 80,
             "LUCK" : 5,
+            "CAPACITY_NUMBER": 4,
+
             "ACTION_1" : {
-                "TYPE" : "ATTACK",
+                "TYPE" : 0,
                 "DAMAGE" : 80,
                 "STATS" : 0,
                 "BUFF" : 0
             },
             "ACTION_2" : {
-                "TYPE" : "ATTACK",
+                "TYPE" : 1,
                 "DAMAGE" : 65,
                 "STATS" : 3,
                 "BUFF" : 20,
                 "BENEFICIAL" : 0
             },
             "ACTION_3" : {
-                "TYPE" : "SPELL",
+                "TYPE" : 2,
                 "DAMAGE" : 80,
                 "STATS" : 0,
                 "BUFF" : 0 
             },
             "ACTION_4" : {
-                "TYPE" : "SPELL",
+                "TYPE" : 3,
                 "DAMAGE" : 65,
                 "STATS" : 2,
                 "BUFF" : 20,
@@ -46,21 +48,23 @@
             "POWER" : 150,
             "DEFENSE" : 60,
             "LUCK" : 3,
+            "CAPACITY_NUMBER": 3,
+
             "ACTION_1" : {
-                "TYPE" : "ATTACK",
+                "TYPE" : 0,
                 "DAMAGE" : 60,
                 "STATS" : 5,
                 "BUFF" : 1,
                 "BENEFICIAL" : 1
             },
             "ACTION_2" : {
-                "TYPE" : "SPELL",
+                "TYPE" : 2,
                 "DAMAGE" : 80,
                 "STATS" : 0,
                 "BUFF" : 0
             },
             "ACTION_3" : {
-                "TYPE" : "SPELL",
+                "TYPE" : 3,
                 "DAMAGE" : 50,
                 "STATS" : 5,
                 "BUFF" : 3,
@@ -74,21 +78,23 @@
             "POWER" : 140,
             "DEFENSE" : 80,
             "LUCK" : 5,
+            "CAPACITY_NUMBER": 3,
+
             "ACTION_1" : {
-                "TYPE" : "ATTACK",
+                "TYPE" : 0,
                 "DAMAGE" : 80,
                 "STATS" : 0,
                 "BUFF" : 0
             },
             "ACTION_2" : {
-                "TYPE" : "ATTACK",
+                "TYPE" : 1,
                 "DAMAGE" : 50,
                 "STATS" : 2,
                 "BUFF" : 10,
                 "BENEFICIAL" : 0 
             },
             "ACTION_3" : {
-                "TYPE" : "SPELL",
+                "TYPE" : 2,
                 "DAMAGE" : 60,
                 "STATS" : 2,
                 "BUFF" : 10,
@@ -102,21 +108,23 @@
             "POWER" : 20,
             "DEFENSE" : 110,
             "LUCK" : 1,
+            "CAPACITY_NUMBER": 3,
+
             "ACTION_1" : {
-                "TYPE" : "ATTACK",
+                "TYPE" : 0,
                 "DAMAGE" : 70,
                 "STATS" : 0,
                 "BUFF" : 0
             },
             "ACTION_2" : {
-                "TYPE" : "ATTACK",
+                "TYPE" : 1,
                 "DAMAGE" : 40,
                 "STATS" : 1,
                 "BUFF" : 15,
                 "BENEFICIAL" : 0
             },
             "ACTION_3" : {
-                "TYPE" : "SPELL",
+                "TYPE" : 2,
                 "DAMAGE" : 60,
                 "STATS" : 1,
                 "BUFF" : 5,  
@@ -130,14 +138,16 @@
             "POWER" : 70,
             "DEFENSE" : 80,
             "LUCK" : 1,
+            "CAPACITY_NUMBER": 3,
+
             "ACTION_1" : {
-                "TYPE" : "ATTACK",
+                "TYPE" : 0,
                 "DAMAGE" : 80,
                 "STATS" : 0,
                 "BUFF" : 0
             },
             "ACTION_2" : {
-                "TYPE" : "ATTACK",
+                "TYPE" : 1,
                 "DAMAGE" : 104,
                 "STATS" : 1,
                 "BUFF" : 40,
@@ -145,7 +155,7 @@
                 
             },
             "ACTION_3" : {
-                "TYPE" : "SPELL",
+                "TYPE" : 2,
                 "DAMAGE" : 0,
                 "STATS" : 2,
                 "BUFF" : 15,
@@ -159,14 +169,16 @@
             "POWER" : 110,
             "DEFENSE" : 90,
             "LUCK" : 1,
+            "CAPACITY_NUMBER": 3,
+
             "ACTION_1" : {
-                "TYPE" : "ATTACK",
+                "TYPE" : 0,
                 "DAMAGE" : 50,
                 "STATS" : 0,
                 "BUFF" : 0
             },
             "ACTION_2" : {
-                "TYPE" : "SPELL",
+                "TYPE" : 1,
                 "DAMAGE" : 0,
                 "STATS" : 1,
                 "BUFF" : 25,
@@ -174,7 +186,7 @@
                 
             },
             "ACTION_3" : {
-                "TYPE" : "SPELL",
+                "TYPE" : 2,
                 "DAMAGE" : 0,
                 "STATS" : 1,
                 "BUFF" : 10,
@@ -188,24 +200,27 @@
             "POWER" : 10,
             "DEFENSE" : 180,
             "LUCK" : 1,
+            "CAPACITY_NUMBER": 3,
+
             "ACTION_1" : {
-                "TYPE" : "ATTACK",
+                "TYPE" : 0,
                 "DAMAGE" : 70,
                 "STATS" : 0,
                 "BUFF" : 0
             },
             "ACTION_2" : {
-                "TYPE" : "ATTACK",
+                "TYPE" : 1,
                 "DAMAGE" : 60,
                 "STATS" : 4,
                 "BUFF" : 10,
                 "BENEFICIAL" : 0
             },
             "ACTION_3" : {
-                "TYPE" : "SPELL",
+                "TYPE" : 2,
                 "DAMAGE" : 60,
                 "STATS" : 5,
-                "BUFF" : 1  
+                "BUFF" : 1,
+                "BENEFICIAL" : 1
             }
         },
 
@@ -215,14 +230,16 @@
             "POWER" : 120,
             "DEFENSE" : 70,
             "LUCK" : 2,
+            "CAPACITY_NUMBER": 2,
+
             "ACTION_1" : {
-                "TYPE" : "ATTACK",
+                "TYPE" : 0,
                 "DAMAGE" : 50,
                 "STATS" : 0,
                 "BUFF" : 0
             },
             "ACTION_2" : {
-                "TYPE" : "SPELL",
+                "TYPE" : 1,
                 "DAMAGE" : 90,
                 "STATS" : 1,
                 "BUFF" : 0
@@ -235,8 +252,10 @@
             "POWER" : 100,
             "DEFENSE" : 100,
             "LUCK" : 2,
+            "CAPACITY_NUMBER": 3,
+            
             "ACTION_1" : {
-                "TYPE" : "ATTACK",
+                "TYPE" : 0,
                 "DAMAGE" : 60,
                 "STATS" : 0,
                 "BUFF" : 0
@@ -244,20 +263,23 @@
 
 
             "ACTION_2" : {
-                "TYPE" : "SPELL",
-                "DAMAGE" : 0,
+                "TYPE" : 2,
+                "DAMAGE" : 20,
                 "STATS" : 1,
                 "BUFF" : 30,
                 "BENEFICIAL" : 0
             },
 
             "ACTION_3" : {
-                "TYPE" : "SPELL",
-                "DAMAGE" : 0,
+                "TYPE" : 3,
+                "DAMAGE" : 10,
                 "STATS" : 1,
                 "BUFF" : 20,
                 "BENEFICIAL" : 3
             }
+
+
+            
         }
     }
 }
