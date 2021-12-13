@@ -71,8 +71,12 @@ int Stats::Get_luck() {
 void Stats::Set_luck(int rValue) {
     this->mLuck = rValue;
 
-    if(mLuck > 25){
-        mLuck = 25;
+    if(mLuck > MAX_LUCK){
+        mLuck = MAX_LUCK;
+    }
+
+    if(mLuck < 0){
+        mLuck = 0;
     }
 }
 
