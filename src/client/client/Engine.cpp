@@ -115,7 +115,7 @@ namespace client {
             mCurrentState.SetAlivePlayer();
             mCurrentState.SetAliveEnemy();
 
-            if(mCurrentState.GetAlivePlayer() == false){
+            if(mCurrentState.GetAlivePlayer() == 0){
                 mCurrentState.SetCombatState(state::GAME_OVER);
 
             }

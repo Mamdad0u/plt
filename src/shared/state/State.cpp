@@ -170,20 +170,18 @@ void State::SetAliveEnemy(){
     }
 }
 
-bool State::GetAlivePlayer(){
-    int lDeadCharacter = 0;
+int State::GetAlivePlayer(){
+    int lAliveCharacter = 0;
 
     for(int i=0;i<mPlayersCharacters.size();i++){
-        if(mPlayersCharacters[i].GetCharacterStatus() == DEAD){
-            lDeadCharacter++;
+        if(mPlayersCharacters[i].GetCharacterStatus() == ALIVE){
+            lAliveCharacter++;
         }
     }
 
-    if(lDeadCharacter == mPlayersCharacters.size()){
-        return false;
-    }
 
-    return true;
+
+    return lAliveCharacter;
 
 }
 
