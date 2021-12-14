@@ -171,7 +171,7 @@ int main(int argc,char* argv[]){
         else if(strcmp(argv[1], "engine") == 0){
             Engine GameEngine;
             Player NewPlayer;
-            RandomIA NewIA;
+            RandomAI NewIA;
             int turn = 0;
 
             sf::Clock clock;
@@ -305,8 +305,8 @@ int main(int argc,char* argv[]){
         else if(strcmp(argv[1], "random_ai") == 0){
             Engine GameEngine;
             Player NewPlayer;
-            RandomIA IA_1;
-            RandomIA IA_2;
+            RandomAI IA_1;
+            RandomAI IA_2;
            
             sf::Clock clock;
             sf::Clock clockState;
