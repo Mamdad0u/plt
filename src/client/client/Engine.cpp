@@ -12,22 +12,36 @@ namespace client {
 
     client::Engine::Engine(){
         int lRandomPlayerCharacter;
+        int lIndex2 = 0;
         srand (time(NULL));
         
         lRandomPlayerCharacter = rand() % state::State::MAX_COMBAT_NB;
 
         int lRandomInt[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
         std::random_shuffle(lRandomInt, lRandomInt + state::State::MAX_COMBAT_NB);
-
+       // lRandomPlayerCharacter = 2;
+        mCurrentState.AddPlayerCharacter((state::CharacterName)lRandomPlayerCharacter);
+        
+       
             for(int lIndex=0;lIndex<state::State::MAX_COMBAT_NB; lIndex++){
+                if((state::CharacterName)lRandomInt[lIndex] != (state::CharacterName)lRandomPlayerCharacter){
+                    mRandomEnemyList[lIndex] = (state::CharacterName)lRandomInt[lIndex2];
+                    lIndex2++;
+                }
 
-                mRandomEnemyList[lIndex] = (state::CharacterName)lRandomInt[lIndex];
+                else{
+                    lIndex2+=1;
+                    mRandomEnemyList[lIndex] = (state::CharacterName)lRandomInt[lIndex2];
+                    lIndex2+=1;
+                }
+                
+                
 
             }
 
 
 
-        mCurrentState.AddPlayerCharacter((state::CharacterName)lRandomPlayerCharacter);
+
         mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
     }
 
@@ -101,7 +115,7 @@ namespace client {
             mCurrentState.SetAlivePlayer();
             mCurrentState.SetAliveEnemy();
 
-            if(mCurrentState.GetAlivePlayer() == false){
+            if(mCurrentState.GetAlivePlayer() == 0){
                 mCurrentState.SetCombatState(state::GAME_OVER);
 
             }
