@@ -42,7 +42,15 @@ int Stats::Get_attack() {
 
 void Stats::Set_attack(int rValue) {
     this->mAttack = rValue;
-}
+
+    if(mAttack > MAX_ATTACK){
+        this->mAttack = MAX_ATTACK;
+    }
+
+    if(mAttack < 0){
+        this->mAttack = 0;
+    }
+}   
 
 int Stats::Get_power() {
     return this->mPower;
