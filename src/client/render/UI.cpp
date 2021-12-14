@@ -170,6 +170,14 @@ namespace render {
     void render::UI::MoveUI(){
         mTextVersion.move(sf::Vector2f(1.f,0.f));
         mDebugTextState.move(sf::Vector2f(1.f,0.f));
+        mMenuAction1.move(sf::Vector2f(1.f,0.f));
+        mMenuAction2.move(sf::Vector2f(1.f,0.f));
+        mMenuAction3.move(sf::Vector2f(1.f,0.f));
+        mMenuAction4.move(sf::Vector2f(1.f,0.f));
+        mRectLifePointsP1.move(sf::Vector2f(1.f,0.f));
+        mRectLifePointsP2.move(sf::Vector2f(1.f,0.f));
+        mRectLifePointsP3.move(sf::Vector2f(1.f,0.f));
+        mRectLifePointsP4.move(sf::Vector2f(1.f,0.f));
 
     }
 
