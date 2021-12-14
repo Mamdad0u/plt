@@ -51,14 +51,14 @@
             "CAPACITY_NUMBER": 3,
 
             "ACTION_1" : {
-                "TYPE" : 0,
+                "TYPE" : 2,
                 "DAMAGE" : 60,
                 "STATS" : 5,
                 "BUFF" : 1,
                 "BENEFICIAL" : 1
             },
             "ACTION_2" : {
-                "TYPE" : 2,
+                "TYPE" : 0,
                 "DAMAGE" : 80,
                 "STATS" : 0,
                 "BUFF" : 0
@@ -87,14 +87,14 @@
                 "BUFF" : 0
             },
             "ACTION_2" : {
-                "TYPE" : 1,
+                "TYPE" : 2,
                 "DAMAGE" : 50,
                 "STATS" : 2,
                 "BUFF" : 10,
                 "BENEFICIAL" : 0 
             },
             "ACTION_3" : {
-                "TYPE" : 2,
+                "TYPE" : 3,
                 "DAMAGE" : 60,
                 "STATS" : 2,
                 "BUFF" : 10,
@@ -112,19 +112,19 @@
 
             "ACTION_1" : {
                 "TYPE" : 0,
-                "DAMAGE" : 70,
+                "DAMAGE" : 80,
                 "STATS" : 0,
                 "BUFF" : 0
             },
             "ACTION_2" : {
-                "TYPE" : 1,
-                "DAMAGE" : 40,
+                "TYPE" : 2,
+                "DAMAGE" : 70,
                 "STATS" : 1,
                 "BUFF" : 15,
                 "BENEFICIAL" : 0
             },
             "ACTION_3" : {
-                "TYPE" : 2,
+                "TYPE" : 3,
                 "DAMAGE" : 60,
                 "STATS" : 1,
                 "BUFF" : 5,  
@@ -173,13 +173,13 @@
 
             "ACTION_1" : {
                 "TYPE" : 0,
-                "DAMAGE" : 50,
+                "DAMAGE" : 60,
                 "STATS" : 0,
                 "BUFF" : 0
             },
             "ACTION_2" : {
                 "TYPE" : 2,
-                "DAMAGE" : 10,
+                "DAMAGE" : 40,
                 "STATS" : 1,
                 "BUFF" : 20,
                 "BENEFICIAL" : 0
@@ -209,14 +209,14 @@
                 "BUFF" : 0
             },
             "ACTION_2" : {
-                "TYPE" : 1,
+                "TYPE" : 2,
                 "DAMAGE" : 60,
                 "STATS" : 4,
                 "BUFF" : 10,
                 "BENEFICIAL" : 0
             },
             "ACTION_3" : {
-                "TYPE" : 2,
+                "TYPE" : 3,
                 "DAMAGE" : 60,
                 "STATS" : 5,
                 "BUFF" : 1,
@@ -230,17 +230,11 @@
             "POWER" : 120,
             "DEFENSE" : 70,
             "LUCK" : 2,
-            "CAPACITY_NUMBER": 2,
+            "CAPACITY_NUMBER": 1,
 
             "ACTION_1" : {
                 "TYPE" : 0,
-                "DAMAGE" : 50,
-                "STATS" : 0,
-                "BUFF" : 0
-            },
-            "ACTION_2" : {
-                "TYPE" : 1,
-                "DAMAGE" : 90,
+                "DAMAGE" : 110,
                 "STATS" : 1,
                 "BUFF" : 0
             }
