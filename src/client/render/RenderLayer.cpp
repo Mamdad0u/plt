@@ -134,6 +134,7 @@ namespace render {
             else if(mMovingProgress%800==0){
                 //cout << "L'animation devient statique" << endl;
                 mPlayerCharactersSurface[i].SetCharacterAnimation(0);
+                //NotifyEndRendering();
                 
             }
 
