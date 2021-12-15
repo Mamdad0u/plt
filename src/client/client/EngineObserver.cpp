@@ -53,7 +53,7 @@ namespace client {
 
 void client::EngineObserver::Update(render::RenderObserver* rNewRenderObserver) {
 
-
+    mIsRenderEnded = true;
 
 }
 
