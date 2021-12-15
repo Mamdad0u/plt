@@ -43,6 +43,7 @@ namespace client {
         case state::RENDER_PROCESSING:
             if(mIsRenderEnded){
                 mCurrentState.SetCombatState(state::IN_COMBAT);
+                mIsRenderEnded = false;
             }
 
 

@@ -12,6 +12,10 @@ namespace render {
         mArenaEnemySurface.reserve(4);
 
     }
+
+    render::RenderLayer::RenderLayer(client::EngineObserver* rNewObserver){
+        AddEngineObserver(rNewObserver);
+    }
     
     int render::RenderLayer::LoadBackground(){
         if(mBackgroundSurface.LoadBackgroundSprite("map_background.png")){

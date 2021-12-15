@@ -18,6 +18,7 @@ State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
     mCombatStatusStringMap[IN_COMBAT] = "IN_COMBAT";
     mCombatStatusStringMap[OUT_COMBAT] = "OUT_COMBAT";
     mCombatStatusStringMap[GAME_OVER] = "GAME_OVER";
+    mCombatStatusStringMap[RENDER_PROCESSING] = "RENDER_PROCESSING";
 
     this->mCombatStatus = rCombatStatus;
     this->mPlayerStatus = rPlayerStatus;

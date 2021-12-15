@@ -307,7 +307,7 @@ int main(int argc,char* argv[]){
             sf::Clock clockState;
             sf::Clock clockInter;
             sf::Clock GameClock;
-            RenderLayer lRender;
+            RenderLayer lRender(&GameEngine);
             sf:: Vector2i LocalPosition;
             client::WindowCursor lCursor;
             State Debug_State(IN_COMBAT, PLAYER_TURN);
@@ -359,27 +359,19 @@ int main(int argc,char* argv[]){
                  * @brief Désactivé car non compatible avec Engine 2.Final
                  * 
                  */
-/*                 switch(GameStatus){
+                switch(GameStatus){
                     case IN_COMBAT:
                         
                         lRender.DEBUG_SetRenderState(IN_COMBAT);
                         break;
 
-                    case OUT_COMBAT:
-                        lRender.DEBUG_SetRenderState(OUT_COMBAT);
-                        if(lMovingProgress%800!=0||(lMovingProgress==0)){
+                    case RENDER_PROCESSING:
+                        lRender.DEBUG_SetRenderState(RENDER_PROCESSING);
+                        
                             lMovingProgress = lRender.GoNextCombat(window);
-                        }
-
-                        else if(lMovingProgress%800==0){
-                            
-                            Debug_State.SetCombatState(IN_COMBAT);
-                            clockInter.restart();
-                            
-                            
-                        }
+     
                          break;
-                } */
+                }
                 if((lMovingProgress%800==0)){
                     
                     /* if(lCursor.ClickAction1(window)){
@@ -413,7 +405,7 @@ int main(int argc,char* argv[]){
                 
                 lCursor.GetPositionCursor(window);
 
-                if(GameClock.getElapsedTime().asSeconds() > 3.f){
+                if(GameClock.getElapsedTime().asSeconds() > 0.1f){
                     if(turn%2 == 0 && GameStatus == IN_COMBAT){
                         IA_1.GenerarateRandomCommand();
                     }
