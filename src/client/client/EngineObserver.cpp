@@ -51,6 +51,17 @@ namespace client {
         mIsNewAICommand = true;
     }
 
+void client::EngineObserver::Update(render::RenderObserver* rNewRenderObserver) {
+
+
+
+}
+
+    void client::EngineObserver::AddRenderObserver(render::RenderObserver* rNewRenderObserver) {
+
+        mRenderObserverList.push_back(rNewRenderObserver);
+
+    }
 
 
 }
