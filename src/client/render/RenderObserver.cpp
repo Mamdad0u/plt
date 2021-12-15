@@ -15,7 +15,16 @@ namespace render {
 
     void render::RenderObserver::NotifyEndRendering() {
 
+        std::list<client::EngineObserver*>::iterator lIterator; 
+        std::list<client::EngineObserver*>::const_iterator lConst_iterator;
+
+        lIterator = mEngineObserverList.begin();
+        lConst_iterator = mEngineObserverList.end();
         
+        for(;lIterator!=lConst_iterator;++lIterator)
+        {
+            (*lIterator)->Update(this);
+        }
 
     }
 }
