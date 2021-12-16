@@ -54,6 +54,17 @@ namespace client {
         switch (lGameStatus)
         {
 
+        case state::RENDER_PROCESSING:
+            if(mIsRenderEnded){
+                mCurrentState.SetCombatState(state::IN_COMBAT);
+                mIsRenderEnded = false;
+            }
+
+
+            break;
+
+
+
         case state::GAME_OVER:
             cout << "You loose on combat " << mCurrentState.GetCombatNumber() << endl;
             
@@ -140,20 +151,18 @@ namespace client {
 
             mCurrentState.MoveNextCombat();
             mCurrentState.AddEnemyCharacter(mRandomEnemyList[mCurrentState.GetCombatNumber()]);
-            mCurrentState.SetCombatState(state::IN_COMBAT);
+            mCurrentState.SetCombatState(state::RENDER_PROCESSING);
             break;
 
-        
-        
-        
-        }
+
         // Check alive player 
 
 
-        return mCurrentState.GetCombatState();
+        
         
     }
-
+    return mCurrentState.GetCombatState();
+}
 
     state::CombatStatus client::Engine::DEBUG_GetGameStatus(){
 
@@ -164,6 +173,9 @@ namespace client {
         this->mInputCommandID = rNewCommand;
         this->mIsNewPlayerCommand = true;
     }
+
+
+    
 
 
 }
