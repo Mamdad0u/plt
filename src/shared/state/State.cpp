@@ -18,6 +18,7 @@ State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
     mCombatStatusStringMap[IN_COMBAT] = "IN_COMBAT";
     mCombatStatusStringMap[OUT_COMBAT] = "OUT_COMBAT";
     mCombatStatusStringMap[GAME_OVER] = "GAME_OVER";
+    mCombatStatusStringMap[RENDER_PROCESSING] = "RENDER_PROCESSING";
 
     this->mCombatStatus = rCombatStatus;
     this->mPlayerStatus = rPlayerStatus;
@@ -29,7 +30,13 @@ State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
 
 
 void State::MoveNextCombat() {
+
     this->mCombatNumber++;
+
+}
+
+void State::ResetCombatNumber(){
+    this->mCombatNumber = 1;
 }
 
 void State::MoveNextTurn(){
@@ -43,6 +50,15 @@ int State::GetTurn(){
 int State::GetCombatNumber(){
     return this->mCombatNumber;
 }
+
+int State::GetArenaNumber(){
+    return this->mArenaNumber;
+}
+
+int State::GetCombatPerArena(){
+    return this->mCombatPerArena[mArenaNumber];
+}
+
 
 void State::SetCombatState(CombatStatus rNewCombatState) {
     this->mCombatStatus = rNewCombatState;
@@ -141,9 +157,19 @@ void State::MoveActivePlayer(){
 
 void State::SetAlivePlayer(){
 
-    for(int i=0;i<mPlayersCharacters.size();i++){
-        if((mPlayersCharacters[i].GetCharacterStats(LIFE_POINTS) == 0) && (mPlayersCharacters[i].GetCharacterStatus() != DEAD)){
-            mPlayersCharacters[i].SetCharacterStatus(DEAD);
+    for(int index=0;index<mPlayersCharacters.size();index++){
+        /*Looking for every characters in player team if one is dead*/
+        if((mPlayersCharacters[index].GetCharacterStats(LIFE_POINTS) == 0) && (mPlayersCharacters[index].GetCharacterStatus() != DEAD)){
+            mPlayersCharacters[index].SetCharacterStatus(DEAD);
+
+            if(index == mActivePlayerCharacter){ /**
+                * @brief If the active player is dead.
+                * Avoid a bug if IA kill a player character and mActivePlayerCharacter not refresh for next player command
+                */
+                MoveActivePlayer();
+            }
+            
+
         }
     }
 }
@@ -158,20 +184,18 @@ void State::SetAliveEnemy(){
     }
 }
 
-bool State::GetAlivePlayer(){
-    int lDeadCharacter = 0;
+int State::GetAlivePlayer(){
+    int lAliveCharacter = 0;
 
     for(int i=0;i<mPlayersCharacters.size();i++){
-        if(mPlayersCharacters[i].GetCharacterStatus() == DEAD){
-            lDeadCharacter++;
+        if(mPlayersCharacters[i].GetCharacterStatus() == ALIVE){
+            lAliveCharacter++;
         }
     }
 
-    if(lDeadCharacter == mPlayersCharacters.size()){
-        return false;
-    }
 
-    return true;
+
+    return lAliveCharacter;
 
 }
 

@@ -12,9 +12,13 @@ namespace render {
         mArenaEnemySurface.reserve(4);
 
     }
+
+    render::RenderLayer::RenderLayer(client::EngineObserver* rNewObserver){
+        AddEngineObserver(rNewObserver);
+    }
     
     int render::RenderLayer::LoadBackground(){
-        if(mBackgroundSurface.LoadBackgroundSprite("map_background.png")){
+        if(mBackgroundSurface.LoadBackgroundSprite("backgrounds/outside_map.png")){
             cout << "ERROR : Failed to load background " << endl;
             return -1;
         }
@@ -134,6 +138,7 @@ namespace render {
             else if(mMovingProgress%800==0){
                 //cout << "L'animation devient statique" << endl;
                 mPlayerCharactersSurface[i].SetCharacterAnimation(0);
+                NotifyEndRendering();
                 
             }
 
