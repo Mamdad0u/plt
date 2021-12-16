@@ -49,8 +49,11 @@ namespace client {
        
         state::CombatStatus lGameStatus = mCurrentState.GetCombatState();
         state::Player_Status lPlayerStatus = mCurrentState.GetPlayerStatus();
+        int lTurn = mCurrentState.GetTurn();
+        int lArena = mCurrentState.GetArenaNumber();
+        int lMax_Combat = mCurrentState.GetCombatPerArena();
+        int lCombatNumber = mCurrentState.GetCombatNumber();
 
-        
         switch (lGameStatus)
         {
 
@@ -134,6 +137,7 @@ namespace client {
             if(mCurrentState.GetAliveEnemy() == false){
                 mCurrentState.SetCombatState(state::OUT_COMBAT);
             }
+            
             break;
         
 
@@ -150,6 +154,15 @@ namespace client {
             }
 
             mCurrentState.MoveNextCombat();
+            lCombatNumber = mCurrentState.GetCombatNumber();
+
+            if(lCombatNumber > lMax_Combat){ // Si l'arêne est terminée
+                mCurrentState.GoToNextArena(); // On va à l'arêne suivante
+                mCurrentState.ResetCombatNumber();
+            }
+
+
+
             mCurrentState.AddEnemyCharacter(mRandomEnemyList[mCurrentState.GetCombatNumber()]);
             mCurrentState.SetCombatState(state::RENDER_PROCESSING);
             break;

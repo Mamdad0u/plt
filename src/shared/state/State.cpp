@@ -30,7 +30,13 @@ State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
 
 
 void State::MoveNextCombat() {
+
     this->mCombatNumber++;
+
+}
+
+void State::ResetCombatNumber(){
+    this->mCombatNumber = 1;
 }
 
 void State::MoveNextTurn(){
@@ -44,6 +50,15 @@ int State::GetTurn(){
 int State::GetCombatNumber(){
     return this->mCombatNumber;
 }
+
+int State::GetArenaNumber(){
+    return this->mArenaNumber;
+}
+
+int State::GetCombatPerArena(){
+    return this->mCombatPerArena[mArenaNumber];
+}
+
 
 void State::SetCombatState(CombatStatus rNewCombatState) {
     this->mCombatStatus = rNewCombatState;
