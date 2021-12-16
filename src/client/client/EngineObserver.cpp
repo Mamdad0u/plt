@@ -65,18 +65,19 @@ namespace client {
         mInputCommandID = rNewAIObserver->GetStatusCommand();
         mIsNewPlayerCommand = true;
         mIsNewAICommand = true;
+
+    }
 void client::EngineObserver::Update(render::RenderObserver* rNewRenderObserver) {
 
     mIsRenderEnded = true;
 
 }
 
-    void client::EngineObserver::AddRenderObserver(render::RenderObserver* rNewRenderObserver) {
+void client::EngineObserver::AddRenderObserver(render::RenderObserver* rNewRenderObserver) {
 
-        mRenderObserverList.push_back(rNewRenderObserver);
-
-    }
-
-    }
+    mRenderObserverList.push_back(rNewRenderObserver);
 
 }
+
+}
+
