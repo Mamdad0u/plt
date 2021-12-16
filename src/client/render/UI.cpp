@@ -178,6 +178,10 @@ namespace render {
         mRectLifePointsP2.move(sf::Vector2f(1.f,0.f));
         mRectLifePointsP3.move(sf::Vector2f(1.f,0.f));
         mRectLifePointsP4.move(sf::Vector2f(1.f,0.f));
+        mRectAction1.move(sf::Vector2f(1.f,0.f));
+        mRectAction2.move(sf::Vector2f(1.f,0.f));
+        mRectAction3.move(sf::Vector2f(1.f,0.f));
+        mRectAction4.move(sf::Vector2f(1.f,0.f));
 
     }
 
