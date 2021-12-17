@@ -173,6 +173,7 @@ int main(int argc,char* argv[]){
             Player NewPlayer;
             RandomAI NewIA;
             int turn = 0;
+            int player_turn = 1;
 
             sf::Clock clock;
             sf::Clock clockState;
@@ -281,12 +282,14 @@ int main(int argc,char* argv[]){
                 lCursor.GetPositionCursor(window);
 
                 if(GameClock.getElapsedTime().asSeconds() > 3.f){
-                    if(turn%2 == 0){
+                    if(turn%2 == 0 ||player_turn==1){
                         NewPlayer.ClickCommand(window,lCursor);
+                        player_turn=0;
                     }
 
-                    else{
+                    else if(turn%2==1 || player_turn==0){
                         NewIA.SetStatusCommand(PlayerCommand[turn]);
+                        player_turn=1;
                     }
                     turn++;
                     GameStatus = GameEngine.GameLoop(); // Update de l'état du jeu toutes les 3s pour + de visibilité
@@ -305,7 +308,7 @@ int main(int argc,char* argv[]){
         else if(strcmp(argv[1], "random_ai") == 0){
             Engine GameEngine;
             Player NewPlayer;
-            RandomAI IA_1;
+            //RandomAI IA_1;
             RandomAI IA_2;
            
             sf::Clock clock;
@@ -318,8 +321,8 @@ int main(int argc,char* argv[]){
             State Debug_State(IN_COMBAT, PLAYER_TURN);
             CombatStatus GameStatus = INITIALISATION;
             int turn = 0;
-
-            IA_1.AddEngineObserver(&GameEngine);
+            NewPlayer.AddEngineObserver(&GameEngine);
+            //IA_1.AddEngineObserver(&GameEngine);
             IA_2.AddEngineObserver(&GameEngine);
             
             
@@ -410,16 +413,16 @@ int main(int argc,char* argv[]){
                 
                 lCursor.GetPositionCursor(window);
 
-                if(GameClock.getElapsedTime().asSeconds() > 0.1f){
+                if(GameClock.getElapsedTime().asSeconds() > 3.f){
                     if(turn%2 == 0 && GameStatus == IN_COMBAT){
-                        IA_1.GenerarateRandomCommand();
+                        NewPlayer.ClickCommand(window,lCursor);
                     }
 
                     else if(GameStatus == IN_COMBAT){
                         IA_2.GenerarateRandomCommand();
                     }
                     
-                    turn++;
+                    //turn++;
                     GameStatus = GameEngine.GameLoop(); // Update de l'état du jeu toutes les 3s pour + de visibilité
                     GameClock.restart();
                 }
