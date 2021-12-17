@@ -6,6 +6,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <render/RenderLayer.h>
+#include <client.h>
+#include <ai.h>
+#include <client/WindowCursor.h>
 
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML
 // fonctionne
@@ -22,6 +26,7 @@ using namespace state;
 using namespace sf;
 using namespace render;
 using namespace client;
+using namespace ai;
 
 int main(int argc,char* argv[]){
 
@@ -166,7 +171,7 @@ int main(int argc,char* argv[]){
         else if(strcmp(argv[1], "engine") == 0){
             Engine GameEngine;
             Player NewPlayer;
-            IA NewIA;
+            RandomAI NewIA;
             int turn = 0;
 
             sf::Clock clock;
@@ -300,8 +305,8 @@ int main(int argc,char* argv[]){
         else if(strcmp(argv[1], "random_ai") == 0){
             Engine GameEngine;
             Player NewPlayer;
-            IA IA_1;
-            IA IA_2;
+            RandomAI IA_1;
+            RandomAI IA_2;
            
             sf::Clock clock;
             sf::Clock clockState;
@@ -426,28 +431,30 @@ int main(int argc,char* argv[]){
                     
             }
         }
-        
-     else if(strcmp(argv[1], "test") == 0){
+    
+
+    else if(strcmp(argv[1], "heuristic_ai") == 0){
         Engine NewEngine;
         
-        IA IA1;
-        IA IA2;
-        Character test;
+        HeuristicAI AI1;
+        HeuristicAI AI2;
+        
+        
         CombatStatus GameStatus = INITIALISATION;
         int turn = 0;
 
-
-        IA1.AddEngineObserver(&NewEngine);
-        IA2.AddEngineObserver(&NewEngine);
+        
+        AI1.AddEngineObserver(&NewEngine);
+        AI2.AddEngineObserver(&NewEngine);
 
         while(GameStatus != GAME_OVER){
 
             if(turn%2 == 0 && GameStatus == IN_COMBAT){
-                IA1.GenerarateRandomCommand();
+                AI1.GenerateHeuristicCommand();
             }
 
             else if(GameStatus == IN_COMBAT){
-                IA2.GenerarateRandomCommand();
+                AI2.GenerateHeuristicCommand();
             }
             turn++;
             GameStatus = NewEngine.GameLoop();
@@ -455,12 +462,47 @@ int main(int argc,char* argv[]){
         
         NewEngine.GameLoop();
 
-     }
+        }
+
     
-    }
 
 
 
+     else if(strcmp(argv[1], "test") == 0){
+        Engine NewEngine;
+        
+        HeuristicAI AI1;
+        HeuristicAI AI2;
+        
+        
+        CombatStatus GameStatus = INITIALISATION;
+        int turn = 0;
 
+        
+        AI1.AddEngineObserver(&NewEngine);
+        AI2.AddEngineObserver(&NewEngine);
+
+        while(GameStatus != GAME_OVER){
+
+            if(turn%2 == 0 && GameStatus == IN_COMBAT){
+                AI1.GenerateHeuristicCommand();
+            }
+
+            else if(GameStatus == IN_COMBAT){
+                AI2.GenerateHeuristicCommand();
+            }
+            turn++;
+            GameStatus = NewEngine.GameLoop();
+        }
+        
+        NewEngine.GameLoop();
+        }
+     }
     return 0;
 }
+    
+
+
+
+
+    

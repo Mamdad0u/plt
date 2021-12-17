@@ -18,7 +18,7 @@ namespace render {
     }
     
     int render::RenderLayer::LoadBackground(){
-        if(mBackgroundSurface.LoadBackgroundSprite("map_background.png")){
+        if(mBackgroundSurface.LoadBackgroundSprite("backgrounds/outside_map.png")){
             cout << "ERROR : Failed to load background " << endl;
             return -1;
         }

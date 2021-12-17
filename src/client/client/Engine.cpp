@@ -12,22 +12,36 @@ namespace client {
 
     client::Engine::Engine(){
         int lRandomPlayerCharacter;
+        int lIndex2 = 0;
         srand (time(NULL));
         
         lRandomPlayerCharacter = rand() % state::State::MAX_COMBAT_NB;
 
         int lRandomInt[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
         std::random_shuffle(lRandomInt, lRandomInt + state::State::MAX_COMBAT_NB);
-
+       // lRandomPlayerCharacter = 2;
+        mCurrentState.AddPlayerCharacter((state::CharacterName)lRandomPlayerCharacter);
+        
+       
             for(int lIndex=0;lIndex<state::State::MAX_COMBAT_NB; lIndex++){
+                if((state::CharacterName)lRandomInt[lIndex] != (state::CharacterName)lRandomPlayerCharacter){
+                    mRandomEnemyList[lIndex] = (state::CharacterName)lRandomInt[lIndex2];
+                    lIndex2++;
+                }
 
-                mRandomEnemyList[lIndex] = (state::CharacterName)lRandomInt[lIndex];
+                else{
+                    lIndex2+=1;
+                    mRandomEnemyList[lIndex] = (state::CharacterName)lRandomInt[lIndex2];
+                    lIndex2+=1;
+                }
+                
+                
 
             }
 
 
 
-        mCurrentState.AddPlayerCharacter((state::CharacterName)lRandomPlayerCharacter);
+
         mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
     }
 
@@ -35,8 +49,11 @@ namespace client {
        
         state::CombatStatus lGameStatus = mCurrentState.GetCombatState();
         state::Player_Status lPlayerStatus = mCurrentState.GetPlayerStatus();
+        int lTurn = mCurrentState.GetTurn();
+        int lArena = mCurrentState.GetArenaNumber();
+        int lMax_Combat = mCurrentState.GetCombatPerArena();
+        int lCombatNumber = mCurrentState.GetCombatNumber();
 
-        
         switch (lGameStatus)
         {
 
@@ -112,7 +129,7 @@ namespace client {
             mCurrentState.SetAlivePlayer();
             mCurrentState.SetAliveEnemy();
 
-            if(mCurrentState.GetAlivePlayer() == false){
+            if(mCurrentState.GetAlivePlayer() == 0){
                 mCurrentState.SetCombatState(state::GAME_OVER);
 
             }
@@ -120,6 +137,7 @@ namespace client {
             if(mCurrentState.GetAliveEnemy() == false){
                 mCurrentState.SetCombatState(state::OUT_COMBAT);
             }
+            
             break;
         
 
@@ -136,6 +154,15 @@ namespace client {
             }
 
             mCurrentState.MoveNextCombat();
+            lCombatNumber = mCurrentState.GetCombatNumber();
+
+            if(lCombatNumber > lMax_Combat){ // Si l'arêne est terminée
+                mCurrentState.GoToNextArena(); // On va à l'arêne suivante
+                mCurrentState.ResetCombatNumber();
+            }
+
+
+
             mCurrentState.AddEnemyCharacter(mRandomEnemyList[mCurrentState.GetCombatNumber()]);
             mCurrentState.SetCombatState(state::RENDER_PROCESSING);
             break;
