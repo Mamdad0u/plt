@@ -14,6 +14,8 @@ namespace render {
     }
 
     render::RenderLayer::RenderLayer(client::EngineObserver* rNewObserver){
+        mPlayerCharactersSurface.reserve(4);
+        mArenaEnemySurface.reserve(4);
         AddEngineObserver(rNewObserver);
     }
     
@@ -70,6 +72,45 @@ namespace render {
         return 0;
     }
 
+    void render::RenderLayer::UpdateCharacterOnScreen(int rSpriteNumber, int rPositionOnScreen){
+/*         lRender.LoadCharacter(1,250,250,1);
+        lRender.LoadCharacter(2,200,300,1);
+        lRender.LoadCharacter(5,150,350,1);
+        lRender.LoadCharacter(7,100,400,1); */
+        
+        
+        switch (rPositionOnScreen)
+        {
+
+            /**
+             * @brief Les case {0..3} concernent les charactères du joueur
+             * Le 4ème est pour le charactere enemy
+             * 
+             */
+        case 0:
+            LoadCharacter(rSpriteNumber,250,250,1);
+            break;
+        
+        case 1:
+            LoadCharacter(rSpriteNumber,200,300,1);
+            break;
+
+        case 2:
+            LoadCharacter(rSpriteNumber,150,350,1);
+            break;
+
+        case 3:
+            LoadCharacter(rSpriteNumber,100,400,1);
+            break;
+
+        case 4:
+            LoadEnemy(rSpriteNumber,600,325,0);
+            break;
+        }
+
+        
+    }
+
     void render::RenderLayer::LoadUI(){
         
         mUI.CreateWindow(0,500,800,100);
@@ -100,13 +141,6 @@ namespace render {
 
 
         }
-
-
-
-
-
-
-
 
     }
 
@@ -155,15 +189,16 @@ namespace render {
         return (mMovingProgress-1);
     }
 
-    void render::RenderLayer::draw(sf::RenderWindow& rWindow, int rEnemyIndex, state::State GameStatus){
+    void render::RenderLayer::draw(sf::RenderWindow& rWindow, int rEnemyIndex, state::CombatStatus rGameStatus){
         mBackgroundSurface.DrawSprite(rWindow);
 
-        if(GameStatus.GetCombatState()==state::IN_COMBAT){
-            mArenaEnemySurface[rEnemyIndex].DrawSprite(rWindow);
+        if(rGameStatus==state::IN_COMBAT){
+            
             rWindow.draw(mUI);
+            mArenaEnemySurface[rEnemyIndex].DrawSprite(rWindow);
         }
         
-
+        
         for(int i=0;i<mPlayerCharactersSurface.size();i++){
             
             mPlayerCharactersSurface[i].DrawSprite(rWindow);

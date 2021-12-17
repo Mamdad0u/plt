@@ -82,8 +82,9 @@ namespace client {
                 cout << "Waiting for enemy to choose a character" << endl;
             }
 
-            else{
+            if(mIsRenderEnded){
                 mCurrentState.SetCombatState(state::IN_COMBAT);
+                mIsRenderEnded = false;
             }
             break;
 
@@ -97,6 +98,10 @@ namespace client {
                     mIsNewPlayerCommand = false; // The command has been executed
                     mCurrentState.SetPlayerStatus(state::IA_TURN); // Give the turn to opponent 
                     
+                }
+
+                else{
+                    cout << "Waiting for player to input a command" << endl;
                 }
 
             /*  1. Wait for input command
