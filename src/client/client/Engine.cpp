@@ -45,7 +45,7 @@ namespace client {
         mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
     }
 
-    state::CombatStatus client::Engine::GameLoop(){
+    state::State* client::Engine::GameLoop(){
        
         state::CombatStatus lGameStatus = mCurrentState.GetCombatState();
         state::Player_Status lPlayerStatus = mCurrentState.GetPlayerStatus();
@@ -174,7 +174,7 @@ namespace client {
         
         
     }
-    return mCurrentState.GetCombatState();
+    return &mCurrentState;
 }
 
     state::CombatStatus client::Engine::DEBUG_GetGameStatus(){

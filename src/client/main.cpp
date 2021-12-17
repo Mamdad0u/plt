@@ -46,6 +46,7 @@ int main(int argc,char* argv[]){
             sf:: Vector2i LocalPosition;
             client::WindowCursor lCursor;
             State GameStatus(IN_COMBAT, PLAYER_TURN);
+            State Game_State(INITIALISATION, PLAYER_TURN);
 
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
             window.setFramerateLimit(120);
@@ -182,7 +183,9 @@ int main(int argc,char* argv[]){
             sf:: Vector2i LocalPosition;
             client::WindowCursor lCursor;
             State Debug_State(IN_COMBAT, PLAYER_TURN);
+            
             CombatStatus GameStatus = IN_COMBAT;
+            State* Game_State;
 
             NewPlayer.AddEngineObserver(&GameEngine);
             NewIA.AddEngineObserver(&GameEngine);
@@ -289,7 +292,8 @@ int main(int argc,char* argv[]){
                         NewIA.SetStatusCommand(PlayerCommand[turn]);
                     }
                     turn++;
-                    GameStatus = GameEngine.GameLoop(); // Update de l'état du jeu toutes les 3s pour + de visibilité
+                    Game_State = GameEngine.GameLoop(); // Update de l'état du jeu toutes les 3s pour + de visibilité
+                    GameStatus = Game_State->GetCombatState();
                     GameClock.restart();
                 }
                 
@@ -316,6 +320,7 @@ int main(int argc,char* argv[]){
             sf:: Vector2i LocalPosition;
             client::WindowCursor lCursor;
             State Debug_State(IN_COMBAT, PLAYER_TURN);
+            State* Game_State;
             CombatStatus GameStatus = INITIALISATION;
             int turn = 0;
 
@@ -420,7 +425,8 @@ int main(int argc,char* argv[]){
                     }
                     
                     turn++;
-                    GameStatus = GameEngine.GameLoop(); // Update de l'état du jeu toutes les 3s pour + de visibilité
+                    Game_State = GameEngine.GameLoop(); // Update de l'état du jeu toutes les 3s pour + de visibilité
+                    GameStatus = Game_State->GetCombatState();
                     GameClock.restart();
                 }
                 
@@ -438,7 +444,7 @@ int main(int argc,char* argv[]){
         
         HeuristicAI AI1;
         HeuristicAI AI2;
-        
+        State* Game_State;
         
         CombatStatus GameStatus = INITIALISATION;
         int turn = 0;
@@ -457,7 +463,8 @@ int main(int argc,char* argv[]){
                 AI2.GenerateHeuristicCommand();
             }
             turn++;
-            GameStatus = NewEngine.GameLoop();
+            Game_State = NewEngine.GameLoop();
+            GameStatus = Game_State->GetCombatState();
         }
         
         NewEngine.GameLoop();
@@ -474,7 +481,7 @@ int main(int argc,char* argv[]){
         HeuristicAI AI1;
         HeuristicAI AI2;
         
-        
+        State* Game_State;
         CombatStatus GameStatus = INITIALISATION;
         int turn = 0;
 
@@ -492,7 +499,8 @@ int main(int argc,char* argv[]){
                 AI2.GenerateHeuristicCommand();
             }
             turn++;
-            GameStatus = NewEngine.GameLoop();
+            Game_State = NewEngine.GameLoop();
+            GameStatus = Game_State->GetCombatState();
         }
         
         NewEngine.GameLoop();
