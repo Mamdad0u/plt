@@ -273,8 +273,6 @@ int main(int argc,char* argv[]){
                             //LocalPosition = sf::Mouse::getPosition(window);
                             LocalPosition = sf::Mouse::getPosition(window);
                             std::cout << LocalPosition.x << ";" << LocalPosition.y << endl;  */
-
-                            
                     
                     
                     }
@@ -284,7 +282,7 @@ int main(int argc,char* argv[]){
 
                 if(GameClock.getElapsedTime().asSeconds() > 3.f){
                     if(turn%2 == 0){
-                        NewPlayer.SetStatusCommand(PlayerCommand[turn]);
+                        NewPlayer.ClickCommand(window,lCursor);
                     }
 
                     else{
