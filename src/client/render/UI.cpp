@@ -64,6 +64,11 @@ namespace render {
             mRectLifePointsP4.setOutlineThickness(2);
             mRectLifePointsP4.setOutlineColor(sf::Color::White);
             mRectLifePointsP4.setFillColor(sf::Color::Green);
+
+            mRectMenu.setPosition(sf::Vector2f(0.f,500.f));
+            mRectMenu.setFillColor(sf::Color::Blue);
+            mRectMenu.setSize(sf::Vector2f(800,100));
+
             
             
         }
@@ -75,20 +80,20 @@ namespace render {
         mVertices.setPrimitiveType(sf::Quads);
         mVertices.resize(rWidth * rHeight * 4);
 
-        sf::Vertex* lQuad = &mVertices[rWidth*4];
+        mQuad = &mVertices[rWidth*4];
 
 
         /* 0 1
            3 2*/
-        lQuad[0].position = sf::Vector2f(rX, rY); 
-        lQuad[1].position = sf::Vector2f(rX + rWidth, rY);
-        lQuad[2].position = sf::Vector2f(rX + rWidth, rY + rHeight);
-        lQuad[3].position = sf::Vector2f(rX, rY + rHeight);
+        mQuad[0].position = sf::Vector2f(rX, rY); 
+        mQuad[1].position = sf::Vector2f(rX + rWidth, rY);
+        mQuad[2].position = sf::Vector2f(rX + rWidth, rY + rHeight);
+        mQuad[3].position = sf::Vector2f(rX, rY + rHeight);
 
-        lQuad[0].color = sf::Color(0,0,100,50);
-        lQuad[1].color = sf::Color(0,0,100,50);
-        lQuad[2].color = sf::Color::Blue;
-        lQuad[3].color = sf::Color::Blue;
+        mQuad[0].color = sf::Color(0,0,100,50);
+        mQuad[1].color = sf::Color(0,0,100,50);
+        mQuad[2].color = sf::Color::Blue;
+        mQuad[3].color = sf::Color::Blue;
 
         
         
@@ -178,7 +183,12 @@ namespace render {
         mRectLifePointsP2.move(sf::Vector2f(1.f,0.f));
         mRectLifePointsP3.move(sf::Vector2f(1.f,0.f));
         mRectLifePointsP4.move(sf::Vector2f(1.f,0.f));
-
+        mRectAction1.move(sf::Vector2f(1.f,0.f));
+        mRectAction2.move(sf::Vector2f(1.f,0.f));
+        mRectAction3.move(sf::Vector2f(1.f,0.f));
+        mRectAction4.move(sf::Vector2f(1.f,0.f));
+        mRectMenu.move(sf::Vector2f(1.f,0.f));
+       
     }
 
 
@@ -188,6 +198,7 @@ namespace render {
         target.draw(mVertices, states);
         target.draw(mTextVersion);
         target.draw(mDebugTextState);
+        target.draw(mRectMenu);
         target.draw(mMenuAction1);
         target.draw(mMenuAction2);
         target.draw(mMenuAction3);
@@ -200,6 +211,7 @@ namespace render {
         target.draw(mRectLifePointsP2);
         target.draw(mRectLifePointsP3);
         target.draw(mRectLifePointsP4);
+        
 
     }
 
