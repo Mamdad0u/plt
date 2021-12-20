@@ -338,21 +338,13 @@ int main(int argc,char* argv[]){
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
             window.setFramerateLimit(60);
             lRender.LoadBackground();
-/*             lRender.LoadCharacter(1,250,250,1);
-            lRender.LoadCharacter(2,200,300,1);
-            lRender.LoadCharacter(5,150,350,1);
-            lRender.LoadCharacter(7,100,400,1);
-            lRender.LoadEnemy(1, 600,325,0);
-            lRender.LoadEnemy(3,600,325,0);
-            lRender.LoadEnemy(1,600,325,0);
-            lRender.LoadEnemy(2,600,325,0); */
             lRender.LoadUI();
 
 
             int lEnemyIndex=0;
             int compteur=0;
 
-            //lRender.LoadUI();
+            
 
 
             while (window.isOpen()){
@@ -369,24 +361,26 @@ int main(int argc,char* argv[]){
                     window.close();
                 }
 
-                if(GameClock.getElapsedTime().asSeconds() > 0.1f){
+              //  if(GameClock.getElapsedTime().asSeconds() > 0.1f){
                     if(turn%2 == 0 && GameStatus == IN_COMBAT){
                         IA_1.GenerarateRandomCommand();
                     }
 
                     else if(GameStatus == IN_COMBAT){
                         IA_2.GenerarateRandomCommand();
+                        
                     }
                     
                     turn++;
                     Game_State = GameEngine.GameLoop(); // Update de l'état du jeu toutes les 3s pour + de visibilité
+                    
                     GameStatus = Game_State->GetCombatState();
 
 
                  //   lActiveCharacter = Game_State->GetPlayerRosterSize();
                     GameClock.restart();
-                }
-
+                
+             //   }
                 /*MODIFICATION DU RENDU EN FONCTION DE L'ETAT DU JEU*/
 
                 switch(GameStatus){
@@ -419,27 +413,21 @@ int main(int argc,char* argv[]){
                         
                         lRender.DEBUG_SetRenderState(IN_COMBAT);
                         break;
+                        
 
                     case RENDER_PROCESSING:
+                    /*Ajout du sprite enemy dans la team du joueur*/
                         lRender.DEBUG_SetRenderState(RENDER_PROCESSING);
+
+                        lMovingProgress = lRender.GoNextCombat(window);
                         
-                            lMovingProgress = lRender.GoNextCombat(window);
+                        
     
                         break;
-                }
-                   
-                if((lMovingProgress%800==0)){
-                    
-                    /* if(lCursor.ClickAction1(window)){
-                        GameStatus.SetCombatState(OUT_COMBAT);
-                        lMovingProgress = lRender.GoNextCombat(window);
-                        lEnemyIndex++;
-                        
-                    } */
-                }
-            
-            
+                
+                          
 
+            }
                 if(clock.getElapsedTime().asSeconds() > 0.1f){
                     lRender.AnimateCharacters();
                     clock.restart();
