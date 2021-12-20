@@ -139,6 +139,10 @@ namespace render {
                 mUI.DEBUG_SetTextCombatState("OUT_COMBAT");
                 break;
 
+            case state::RENDER_PROCESSING:
+                mUI.DEBUG_SetTextCombatState("RENDER_PROCESSING");
+                break;
+
 
         }
 
@@ -166,11 +170,11 @@ namespace render {
 
         for(int i=0;i<lLastCharacterPosition;i++){
             if(mMovingProgress%800!=0){
-               // cout << "L'animation devient mobile" << endl;
+                cout << "L'animation devient mobile" << endl;
                 mPlayerCharactersSurface[i].SetCharacterAnimation(1);
             }
             else if(mMovingProgress%800==0){
-                //cout << "L'animation devient statique" << endl;
+                cout << "L'animation devient statique" << endl;
                 mPlayerCharactersSurface[i].SetCharacterAnimation(0);
                 NotifyEndRendering();
                 
@@ -194,11 +198,11 @@ namespace render {
 
         if(rGameStatus==state::IN_COMBAT){
             
-            rWindow.draw(mUI);
+            
             mArenaEnemySurface[rEnemyIndex].DrawSprite(rWindow);
         }
         
-        
+        rWindow.draw(mUI);
         for(int i=0;i<mPlayerCharactersSurface.size();i++){
             
             mPlayerCharactersSurface[i].DrawSprite(rWindow);
