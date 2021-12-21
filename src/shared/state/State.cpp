@@ -117,6 +117,11 @@ Character* State::GetActivePlayerCharacter(){
 
 }
 
+Character* State::GetPlayerCharacter(int lCharacterPosition){
+    return &mPlayersCharacters[lCharacterPosition];
+}
+
+
 Character* State::GetEnemyCharacter(){
     return &this->mEnemyCharacters[0];
 
