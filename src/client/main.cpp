@@ -50,7 +50,7 @@ int main(int argc,char* argv[]){
 
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
             window.setFramerateLimit(120);
-            lRender.LoadBackground();
+            
             lRender.LoadCharacter(1,250,250,1);
             lRender.LoadCharacter(2,200,300,1);
             lRender.LoadCharacter(5,150,350,1);
@@ -195,7 +195,7 @@ int main(int argc,char* argv[]){
 
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
             window.setFramerateLimit(120);
-            lRender.LoadBackground();
+            lRender.LoadBackground(1);
             lRender.LoadCharacter(1,250,250,1);
             lRender.LoadCharacter(9,200,300,1);
             lRender.LoadCharacter(12,150,350,1);
@@ -322,14 +322,15 @@ int main(int argc,char* argv[]){
             State Debug_State(IN_COMBAT, PLAYER_TURN);
             State* Game_State;
             CombatStatus GameStatus = INITIALISATION;
-            int turn = 0;
+            
             Character* lNewPlayerCharacter;
             Character* lNewEnemyCharacter;
             int lActivePlayerCharacterNumber = 0;
             int lActiveEnemyCharacterNumber = 0;
             int lPlayerCharacterPosition = 0;
             bool lIsCharacterAdd;
-
+            int turn = 0;
+            static int lArena_Number = 1;
             IA_1.AddEngineObserver(&GameEngine);
             IA_2.AddEngineObserver(&GameEngine);
             
@@ -337,7 +338,7 @@ int main(int argc,char* argv[]){
 
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
             window.setFramerateLimit(60);
-            lRender.LoadBackground();
+            lRender.LoadBackground(1);
             lRender.LoadUI();
 
 
@@ -371,11 +372,11 @@ int main(int argc,char* argv[]){
                         
                     }
                     
-                    turn++;
-                    Game_State = GameEngine.GameLoop();
                     
+                    Game_State = GameEngine.GameLoop();
+                    turn = Game_State->GetTurn();
                     GameStatus = Game_State->GetCombatState();
-
+                    
 
                  //   lActiveCharacter = Game_State->GetPlayerRosterSize();
                     GameClock.restart();
@@ -396,7 +397,8 @@ int main(int argc,char* argv[]){
                         lPlayerCharacterPosition = Game_State->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
                         lNewEnemyCharacter = Game_State->GetEnemyCharacter();
                         lActiveEnemyCharacterNumber = lNewEnemyCharacter->GetCharacterNameNumber();
-                    
+
+                        lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
                         lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
                         lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
                         lRender.NotifyEndRendering();
@@ -427,10 +429,19 @@ int main(int argc,char* argv[]){
                             lIsCharacterAdd = true;
                         }
 
+                        if(lArena_Number != Game_State->GetArenaNumber()){ // If arena change
+                            lArena_Number = Game_State->GetArenaNumber(); // Get new arena number
+                            lRender.LoadBackground(lArena_Number); // Load it 
+                            lRender.GoNextArena();
+                            lRender.NotifyEndRendering();
+                        }
+
+                        else{
+                            lMovingProgress = lRender.GoNextCombat(window);
+                        }
 
 
-
-                        lMovingProgress = lRender.GoNextCombat(window);
+                        
                         
                         
     
