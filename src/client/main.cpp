@@ -417,7 +417,10 @@ int main(int argc,char* argv[]){
 
                         lRender.DEBUG_SetRenderState(RENDER_PROCESSING);
                         
-                        if(!lIsCharacterAdd){
+                        if(!lIsCharacterAdd){/**
+                         * @brief Ne fonctionne plus au delà du combat 2, cf. #64
+                         * 
+                         */
                             lPlayerCharacterPosition = Game_State->GetPlayerRosterSize() - 1; // Récupération de la taille de l'équipe du joueur
                             lNewPlayerCharacter = Game_State->GetPlayerCharacter(lPlayerCharacterPosition);
                             lRender.UpdateCharacterOnScreen((int)lNewPlayerCharacter->GetCharacterNameNumber(), lPlayerCharacterPosition);
