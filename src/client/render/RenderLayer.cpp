@@ -19,8 +19,12 @@ namespace render {
         AddEngineObserver(rNewObserver);
     }
     
-    int render::RenderLayer::LoadBackground(){
-        if(mBackgroundSurface.LoadBackgroundSprite("backgrounds/outside_map.png")){
+    int render::RenderLayer::LoadBackground(int lArenaNumber){
+
+        string lArenaPath = "backgrounds/Arena" + to_string(lArenaNumber);
+        lArenaPath = lArenaPath + ".png";
+
+        if(mBackgroundSurface.LoadBackgroundSprite(lArenaPath)){
             cout << "ERROR : Failed to load background " << endl;
             return -1;
         }
@@ -170,11 +174,11 @@ namespace render {
 
         for(int i=0;i<lLastCharacterPosition;i++){
             if(mMovingProgress%800!=0){
-                cout << "L'animation devient mobile" << endl;
+               // cout << "L'animation devient mobile" << endl;
                 mPlayerCharactersSurface[i].SetCharacterAnimation(1);
             }
             else if(mMovingProgress%800==0){
-                cout << "L'animation devient statique" << endl;
+                // cout << "L'animation devient statique" << endl;
                 mPlayerCharactersSurface[i].SetCharacterAnimation(0);
                 NotifyEndRendering();
                 
