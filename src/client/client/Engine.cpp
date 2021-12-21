@@ -69,7 +69,7 @@ namespace client {
 
 
         case state::GAME_OVER:
-            cout << "You loose on combat " << mCurrentState.GetCombatNumber() << endl;
+            cout << "You loose on combat " << mCurrentState.GetCombatNumber() <<" , Arena " << mCurrentState.GetArenaNumber() << endl;
             
             break;
 
