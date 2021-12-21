@@ -196,6 +196,15 @@ namespace render {
         mMovingProgress++;
         return (mMovingProgress-1);
     }
+    
+    void render::RenderLayer::GoNextArena(){
+        for(int i=0;i<mPlayerCharactersSurface.size();i++){
+            mPlayerCharactersSurface[i].ResetSpritePosition(i);
+        }
+        mBackgroundSurface.ResetViewPosition();
+
+        
+    }
 
     void render::RenderLayer::draw(sf::RenderWindow& rWindow, int rEnemyIndex, state::CombatStatus rGameStatus){
         mBackgroundSurface.DrawSprite(rWindow);
