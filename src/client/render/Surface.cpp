@@ -144,6 +144,13 @@ namespace render {
 
     }
 
+    void render::Surface::ResetSpritePosition(int lCharacterPosition){
+        mSprite.setPosition(sf::Vector2f(250 - (lCharacterPosition * 50)  ,250 + (lCharacterPosition * 50))); // reset character position on screen for combat 1 of new arena
+    }
+
+    void render::Surface::ResetViewPosition(){
+        mView.setCenter(sf::Vector2f(0,0));
+    }
     void render::Surface::DrawSprite(sf::RenderWindow& rWindow){
         rWindow.draw(mSprite);
     }

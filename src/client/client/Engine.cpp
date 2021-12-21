@@ -45,7 +45,7 @@ namespace client {
         mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
     }
 
-    state::CombatStatus client::Engine::GameLoop(){
+    state::State* client::Engine::GameLoop(){
        
         state::CombatStatus lGameStatus = mCurrentState.GetCombatState();
         state::Player_Status lPlayerStatus = mCurrentState.GetPlayerStatus();
@@ -69,7 +69,7 @@ namespace client {
 
 
         case state::GAME_OVER:
-            cout << "You loose on combat " << mCurrentState.GetCombatNumber() << endl;
+            cout << "You loose on combat " << mCurrentState.GetCombatNumber() <<" , Arena " << mCurrentState.GetArenaNumber() << endl;
             
             break;
 
@@ -82,8 +82,9 @@ namespace client {
                 cout << "Waiting for enemy to choose a character" << endl;
             }
 
-            else{
+            if(mIsRenderEnded){
                 mCurrentState.SetCombatState(state::IN_COMBAT);
+                mIsRenderEnded = false;
             }
             break;
 
@@ -96,7 +97,11 @@ namespace client {
                     mCommand_Player.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), mInputCommandID); // Le joueur attaque l'IA
                     mIsNewPlayerCommand = false; // The command has been executed
                     mCurrentState.SetPlayerStatus(state::IA_TURN); // Give the turn to opponent 
-                    
+                    mCurrentState.MoveNextTurn();
+                }
+
+                else{
+                    cout << "Waiting for player to input a command" << endl;
                 }
 
             /*  1. Wait for input command
@@ -119,6 +124,7 @@ namespace client {
                 }
                 mIsNewAICommand = false;
                 mCurrentState.SetPlayerStatus(state::PLAYER_TURN);
+                mCurrentState.MoveNextTurn();
                 break;
             
 
@@ -174,7 +180,7 @@ namespace client {
         
         
     }
-    return mCurrentState.GetCombatState();
+    return &mCurrentState;
 }
 
     state::CombatStatus client::Engine::DEBUG_GetGameStatus(){
