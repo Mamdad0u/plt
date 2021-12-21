@@ -323,12 +323,12 @@ int main(int argc,char* argv[]){
             State* Game_State;
             CombatStatus GameStatus = INITIALISATION;
             int turn = 0;
-            Character* lActivePlayerCharacter;
-            Character* lActiveEnemyCharacter;
+            Character* lNewPlayerCharacter;
+            Character* lNewEnemyCharacter;
             int lActivePlayerCharacterNumber = 0;
             int lActiveEnemyCharacterNumber = 0;
             int lPlayerCharacterPosition = 0;
-            
+            bool lIsCharacterAdd;
 
             IA_1.AddEngineObserver(&GameEngine);
             IA_2.AddEngineObserver(&GameEngine);
@@ -372,7 +372,7 @@ int main(int argc,char* argv[]){
                     }
                     
                     turn++;
-                    Game_State = GameEngine.GameLoop(); // Update de l'état du jeu toutes les 3s pour + de visibilité
+                    Game_State = GameEngine.GameLoop();
                     
                     GameStatus = Game_State->GetCombatState();
 
@@ -391,33 +391,41 @@ int main(int argc,char* argv[]){
                          * 
                          */
                         
-                        lActivePlayerCharacter = Game_State->GetActivePlayerCharacter();
-                        lActivePlayerCharacterNumber = lActivePlayerCharacter->GetCharacterNameNumber();
+                        lNewPlayerCharacter = Game_State->GetActivePlayerCharacter();
+                        lActivePlayerCharacterNumber = lNewPlayerCharacter->GetCharacterNameNumber();
                         lPlayerCharacterPosition = Game_State->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
-                        lActiveEnemyCharacter = Game_State->GetEnemyCharacter();
-                        lActiveEnemyCharacterNumber = lActiveEnemyCharacter->GetCharacterNameNumber();
+                        lNewEnemyCharacter = Game_State->GetEnemyCharacter();
+                        lActiveEnemyCharacterNumber = lNewEnemyCharacter->GetCharacterNameNumber();
                     
-                        lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition); // Sprite character joueur
+                        lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
                         lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
                         lRender.NotifyEndRendering();
-                        GameStatus = state::IN_COMBAT; /**
-                        * @brief Changement tout de suite de l'état local du jeu pour ne plus faire d'intialisation
-                        dans le cas où l'état local du jeu n'est pas tout de suite maj à cause du timer Gameclock
-                        * 
-                        */
 
                         
                         break;
 
                     case IN_COMBAT:
-                        
+                        lIsCharacterAdd = false;
                         lRender.DEBUG_SetRenderState(IN_COMBAT);
                         break;
                         
-
-                    case RENDER_PROCESSING:
+                    case OUT_COMBAT:
                     /*Ajout du sprite enemy dans la team du joueur*/
+
+                        break;
+                    case RENDER_PROCESSING:
+
                         lRender.DEBUG_SetRenderState(RENDER_PROCESSING);
+                        
+                        if(!lIsCharacterAdd){
+                            lPlayerCharacterPosition = Game_State->GetPlayerRosterSize() - 1; // Récupération de la taille de l'équipe du joueur
+                            lNewPlayerCharacter = Game_State->GetPlayerCharacter(lPlayerCharacterPosition);
+                            lRender.UpdateCharacterOnScreen((int)lNewPlayerCharacter->GetCharacterNameNumber(), lPlayerCharacterPosition);
+                            lIsCharacterAdd = true;
+                        }
+
+
+
 
                         lMovingProgress = lRender.GoNextCombat(window);
                         
