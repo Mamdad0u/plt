@@ -56,7 +56,7 @@ int State::GetArenaNumber(){
 }
 
 int State::GetCombatPerArena(){
-    return this->mCombatPerArena[mArenaNumber];
+    return this->mCombatPerArena[mArenaNumber-1];
 }
 
 
@@ -83,6 +83,7 @@ void State::SetPlayerStatus(Player_Status rNewPlayerStatus){
 
 void State::GoToNextArena() {
     this->mArenaNumber++;
+    cout << "*** NEW ARENA : ARENA " << mArenaNumber << " ***" << endl;
 }
 
 void State::AddPlayerCharacter(CharacterName rNewCharacter) {
