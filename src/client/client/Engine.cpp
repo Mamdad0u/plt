@@ -97,7 +97,7 @@ namespace client {
                     mCommand_Player.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), mInputCommandID); // Le joueur attaque l'IA
                     mIsNewPlayerCommand = false; // The command has been executed
                     mCurrentState.SetPlayerStatus(state::IA_TURN); // Give the turn to opponent 
-                    
+                    mCurrentState.MoveNextTurn();
                 }
 
                 else{
@@ -124,6 +124,7 @@ namespace client {
                 }
                 mIsNewAICommand = false;
                 mCurrentState.SetPlayerStatus(state::PLAYER_TURN);
+                mCurrentState.MoveNextTurn();
                 break;
             
 
