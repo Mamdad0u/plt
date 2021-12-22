@@ -45,17 +45,31 @@ namespace client {
         mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
     }
 
-    state::CombatStatus client::Engine::GameLoop(){
+    state::State* client::Engine::GameLoop(){
        
         state::CombatStatus lGameStatus = mCurrentState.GetCombatState();
         state::Player_Status lPlayerStatus = mCurrentState.GetPlayerStatus();
+        int lTurn = mCurrentState.GetTurn();
+        int lArena = mCurrentState.GetArenaNumber();
+        int lMax_Combat = mCurrentState.GetCombatPerArena();
+        int lCombatNumber = mCurrentState.GetCombatNumber();
 
-        
         switch (lGameStatus)
         {
 
+        case state::RENDER_PROCESSING:
+            if(mIsRenderEnded){
+                mCurrentState.SetCombatState(state::IN_COMBAT);
+                mIsRenderEnded = false;
+            }
+
+
+            break;
+
+
+
         case state::GAME_OVER:
-            cout << "You loose on combat " << mCurrentState.GetCombatNumber() << endl;
+            cout << "You loose on combat " << mCurrentState.GetCombatNumber() <<" , Arena " << mCurrentState.GetArenaNumber() << endl;
             
             break;
 
@@ -68,8 +82,9 @@ namespace client {
                 cout << "Waiting for enemy to choose a character" << endl;
             }
 
-            else{
+            if(mIsRenderEnded){
                 mCurrentState.SetCombatState(state::IN_COMBAT);
+                mIsRenderEnded = false;
             }
             break;
 
@@ -77,13 +92,17 @@ namespace client {
             switch (lPlayerStatus)
             {
             case state::PLAYER_TURN:
-                if(mIsNewPlayerCommand){ // 1. Wait for input command
+                if(mIsNewPlayerCommand){ /// 1. Wait for input command. Add mIsNewAICommand if player is played by AI
                     mCurrentState.MoveActivePlayer();
                     mCommand_Player.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), mInputCommandID); // Le joueur attaque l'IA
                     mIsNewPlayerCommand = false; // The command has been executed
                     mCurrentState.SetPlayerStatus(state::IA_TURN); // Give the turn to opponent 
-                    
+                    mCurrentState.MoveNextTurn();
                 }
+
+                // else{
+                //     cout << "Waiting for player to input a command" << endl;
+                // }
 
             /*  1. Wait for input command
                 2. Interprete command
@@ -101,10 +120,11 @@ namespace client {
                 */
                 if(mIsNewAICommand){
                     mCommand_IA.ComputeAction(*(mCurrentState.GetEnemyCharacter()), *(mCurrentState.GetActivePlayerCharacter()), mInputCommandID); // L'IA attaque le joueur
-
+                    mIsNewAICommand = false;
+                    mCurrentState.SetPlayerStatus(state::PLAYER_TURN);
+                    mCurrentState.MoveNextTurn();
                 }
-                mIsNewAICommand = false;
-                mCurrentState.SetPlayerStatus(state::PLAYER_TURN);
+
                 break;
             
 
@@ -123,6 +143,7 @@ namespace client {
             if(mCurrentState.GetAliveEnemy() == false){
                 mCurrentState.SetCombatState(state::OUT_COMBAT);
             }
+            
             break;
         
 
@@ -139,21 +160,28 @@ namespace client {
             }
 
             mCurrentState.MoveNextCombat();
+            lCombatNumber = mCurrentState.GetCombatNumber();
+
+            if(lCombatNumber > lMax_Combat){ // Si l'arêne est terminée
+                mCurrentState.GoToNextArena(); // On va à l'arêne suivante
+                mCurrentState.ResetCombatNumber();
+            }
+
+
+
             mCurrentState.AddEnemyCharacter(mRandomEnemyList[mCurrentState.GetCombatNumber()]);
-            mCurrentState.SetCombatState(state::IN_COMBAT);
+            mCurrentState.SetCombatState(state::RENDER_PROCESSING);
             break;
 
-        
-        
-        
-        }
+
         // Check alive player 
 
 
-        return mCurrentState.GetCombatState();
+        
         
     }
-
+    return &mCurrentState;
+}
 
     state::CombatStatus client::Engine::DEBUG_GetGameStatus(){
 
@@ -164,6 +192,9 @@ namespace client {
         this->mInputCommandID = rNewCommand;
         this->mIsNewPlayerCommand = true;
     }
+
+
+    
 
 
 }

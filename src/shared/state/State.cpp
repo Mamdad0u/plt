@@ -9,6 +9,7 @@ namespace state {
     
 
 
+
 State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
     
     mPlayerStatusStringMap[PLAYER_TURN] = "PLAYER TURN";
@@ -17,6 +18,7 @@ State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
     mCombatStatusStringMap[IN_COMBAT] = "IN_COMBAT";
     mCombatStatusStringMap[OUT_COMBAT] = "OUT_COMBAT";
     mCombatStatusStringMap[GAME_OVER] = "GAME_OVER";
+    mCombatStatusStringMap[RENDER_PROCESSING] = "RENDER_PROCESSING";
 
     this->mCombatStatus = rCombatStatus;
     this->mPlayerStatus = rPlayerStatus;
@@ -28,7 +30,13 @@ State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
 
 
 void State::MoveNextCombat() {
+
     this->mCombatNumber++;
+
+}
+
+void State::ResetCombatNumber(){
+    this->mCombatNumber = 1;
 }
 
 void State::MoveNextTurn(){
@@ -42,6 +50,15 @@ int State::GetTurn(){
 int State::GetCombatNumber(){
     return this->mCombatNumber;
 }
+
+int State::GetArenaNumber(){
+    return this->mArenaNumber;
+}
+
+int State::GetCombatPerArena(){
+    return this->mCombatPerArena[mArenaNumber-1];
+}
+
 
 void State::SetCombatState(CombatStatus rNewCombatState) {
     this->mCombatStatus = rNewCombatState;
@@ -66,6 +83,7 @@ void State::SetPlayerStatus(Player_Status rNewPlayerStatus){
 
 void State::GoToNextArena() {
     this->mArenaNumber++;
+    cout << "*** NEW ARENA : ARENA " << mArenaNumber << " ***" << endl;
 }
 
 void State::AddPlayerCharacter(CharacterName rNewCharacter) {
@@ -100,6 +118,11 @@ Character* State::GetActivePlayerCharacter(){
 
 }
 
+Character* State::GetPlayerCharacter(int lCharacterPosition){
+    return &mPlayersCharacters[lCharacterPosition];
+}
+
+
 Character* State::GetEnemyCharacter(){
     return &this->mEnemyCharacters[0];
 
@@ -125,16 +148,13 @@ void State::MoveActivePlayer(){
 
 /*     if((mActivePlayerCharacter < mPlayersCharacters.size()-1) && (mActivePlayerCharacter < MAX_CHARACTER)){
         mActivePlayerCharacter++;
-
         if((mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() == DEAD)  && mActivePlayerCharacter < mPlayersCharacters.size()){
             mActivePlayerCharacter++;
         }
-
         else if((mActivePlayerCharacter == mPlayersCharacters.size()) || (mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() == DEAD)){
             mActivePlayerCharacter = 0;
         }
     }
-
     else{
         mActivePlayerCharacter = 0;
     }
