@@ -170,11 +170,11 @@ namespace ai {
 
         case ESE: // Tank
             if(lPlayer_Defense < lMax_Defense){
-                lHeuristicCommand = client::ATTACK_2; // Il monte sa défense
+                lHeuristicCommand = client::SPELL_1; // Il monte sa défense
             }
 
             else if(lEnemy_Luck > 0){
-                lHeuristicCommand = client::SPELL_1; // Cherche à baisser la luck adverse
+                lHeuristicCommand = client::SPELL_2; // Cherche à baisser la luck adverse
             }
 
             else { 
