@@ -92,7 +92,7 @@ namespace client {
             switch (lPlayerStatus)
             {
             case state::PLAYER_TURN:
-                if(mIsNewPlayerCommand){ // 1. Wait for input command
+                if(mIsNewPlayerCommand){ /// 1. Wait for input command. Add mIsNewAICommand if player is played by AI
                     mCurrentState.MoveActivePlayer();
                     mCommand_Player.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), mInputCommandID); // Le joueur attaque l'IA
                     mIsNewPlayerCommand = false; // The command has been executed
@@ -100,9 +100,9 @@ namespace client {
                     mCurrentState.MoveNextTurn();
                 }
 
-                else{
-                    cout << "Waiting for player to input a command" << endl;
-                }
+                // else{
+                //     cout << "Waiting for player to input a command" << endl;
+                // }
 
             /*  1. Wait for input command
                 2. Interprete command
@@ -120,11 +120,11 @@ namespace client {
                 */
                 if(mIsNewAICommand){
                     mCommand_IA.ComputeAction(*(mCurrentState.GetEnemyCharacter()), *(mCurrentState.GetActivePlayerCharacter()), mInputCommandID); // L'IA attaque le joueur
-
+                    mIsNewAICommand = false;
+                    mCurrentState.SetPlayerStatus(state::PLAYER_TURN);
+                    mCurrentState.MoveNextTurn();
                 }
-                mIsNewAICommand = false;
-                mCurrentState.SetPlayerStatus(state::PLAYER_TURN);
-                mCurrentState.MoveNextTurn();
+
                 break;
             
 
