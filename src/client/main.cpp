@@ -174,6 +174,7 @@ int main(int argc,char* argv[]){
             Player NewPlayer;
             RandomAI NewIA;
             int turn = 0;
+            int player_turn = 1;
 
             sf::Clock clock;
             sf::Clock clockState;
@@ -284,12 +285,14 @@ int main(int argc,char* argv[]){
                 lCursor.GetPositionCursor(window);
 
                 if(GameClock.getElapsedTime().asSeconds() > 3.f){
-                    if(turn%2 == 0){
+                    if(turn%2 == 0 ||player_turn==1){
                         NewPlayer.ClickCommand(window,lCursor);
+                        player_turn=0;
                     }
 
-                    else{
+                    else if(turn%2==1 || player_turn==0){
                         NewIA.SetStatusCommand(PlayerCommand[turn]);
+                        player_turn=1;
                     }
                     turn++;
                     Game_State = GameEngine.GameLoop(); // Update de l'état du jeu toutes les 3s pour + de visibilité
@@ -333,7 +336,7 @@ int main(int argc,char* argv[]){
             static int lArena_Number = 1;
             IA_1.AddEngineObserver(&GameEngine);
             IA_2.AddEngineObserver(&GameEngine);
-            
+            NewPlayer.AddEngineObserver(&GameEngine);
             
 
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
@@ -364,7 +367,8 @@ int main(int argc,char* argv[]){
 
               //  if(GameClock.getElapsedTime().asSeconds() > 0.1f){
                     if(turn%2 == 0 && GameStatus == IN_COMBAT){
-                        IA_1.GenerarateRandomCommand();
+                       // IA_1.GenerarateRandomCommand();
+                        NewPlayer.ClickCommand(window,lCursor);
                     }
 
                     else if(GameStatus == IN_COMBAT){
@@ -470,9 +474,7 @@ int main(int argc,char* argv[]){
                 }
                 
                 lCursor.GetPositionCursor(window);
-
-
-                
+               
                 lRender.draw(window, lEnemyIndex, GameStatus);
                     
                 window.display();  
