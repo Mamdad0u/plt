@@ -118,11 +118,11 @@ namespace render {
     void render::RenderLayer::LoadUI(){
         
         mUI.CreateWindow(0,500,800,100);
-        mUI.SetTextVersion("BUILD_VERSION_2.3");
-        mUI.DEBUG_SetTextAction1("Attack/Spell");
-        mUI.DEBUG_SetTextAction2("Objets");
-        mUI.DEBUG_SetTextAction3("Menu");
-        mUI.DEBUG_SetTextAction4("Quitter le jeu");
+        mUI.SetTextVersion("Release 3.1");
+        mUI.DEBUG_SetTextAction1("Attack 1");
+        mUI.DEBUG_SetTextAction2("Attack 2");
+        mUI.DEBUG_SetTextAction3("Spell 1");
+        mUI.DEBUG_SetTextAction4("Spell 2");
         mUI.DEBUG_SetLifePoints();
         
 

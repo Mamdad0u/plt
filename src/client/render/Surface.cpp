@@ -47,7 +47,7 @@ namespace render {
     int render::Surface::LoadCharacterSprite(const std::string& rTextureName, int rX, int rY, int rSide){
         string lResPath = "res/" + rTextureName;
         if(rSide==1){ //Si le Character est un personnage du joueur
-             cout << "Joueur" << endl;
+            //  cout << "Joueur" << endl;
              mCharacterRectSource.left = 0;
              mCharacterRectSource.top = 0;
              mCharacterRectSource.width = 16;
