@@ -344,7 +344,7 @@ int main(int argc,char* argv[]){
             int lEnemyIndex=0;
             int compteur=0;
 
-            //lRender.LoadUI();
+            lRender.LoadUI();
 
 
             while (window.isOpen()){
