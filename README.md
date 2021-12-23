@@ -118,6 +118,12 @@ plt$ make code-coverage
 
 <!-- RELEASE HISTORY-->
 ## Release History
+
+* <a href="https://github.com/Mamdad0u/plt/releases/tag/3.1">3.1</a>
+    * Rapport section 5 : Intelligence artificielle - stratégie heuristique
+    * Code : Implémentation d'une nouvelle IA avec une stratégie sur base de règles heuristiques. 
+
+
 * <a href="https://github.com/Mamdad0u/plt/releases/tag/2.final">2.final</a>
     * Rapport section 5 : Intelligence artificielle - stratégie aléatoire
     * Code : Implémentation d'une première IA avec une stratégie aléatoire. 

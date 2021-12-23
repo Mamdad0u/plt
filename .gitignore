@@ -8,3 +8,7 @@ src/*/*/*.h
 .idea
 *.autosave
 .vscode/c_cpp_properties.json
+.vscode/configurationCache.log
+.vscode/dryrun.log
+.vscode/targets.log
+.vscode/launch.json

@@ -50,7 +50,7 @@ namespace client {
         
         mInputCommandID = rNewPlayerObserver->GetStatusCommand();
         mIsNewPlayerCommand = true;
-        mIsNewAICommand = true;
+       
     }
 
     void client::EngineObserver::Update ( ai::AIObserver* rNewAIObserver) {
@@ -63,7 +63,7 @@ namespace client {
         cout << "New AI action is " << lCommandIDStringMap[rNewAIObserver->GetStatusCommand()] << endl;
         
         mInputCommandID = rNewAIObserver->GetStatusCommand();
-        mIsNewPlayerCommand = true;
+        
         mIsNewAICommand = true;
 
     }
