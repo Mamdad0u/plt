@@ -584,6 +584,7 @@ int main(int argc,char* argv[]){
                     lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
                     lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
                     lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
+                    lRender.RefreshLifePoints(); //Refresh the life points of the characters
                     lRender.NotifyEndRendering();
 
                     

@@ -77,7 +77,7 @@ namespace render {
     }
 
     void render::RenderLayer::UpdateCharacterOnScreen(int rSpriteNumber, int rPositionOnScreen){
-/*         lRender.LoadCharacter(1,250,250,1);
+    /*         lRender.LoadCharacter(1,250,250,1);
         lRender.LoadCharacter(2,200,300,1);
         lRender.LoadCharacter(5,150,350,1);
         lRender.LoadCharacter(7,100,400,1); */
@@ -115,7 +115,20 @@ namespace render {
         
     }
 
+    void render::RenderLayer::RefreshLifePoints() {
+
+        mUI.mRectLifePointsP1.setSize(sf::Vector2f(45,25));
+        mUI.mRectLifePointsP2.setSize(sf::Vector2f(45,25));
+        mUI.mRectLifePointsP3.setSize(sf::Vector2f(45,25));
+        mUI.mRectLifePointsP4.setSize(sf::Vector2f(45,25));
+
+        mUI.mRectLifePointsP1.setFillColor(sf::Color::Red);
+
+    }
+
+
     void render::RenderLayer::LoadUI(){
+
         
         mUI.CreateWindow(0,500,800,100);
         mUI.SetTextVersion("Release 3.1");
