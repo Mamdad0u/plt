@@ -117,7 +117,7 @@ namespace render {
 
     void render::RenderLayer::RefreshLifePoints() {
 
-        mUI.mRectLifePointsP1.setSize(sf::Vector2f(45,25));
+        mUI.mRectLifePointsP1.setSize(sf::Vector2f(100,25));
         mUI.mRectLifePointsP2.setSize(sf::Vector2f(45,25));
         mUI.mRectLifePointsP3.setSize(sf::Vector2f(45,25));
         mUI.mRectLifePointsP4.setSize(sf::Vector2f(45,25));

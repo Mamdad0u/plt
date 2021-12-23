@@ -65,6 +65,11 @@ namespace render {
             mRectLifePointsP4.setOutlineColor(sf::Color::White);
             mRectLifePointsP4.setFillColor(sf::Color::Green);
 
+            mRectLifePointsP1.setSize(sf::Vector2f(100,15));
+            mRectLifePointsP2.setSize(sf::Vector2f(100,15));
+            mRectLifePointsP3.setSize(sf::Vector2f(100,15));
+            mRectLifePointsP4.setSize(sf::Vector2f(100,15));
+
             mRectMenu.setPosition(sf::Vector2f(0.f,500.f));
             mRectMenu.setFillColor(sf::Color::Blue);
             mRectMenu.setSize(sf::Vector2f(800,100));
@@ -161,10 +166,7 @@ namespace render {
 
     void render::UI::DEBUG_SetLifePoints() {
 
-        mRectLifePointsP1.setSize(sf::Vector2f(100,15));
-        mRectLifePointsP2.setSize(sf::Vector2f(100,15));
-        mRectLifePointsP3.setSize(sf::Vector2f(100,15));
-        mRectLifePointsP4.setSize(sf::Vector2f(100,15));
+        
 
     }
 
