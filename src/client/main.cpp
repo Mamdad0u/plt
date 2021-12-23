@@ -397,7 +397,7 @@ int main(int argc,char* argv[]){
                     clock.restart();
                 }
 
-                if(lMovingProgress==1){
+               /* if(lMovingProgress==1){
                     lRender.LoadUI();
                     lCursor.GetPositionCursor(window);
                     if(lCursor.ClickAction1(window)){
@@ -409,11 +409,11 @@ int main(int argc,char* argv[]){
                     
                     
                     }
-                }
+                } */
                 
                 lCursor.GetPositionCursor(window);
 
-                if(GameClock.getElapsedTime().asSeconds() > 3.f){
+                if(GameClock.getElapsedTime().asSeconds() > 5.f){
                     if(turn%2 == 0 && GameStatus == IN_COMBAT){
                         NewPlayer.ClickCommand(window,lCursor);
                     }
@@ -422,7 +422,7 @@ int main(int argc,char* argv[]){
                         IA_2.GenerarateRandomCommand();
                     }
                     
-                    //turn++;
+                    turn++;
                     GameStatus = GameEngine.GameLoop(); // Update de l'état du jeu toutes les 3s pour + de visibilité
                     GameClock.restart();
                 }
