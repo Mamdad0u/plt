@@ -9,7 +9,11 @@
 using namespace std;
 
 namespace client {
-
+/**
+ * @brief Construct a new client::Engine::Engine object
+ * Setting up game state : random enemy character for each combat
+ * 
+ */
     client::Engine::Engine(){
         int lRandomPlayerCharacter;
         int lIndex2 = 0;
@@ -39,7 +43,7 @@ namespace client {
 
             }
 
-
+        
 
 
         mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
@@ -96,7 +100,7 @@ namespace client {
                     mCurrentState.MoveActivePlayer();
                     mCommand_Player.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), mInputCommandID); // Le joueur attaque l'IA
                     mIsNewPlayerCommand = false; // The command has been executed
-                    mCurrentState.SetPlayerStatus(state::IA_TURN); // Give the turn to opponent 
+                    mCurrentState.SetPlayerStatus(state::IA_MAX_TURN); // Give the turn to opponent 
                     mCurrentState.MoveNextTurn();
                 }
 
@@ -111,8 +115,15 @@ namespace client {
                 */
 
                 break;
-            
-            case state::IA_TURN:
+            case state::IA_MIN_TURN: // Player played by IA
+                if(mIsNewAICommand){
+                    mCommand_IA.ComputeAction(*(mCurrentState.GetEnemyCharacter()), *(mCurrentState.GetActivePlayerCharacter()), mInputCommandID); // L'IA attaque le joueur
+                    mIsNewAICommand = false;
+                    mCurrentState.SetPlayerStatus(state::IA_MAX_TURN);
+                    mCurrentState.MoveNextTurn();
+                }
+                break;
+            case state::IA_MAX_TURN:
             /*  1. Wait for input command
                 2. Interprete command
                 3. Execute command
@@ -121,7 +132,14 @@ namespace client {
                 if(mIsNewAICommand){
                     mCommand_IA.ComputeAction(*(mCurrentState.GetEnemyCharacter()), *(mCurrentState.GetActivePlayerCharacter()), mInputCommandID); // L'IA attaque le joueur
                     mIsNewAICommand = false;
-                    mCurrentState.SetPlayerStatus(state::PLAYER_TURN);
+
+                    if(mPlayerIA){ // If player played by an IA
+                        mCurrentState.SetPlayerStatus(state::IA_MIN_TURN); // Next turn for player IA
+                    }
+                    else{
+                        mCurrentState.SetPlayerStatus(state::PLAYER_TURN); // Else for human player
+                    }
+                    
                     mCurrentState.MoveNextTurn();
                 }
 

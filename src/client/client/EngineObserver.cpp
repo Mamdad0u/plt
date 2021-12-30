@@ -20,7 +20,17 @@ namespace client {
     }
 
     void client::EngineObserver::AddAIObserver(ai::AIObserver* rNewObserver){
+        int lAIObserverList_Size = 0;
         mAIObserverList.push_back(rNewObserver);
+        lAIObserverList_Size = mAIObserverList.size();
+
+        if(lAIObserverList_Size == 2){  /**
+         * @brief This condition allows to detect if player is played by an IA.
+         * If IA playing the player, 2 IA playing in the game so player is played by IA.
+         */
+            mPlayerIA = true;
+            mCurrentState.SetPlayerStatus(state::IA_MIN_TURN); // Setting up first turn for IA PLAYER (IA MIN), by default it is player turn.
+        }
     }
     
     void client::EngineObserver::DelPlayerObserver(PlayerObserver* rNewObserver){
