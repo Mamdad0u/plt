@@ -154,7 +154,9 @@ void state::Character::SetCharacterAction(ActionListCommand rAction, int rDamage
     }
 }
 
-
+ActionList* state::Character::GetActionList(){
+    return &mCharacterAction;
+}
 
 Major state::Character::GetMajor() { return this->mCharacterMajor; }
 
