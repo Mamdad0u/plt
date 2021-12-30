@@ -13,8 +13,9 @@ namespace state {
 State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
     
     mPlayerStatusStringMap[PLAYER_TURN] = "PLAYER TURN";
-    mPlayerStatusStringMap[IA_TURN] = "IA TURN";
-    
+    mPlayerStatusStringMap[IA_MIN_TURN] = "IA MIN TURN";
+    mPlayerStatusStringMap[IA_MAX_TURN] = "IA MAX TURN";
+
     mCombatStatusStringMap[IN_COMBAT] = "IN_COMBAT";
     mCombatStatusStringMap[OUT_COMBAT] = "OUT_COMBAT";
     mCombatStatusStringMap[GAME_OVER] = "GAME_OVER";
