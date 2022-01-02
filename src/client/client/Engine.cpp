@@ -7,6 +7,7 @@
 #include <random>
 
 using namespace std;
+using namespace state;
 
 namespace client {
 /**
@@ -117,7 +118,7 @@ namespace client {
                 break;
             case state::IA_MIN_TURN: // Player played by IA
                 if(mIsNewAICommand){
-                    mCommand_IA.ComputeAction(*(mCurrentState.GetEnemyCharacter()), *(mCurrentState.GetActivePlayerCharacter()), mInputCommandID); // L'IA attaque le joueur
+                    mCommand_IA_MIN.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), mInputCommandID); // L'IA attaque le joueur
                     mIsNewAICommand = false;
                     mCurrentState.SetPlayerStatus(state::IA_MAX_TURN);
                     mCurrentState.MoveNextTurn();
@@ -130,7 +131,7 @@ namespace client {
                 4. Move next turn                
                 */
                 if(mIsNewAICommand){
-                    mCommand_IA.ComputeAction(*(mCurrentState.GetEnemyCharacter()), *(mCurrentState.GetActivePlayerCharacter()), mInputCommandID); // L'IA attaque le joueur
+                    mCommand_IA_MAX.ComputeAction(*(mCurrentState.GetEnemyCharacter()), *(mCurrentState.GetActivePlayerCharacter()), mInputCommandID); // L'IA attaque le joueur
                     mIsNewAICommand = false;
 
                     if(mPlayerIA){ // If player played by an IA
@@ -200,6 +201,9 @@ namespace client {
     }
     return &mCurrentState;
 }
+
+
+
 
     state::CombatStatus client::Engine::DEBUG_GetGameStatus(){
 
