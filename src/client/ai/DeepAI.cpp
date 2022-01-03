@@ -63,9 +63,11 @@ namespace ai {
                     lActiveCharacter_Action = lActiveCharacter->GetAction(lAction_Type[lIndex_Character_Action]); // Get each action of the active character beeing played
 
                     if(lActiveCharacter_Action->GetDamage() != 0){ // If action exists on the character (case where a charcter dont have an action specified (ex SPELL_2, etc))
-                        
-                        Node lNewNode = lTestEngine.TestAction(*(lActiveCharacter), *(lActiveEnemyCharacter), lAction_Type[lIndex_Character_Action]); //Test the next game state if we execute this action
-                        Root_Node.AddBranch(&lNewNode);
+                        Node* lNewNode = new Node;
+                        *(lNewNode) = lTestEngine.TestAction(*(lActiveCharacter), *(lActiveEnemyCharacter), lAction_Type[lIndex_Character_Action]); //Test the next game state if we execute this action
+                        Root_Node.AddBranch(lNewNode); // Add branch to the root node 
+                        lTestEngine.SetGameContext(lGameStatus); // And reset game context to game context in root node 
+
                     }
                 }
             }

@@ -91,6 +91,8 @@ namespace client {
     }
 
 
-
+    void client::SandBoxEngine::SetGameContext(state::State& rNewGameContext){
+        this->mCurrentState = rNewGameContext;
+    }
 
 }

@@ -4,7 +4,9 @@
 
 
 namespace ai {
-
+    ai::Node::Node(){
+        
+    }
     ai::Node::Node(state::State& rGameContext, int rNodeValue){
         this->mGameContext = rGameContext;
         mValue = rNodeValue;
@@ -13,6 +15,7 @@ namespace ai {
 
     void ai::Node::AddBranch(Node* rNewNodeBranch){
         std::unique_ptr<Node> lNewNodeBranch(rNewNodeBranch);
+        
         mNodeJunction.push_back(std::move(lNewNodeBranch));
     }
     void ai::Node::SetNodeValue(int rNodeValue){
