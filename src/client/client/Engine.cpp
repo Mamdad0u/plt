@@ -118,6 +118,7 @@ namespace client {
                 break;
             case state::IA_MIN_TURN: // Player played by IA
                 if(mIsNewAICommand){
+                    mCurrentState.MoveActivePlayer();
                     mCommand_IA_MIN.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), mInputCommandID); // L'IA attaque le joueur
                     mIsNewAICommand = false;
                     mCurrentState.SetPlayerStatus(state::IA_MAX_TURN);
