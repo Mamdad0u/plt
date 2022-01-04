@@ -626,10 +626,11 @@ int main(int argc,char* argv[]){
                         lMovingProgress = lRender.GoNextCombat(window);
                     }
 
+                    break;
 
+                case GAME_OVER:
                     
-                    
-                    
+                    printf("Game is now over. \n");
 
                     break;
             
