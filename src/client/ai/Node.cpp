@@ -9,7 +9,7 @@ namespace ai {
     }
     ai::Node::Node(state::State& rGameContext, int rNodeValue){
         this->mGameContext = rGameContext;
-        mValue = rNodeValue;
+        mNodeValue = rNodeValue;
         mNodeJunction.reserve(4);
     }
 
@@ -21,6 +21,13 @@ namespace ai {
         return this->mNodeJunction[rNodeBranch];
     }
 
+    void ai::Node::SetIndex (int rNodeIndex){
+        mNodeIndex = rNodeIndex;
+    }
+
+    state::State* ai::Node::GetGameContext(){
+        return &this->mGameContext;
+    }
 
                 /*** DEPRECATED ***/
 /*     void ai::Node::AddBranch(Node* rNewNodeBranch){
