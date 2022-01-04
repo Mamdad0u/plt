@@ -36,11 +36,13 @@ namespace client {
 
         else if(lPlayerTurn == IA_MIN_TURN){
             lActionValue =  mCommand_IA_MIN.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), (CommandID)rActionToTest);
+            mCurrentState.MoveActivePlayer();
         }
         /*Update the state of all players with action tested*/
         mCurrentState.SetAlivePlayer();
         mCurrentState.SetAliveEnemy();
-        
+        lPlayerTurn = (Player_Status)(3 - lPlayerTurn);
+        mCurrentState.SetPlayerStatus(lPlayerTurn); // And change player turn for next test with this game context
         /**
          * @brief Secondly, we analyze the result of the action done, to caracterize the type of node happened with this action.
          * 
