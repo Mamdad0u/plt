@@ -29,6 +29,10 @@ namespace ai {
         return &this->mGameContext;
     }
 
+    int ai::Node::GetNodeValue(){
+        return mNodeValue;
+    }
+
                 /*** DEPRECATED ***/
 /*     void ai::Node::AddBranch(Node* rNewNodeBranch){
         std::unique_ptr<Node> lNewNodeBranch(rNewNodeBranch);
