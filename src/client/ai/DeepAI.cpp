@@ -12,18 +12,19 @@ using namespace std;
 
 namespace ai {
 
-    ai::DeepAI::DeepAI(){
+    ai::DeepAI::DeepAI(){ 
        mNodeNumber.reserve(5); 
-       mNodeNumber[0] = 1; //Root of the tree
+       mNodeNumber.push_back(1); //Root of the tree
     }
 
 /**
  * @brief Build tree of all game state possible over a depth define by @param rDepth value
  * 
- * @param rDepth Depth of tree
+ * @param rDepth Depth of tree()
  */
     void ai::DeepAI::UpdateNodeTree(int rDepth){
-        int lNode_score = 0;
+        
+        int lNode_Number = 0; // Number of nodes created at the depth tested
         state::ActionListCommand lAction_Type[] = {state::ATTACK_1, state::ATTACK_2, state::SPELL_1, state::SPELL_2};
         
         EngineObserver* lRunningEngine;// Actual game engine running the game
@@ -43,7 +44,8 @@ namespace ai {
         
         SandBoxEngine lTestEngine(lGameStatus);
 
-        Node Root_Node(lGameStatus, 0);
+        Node lPrimary_Root_Node(lGameStatus, 0); // FIrst node of the tree 
+        Node lRoot_Node;
 
         if(lPlayerTurn == IA_MIN_TURN){ // Si c'est le tour de l'IA joueur  de jouer
             lActiveCharacter = lGameStatus.GetActivePlayerCharacter(); // Récupération du character actif de l'IA joueur en train d'être joué
@@ -59,19 +61,36 @@ namespace ai {
         for(int lIndex_Depth=0;lIndex_Depth<rDepth;lIndex_Depth++){ // Building tree over max rDepth
             
             for(int lIndex_Node_Number = 0; lIndex_Node_Number<mNodeNumber[lIndex_Depth]; lIndex_Node_Number++){ // Each node present at the depth beeing computed
+                
+                if(lIndex_Depth > 0){
+                    lRoot_Node = *(lRoot_Node.GetBranch(lIndex_Node_Number));
+                }
+
+                else{
+                   lRoot_Node = lPrimary_Root_Node;
+                }
+                
                 for(int lIndex_Character_Action = 0; lIndex_Character_Action<4;lIndex_Character_Action++){ // Each character have 4 max action
                     lActiveCharacter_Action = lActiveCharacter->GetAction(lAction_Type[lIndex_Character_Action]); // Get each action of the active character beeing played
 
                     if(lActiveCharacter_Action->GetDamage() != 0){ // If action exists on the character (case where a charcter dont have an action specified (ex SPELL_2, etc))
                         Node* lNewNode = new Node;
                         *(lNewNode) = lTestEngine.TestAction(*(lActiveCharacter), *(lActiveEnemyCharacter), lAction_Type[lIndex_Character_Action]); //Test the next game state if we execute this action in a new node
-                        Root_Node.AddBranch(lNewNode); // Add the node created in a branch to the root node 
+                        lRoot_Node.AddBranch(lNewNode); // Add the node created in a branch to the root node 
                         lTestEngine.SetGameContext(lGameStatus); // And reset game context in root node for next action to test
-
+                        lNode_Number++;
                     }
                 }
+                
             }
 
+            if(lIndex_Depth == 0){
+                lPrimary_Root_Node = lRoot_Node;
+            }
+
+            mNodeNumber.push_back(lNode_Number); // Add the number of nodes at the depth + 1
+            lPlayerTurn = (Player_Status)(3 - lPlayerTurn);
+            lGameStatus.SetPlayerStatus(lPlayerTurn); // Changing IA turn 
 
 
 

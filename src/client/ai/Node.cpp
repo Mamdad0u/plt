@@ -14,14 +14,26 @@ namespace ai {
     }
 
     void ai::Node::AddBranch(Node* rNewNodeBranch){
+        mNodeJunction.push_back(rNewNodeBranch);
+    }
+
+    Node* ai::Node::GetBranch(int rNodeBranch){
+        return this->mNodeJunction[rNodeBranch];
+    }
+
+
+                /*** DEPRECATED ***/
+/*     void ai::Node::AddBranch(Node* rNewNodeBranch){
         std::unique_ptr<Node> lNewNodeBranch(rNewNodeBranch);
         
         mNodeJunction.push_back(std::move(lNewNodeBranch));
-    }
-    void ai::Node::SetNodeValue(int rNodeValue){
-        mValue = rNodeValue;
-    }
+    } */
 
+/*     Node* ai::Node::GetBranch(int rNodeBranch){
+        return this->mNodeJunction[rNodeBranch].get();
+
+
+    } */
 
 
 }
