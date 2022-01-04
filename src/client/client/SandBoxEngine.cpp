@@ -18,7 +18,7 @@ namespace client {
 
 
 
-    ai::Node client::SandBoxEngine::TestAction(state::Character& rAttacker, state::Character& rVictim, state::ActionListCommand rActionToTest){
+    ai::Node client::SandBoxEngine::TestAction(state::ActionListCommand rActionToTest){
         Player_Status lPlayerTurn = mCurrentState.GetPlayerStatus();
         int lActionValue = 0;
         int lNode_score = 0;
