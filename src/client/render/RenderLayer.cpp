@@ -12,9 +12,19 @@ namespace render {
         mArenaEnemySurface.reserve(4);
 
     }
+
+    render::RenderLayer::RenderLayer(client::EngineObserver* rNewObserver){
+        mPlayerCharactersSurface.reserve(4);
+        mArenaEnemySurface.reserve(4);
+        AddEngineObserver(rNewObserver);
+    }
     
-    int render::RenderLayer::LoadBackground(){
-        if(mBackgroundSurface.LoadBackgroundSprite("rue_map.png")){
+    int render::RenderLayer::LoadBackground(int lArenaNumber){
+
+        string lArenaPath = "backgrounds/Arena" + to_string(lArenaNumber);
+        lArenaPath = lArenaPath + ".png";
+
+        if(mBackgroundSurface.LoadBackgroundSprite(lArenaPath)){
             cout << "ERROR : Failed to load background " << endl;
             return -1;
         }
@@ -25,7 +35,7 @@ namespace render {
     int render::RenderLayer::LoadEnemy(int rEnemySelected,int rX, int rY, int rSide){
         Surface lEnemytoAdd;
         int lLastEnemyPosition=mArenaEnemySurface.size();
-        string lEnemyString = "Character" + to_string(rEnemySelected);
+        string lEnemyString = "sprites/Character" + to_string(rEnemySelected);
         
         lEnemyString = lEnemyString +".png";
         mArenaEnemySurface.push_back(*(new Surface));
@@ -43,7 +53,7 @@ namespace render {
     int render::RenderLayer::LoadCharacter(int rCharacterSelected, int rX, int rY, int rSide){
         Surface lCharactertoAdd;
         int lLastCharacterPosition = mPlayerCharactersSurface.size();
-        string lCharacterString = "Character" + to_string(rCharacterSelected);
+        string lCharacterString = "sprites/Character" + to_string(rCharacterSelected);
         
         lCharacterString = lCharacterString + ".png";
 
@@ -66,17 +76,59 @@ namespace render {
         return 0;
     }
 
+    void render::RenderLayer::UpdateCharacterOnScreen(int rSpriteNumber, int rPositionOnScreen){
+/*         lRender.LoadCharacter(1,250,250,1);
+        lRender.LoadCharacter(2,200,300,1);
+        lRender.LoadCharacter(5,150,350,1);
+        lRender.LoadCharacter(7,100,400,1); */
+        
+        
+        switch (rPositionOnScreen)
+        {
+
+            /**
+             * @brief Les case {0..3} concernent les charactères du joueur
+             * Le 4ème est pour le charactere enemy
+             * 
+             */
+        case 0:
+            LoadCharacter(rSpriteNumber,250,250,1);
+            break;
+        
+        case 1:
+            LoadCharacter(rSpriteNumber,200,300,1);
+            break;
+
+        case 2:
+            LoadCharacter(rSpriteNumber,150,350,1);
+            break;
+
+        case 3:
+            LoadCharacter(rSpriteNumber,100,400,1);
+            break;
+
+        case 4:
+            LoadEnemy(rSpriteNumber,600,325,0);
+            break;
+        }
+
+        
+    }
+
     void render::RenderLayer::LoadUI(){
         
         mUI.CreateWindow(0,500,800,100);
-        mUI.SetTextVersion(BUILD_VERSION);
-        mUI.DEBUG_SetTextAction1("Attack/Spell");
-        mUI.DEBUG_SetTextAction2("Objets");
-        mUI.DEBUG_SetTextAction3("Menu");
-        mUI.DEBUG_SetTextAction4("Quitter le jeu");
+        mUI.SetTextVersion("Release 3.1");
+        mUI.DEBUG_SetTextAction1("Attack 1");
+        mUI.DEBUG_SetTextAction2("Attack 2");
+        mUI.DEBUG_SetTextAction3("Spell 1");
+        mUI.DEBUG_SetTextAction4("Spell 2");
+        mUI.DEBUG_SetLifePoints();
         
 
     }
+
+    
 
 
 
@@ -91,15 +143,12 @@ namespace render {
                 mUI.DEBUG_SetTextCombatState("OUT_COMBAT");
                 break;
 
+            case state::RENDER_PROCESSING:
+                mUI.DEBUG_SetTextCombatState("RENDER_PROCESSING");
+                break;
+
 
         }
-
-
-
-
-
-
-
 
     }
 
@@ -129,8 +178,9 @@ namespace render {
                 mPlayerCharactersSurface[i].SetCharacterAnimation(1);
             }
             else if(mMovingProgress%800==0){
-                //cout << "L'animation devient statique" << endl;
+                // cout << "L'animation devient statique" << endl;
                 mPlayerCharactersSurface[i].SetCharacterAnimation(0);
+                NotifyEndRendering();
                 
             }
 
@@ -146,16 +196,27 @@ namespace render {
         mMovingProgress++;
         return (mMovingProgress-1);
     }
+    
+    void render::RenderLayer::GoNextArena(){
+        for(int i=0;i<mPlayerCharactersSurface.size();i++){
+            mPlayerCharactersSurface[i].ResetSpritePosition(i);
+        }
+        mBackgroundSurface.ResetViewPosition();
 
-    void render::RenderLayer::draw(sf::RenderWindow& rWindow, int rEnemyIndex, state::State GameStatus){
+        
+    }
+
+    void render::RenderLayer::draw(sf::RenderWindow& rWindow, int rEnemyIndex, state::CombatStatus rGameStatus){
         mBackgroundSurface.DrawSprite(rWindow);
 
-        if(GameStatus.GetCombatState()==state::IN_COMBAT){
+        if(rGameStatus==state::IN_COMBAT){
+            
+            
             mArenaEnemySurface[rEnemyIndex].DrawSprite(rWindow);
             rWindow.draw(mUI);
         }
         
-
+        rWindow.draw(mUI);
         for(int i=0;i<mPlayerCharactersSurface.size();i++){
             
             mPlayerCharactersSurface[i].DrawSprite(rWindow);
@@ -165,6 +226,7 @@ namespace render {
 
         
     }
+
     
 
 }

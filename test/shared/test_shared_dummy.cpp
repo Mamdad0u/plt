@@ -56,6 +56,19 @@ BOOST_AUTO_TEST_CASE(TestCharacter)
   }
 }
 
+BOOST_AUTO_TEST_CASE(TestState) 
+{
+  {
+       
+    State UUT_State(INITIALISATION, PLAYER_TURN);
 
+    UUT_State.AddPlayerCharacter(SIA);
+    UUT_State.AddPlayerCharacter(IS);
+    UUT_State.AddPlayerCharacter(RT);
+    UUT_State.AddPlayerCharacter(AEI);
+    
+    BOOST_CHECK_EQUAL(UUT_State.GetPlayerRosterSize(), 4);
+  }
+}
 
 /* vim: set sw=2 sts=2 et : */
