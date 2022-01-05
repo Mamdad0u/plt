@@ -36,7 +36,8 @@ namespace ai {
 
         
         State lGameStatus = lRunningEngine->mCurrentState; // Get the state of the game
-        
+        lGameStatus.SetDebugInfo(false); //Disable game output in terminal
+
         Character* lActiveCharacter; // Active character for IA beeing played
         Character* lActiveEnemyCharacter; // Enemy character for IA beeing played
         Player_Status lPlayerTurn = lGameStatus.GetPlayerStatus();
@@ -128,36 +129,20 @@ namespace ai {
     }
 
 
-    void ai::DeepAI::UpdateNodeTree_TEST(int rDepth){
-
-        state::ActionListCommand lAction_Type[] = {state::ATTACK_1, state::ATTACK_2, state::SPELL_1, state::SPELL_2};
-        Node lRoot_Node;
-        EngineObserver* lRunningEngine;// Actual game engine running the game
-        lRunningEngine = *(mEngineObserverList.begin());  // Get parameters and state of game engine
-        State lGameStatus = lRunningEngine->mCurrentState; // Get the state of the game
-
-
-
-
-
-
-
-
-    }
 
     /**
      * @brief Return a command based on minimax algorithm and node tree generated 
      * 
      * @return client::CommandID 
      */
-    client::CommandID ai::DeepAI::GenerateDeepCommand(){
+    client::CommandID ai::DeepAI::GenerateDeepCommand(int rDepth){
         
         std::list<EngineObserver*>::iterator lRunningEngine;
         lRunningEngine = this->mEngineObserverList.begin(); // Récupération des paramètres de l'engine 
         State lGameStatus = (*lRunningEngine)->mCurrentState; // Récupération de l'état du jeu depuis l'engine
         Player_Status lPlayerTurn = lGameStatus.GetPlayerStatus();
 
-        UpdateNodeTree(6);
+        UpdateNodeTree(rDepth); // First generate the tree of game possibilities from 0 to depth
         cout << "Finished" << endl;
 
 /*         if(lPlayerTurn == IA_MAX_TURN){
