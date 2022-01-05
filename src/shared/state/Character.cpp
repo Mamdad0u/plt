@@ -161,8 +161,10 @@ ActionList* state::Character::GetActionList(){
 Major state::Character::GetMajor() { return this->mCharacterMajor; }
 
 void state::Character::SetCharacterStatus(CharacterStatus rNewStatus) {
-  cout << this->mName << " is now " << mCharacterStatusStringMap[rNewStatus]
-       << endl;
+  if(mDebugInfo){
+    cout << this->mName << " is now " << mCharacterStatusStringMap[rNewStatus] << endl;
+  }
+  
   this->mCharacterStatus = rNewStatus;
 }
 

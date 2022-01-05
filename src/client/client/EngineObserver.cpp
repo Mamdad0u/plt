@@ -89,5 +89,7 @@ void client::EngineObserver::AddRenderObserver(render::RenderObserver* rNewRende
 
 }
 
+
+
 }
 

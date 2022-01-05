@@ -24,6 +24,9 @@ namespace client {
         int lNode_score = 0;
         int lAliveCharacters_Player  = mCurrentState.GetAlivePlayer();
 
+        /*Disable output command in terminal*/
+        mCommand_IA_MAX.SetDebugInfo(false);
+        mCommand_IA_MIN.SetDebugInfo(false);
         /**
          * @brief Firstly, we test the action, depending of its type defined by rActionToTest. We grab the value of the action made,
          * positive if PV gain (beneficial action), negative if PV lost (negative action)

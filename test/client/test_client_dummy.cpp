@@ -90,9 +90,9 @@ BOOST_AUTO_TEST_CASE(TestDeepIA){
   IA1.AddEngineObserver(&NewEngine);
   IA2.AddEngineObserver(&NewEngine);
   lRender.NotifyEndRendering();
-  IA1.GenerateDeepCommand();
+  IA1.GenerateDeepCommand(5);
   Game_State = NewEngine.GameLoop();
-  IA2.GenerateDeepCommand();
+  IA2.GenerateDeepCommand(5);
 
  
   }

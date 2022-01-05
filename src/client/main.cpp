@@ -724,12 +724,12 @@ int main(int argc,char* argv[]){
 
             if(GameClock.getElapsedTime().asSeconds() > 0.1f){
                 if(turn%2 == 0 && GameStatus == IN_COMBAT){
-                    IA_1.GenerateDeepCommand();
+                    IA_1.GenerateDeepCommand(5);
                 //    NewPlayer.ClickCommand(window,lCursor);
                 }
 
                 else if(GameStatus == IN_COMBAT){
-                    IA_2.GenerateDeepCommand();
+                    IA_2.GenerateDeepCommand(5);
                     
                 }
                 GameClock.restart();
