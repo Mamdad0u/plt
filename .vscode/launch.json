@@ -8,14 +8,19 @@
             "name": "(gdb) Lancer",
             "type": "cppdbg",
             "request": "launch",
-            //"program": "${workspaceFolder}/build/test/client/test_client_dummy",
-            "program": "${workspaceFolder}/bin/client",
-            "args": ["engine"],
+            "program": "${workspaceFolder}/build/test/client/test_client_dummy",
+            // "program": "${workspaceFolder}/test/stress_test.sh",
+            // "program": "${workspaceFolder}/bin/client",
+            "args": ["random_ai"],
             "stopAtEntry": false,
-            "cwd": "/home/paul/plt",
+            "cwd": "/Users/Abdelmajid/Desktop/plt",
             "environment": [],
             "externalConsole": false,
-            "MIMode": "gdb",
+            "osx": {
+                "MIMode": "lldb",
+                "MiDebuggerPath": "lldb-mi",
+                "program": "${workspaceFolder}/bin/client"
+            },
             "setupCommands": [
                 {
                     "description": "Activer l'impression en mode Pretty pour gdb",
@@ -25,4 +30,4 @@
             ]
         }
     ]
-}
+}c
