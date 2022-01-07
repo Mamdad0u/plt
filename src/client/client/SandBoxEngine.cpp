@@ -11,8 +11,8 @@ namespace client {
 
 
     client::SandBoxEngine::SandBoxEngine(state::State& rNewGameContext){
-
-      this->mCurrentState = rNewGameContext;
+        mCurrentState.SetDebugInfo(false);
+        this->mCurrentState = rNewGameContext;
 
     }
 
