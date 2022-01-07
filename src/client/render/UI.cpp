@@ -184,11 +184,9 @@ namespace render {
         mTryAgain.setPosition(sf::Vector2f(400.f,350.f));
         mTryAgain.setFillColor(sf::Color::Green);
 
+        
+
     }
-
-
-
-    
 
     void render::UI::MoveUI(){
         mTextVersion.move(sf::Vector2f(1.f,0.f));
@@ -229,6 +227,10 @@ namespace render {
         target.draw(mRectLifePointsP2);
         target.draw(mRectLifePointsP3);
         target.draw(mRectLifePointsP4);
+        target.draw(mGameOverMenu);
+        target.draw(mExit);
+        target.draw(mTryAgain);
+        
         
 
     }

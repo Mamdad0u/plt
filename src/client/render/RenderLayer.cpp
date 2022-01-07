@@ -160,6 +160,12 @@ namespace render {
                 mUI.DEBUG_SetTextCombatState("RENDER_PROCESSING");
                 break;
 
+            case state::GAME_OVER:
+                mUI.DEBUG_SetTextCombatState("GAME_OVER");
+
+                mUI.AskNewGame();
+                
+
 
         }
 
@@ -218,6 +224,8 @@ namespace render {
 
         
     }
+
+    
 
     void render::RenderLayer::draw(sf::RenderWindow& rWindow, int rEnemyIndex, state::CombatStatus rGameStatus){
         mBackgroundSurface.DrawSprite(rWindow);

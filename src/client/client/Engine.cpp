@@ -5,6 +5,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 #include <random>
+#include <string.h>
 
 using namespace std;
 
@@ -69,7 +70,30 @@ namespace client {
 
 
         case state::GAME_OVER:
+            char playerAnswer[1];
             cout << "You loose on combat " << mCurrentState.GetCombatNumber() <<" , Arena " << mCurrentState.GetArenaNumber() << endl;
+            cout << "Try again ? (y/n)" << endl;
+            cin >> playerAnswer;
+
+            if(strcmp(playerAnswer,"y") == 0) {
+
+                cout << "New game will launch." << endl;
+                
+                lPlayerStatus = state::PLAYER_TURN;
+                lGameStatus = state::INITIALISATION;
+                lTurn = mCurrentState.GetTurn();
+                lArena = mCurrentState.GetArenaNumber();
+                lMax_Combat = mCurrentState.GetCombatPerArena();
+                lCombatNumber = mCurrentState.GetCombatNumber();
+
+                mCurrentState.SetCombatState(state::INITIALISATION);
+                
+            }
+
+            if(strcmp(playerAnswer,"n") == 0) {
+
+                cout << "Ok, looser." << endl;
+            }
             
             
             break;

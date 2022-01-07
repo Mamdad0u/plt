@@ -488,6 +488,8 @@ int main(int argc,char* argv[]){
     
 
     else if(strcmp(argv[1], "heuristic_ai") == 0){
+        
+        
         Engine GameEngine;
         Player NewPlayer;
         HeuristicAI IA_1;
@@ -584,7 +586,7 @@ int main(int argc,char* argv[]){
                     lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
                     lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
                     lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
-                    lRender.RefreshLifePoints(); //Refresh the life points of the characters
+                    
                     lRender.NotifyEndRendering();
 
                     
@@ -593,6 +595,7 @@ int main(int argc,char* argv[]){
                 case IN_COMBAT:
                     lIsCharacterAdd = false;
                     lRender.DEBUG_SetRenderState(IN_COMBAT);
+                    lRender.RefreshLifePoints(); //Refresh the life points of the characters
                     break;
                     
                 case OUT_COMBAT:
@@ -629,8 +632,8 @@ int main(int argc,char* argv[]){
                     break;
 
                 case GAME_OVER:
-                    
-                    printf("Game is now over. \n");
+                    lRender.DEBUG_SetRenderState(GAME_OVER);
+
 
                     break;
             
