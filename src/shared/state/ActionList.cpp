@@ -4,8 +4,8 @@ namespace state {
     state::ActionList::ActionList(){
         Action lNewAction;
 
-        mAttackList.reserve(3);
-        mSpellList.reserve(3);
+        mAttackList.reserve(1);
+        mSpellList.reserve(1);
 
         for(int i=0;i<MAX_CHARACTER_ACTION;i++){
             mAttackList.push_back(lNewAction);
@@ -26,18 +26,18 @@ namespace state {
     Action* state::ActionList::GetSpell (int rSpellNumber){
         Action* lReturnSpell = nullptr;
 
-        lReturnSpell = &mAttackList[rSpellNumber-1];
+        lReturnSpell = &mSpellList[rSpellNumber-1];
         return lReturnSpell;
     }
 
-    void state::ActionList::SetAttack(int rAttackNumber, int rDamageValue, StatsName rStatsBuffName, int rStatsBuffValue, bool rBeneficial){
+    void state::ActionList::SetAttack(int rAttackNumber, int rDamageValue, StatsName rStatsBuffName, int rStatsBuffValue, BuffType rBeneficial){
         this->mAttackList[rAttackNumber-1].SetDamage(rDamageValue);
         this->mAttackList[rAttackNumber-1].SetStatBuffName(rStatsBuffName);
         this->mAttackList[rAttackNumber-1].SetStatBuffValue(rStatsBuffValue);
         this->mAttackList[rAttackNumber-1].SetBuffBeneficial(rBeneficial);
     }
 
-    void state::ActionList::SetSpell(int rSpellNumber, int rDamageValue, StatsName rStatsBuffName, int rStatsBuffValue, bool rBeneficial){
+    void state::ActionList::SetSpell(int rSpellNumber, int rDamageValue, StatsName rStatsBuffName, int rStatsBuffValue, BuffType rBeneficial){
         this->mSpellList[rSpellNumber-1].SetDamage(rDamageValue);
         this->mSpellList[rSpellNumber-1].SetStatBuffName(rStatsBuffName);
         this->mSpellList[rSpellNumber-1].SetStatBuffValue(rStatsBuffValue);

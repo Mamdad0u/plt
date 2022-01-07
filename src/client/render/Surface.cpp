@@ -47,7 +47,7 @@ namespace render {
     int render::Surface::LoadCharacterSprite(const std::string& rTextureName, int rX, int rY, int rSide){
         string lResPath = "res/" + rTextureName;
         if(rSide==1){ //Si le Character est un personnage du joueur
-             cout << "Joueur" << endl;
+            //  cout << "Joueur" << endl;
              mCharacterRectSource.left = 0;
              mCharacterRectSource.top = 0;
              mCharacterRectSource.width = 16;
@@ -144,6 +144,13 @@ namespace render {
 
     }
 
+    void render::Surface::ResetSpritePosition(int lCharacterPosition){
+        mSprite.setPosition(sf::Vector2f(250 - (lCharacterPosition * 50)  ,250 + (lCharacterPosition * 50))); // reset character position on screen for combat 1 of new arena
+    }
+
+    void render::Surface::ResetViewPosition(){
+        mView.setCenter(sf::Vector2f(0,0));
+    }
     void render::Surface::DrawSprite(sf::RenderWindow& rWindow){
         rWindow.draw(mSprite);
     }
