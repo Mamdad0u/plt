@@ -113,6 +113,7 @@ namespace ai {
                                 lTestEngine.SetGameContext(lGameStatus); // And reset game context in root node for next action to test
                                 lNode_Number++;
                                 mNodeTree.push_back(lNewChildNode); // Add the child node to the parent tree,, so he can become a parent at depth + 1
+                                *(mNodeTree[(lNode_Sum-1) - lIndex_Node_Number]) = lParent_Node;
                             }
                     }
                 }
@@ -122,6 +123,7 @@ namespace ai {
             /*Necessary to get the primary root node of the tree*/
             if(lIndex_Depth == 0){
                 lPrimary_Root_Node = lParent_Node;
+                mPrimaryNode = lPrimary_Root_Node;
             }
 
             mNodeNumber.push_back(lNode_Number); // Add the number of nodes at the depth + 1
@@ -149,15 +151,19 @@ namespace ai {
         UpdateNodeTree(mMaxDepth); // First generate the tree of game possibilities from 0 to depth
         cout << "Finished" << endl;
         Node* lPrimary_Root_Node = *(mNodeTree.begin()); // Starting at the first parent node of the tree
-
-        Minimax(*(lPrimary_Root_Node), 0, lPlayerTurn);
+        int test;
+        test = Minimax(mPrimaryNode, 0);
+        cout << "Finished" << endl;
     }
 
-    int ai::DeepAI::Minimax(Node& rNode, int rDepth, state::Player_Status rPlayer){
+    int ai::DeepAI::Minimax(Node& rNode, int rDepth){
 
-        State lGameStatus = *(rNode.GetGameContext()); // Récupération de l'état du jeu depuis l'engine
-        Player_Status lPlayerTurn = lGameStatus.GetPlayerStatus();
+        State* lGameStatus = rNode.GetGameContext(); // Récupération de l'état du jeu depuis l'engine
+        Player_Status lPlayerTurn = lGameStatus->GetPlayerStatus();
 
+
+/*         Node lNewChildNode;
+        lNewChildNode = rNode.GetChild(0); */
         int lNode_Value = 0;
 
         if(rDepth == mMaxDepth || rNode.GetNodeValue() == (int)NODE_GAME_OVER || rNode.GetNodeValue() == (int)NODE_GAME_WIN){ 
@@ -168,15 +174,25 @@ namespace ai {
 
 
         if(lPlayerTurn == IA_MAX_TURN){
-             
+             lNode_Value = NEGATIVE_INFINITY;
+            for(int lIndexChild=0; lIndexChild<rNode.GetChildNumber(); lIndexChild++){ // For each child of this node
+                Node* lNewChildNode;
+                lNewChildNode = rNode.mNodeJunction[lIndexChild];
+                lNode_Value = max(lNode_Value, Minimax(*(lNewChildNode), rDepth+1));
+            }
+            return lNode_Value;
         }
 
         else if(lPlayerTurn == IA_MIN_TURN){
             
             lNode_Value = POSITIVE_INFINITY;
             
-           // for(int i=0; i<rNode.) // For each child of this node 
-
+            for(int lIndexChild=0; lIndexChild<rNode.GetChildNumber(); lIndexChild++){ // For each child of this node
+                Node* lNewChildNode;
+                lNewChildNode = rNode.mNodeJunction[lIndexChild];
+                lNode_Value = min(lNode_Value, Minimax(*(lNewChildNode), rDepth+1));
+            }
+            return lNode_Value;
 
         }
 

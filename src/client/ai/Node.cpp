@@ -38,6 +38,10 @@ namespace ai {
        return mNodeJunction.size();
     }
 
+    Node ai::Node::GetChild (int rChildNode){
+        return *(mNodeJunction[rChildNode]);
+    }
+
                 /*** DEPRECATED ***/
 /*     void ai::Node::AddBranch(Node* rNewNodeBranch){
         std::unique_ptr<Node> lNewNodeBranch(rNewNodeBranch);

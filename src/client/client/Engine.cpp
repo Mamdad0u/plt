@@ -24,7 +24,7 @@ namespace client {
 
         int lRandomInt[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
         std::random_shuffle(lRandomInt, lRandomInt + state::State::MAX_COMBAT_NB);
-       // lRandomPlayerCharacter = 2;
+    //    lRandomPlayerCharacter = 7;
         mCurrentState.AddPlayerCharacter((state::CharacterName)lRandomPlayerCharacter);
         
        
