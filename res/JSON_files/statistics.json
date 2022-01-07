@@ -74,8 +74,8 @@
 
         "RT" : {
             "PV" : 110,
-            "ATTACK" : 80,
-            "POWER" : 150,
+            "ATTACK" : 150,
+            "POWER" : 80,
             "DEFENSE" : 60,
             "LUCK" : 5,
             "CAPACITY_NUMBER": 3,
