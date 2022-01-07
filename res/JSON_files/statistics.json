@@ -51,14 +51,14 @@
             "CAPACITY_NUMBER": 3,
 
             "ACTION_1" : {
-                "TYPE" : 2,
+                "TYPE" : 0,
                 "DAMAGE" : 60,
                 "STATS" : 5,
                 "BUFF" : 1,
                 "BENEFICIAL" : 1
             },
             "ACTION_2" : {
-                "TYPE" : 0,
+                "TYPE" : 2,
                 "DAMAGE" : 80,
                 "STATS" : 0,
                 "BUFF" : 0
@@ -73,10 +73,10 @@
         },
 
         "RT" : {
-            "PV" : 80,
-            "ATTACK" : 140,
-            "POWER" : 140,
-            "DEFENSE" : 80,
+            "PV" : 110,
+            "ATTACK" : 80,
+            "POWER" : 150,
+            "DEFENSE" : 60,
             "LUCK" : 5,
             "CAPACITY_NUMBER": 3,
 
@@ -87,14 +87,14 @@
                 "BUFF" : 0
             },
             "ACTION_2" : {
-                "TYPE" : 2,
+                "TYPE" : 1,
                 "DAMAGE" : 50,
                 "STATS" : 2,
                 "BUFF" : 10,
                 "BENEFICIAL" : 0 
             },
             "ACTION_3" : {
-                "TYPE" : 3,
+                "TYPE" : 2,
                 "DAMAGE" : 60,
                 "STATS" : 2,
                 "BUFF" : 10,
@@ -233,7 +233,7 @@
             "CAPACITY_NUMBER": 1,
 
             "ACTION_1" : {
-                "TYPE" : 0,
+                "TYPE" : 2,
                 "DAMAGE" : 110,
                 "STATS" : 1,
                 "BUFF" : 0
