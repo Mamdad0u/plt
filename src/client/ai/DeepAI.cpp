@@ -5,14 +5,19 @@
 #include <iterator>
 #include <algorithm>
 #include <vector>
-
+#include<bits/stdc++.h> // min max function
 using namespace client;
 using namespace state;
 using namespace std;
 
+#define POSITIVE_INFINITY 2147483647
+#define NEGATIVE_INFINITY -2147483647
+
+
 namespace ai {
 
-    ai::DeepAI::DeepAI(){ 
+    ai::DeepAI::DeepAI(int rMaxDepth){ 
+        mMaxDepth = rMaxDepth;
         mNodeTree.reserve(85); // Arbitrary
         mNodeNumber.reserve(85); // Arbitrary      
         mNodeNumber.push_back(1); //Root of the tree
@@ -136,25 +141,49 @@ namespace ai {
      * @return client::CommandID 
      */
     client::CommandID ai::DeepAI::GenerateDeepCommand(int rDepth){
-        
-        std::list<EngineObserver*>::iterator lRunningEngine;
-        lRunningEngine = this->mEngineObserverList.begin(); // Récupération des paramètres de l'engine 
-        State lGameStatus = (*lRunningEngine)->mCurrentState; // Récupération de l'état du jeu depuis l'engine
+        EngineObserver* lRunningEngine;// Actual game engine running the game           
+        lRunningEngine = *(mEngineObserverList.begin());  // Get parameters and state of game engine       
+        State lGameStatus = lRunningEngine->mCurrentState; // Get the state of the game
         Player_Status lPlayerTurn = lGameStatus.GetPlayerStatus();
 
-        UpdateNodeTree(rDepth); // First generate the tree of game possibilities from 0 to depth
+        UpdateNodeTree(mMaxDepth); // First generate the tree of game possibilities from 0 to depth
         cout << "Finished" << endl;
+        Node* lPrimary_Root_Node = *(mNodeTree.begin()); // Starting at the first parent node of the tree
 
-/*         if(lPlayerTurn == IA_MAX_TURN){
+        Minimax(*(lPrimary_Root_Node), 0, lPlayerTurn);
+    }
 
+    int ai::DeepAI::Minimax(Node& rNode, int rDepth, state::Player_Status rPlayer){
+
+        State lGameStatus = *(rNode.GetGameContext()); // Récupération de l'état du jeu depuis l'engine
+        Player_Status lPlayerTurn = lGameStatus.GetPlayerStatus();
+
+        int lNode_Value = 0;
+
+        if(rDepth == mMaxDepth || rNode.GetNodeValue() == (int)NODE_GAME_OVER || rNode.GetNodeValue() == (int)NODE_GAME_WIN){ 
+            /*If we reach max depth of tree or if the node is a terminal node*/
+            return rNode.GetNodeValue();
+        }
+
+
+
+        if(lPlayerTurn == IA_MAX_TURN){
+             
         }
 
         else if(lPlayerTurn == IA_MIN_TURN){
             
-        } */
+            lNode_Value = POSITIVE_INFINITY;
+            
+           // for(int i=0; i<rNode.) // For each child of this node 
+
+
+        }
 
 
     }
+
+
     void ai::DeepAI::SetStatusCommand(client::CommandID rNewCommand){
         mInputCommand = rNewCommand;
         NotifyNewAICommand();
