@@ -669,8 +669,8 @@ int main(int argc,char* argv[]){
     else if(strcmp(argv[1], "deep_ai") == 0){
         Engine GameEngine;
         Player NewPlayer;
-        DeepAI IA_1;
-        DeepAI IA_2;
+        DeepAI IA_1(5);
+        DeepAI IA_2(5);
         
         sf::Clock clock;
         sf::Clock clockState;

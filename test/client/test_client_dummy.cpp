@@ -80,8 +80,8 @@ BOOST_AUTO_TEST_CASE(TestDeepIA){
   {
   Engine NewEngine;
   RenderLayer lRender(&NewEngine);
-  DeepAI IA1;
-  DeepAI IA2;
+  DeepAI IA1(5);
+  DeepAI IA2(5);
   State* Game_State;
   CombatStatus GameStatus = INITIALISATION;
   int turn = 0;
