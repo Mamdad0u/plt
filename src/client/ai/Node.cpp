@@ -17,10 +17,6 @@ namespace ai {
         mNodeJunction.push_back(rNewNodeBranch);
     }
 
-    Node* ai::Node::GetBranch(int rNodeBranch){
-        return this->mNodeJunction[rNodeBranch];
-    }
-
     void ai::Node::SetIndex (int rNodeIndex){
         mNodeIndex = rNodeIndex;
     }
@@ -31,6 +27,15 @@ namespace ai {
 
     int ai::Node::GetNodeValue(){
         return mNodeValue;
+    }
+
+/**
+ * @brief Return the number of child of the parent 
+ * 
+ * @return int Number of child
+ */
+    int ai::Node::GetChildNumber(){
+       return mNodeJunction.size();
     }
 
                 /*** DEPRECATED ***/
