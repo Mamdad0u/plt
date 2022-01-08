@@ -18,9 +18,13 @@ namespace ai {
 
     ai::DeepAI::DeepAI(int rMaxDepth){ 
         mMaxDepth = rMaxDepth;
-        mNodeTree.reserve(85); // Arbitrary
-        mNodeNumber.reserve(85); // Arbitrary      
-        mNodeNumber.push_back(1); //Root of the tree
+        mOptimalPath.reserve(mMaxDepth);
+        
+        /*Initialization of vector */
+        for(int i = 0; i<mMaxDepth;i++){
+            mOptimalPath.push_back(0);
+        }
+
     }
 
 /**
@@ -32,6 +36,10 @@ namespace ai {
         
         int lNode_Number = 0; // Number of nodes created at the depth tested
         int lNode_Sum = 0; // Sum of nodes created
+
+
+
+
         state::ActionListCommand lAction_Type[] = {state::ATTACK_1, state::ATTACK_2, state::SPELL_1, state::SPELL_2};
         
         EngineObserver* lRunningEngine;// Actual game engine running the game
@@ -48,13 +56,19 @@ namespace ai {
         Player_Status lPlayerTurn = lGameStatus.GetPlayerStatus();
         Action* lActiveCharacter_Action = nullptr; 
 
-        
+        std::vector<Node*> lNodeTree; // Needed to get parents of each depth to make childs
+        std::vector<int> lNodeNumber; // Needed to get number of child of each depth
+
+        lNodeTree.reserve(85); // Arbitrary
+        lNodeNumber.reserve(85); // Arbitrary 
+        lNodeNumber.push_back(1); //Root of the tree  
+
         SandBoxEngine lTestEngine(lGameStatus);  // Test engine in sandbox environnement to test action
 
         Node lPrimary_Root_Node(lGameStatus, 0); // First node of the tree
         lPrimary_Root_Node.SetIndex(0);
 
-        mNodeTree.push_back(&lPrimary_Root_Node);
+        lNodeTree.push_back(&lPrimary_Root_Node);
         lNode_Sum++;
 
 
@@ -73,11 +87,11 @@ namespace ai {
         
         for(int lIndex_Depth=0;lIndex_Depth<rDepth;lIndex_Depth++){ // Building tree over max rDepth
 
-            for(int lIndex_Node_Number = 0; lIndex_Node_Number<mNodeNumber[lIndex_Depth]; lIndex_Node_Number++){ // Each node present at the depth beeing computed
+            for(int lIndex_Node_Number = 0; lIndex_Node_Number<lNodeNumber[lIndex_Depth]; lIndex_Node_Number++){ // Each node present at the depth beeing computed
                 
 
                 if(lIndex_Depth > 0){ // If not the primary root node
-                    lParent_Node = *(mNodeTree[(lNode_Sum-1) - lIndex_Node_Number]); // Getting each parent present ath the depth
+                    lParent_Node = *(lNodeTree[(lNode_Sum-1) - lIndex_Node_Number]); // Getting each parent present ath the depth
                     lGameStatus = *(lParent_Node.GetGameContext()); // Get the game context of the parent node to test his childs nodes
                     lTestEngine.SetGameContext(lGameStatus); // Set Test engine to node game context
                     
@@ -112,8 +126,8 @@ namespace ai {
                                 lParent_Node.AddBranch(lNewChildNode); // Add the node created in a branch to the root node 
                                 lTestEngine.SetGameContext(lGameStatus); // And reset game context in root node for next action to test
                                 lNode_Number++;
-                                mNodeTree.push_back(lNewChildNode); // Add the child node to the parent tree,, so he can become a parent at depth + 1
-                                *(mNodeTree[(lNode_Sum-1) - lIndex_Node_Number]) = lParent_Node;
+                                lNodeTree.push_back(lNewChildNode); // Add the child node to the parent tree,, so he can become a parent at depth + 1
+                                *(lNodeTree[(lNode_Sum-1) - lIndex_Node_Number]) = lParent_Node;
                             }
                     }
                 }
@@ -126,7 +140,7 @@ namespace ai {
                 mPrimaryNode = lPrimary_Root_Node;
             }
 
-            mNodeNumber.push_back(lNode_Number); // Add the number of nodes at the depth + 1
+            lNodeNumber.push_back(lNode_Number); // Add the number of nodes at the depth + 1
             lNode_Sum += lNode_Number;
             lNode_Number = 0; // And reset it for next depth
 
@@ -137,62 +151,96 @@ namespace ai {
 
 
 
-    /**
-     * @brief Return a command based on minimax algorithm and node tree generated 
-     * 
-     * @return client::CommandID 
-     */
+/**
+ * @brief Return an optimal command based on minimax algorithm
+ * 
+ * @param rDepth 
+ * @return client::CommandID 
+ */
     client::CommandID ai::DeepAI::GenerateDeepCommand(int rDepth){
         EngineObserver* lRunningEngine;// Actual game engine running the game           
         lRunningEngine = *(mEngineObserverList.begin());  // Get parameters and state of game engine       
         State lGameStatus = lRunningEngine->mCurrentState; // Get the state of the game
         Player_Status lPlayerTurn = lGameStatus.GetPlayerStatus();
-
+        CommandID lOptimal_action;
+        int lFinal_value = 0;
         UpdateNodeTree(mMaxDepth); // First generate the tree of game possibilities from 0 to depth
-        cout << "Finished" << endl;
-        Node* lPrimary_Root_Node = *(mNodeTree.begin()); // Starting at the first parent node of the tree
-        int test;
-        test = Minimax(mPrimaryNode, 0);
-        cout << "Finished" << endl;
+        
+        lFinal_value = Minimax(mPrimaryNode, 0); // Compute a minimax algorithm on the tree
+      //  cout << "Finished" << endl;
+
+        lOptimal_action = (CommandID)mOptimalPath[0]; // Choose the optimal action found
+        SetStatusCommand(lOptimal_action);
     }
 
+/**
+ * @brief Minimax algorithm: fround best node for MIN and MAX AI
+ * 
+ * @param rNode Node under test
+ * @param rDepth Depth of the tree
+ * @return int Optimal value 
+ */
     int ai::DeepAI::Minimax(Node& rNode, int rDepth){
 
         State* lGameStatus = rNode.GetGameContext(); // Récupération de l'état du jeu depuis l'engine
         Player_Status lPlayerTurn = lGameStatus->GetPlayerStatus();
 
+        int lNode_Eva = 0;
+        int lMin_Value = 0;
+        int lMax_Value = 0;
+        int lNode_To_Choose = 0;
 
-/*         Node lNewChildNode;
-        lNewChildNode = rNode.GetChild(0); */
-        int lNode_Value = 0;
-
-        if(rDepth == mMaxDepth || rNode.GetNodeValue() == (int)NODE_GAME_OVER || rNode.GetNodeValue() == (int)NODE_GAME_WIN){ 
+        if(rDepth == mMaxDepth || rNode.GetNodeValue() == (int)NODE_GAME_OVER || rNode.GetNodeValue() == (int)NODE_GAME_WIN){  
             /*If we reach max depth of tree or if the node is a terminal node*/
+            // cout << "Reach max depth" << endl;
             return rNode.GetNodeValue();
         }
 
 
 
         if(lPlayerTurn == IA_MAX_TURN){
-             lNode_Value = NEGATIVE_INFINITY;
+            lMax_Value = NEGATIVE_INFINITY;
             for(int lIndexChild=0; lIndexChild<rNode.GetChildNumber(); lIndexChild++){ // For each child of this node
                 Node* lNewChildNode;
-                lNewChildNode = rNode.mNodeJunction[lIndexChild];
-                lNode_Value = max(lNode_Value, Minimax(*(lNewChildNode), rDepth+1));
+                lNewChildNode = rNode.mNodeJunction[lIndexChild]; // Breaks polymorphisism, but found no other working solution
+                lNode_Eva = Minimax(*(lNewChildNode), rDepth+1);
+
+                if(lNode_Eva > lMax_Value){ // If value change, then this value is optimal and node is added to the path at this depth
+                    mOptimalPath[rDepth] = lIndexChild;
+                    lNode_To_Choose = lIndexChild;
+                 //   cout << "Depth "<< rDepth <<" Node to choose  : " << lNode_To_Choose << endl;
+                }
+
+                lMax_Value = max(lMax_Value, lNode_Eva);
+
+             //   cout << "Depth = " <<  rDepth << " Child node " << lIndexChild  << " Max node value = " << lMax_Value << endl;
             }
-            return lNode_Value;
+       //     cout << "Depth " << rDepth << " Final max value = " << lMax_Value << endl; 
+            return lMax_Value;
         }
 
         else if(lPlayerTurn == IA_MIN_TURN){
             
-            lNode_Value = POSITIVE_INFINITY;
+            lMin_Value = POSITIVE_INFINITY;
             
             for(int lIndexChild=0; lIndexChild<rNode.GetChildNumber(); lIndexChild++){ // For each child of this node
                 Node* lNewChildNode;
-                lNewChildNode = rNode.mNodeJunction[lIndexChild];
-                lNode_Value = min(lNode_Value, Minimax(*(lNewChildNode), rDepth+1));
+                lNewChildNode = rNode.mNodeJunction[lIndexChild]; // Getting value of the child
+                lNode_Eva =  Minimax(*(lNewChildNode), rDepth+1);  
+
+                if(lNode_Eva < lMin_Value){ // If value change, then this value is optimal and node is added to the path at this depth
+                    mOptimalPath[rDepth] = lIndexChild;
+                    lNode_To_Choose = lIndexChild;
+     //               cout << "Depth "<< rDepth <<" Node to choose  :" << lNode_To_Choose << endl;
+                }
+
+                lMin_Value = min(lMin_Value, lNode_Eva); // Testing if this value is optimal
+         //       cout << "Depth = " <<  rDepth << " Child node " << lIndexChild  << " Min node value = " << lMin_Value << endl;
+                
             }
-            return lNode_Value;
+           // cout << "Depth " << rDepth << " Final min value = " << lMin_Value << endl; 
+            return lMin_Value;
+            
 
         }
 
@@ -208,5 +256,11 @@ namespace ai {
     client::CommandID ai::DeepAI::GetStatusCommand() const{
         return this->mInputCommand;
     }
+
+    void::ai::DeepAI::ResetTree(){
+        mPrimaryNode.KillChild();
+
+    }
+
 
 }
