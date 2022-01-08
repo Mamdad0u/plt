@@ -257,6 +257,10 @@ namespace ai {
         return this->mInputCommand;
     }
 
+/**
+ * @brief Reset object tree for next nurn
+ * 
+ */
     void::ai::DeepAI::ResetTree(){
         mPrimaryNode.KillChild();
 
