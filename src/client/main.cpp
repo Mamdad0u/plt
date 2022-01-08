@@ -669,8 +669,8 @@ int main(int argc,char* argv[]){
     else if(strcmp(argv[1], "deep_ai") == 0){
         Engine GameEngine;
         Player NewPlayer;
-        DeepAI IA_1(5);
-        DeepAI IA_2(5);
+        DeepAI IA_1(2);
+        DeepAI IA_2(1);
         
         sf::Clock clock;
         sf::Clock clockState;
@@ -724,13 +724,15 @@ int main(int argc,char* argv[]){
 
             if(GameClock.getElapsedTime().asSeconds() > 0.1f){
                 if(turn%2 == 0 && GameStatus == IN_COMBAT){
-                    IA_1.GenerateDeepCommand(5);
+                    IA_1.GenerateDeepCommand(5); // Generate optimal command
+                    IA_1.ResetTree(); // Reset game tree for next turn
+                   
                 //    NewPlayer.ClickCommand(window,lCursor);
                 }
 
                 else if(GameStatus == IN_COMBAT){
                     IA_2.GenerateDeepCommand(5);
-                    
+                    IA_2.ResetTree();
                 }
                 GameClock.restart();
             }
