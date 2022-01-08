@@ -1,6 +1,6 @@
 #include <ai/Node.h>  // Included from library shared_static
 #include "Node.h"
-
+#include <iostream>
 
 
 namespace ai {
@@ -12,6 +12,7 @@ namespace ai {
         mNodeValue = rNodeValue;
         mNodeJunction.reserve(4);
     }
+
 
     void ai::Node::AddBranch(Node* rNewNodeBranch){
         mNodeJunction.push_back(rNewNodeBranch);
@@ -40,6 +41,28 @@ namespace ai {
 
     Node ai::Node::GetChild (int rChildNode){
         return *(mNodeJunction[rChildNode]);
+    }
+
+/**
+ * @brief Delete all child 
+ * 
+ */
+    void ai::Node::KillChild(){
+        int lOrigin_mNodeJunction_Size = mNodeJunction.size();
+        if(mNodeJunction.size() != 0){  
+            /*If we reach max depth of tree, no child to kill*/
+        
+
+            for(int i=0;i<lOrigin_mNodeJunction_Size;i++){
+                mNodeJunction[i]->KillChild();
+                mNodeJunction.erase(mNodeJunction.begin());
+
+            }
+        
+        }
+
+
+
     }
 
                 /*** DEPRECATED ***/
