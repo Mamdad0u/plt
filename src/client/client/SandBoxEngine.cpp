@@ -85,7 +85,7 @@ namespace client {
 
             // If the action make a PV gain
             else if(lActionValue > 0){
-                lNode_score = lActionValue * NODE_PV_GAIN_ACTION * (-1);
+                lNode_score = lActionValue * NODE_PV_GAIN_ACTION;
                 Node lNewNode(mCurrentState, lNode_score);
                 return lNewNode;
             }
