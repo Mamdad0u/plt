@@ -23,10 +23,14 @@ namespace client {
         mActionMap[ATTACK_2] = "ATTACK_2";
         mActionMap[SPELL_1] = "SPELL_1";
         mActionMap[SPELL_2] = "SPELL_2";
+
+        mUniqueTeamAttackBuff = 1;
     }
 
     float client::Command::ComputeWeakAndStrength(state::Major rAttackerMajor, state::Major rVictimMajor){
-        
+        const float STRENGTH     = 2;
+        const float  NEUTRAL     = 1;
+        const float WEAK     = 0.5;
         switch(rAttackerMajor){
             case ELEC:
                 switch (rVictimMajor)
@@ -125,7 +129,7 @@ namespace client {
         
     }
 
-    void client::Command::ComputeAction(state::Character &rAttacker, state::Character &rVictim, CommandID rActionMade){
+    int client::Command::ComputeAction(state::Character &rAttacker, state::Character &rVictim, CommandID rActionMade){
         float lCoeffMajor = 0;
         int lCriticalHit = 0;
         int lAttackDamage = 0;
@@ -137,10 +141,12 @@ namespace client {
         float lPVLost = 0;
         const float lMagicCoefficiant = 0.44;
         int lBuffValue = 0;
-    
+        string lAttackerName;
+        string lVictimName;
         StatsName lBuffName;
         BuffType lBeneficial;
-        
+        Major lAttacker_Major;
+        Major lVictim_Major;
         Action* lActionGot = nullptr;
 
         /*Récupération du type d'action*/
@@ -166,20 +172,27 @@ namespace client {
 
 
         /*Calcul du nombre de PV perdu*/
-        lCoeffMajor = ComputeWeakAndStrength(rAttacker.GetMajor(), rVictim.GetMajor()); // Calcul avantage/désavantage majeur
+        lAttackerName = rAttacker.GetName();
+        lVictimName = rVictim.GetName();
+        lAttacker_Major = rAttacker.GetMajor();
+        lVictim_Major = rVictim.GetMajor();
+
+        lCoeffMajor = ComputeWeakAndStrength(lAttacker_Major, lVictim_Major); // Calcul avantage/désavantage majeur
         lCriticalHit = ComputeCriticalHit(rAttacker.GetCharacterStats(StatsName::LUCK)); // Calcul coup critique
         lAttackDamage = lActionGot->GetDamage(); // Dégâts de l'attaque
         lVictimDefense = rVictim.GetCharacterStats(StatsName::DEFENSE); // Défense de la victime
         lAttackStat = rAttacker.GetCharacterStats(StatsName::ATTACK); // Attaque de l'attaquant
         lVictimLifePoints = rVictim.GetCharacterStats(LIFE_POINTS);
         
-        lPVLost = ((lCoeffMajor * lCriticalHit * lAttackDamage * lAttackStat*mUniqueTeamAttackBuff) / lVictimDefense) * lMagicCoefficiant;
+        lPVLost = (-1) * ((lCoeffMajor * lCriticalHit * lAttackDamage * lAttackStat*mUniqueTeamAttackBuff) / lVictimDefense) * lMagicCoefficiant;
         
         /*Application de la perte de PV*/
-        rVictim.SetCharacterStats(LIFE_POINTS, lVictimLifePoints - lPVLost);
+        rVictim.SetCharacterStats(LIFE_POINTS, lVictimLifePoints + lPVLost);
         
-        cout  << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " inflicted " << lPVLost << " PV lost on " << rVictim.GetName() << endl;
-        cout << rVictim.GetName() << " life points is now " << rVictim.GetCharacterStats(LIFE_POINTS) << endl;
+        if(mDebugInfo){
+            cout  << mActionMap[rActionMade] << ": " << lAttackerName << " inflicted " << lPVLost << " PV lost on " << lVictimName << endl;
+            cout << lVictimName << " life points is now " << rVictim.GetCharacterStats(LIFE_POINTS) << endl;
+        }
         
         mUniqueTeamAttackBuff = 1; // Reset du team buff
         /*Calcul de l'effet du buff*/
@@ -191,10 +204,12 @@ namespace client {
         if(mActiveLPBuffTurnTime > 0){//Check if there is an active life point team buff
             lAttackerStat = rAttacker.GetCharacterStats(lBuffName);
             rAttacker.SetCharacterStats(LIFE_POINTS, lAttackerStat + mUniqueTeamLPBuff);
-            
-            cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " got +" << mUniqueTeamLPBuff << " " << mStatsNameMap[LIFE_POINTS] << " team beneficial" << endl;
-            cout << rAttacker.GetName() << " "<<  mStatsNameMap[LIFE_POINTS] << " is now " << rAttacker.GetCharacterStats(LIFE_POINTS) << endl;
-            mActiveLPBuffTurnTime--;
+
+            if(mDebugInfo){
+                cout << mActionMap[rActionMade] << ": " << lAttackerName << " got +" << mUniqueTeamLPBuff << " " << mStatsNameMap[LIFE_POINTS] << " team beneficial" << endl;
+                cout << lAttackerName << " "<<  mStatsNameMap[LIFE_POINTS] << " is now " << rAttacker.GetCharacterStats(LIFE_POINTS) << endl;
+                mActiveLPBuffTurnTime--;
+            }
         
         }
 
@@ -210,9 +225,16 @@ namespace client {
                 case BENEFICIAL_ATTACKER: // Buff bénéfique c'est l'attaquant qui reçoit le buff
                     lAttackerStat = rAttacker.GetCharacterStats(lBuffName);
                     rAttacker.SetCharacterStats(lBuffName, lAttackerStat + lBuffValue);
+
+                    if(mDebugInfo){
+                        cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " got +" << lBuffValue << " " << mStatsNameMap[lBuffName] << " beneficial" << endl;
+                        cout << rAttacker.GetName() << " "<<  mStatsNameMap[lBuffName] << " is now " << rAttacker.GetCharacterStats(lBuffName) << endl;
+                    }
+                    if(lBuffName == LIFE_POINTS){
+                        return lBuffValue; //If the action is a PV gain, we return it 
+                    }
                     
-                    cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " got +" << lBuffValue << " " << mStatsNameMap[lBuffName] << " beneficial" << endl;
-                    cout << rAttacker.GetName() << " "<<  mStatsNameMap[lBuffName] << " is now " << rAttacker.GetCharacterStats(lBuffName) << endl;
+                    
                     break;
 
 
@@ -220,18 +242,22 @@ namespace client {
                     lBuffValue = lBuffValue * (-1);
                     lVictimStat = rVictim.GetCharacterStats(lBuffName);
                     rVictim.SetCharacterStats(lBuffName, lVictimStat + lBuffValue);
-                    
-                    cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " inflicted " << lBuffValue << " " <<mStatsNameMap[lBuffName] << " disadvantageous on " << rVictim.GetName() << endl;
-                    cout << rVictim.GetName() << " "<<  mStatsNameMap[lBuffName] << " is now " << rVictim.GetCharacterStats(lBuffName) << endl;
+
+                    if(mDebugInfo){
+                        cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " inflicted " << lBuffValue << " " <<mStatsNameMap[lBuffName] << " disadvantageous on " << rVictim.GetName() << endl;
+                        cout << rVictim.GetName() << " "<<  mStatsNameMap[lBuffName] << " is now " << rVictim.GetCharacterStats(lBuffName) << endl;
+                    }
                     break;
 
                 case NEGATIVE_ATTACKER: // Buff non bénéfique pour l'attaquant
                     lBuffValue = lBuffValue * (-1);
                     lAttackerStat = rAttacker.GetCharacterStats(lBuffName);
                     rAttacker.SetCharacterStats(lBuffName, lAttackerStat + lBuffValue);
-                    
-                    cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " inflicted " << lBuffValue << " " <<mStatsNameMap[lBuffName] << " disadvantageous on " << rAttacker.GetName() << endl;
-                    cout << rAttacker.GetName() << " "<<  mStatsNameMap[lBuffName] << " is now " << rAttacker.GetCharacterStats(lBuffName) << endl;
+
+                    if(mDebugInfo){
+                        cout << mActionMap[rActionMade] << ": " << rAttacker.GetName() << " inflicted " << lBuffValue << " " <<mStatsNameMap[lBuffName] << " disadvantageous on " << rAttacker.GetName() << endl;
+                        cout << rAttacker.GetName() << " "<<  mStatsNameMap[lBuffName] << " is now " << rAttacker.GetCharacterStats(lBuffName) << endl;
+                    }
                     break;
 
                 case BENEFICIAL_TEAM: // Buff ayant un effet au tour n+1
@@ -239,12 +265,16 @@ namespace client {
                     {
                     case ATTACK:
                         mUniqueTeamAttackBuff = (float)lBuffValue/10; // En %
-                        cout << rAttacker.GetName() << " give a team buff attack of " << lBuffValue << "% for next turn" << endl;
+                        if(mDebugInfo){
+                            cout << rAttacker.GetName() << " give a team buff attack of " << lBuffValue << "% for next turn" << endl;
+                        }
                         break;
 
                     case LIFE_POINTS:
                         mUniqueTeamLPBuff = lBuffValue;
-                        cout << rAttacker.GetName() << " give a team buff Life points of " << lBuffValue << " life points for next 4 turns" << endl;
+                        if(mDebugInfo){
+                            cout << rAttacker.GetName() << " give a team buff Life points of " << lBuffValue << " life points for next 4 turns" << endl;
+                        }
                         mActiveLPBuffTurnTime = 4;
                         break;
 
@@ -257,7 +287,7 @@ namespace client {
         }
         
         
-
+        return lPVLost;
 
     }
 
@@ -269,15 +299,24 @@ namespace client {
 
         if(lRandomResult <= rCharacterLuck){
             lCriticalHit = 2;
-            cout << "Critical hit !" << endl;
+
+            if(mDebugInfo){
+                cout << "Critical hit !" << endl;
+            }
         }
         else{
             lCriticalHit = 1;
-            cout << "No critical hit" << endl;
+            if(mDebugInfo){
+                cout << "No critical hit" << endl;
+            }
         }
 
         return lCriticalHit;
 
+    }
+
+    void client::Command::SetDebugInfo(bool rValue){
+        mDebugInfo = rValue;
     }
 
 }

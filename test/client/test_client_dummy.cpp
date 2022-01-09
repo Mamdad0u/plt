@@ -49,12 +49,56 @@ BOOST_AUTO_TEST_CASE(TestRandomAI){
   Game_State = NewEngine.GameLoop();
   
 
-  
-  
- 
- 
  
   }
+
 }
+
+BOOST_AUTO_TEST_CASE(TestHeuristicIA){
+  {
+  Engine NewEngine;
+  RenderLayer lRender(&NewEngine);
+  HeuristicAI IA1;
+  HeuristicAI IA2;
+  State* Game_State;
+  CombatStatus GameStatus = INITIALISATION;
+  int turn = 0;
+
+
+  IA1.AddEngineObserver(&NewEngine);
+  IA2.AddEngineObserver(&NewEngine);
+  lRender.NotifyEndRendering();
+  IA1.GenerateHeuristicCommand();
+  Game_State = NewEngine.GameLoop();
+  IA2.GenerateHeuristicCommand();
+
+ 
+  }
+
+}
+BOOST_AUTO_TEST_CASE(TestDeepIA){
+  {
+  Engine NewEngine;
+  RenderLayer lRender(&NewEngine);
+  DeepAI IA1(5);
+  DeepAI IA2(5);
+  State* Game_State;
+  CombatStatus GameStatus = INITIALISATION;
+  int turn = 0;
+
+
+  IA1.AddEngineObserver(&NewEngine);
+  IA2.AddEngineObserver(&NewEngine);
+  lRender.NotifyEndRendering();
+  IA1.GenerateDeepCommand(5);
+  Game_State = NewEngine.GameLoop();
+  IA2.GenerateDeepCommand(5);
+
+ 
+  }
+
+}
+
+
 
 BOOST_AUTO_TEST_SUITE_END()
