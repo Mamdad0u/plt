@@ -136,7 +136,7 @@ namespace client {
                     mIsNewAICommand = false;
 
                     if(mPlayerIA){ // If player played by an IA
-                        mCurrentState.SetPlayerStatus(state::IA_MIN_TURN); // Next turn for player IA
+                        mCurrentState.SetPlayerStatus(state::IA_MIN_TURN); // Next turn for IA MIN
                     }
                     else{
                         mCurrentState.SetPlayerStatus(state::PLAYER_TURN); // Else for human player
