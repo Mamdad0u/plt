@@ -47,12 +47,12 @@ namespace ai {
         int lPlayer_Defense = 0;
         int lPlayer_Attack = 0;
 
-        if(lPlayerTurn == PLAYER_TURN){ // Si c'est le tour de l'IA joueur de jouer
+        if(lPlayerTurn == IA_MIN_TURN){ // Si c'est le tour de l'IA joueur  de jouer
             lActiveCharacter = lGameStatus.GetActivePlayerCharacter(); // Récupération du character actif de l'IA joueur en train d'être joué
             lActiveEnemyCharacter = lGameStatus.GetEnemyCharacter();
         }
 
-        else if((lPlayerTurn == IA_TURN)){ //  Si c'est le tour de l'IA enemy de jouer
+        else if((lPlayerTurn == IA_MAX_TURN)){ //  Si c'est le tour de l'IA enemy de jouer
             lActiveCharacter = lGameStatus.GetEnemyCharacter(); // Récupération de son character
             lActiveEnemyCharacter = lGameStatus.GetActivePlayerCharacter();
         }
