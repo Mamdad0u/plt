@@ -188,7 +188,7 @@ namespace ai {
         int lNode_Eva = 0;
         int lMin_Value = 0;
         int lMax_Value = 0;
-        int lNode_To_Choose = 0;
+
 
         if(rDepth == mMaxDepth || rNode.GetNodeValue() == (int)NODE_GAME_OVER || rNode.GetNodeValue() == (int)NODE_GAME_WIN){  
             /*If we reach max depth of tree or if the node is a terminal node*/
@@ -207,7 +207,7 @@ namespace ai {
 
                 if(lNode_Eva > lMax_Value){ // If value change, then this value is optimal and node is added to the path at this depth
                     mOptimalPath[rDepth] = lIndexChild;
-                    lNode_To_Choose = lIndexChild;
+                    
                  //   cout << "Depth "<< rDepth <<" Node to choose  : " << lNode_To_Choose << endl;
                 }
 
@@ -230,7 +230,7 @@ namespace ai {
 
                 if(lNode_Eva < lMin_Value){ // If value change, then this value is optimal and node is added to the path at this depth
                     mOptimalPath[rDepth] = lIndexChild;
-                    lNode_To_Choose = lIndexChild;
+                    
      //               cout << "Depth "<< rDepth <<" Node to choose  :" << lNode_To_Choose << endl;
                 }
 
