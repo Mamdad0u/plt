@@ -39,9 +39,6 @@ namespace ai {
        return mNodeJunction.size();
     }
 
-    Node ai::Node::GetChild (int rChildNode){
-        return *(mNodeJunction[rChildNode]);
-    }
 
 /**
  * @brief Delete all child 
