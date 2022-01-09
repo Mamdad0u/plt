@@ -195,4 +195,4 @@ Distributed under the MIT License. See [LICENSE][license-url] for more informati
 [cpp-ver]: https://en.wikipedia.org/wiki/C%2B%2B11
 
 [version-shield]: https://img.shields.io/github/v/release/Mamdad0u/plt?style=flat-square
-[last_version]: https://github.com/Mamdad0u/plt/releases/tag/2.final
+[last_version]: https://github.com/Mamdad0u/plt/releases/tag/3.1
