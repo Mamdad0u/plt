@@ -51,6 +51,36 @@ namespace client {
         mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
     }
 
+    void client::Engine::ResetEngine() {
+
+        int lIndex2 = 0;
+        int lRandomPlayerCharacter;
+
+        int lRandomInt[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+
+        mCurrentState.AddPlayerCharacter((state::CharacterName)lRandomPlayerCharacter);
+
+        for(int lIndex=0;lIndex<state::State::MAX_COMBAT_NB; lIndex++){
+                if((state::CharacterName)lRandomInt[lIndex] != (state::CharacterName)lRandomPlayerCharacter){
+                    mRandomEnemyList[lIndex] = (state::CharacterName)lRandomInt[lIndex2];
+                    lIndex2++;
+                }
+
+                else{
+                    lIndex2+=1;
+                    mRandomEnemyList[lIndex] = (state::CharacterName)lRandomInt[lIndex2];
+                    lIndex2+=1;
+                }
+                
+                
+
+            }
+
+        mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
+
+
+    }
+
     state::State* client::Engine::GameLoop(){
        
         state::CombatStatus lGameStatus = mCurrentState.GetCombatState();
@@ -84,12 +114,8 @@ namespace client {
 
                 cout << "New game will launch." << endl;
                 
-                lPlayerStatus = state::PLAYER_TURN;
-                lGameStatus = state::INITIALISATION;
-                lTurn = mCurrentState.GetTurn();
-                lArena = mCurrentState.GetArenaNumber();
-                lMax_Combat = mCurrentState.GetCombatPerArena();
-                lCombatNumber = mCurrentState.GetCombatNumber();
+                //mCurrentState.SetAlivePlayer();
+                //mCurrentState.SetAliveEnemy();
 
                 mCurrentState.SetCombatState(state::INITIALISATION);
                 
