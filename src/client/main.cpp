@@ -784,6 +784,20 @@ int main(int argc,char* argv[]){
                 /*Ajout du sprite enemy dans la team du joueur*/
 
                     break;
+
+                case GAME_OVER:
+
+                    lActivePlayerCharacterNumber = 0;
+                    lActiveEnemyCharacterNumber = 0;
+                    turn = 0;
+                    lArena_Number = 1;
+
+                    GameEngine.ResetEngine();
+                    
+                    lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1);
+                    lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4);            
+                    lRender.DEBUG_SetRenderState(GAME_OVER);
+                    break;
                 case RENDER_PROCESSING:
 
                     lRender.DEBUG_SetRenderState(RENDER_PROCESSING);
