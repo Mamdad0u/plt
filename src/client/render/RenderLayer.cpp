@@ -13,7 +13,7 @@ namespace render {
 
     }
 
-    render::RenderLayer::RenderLayer(client::EngineObserver* rNewObserver){
+    render::RenderLayer::RenderLayer(engine::EngineObserver* rNewObserver){
         mPlayerCharactersSurface.reserve(4);
         mArenaEnemySurface.reserve(4);
         AddEngineObserver(rNewObserver);
