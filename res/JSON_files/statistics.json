@@ -117,8 +117,8 @@
                 "BUFF" : 0
             },
             "ACTION_2" : {
-                "TYPE" : 2,
-                "DAMAGE" : 70,
+                "TYPE" : 1,
+                "DAMAGE" : 60,
                 "STATS" : 1,
                 "BUFF" : 15,
                 "BENEFICIAL" : 0
