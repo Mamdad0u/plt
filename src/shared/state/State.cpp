@@ -77,14 +77,10 @@ void State::SetPlayerStatus(Player_Status rNewPlayerStatus){
 
     this->mPlayerStatus = rNewPlayerStatus;
     cout << endl;
-    if(rNewPlayerStatus==IA_TURN){
-        cout << "************ IT IS NOW IA TURN ! ************" << endl;
 
-    }
-    else {
-    cout << "************ IT IS NOW " << mPlayerStatusStringMap[mPlayerStatus] << " ! ************" << endl;
-    cout << "************ CHOOSE AN ACTION FOR " << mPlayersCharacters[mActivePlayerCharacter].GetName() << " ! ************" << endl;
-    }
+    
+        cout << "************ IT IS NOW " << mPlayerStatusStringMap[mPlayerStatus] << " ! ************" << endl;
+       
 }
 
 

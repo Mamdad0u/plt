@@ -53,6 +53,7 @@ namespace client {
         int lArena = mCurrentState.GetArenaNumber();
         int lMax_Combat = mCurrentState.GetCombatPerArena();
         int lCombatNumber = mCurrentState.GetCombatNumber();
+        int lAfficher=0;
 
         switch (lGameStatus)
         {
@@ -92,12 +93,22 @@ namespace client {
             switch (lPlayerStatus)
             {
             case state::PLAYER_TURN:
+
+                /*if(lAfficher==0){
+                        cout << (mCurrentState.GetActivePlayerCharacter())->GetName() << endl;
+                        lAfficher=1;
+                        
+                    }*/
+                
+                
                 if(mIsNewPlayerCommand){ /// 1. Wait for input command. Add mIsNewAICommand if player is played by AI
-                    mCurrentState.MoveActivePlayer();
+                    
+                    //mCurrentState.MoveActivePlayer();
                     mCommand_Player.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), mInputCommandID); // Le joueur attaque l'IA
                     mIsNewPlayerCommand = false; // The command has been executed
                     mCurrentState.SetPlayerStatus(state::IA_TURN); // Give the turn to opponent 
                     mCurrentState.MoveNextTurn();
+                    
                 }
 
                 // else{
@@ -123,6 +134,9 @@ namespace client {
                     mIsNewAICommand = false;
                     mCurrentState.SetPlayerStatus(state::PLAYER_TURN);
                     mCurrentState.MoveNextTurn();
+                    mCurrentState.MoveActivePlayer();
+                    cout << "************ SELECT AN ACTION FOR " << (mCurrentState.GetActivePlayerCharacter())->GetName() << endl;
+
                 }
 
                 break;
