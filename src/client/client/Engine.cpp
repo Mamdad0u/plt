@@ -135,7 +135,7 @@ namespace client {
                     mCurrentState.SetPlayerStatus(state::PLAYER_TURN);
                     mCurrentState.MoveNextTurn();
                     mCurrentState.MoveActivePlayer();
-                    cout << "************ SELECT AN ACTION FOR " << (mCurrentState.GetActivePlayerCharacter())->GetName() << endl;
+                    cout << "************ SELECT AN ACTION FOR " << (mCurrentState.GetActivePlayerCharacter())->GetName() << " ************ " << endl;
 
                 }
 
