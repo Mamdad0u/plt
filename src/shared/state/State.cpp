@@ -28,7 +28,12 @@ State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
     mActivePlayerCharacter = 0;
 }
 
+void State::ResetState() {
 
+    
+
+
+}
 
 void State::MoveNextCombat() {
 
