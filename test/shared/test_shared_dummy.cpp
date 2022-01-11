@@ -170,5 +170,31 @@ BOOST_AUTO_TEST_CASE(TestCharacter)
   }
 }
 
+BOOST_AUTO_TEST_CASE(TestStats){
+  {
+    Stats Stats1;
 
+    BOOST_CHECK_EQUAL(Stats1.Get_attack(),100);
+    BOOST_CHECK_EQUAL(Stats1.Get_defense(),100);
+    BOOST_CHECK_EQUAL(Stats1.Get_life_points(),100);
+    BOOST_CHECK_EQUAL(Stats1.Get_power(),100);
+    BOOST_CHECK_EQUAL(Stats1.Get_luck(),25);
+    BOOST_CHECK_EQUAL(Stats1.Get_max_life_points(),MAX_LIFE_POINTS);
+
+    Stats1.Set_max_life_points(120);
+    Stats1.Set_attack(102);
+    Stats1.Set_defense(101);
+    Stats1.Set_life_points(90);
+    Stats1.Set_luck(2);
+    Stats1.Set_power(5);
+
+    BOOST_CHECK_EQUAL(Stats1.Get_attack(),102);
+    BOOST_CHECK_EQUAL(Stats1.Get_life_points(),90);
+    BOOST_CHECK_EQUAL(Stats1.Get_max_life_points(),120);
+    BOOST_CHECK_EQUAL(Stats1.Get_defense(),101);
+    BOOST_CHECK_EQUAL(Stats1.Get_luck(),2);
+    BOOST_CHECK_EQUAL(Stats1.Get_power(),5);
+
+  }
+}
 /* vim: set sw=2 sts=2 et : */
