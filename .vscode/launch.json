@@ -8,9 +8,9 @@
             "name": "(gdb) Lancer",
             "type": "cppdbg",
             "request": "launch",
-            // "program": "${workspaceFolder}/build/test/client/test_client_dummy",
+            "program": "${workspaceFolder}/build/test/client/test_client_dummy",
             // "program": "${workspaceFolder}/test/stress_test.sh",
-            "program": "${workspaceFolder}/bin/client",
+            //"program": "${workspaceFolder}/bin/client",
             "args": ["deep_ai"],
             "stopAtEntry": false,
             "cwd": "/Users/Abdelmajid/Desktop/ENSEA/3A/plt",
@@ -19,7 +19,8 @@
             "osx": {
                 "MIMode": "lldb",
                 "MiDebuggerPath": "lldb-mi",
-                "program": "${workspaceFolder}/bin/client"
+                //"program": "${workspaceFolder}/bin/client"``
+                "program": "${workspaceFolder}/build/test/client/test_shared_dummy"
             },
             "setupCommands": [
                 {
