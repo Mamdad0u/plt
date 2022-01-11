@@ -71,4 +71,32 @@ BOOST_AUTO_TEST_CASE(TestState)
   }
 }
 
+BOOST_AUTO_TEST_CASE(TestAction){
+  {
+    Action Action{};
+    BOOST_CHECK_EQUAL(Action.GetDamage(),0);
+    BOOST_CHECK_EQUAL(Action.GetStatBuffValue(),0);
+    BOOST_CHECK_EQUAL(Action.GetStatBuffName(),LIFE_POINTS);
+
+    Action.SetDamage(50);
+    BOOST_CHECK_EQUAL(Action.GetDamage(),50);
+
+    Action.SetStatBuffName(DEFENSE);
+    BOOST_CHECK_EQUAL(Action.GetStatBuffName(),DEFENSE);
+
+    Action.SetStatBuffValue(10);
+    BOOST_CHECK_EQUAL(Action.GetStatBuffValue(),10);
+
+    Action.SetBuffBeneficial(BENEFICIAL_ATTACKER);
+    BOOST_CHECK_EQUAL(Action.GetBuffBeneficial(),BENEFICIAL_ATTACKER);
+
+  }
+}
+
+BOOST_AUTO_TEST_CASE(TestActionList){
+  {
+    ActionList ActionList{};
+    BOOST_CHECK_EQUAL();
+  }
+}
 /* vim: set sw=2 sts=2 et : */
