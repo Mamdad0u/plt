@@ -91,6 +91,8 @@ namespace engine {
                 mCurrentState.SetCombatState(state::IN_COMBAT);
                 mIsRenderEnded = false;
             }
+
+            cout << "Passage" << endl;
             break;
 
         case state::IN_COMBAT:
@@ -206,9 +208,13 @@ namespace engine {
 
 
 
-    state::CombatStatus engine::Engine::DEBUG_GetGameStatus(){
+    state::CombatStatus engine::Engine::GetGameStatus(){
 
         return mCurrentState.GetCombatState();
+    }
+
+    state::State* engine::Engine::GetGameState(){
+        return &mCurrentState;
     }
 
     void engine::Engine::UpdatePlayerCommandStatus(CommandID rNewCommand){
