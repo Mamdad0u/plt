@@ -5,7 +5,9 @@
 #include <iterator>
 #include <algorithm>
 #include <vector>
-#include<bits/stdc++.h> // min max function
+//#include<bits/stdc++.h> // min max function
+#include </usr/local/include/bits/stdc++.h> // Pour MACOS
+
 using namespace client;
 using namespace state;
 using namespace std;
