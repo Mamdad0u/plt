@@ -158,7 +158,9 @@ ActionList* state::Character::GetActionList(){
     return &mCharacterAction;
 }
 
-Major state::Character::GetMajor() { return this->mCharacterMajor; }
+Major state::Character::GetMajor() { 
+  return this->mCharacterMajor; 
+  }
 
 void state::Character::SetCharacterStatus(CharacterStatus rNewStatus) {
   if(mDebugInfo){
