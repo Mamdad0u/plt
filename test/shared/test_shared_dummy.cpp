@@ -96,7 +96,39 @@ BOOST_AUTO_TEST_CASE(TestAction){
 BOOST_AUTO_TEST_CASE(TestActionList){
   {
     ActionList ActionList{};
-    BOOST_CHECK_EQUAL();
+
+
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(0)->GetDamage(),0);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(0)->GetStatBuffValue(),0);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(0)->GetStatBuffName(),LIFE_POINTS);
+    
+
+    ActionList.SetAttack(1,50,DEFENSE,10,BENEFICIAL_ATTACKER);
+    
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(1)->GetDamage(),50);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(1)->GetStatBuffName(),DEFENSE);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(1)->GetStatBuffValue(),10);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(1)->GetBuffBeneficial(),BENEFICIAL_ATTACKER);
+
+    ActionList.SetAttack(2,50,DEFENSE,10,BENEFICIAL_ATTACKER);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(2)->GetDamage(),50);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(2)->GetStatBuffName(),DEFENSE);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(2)->GetStatBuffValue(),10);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(2)->GetBuffBeneficial(),BENEFICIAL_ATTACKER);
+
+    ActionList.SetSpell(1,50,DEFENSE,10,BENEFICIAL_ATTACKER);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(1)->GetDamage(),50);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(1)->GetStatBuffName(),DEFENSE);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(1)->GetStatBuffValue(),10);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(1)->GetBuffBeneficial(),BENEFICIAL_ATTACKER);
+
+    ActionList.SetSpell(2,50,DEFENSE,10,BENEFICIAL_ATTACKER);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(2)->GetDamage(),50);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(2)->GetStatBuffName(),DEFENSE);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(2)->GetStatBuffValue(),10);
+    BOOST_CHECK_EQUAL(ActionList.GetAttack(2)->GetBuffBeneficial(),BENEFICIAL_ATTACKER);
+
+
   }
 }
 /* vim: set sw=2 sts=2 et : */
