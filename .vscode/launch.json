@@ -13,7 +13,7 @@
             "program": "${workspaceFolder}/bin/client",
             "args": ["deep_ai"],
             "stopAtEntry": false,
-            "cwd": "/Users/Abdelmajid/Desktop/plt",
+            "cwd": "/Users/Abdelmajid/Desktop/ENSEA/3A/plt",
             "environment": [],
             "externalConsole": false,
             "osx": {
