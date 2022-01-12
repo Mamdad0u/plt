@@ -4,8 +4,8 @@ namespace state {
     state::ActionList::ActionList(){
         Action lNewAction;
 
-        mAttackList.reserve(1);
-        mSpellList.reserve(1);
+        mAttackList.reserve(3);
+        mSpellList.reserve(3);
 
         for(int i=0;i<MAX_CHARACTER_ACTION;i++){
             mAttackList.push_back(lNewAction);

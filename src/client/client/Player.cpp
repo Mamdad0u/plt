@@ -13,7 +13,6 @@ namespace client {
     }
 
     void client::Player::ClickCommand (sf::RenderWindow& rWindow, client::WindowCursor rCursor){
-        
         if(rCursor.ClickAction1(rWindow)){
             SetStatusCommand( ATTACK_1 );
         }
