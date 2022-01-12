@@ -213,6 +213,7 @@ namespace render {
             
             
             mArenaEnemySurface[rEnemyIndex].DrawSprite(rWindow);
+            rWindow.draw(mUI);
         }
         
         rWindow.draw(mUI);

@@ -12,4 +12,5 @@ src/*/*/*.h
 .vscode/dryrun.log
 .vscode/targets.log
 .vscode/launch.json
+launch.json
 *.Identifier
