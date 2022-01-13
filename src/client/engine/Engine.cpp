@@ -92,7 +92,7 @@ namespace engine {
                 mIsRenderEnded = false;
             }
 
-            cout << "Passage" << endl;
+            
             break;
 
         case state::IN_COMBAT:
