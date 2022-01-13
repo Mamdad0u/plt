@@ -12,7 +12,7 @@ using namespace std;
 
 namespace client{
 
-bool canRunEngine = true;
+bool canRunEngine = false;
 bool runFunctionCalled = true;
 
     void ThreadEngine(engine::Engine* rEngine){
@@ -20,7 +20,7 @@ bool runFunctionCalled = true;
             usleep(1000);
             if(canRunEngine){
                 rEngine->GameLoop();
-               // canRunEngine = false;
+                canRunEngine = false;
             }
 
         }
@@ -49,8 +49,21 @@ bool runFunctionCalled = true;
         bool lIsCharacterAdd;
 
         static int lArena_Number = 1;
-        lRender.LoadBackground(1);
         lRender.LoadUI();
+
+        lNewPlayerCharacter = lGameState->GetActivePlayerCharacter();
+        lActivePlayerCharacterNumber = lNewPlayerCharacter->GetCharacterNameNumber();
+        lPlayerCharacterPosition = lGameState->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
+        lNewEnemyCharacter = lGameState->GetEnemyCharacter();
+        lActiveEnemyCharacterNumber = lNewEnemyCharacter->GetCharacterNameNumber();
+
+        lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
+        lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
+        lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
+        lRender.NotifyEndRendering();
+
+
+
 
         thread t1(ThreadEngine, &mGameEngine);
 
@@ -75,7 +88,7 @@ bool runFunctionCalled = true;
                          * 
                          */
                         
-                        lNewPlayerCharacter = lGameState->GetActivePlayerCharacter();
+/*                         lNewPlayerCharacter = lGameState->GetActivePlayerCharacter();
                         lActivePlayerCharacterNumber = lNewPlayerCharacter->GetCharacterNameNumber();
                         lPlayerCharacterPosition = lGameState->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
                         lNewEnemyCharacter = lGameState->GetEnemyCharacter();
@@ -84,7 +97,7 @@ bool runFunctionCalled = true;
                         lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
                         lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
                         lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
-                        lRender.NotifyEndRendering();
+                        lRender.NotifyEndRendering(); */
 
                         
                         break;
@@ -137,12 +150,12 @@ bool runFunctionCalled = true;
 
             lRender.draw(rWindow, 0, lGameStatus);
                 
-            rWindow.display();  
-            runFunctionCalled = false;
-            t1.join();
+            rWindow.display();
+            
         }
 
-
+        runFunctionCalled = false;
+        t1.join();
 
 
 
