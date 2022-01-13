@@ -29,7 +29,7 @@ namespace engine {
          * If IA playing the player, 2 IA playing in the game so player is played by IA.
          */
             mPlayerIA = true;
-            mCurrentState.SetPlayerStatus(state::IA_MAX_TURN); // Setting up first turn for IA MAX 
+            mCurrentState.SetPlayerStatus(state::IA_MIN_TURN); // Setting up first turn for IA MAX 
         }
     }
     

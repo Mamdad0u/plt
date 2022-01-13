@@ -111,6 +111,7 @@ bool runFunctionCalled = true;
                             if(lTurn%2 == 0){
                                 IA_1.GenerateDeepCommand(5); // Generate optimal command
                                 IA_1.ResetTree(); // Reset game tree for next turn
+                                canRunEngine = true;
                             
                             //    NewPlayer.ClickCommand(window,lCursor);
                             }
@@ -118,6 +119,8 @@ bool runFunctionCalled = true;
                             else{
                                 IA_2.GenerateDeepCommand(5);
                                 IA_2.ResetTree();
+                                canRunEngine = true;
+
                             }
                             lGameClock.restart();
                         } 
@@ -125,6 +128,7 @@ bool runFunctionCalled = true;
                         
                     case OUT_COMBAT:
                     /*Ajout du sprite enemy dans la team du joueur*/
+                        canRunEngine = true;
 
                         break;
                     case RENDER_PROCESSING:
@@ -152,6 +156,7 @@ bool runFunctionCalled = true;
   
                         else{
                             lMovingProgress = lRender.GoNextCombat(rWindow);
+                            canRunEngine = true;
                         }
 
                         break;
