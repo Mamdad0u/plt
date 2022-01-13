@@ -9,6 +9,7 @@ using namespace render;
 using namespace state;
 using namespace sf;
 using namespace std;
+using namespace ai;
 
 namespace client{
 
@@ -17,7 +18,7 @@ bool runFunctionCalled = true;
 
     void ThreadEngine(engine::Engine* rEngine){
         while(runFunctionCalled){
-            usleep(1000);
+            // usleep(1000);
             if(canRunEngine){
                 rEngine->GameLoop();
                 canRunEngine = false;
@@ -34,47 +35,45 @@ bool runFunctionCalled = true;
     }
 
     void client::Client::Run(sf::RenderWindow& rWindow){
-        Clock clock;
+        Clock lGameClock;
+        Clock lRenderClock;
         RenderLayer lRender(&mGameEngine);
         
         State* lGameState = mGameEngine.GetGameState();
         CombatStatus lGameStatus = mGameEngine.GetGameStatus();
         Character* lNewPlayerCharacter;
         Character* lNewEnemyCharacter;
+        DeepAI IA_1(5);
+        DeepAI IA_2(5);
+
+        IA_1.AddEngineObserver(&mGameEngine);
+        IA_2.AddEngineObserver(&mGameEngine);
 
         int lActivePlayerCharacterNumber = 0;
         int lActiveEnemyCharacterNumber = 0;
         int lPlayerCharacterPosition = 0;
         int lMovingProgress = 0;
+        int lTurn = 0;
         bool lIsCharacterAdd;
-
+        bool lIsInitiated = false;
         static int lArena_Number = 1;
         lRender.LoadUI();
-
-        lNewPlayerCharacter = lGameState->GetActivePlayerCharacter();
-        lActivePlayerCharacterNumber = lNewPlayerCharacter->GetCharacterNameNumber();
-        lPlayerCharacterPosition = lGameState->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
-        lNewEnemyCharacter = lGameState->GetEnemyCharacter();
-        lActiveEnemyCharacterNumber = lNewEnemyCharacter->GetCharacterNameNumber();
-
-        lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
-        lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
-        lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
-        lRender.NotifyEndRendering();
-
 
 
 
         thread t1(ThreadEngine, &mGameEngine);
 
-        while(lGameStatus != GAME_OVER){         
+        while(lGameStatus != GAME_OVER){  
+          //  lGameState = mGameEngine.GetGameState(); // Update actual state of the game
+            lGameStatus = mGameEngine.GetGameStatus(); // Update game status
+            lTurn = lGameState->GetTurn(); //Update current turn       
             Event event;
             while (rWindow.pollEvent(event)){
 
                 if ((event.type == Event::Closed)){
                     cout << "Closing window" << endl;
                     rWindow.close();
-                    lGameStatus == GAME_OVER;
+                    lGameStatus = GAME_OVER;
                 }
             
             }
@@ -87,24 +86,41 @@ bool runFunctionCalled = true;
                          * @brief Loading of player and enemy sprite on first turn
                          * 
                          */
-                        
-/*                         lNewPlayerCharacter = lGameState->GetActivePlayerCharacter();
-                        lActivePlayerCharacterNumber = lNewPlayerCharacter->GetCharacterNameNumber();
-                        lPlayerCharacterPosition = lGameState->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
-                        lNewEnemyCharacter = lGameState->GetEnemyCharacter();
-                        lActiveEnemyCharacterNumber = lNewEnemyCharacter->GetCharacterNameNumber();
+                        if(!lIsInitiated){                            
+                            lNewPlayerCharacter = lGameState->GetActivePlayerCharacter();
+                            lActivePlayerCharacterNumber = lNewPlayerCharacter->GetCharacterNameNumber();
+                            lPlayerCharacterPosition = lGameState->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
+                            lNewEnemyCharacter = lGameState->GetEnemyCharacter();
+                            lActiveEnemyCharacterNumber = lNewEnemyCharacter->GetCharacterNameNumber();
 
-                        lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
-                        lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
-                        lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
-                        lRender.NotifyEndRendering(); */
-
+                            lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
+                            lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
+                            lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
+                            lRender.NotifyEndRendering();
+                            canRunEngine = true;
+                            lIsInitiated = true;
+                            }
                         
                         break;
 
                     case IN_COMBAT:
                         lIsCharacterAdd = false;
                         lRender.DEBUG_SetRenderState(IN_COMBAT);
+
+                        if(lGameClock.getElapsedTime().asSeconds() > 1.f){
+                            if(lTurn%2 == 0){
+                                IA_1.GenerateDeepCommand(5); // Generate optimal command
+                                IA_1.ResetTree(); // Reset game tree for next turn
+                            
+                            //    NewPlayer.ClickCommand(window,lCursor);
+                            }
+
+                            else{
+                                IA_2.GenerateDeepCommand(5);
+                                IA_2.ResetTree();
+                            }
+                            lGameClock.restart();
+                        } 
                         break;
                         
                     case OUT_COMBAT:
@@ -143,9 +159,12 @@ bool runFunctionCalled = true;
                             
 
             }
-            if(clock.getElapsedTime().asSeconds() > 0.1f){
+
+            
+
+            if(lRenderClock.getElapsedTime().asSeconds() > 0.1f){
                 lRender.AnimateCharacters();
-                clock.restart();
+                lRenderClock.restart();
             }
 
             lRender.draw(rWindow, 0, lGameStatus);
