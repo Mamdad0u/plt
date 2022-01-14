@@ -1,4 +1,4 @@
-#include <client/PlayerObserver.h>  // Included from library shared_static
+#include <engine/PlayerObserver.h>  // Included from library shared_static
 #include "PlayerObserver.h"
 #include <iostream>
 #include <list>
@@ -8,9 +8,9 @@
 
 using namespace std;
 
-namespace client {
+namespace engine {
 
-    client::PlayerObserver::~PlayerObserver(){
+    engine::PlayerObserver::~PlayerObserver(){
 
     }
 

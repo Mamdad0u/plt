@@ -1,25 +1,25 @@
-#include <client/EngineObserver.h>  // Included from library shared_static
+#include <engine/EngineObserver.h>  // Included from library shared_static
 #include "EngineObserver.h"
 #include <iostream>
 #include <map>
 using namespace std;
 
-namespace client {
-    client::EngineObserver::EngineObserver(){
+namespace engine {
+    engine::EngineObserver::EngineObserver(){
        
 
         
         
     }
     
-    void client::EngineObserver::AddPlayerObserver(PlayerObserver* rNewObserver){
+    void engine::EngineObserver::AddPlayerObserver(PlayerObserver* rNewObserver){
         mPlayerObserverList.push_back(rNewObserver);
         
 
 
     }
 
-    void client::EngineObserver::AddAIObserver(ai::AIObserver* rNewObserver){
+    void engine::EngineObserver::AddAIObserver(ai::AIObserver* rNewObserver){
         int lAIObserverList_Size = 0;
         mAIObserverList.push_back(rNewObserver);
         lAIObserverList_Size = mAIObserverList.size();
@@ -29,11 +29,11 @@ namespace client {
          * If IA playing the player, 2 IA playing in the game so player is played by IA.
          */
             mPlayerIA = true;
-            mCurrentState.SetPlayerStatus(state::IA_MAX_TURN); // Setting up first turn for IA MAX 
+            mCurrentState.SetPlayerStatus(state::IA_MIN_TURN); // Setting up first turn for IA MAX 
         }
     }
     
-    void client::EngineObserver::DelPlayerObserver(PlayerObserver* rNewObserver){
+    void engine::EngineObserver::DelPlayerObserver(PlayerObserver* rNewObserver){
 /*         std::list<EngineObserver*>::iterator lIterator; 
         std::list<EngineObserver*>::const_iterator lConst_iterator;
 
@@ -49,7 +49,7 @@ namespace client {
 
     }
 
-    void client::EngineObserver::Update ( PlayerObserver* rNewPlayerObserver) {
+    void engine::EngineObserver::Update ( PlayerObserver* rNewPlayerObserver) {
         std::map<CommandID,std::string> lCommandIDStringMap;
         lCommandIDStringMap[ATTACK_1] = "ATTACK 1";
         lCommandIDStringMap[ATTACK_2] = "ATTACK 2";
@@ -63,7 +63,7 @@ namespace client {
        
     }
 
-    void client::EngineObserver::Update ( ai::AIObserver* rNewAIObserver) {
+    void engine::EngineObserver::Update ( ai::AIObserver* rNewAIObserver) {
         std::map<CommandID,std::string> lCommandIDStringMap;
         lCommandIDStringMap[ATTACK_1] = "ATTACK 1";
         lCommandIDStringMap[ATTACK_2] = "ATTACK 2";
@@ -77,13 +77,13 @@ namespace client {
         mIsNewAICommand = true;
 
     }
-void client::EngineObserver::Update(render::RenderObserver* rNewRenderObserver) {
+void engine::EngineObserver::Update(render::RenderObserver* rNewRenderObserver) {
 
     mIsRenderEnded = true;
 
 }
 
-void client::EngineObserver::AddRenderObserver(render::RenderObserver* rNewRenderObserver) {
+void engine::EngineObserver::AddRenderObserver(render::RenderObserver* rNewRenderObserver) {
 
     mRenderObserverList.push_back(rNewRenderObserver);
 

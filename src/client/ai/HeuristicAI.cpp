@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <vector>
 
-using namespace client;
+using namespace engine;
 using namespace state;
 
 namespace ai {
@@ -18,7 +18,7 @@ namespace ai {
 
 
 
-    client::CommandID ai::HeuristicAI::GenerateHeuristicCommand(){
+    engine::CommandID ai::HeuristicAI::GenerateHeuristicCommand(){
         const float lLife_threshold = 0.5f;
         CommandID lHeuristicCommand;
         std::list<EngineObserver*>::iterator lRunningEngine;
@@ -79,26 +79,26 @@ namespace ai {
         case IS: // Polyvalent
 
             if(lPlayer_Attack < lMax_Attack){
-                lHeuristicCommand = client::SPELL_2;
+                lHeuristicCommand = engine::SPELL_2;
             }
 
             else{ 
-                lHeuristicCommand = client::ATTACK_1; //On privilégie une attaque de dégats
+                lHeuristicCommand = engine::ATTACK_1; //On privilégie une attaque de dégats
             }
             break;
         
         case SIA: // Magicien
             
             if(lPlayer_Luck < lMax_luck){ // Priorité : augmenter sa luck
-                lHeuristicCommand = client::SPELL_2;
+                lHeuristicCommand = engine::SPELL_2;
             }
 
             else if(lEnemy_Luck > 0){ // Sinon on cherche à baisser sa luck
-                lHeuristicCommand = client::SPELL_1;
+                lHeuristicCommand = engine::SPELL_1;
             }
 
             else{ 
-                lHeuristicCommand = client::ATTACK_1; //On privilégie une attaque de dégats
+                lHeuristicCommand = engine::ATTACK_1; //On privilégie une attaque de dégats
             }
 
             break;
@@ -106,15 +106,15 @@ namespace ai {
         case RT: // Attaquant
         
             if(lPlayer_Attack < lMax_Attack){ // Priorité : augmenter son attaque
-                lHeuristicCommand = client::SPELL_1; 
+                lHeuristicCommand = engine::SPELL_1; 
             }
 
             else if(lEnemy_Attack > 0){ // Sinon on cherche à baisser son attaque
-                lHeuristicCommand = client::SPELL_2;
+                lHeuristicCommand = engine::SPELL_2;
             }
 
             else{ // Sinon attaque normale
-                lHeuristicCommand = client::ATTACK_1;
+                lHeuristicCommand = engine::ATTACK_1;
             }
 
             break;
@@ -122,63 +122,63 @@ namespace ai {
         case MSC: // Tank
 
             if(lAlivePlayer >1 && lPlayerTurn == PLAYER_TURN){ // Si il y a encore plus d'un character dans la team player
-                lHeuristicCommand = client::SPELL_2; // buff de LP pour la team
+                lHeuristicCommand = engine::SPELL_2; // buff de LP pour la team
             }
 
 
             
             else if(lPlayer_LifePoints < (lLife_threshold * lPlayer_MaxLifePoints)){ // Si la vie du character joueur est < à 60%
-                lHeuristicCommand = client::SPELL_1; // On privilégie la montée de sa vie
+                lHeuristicCommand = engine::SPELL_1; // On privilégie la montée de sa vie
            
             }
 
             else{ // Sinon 
-                lHeuristicCommand = client::ATTACK_1; //On privilégie une attaque de dégats
+                lHeuristicCommand = engine::ATTACK_1; //On privilégie une attaque de dégats
             }
 
             break;
 
         case AEI: // Attaquant
             if(lAlivePlayer >1 && lPlayerTurn == PLAYER_TURN){
-                lHeuristicCommand = client::SPELL_1; //Buff
+                lHeuristicCommand = engine::SPELL_1; //Buff
             }
 
             else if(lPlayer_LifePoints > (lLife_threshold * lPlayer_MaxLifePoints)){ // Si la vie du character joueur est > à 60%
-                lHeuristicCommand = client::ATTACK_2; //On privilégie une grosse attaque de dégats qui lui fait perdre de la vie 
+                lHeuristicCommand = engine::ATTACK_2; //On privilégie une grosse attaque de dégats qui lui fait perdre de la vie 
             }
 
             else{
-               lHeuristicCommand = client::ATTACK_1; //On privilégie une attaque de dégats
+               lHeuristicCommand = engine::ATTACK_1; //On privilégie une attaque de dégats
             }
             break;
 
         case EVE: // Support/soin
 
             if(lAlivePlayer >1 && lPlayerTurn == PLAYER_TURN){ // Si il y a encore plus d'un character dans la team player
-                lHeuristicCommand = client::SPELL_2;
+                lHeuristicCommand = engine::SPELL_2;
             }
 
             else if(lPlayer_LifePoints < (lLife_threshold * lPlayer_MaxLifePoints)){ // Si la vie du character joueur est < à 60%
-                lHeuristicCommand = client::SPELL_1; // On privilégie la montée de sa vie
+                lHeuristicCommand = engine::SPELL_1; // On privilégie la montée de sa vie
            
             }
 
             else{ // Sinon on privilégie une attaque de dégats
-                lHeuristicCommand = client::ATTACK_1; 
+                lHeuristicCommand = engine::ATTACK_1; 
             }
             break;
 
         case ESE: // Tank
             if(lPlayer_Defense < lMax_Defense){
-                lHeuristicCommand = client::SPELL_1; // Il monte sa défense
+                lHeuristicCommand = engine::SPELL_1; // Il monte sa défense
             }
 
             else if(lEnemy_Luck > 0){
-                lHeuristicCommand = client::SPELL_2; // Cherche à baisser la luck adverse
+                lHeuristicCommand = engine::SPELL_2; // Cherche à baisser la luck adverse
             }
 
             else { 
-                lHeuristicCommand = client::ATTACK_1; //On privilégie une attaque de dégats
+                lHeuristicCommand = engine::ATTACK_1; //On privilégie une attaque de dégats
             }
 
 
@@ -189,22 +189,22 @@ namespace ai {
          * @brief 11/12/21 : Problème d'équilibrage sur ce perso, à revoir ses capacités. Issue #59
          * 
          */
-            lHeuristicCommand = client::ATTACK_1; 
+            lHeuristicCommand = engine::ATTACK_1; 
             break;
 
         case AUDENCIA: // Support/soin
 
             if(lAlivePlayer >1 && lPlayerTurn == PLAYER_TURN){ // Si il y a encore plus d'un character dans la team player
-                lHeuristicCommand = client::SPELL_2; // Buff pour la team
+                lHeuristicCommand = engine::SPELL_2; // Buff pour la team
             }
 
             else if(lPlayer_LifePoints < (lLife_threshold * lPlayer_MaxLifePoints)){ // Si la vie du character joueur est < à 60%
-                lHeuristicCommand = client::SPELL_1; // On privilégie la montée de sa vie
+                lHeuristicCommand = engine::SPELL_1; // On privilégie la montée de sa vie
            
             }
 
             else{ 
-                lHeuristicCommand = client::ATTACK_1; //On privilégie une attaque de dégats
+                lHeuristicCommand = engine::ATTACK_1; //On privilégie une attaque de dégats
             }
             break;
 
@@ -214,12 +214,12 @@ namespace ai {
     }
 
 
-    void ai::HeuristicAI::SetStatusCommand(client::CommandID rNewCommand){
+    void ai::HeuristicAI::SetStatusCommand(engine::CommandID rNewCommand){
         mInputCommand = rNewCommand;
         NotifyNewAICommand();
     }
 
-    client::CommandID ai::HeuristicAI::GetStatusCommand() const{
+    engine::CommandID ai::HeuristicAI::GetStatusCommand() const{
         return this->mInputCommand;
     }
 

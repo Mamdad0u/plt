@@ -1,4 +1,4 @@
-#include <client/Command.h>  // Included from library shared_static
+#include <engine/Command.h>  // Included from library shared_static
 #include "Command.h"
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
@@ -8,9 +8,9 @@ using namespace std;
 
 using namespace state;
 
-namespace client {
+namespace engine {
 
-    client::Command::Command(){
+    engine::Command::Command(){
         srand(time(NULL));
         mStatsNameMap[MAX_LIFE_POINTS] = "MAX_LIFE_POINTS";
         mStatsNameMap[LIFE_POINTS] = "LIFE_POINTS";
@@ -27,7 +27,7 @@ namespace client {
         mUniqueTeamAttackBuff = 1;
     }
 
-    float client::Command::ComputeWeakAndStrength(state::Major rAttackerMajor, state::Major rVictimMajor){
+    float engine::Command::ComputeWeakAndStrength(state::Major rAttackerMajor, state::Major rVictimMajor){
         const float STRENGTH     = 2;
         const float  NEUTRAL     = 1;
         const float WEAK     = 0.5;
@@ -129,7 +129,7 @@ namespace client {
         
     }
 
-    int client::Command::ComputeAction(state::Character &rAttacker, state::Character &rVictim, CommandID rActionMade){
+    int engine::Command::ComputeAction(state::Character &rAttacker, state::Character &rVictim, CommandID rActionMade){
         float lCoeffMajor = 0;
         int lCriticalHit = 0;
         int lAttackDamage = 0;
@@ -291,7 +291,7 @@ namespace client {
 
     }
 
-    float client::Command::ComputeCriticalHit(int rCharacterLuck){
+    float engine::Command::ComputeCriticalHit(int rCharacterLuck){
         int lRandomResult;
         int lCriticalHit;
         
@@ -315,7 +315,7 @@ namespace client {
 
     }
 
-    void client::Command::SetDebugInfo(bool rValue){
+    void engine::Command::SetDebugInfo(bool rValue){
         mDebugInfo = rValue;
     }
 
