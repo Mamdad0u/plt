@@ -4,6 +4,7 @@
     // Pour plus d'informations, visitez : https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
         {
             "name": "(gdb) Lancer",
             "type": "cppdbg",
@@ -19,7 +20,7 @@
             "osx": {
                 "MIMode": "lldb",
                 "MiDebuggerPath": "lldb-mi",
-                //"program": "${workspaceFolder}/bin/client"``
+                //"program": "${workspaceFolder}/bin/client"
                 "program": "${workspaceFolder}/build/test/client/test_shared_dummy"
             },
             "setupCommands": [
