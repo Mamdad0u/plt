@@ -8,7 +8,7 @@
 //#include<bits/stdc++.h> // min max function
 #include </usr/local/include/bits/stdc++.h> // Pour MACOS
 
-using namespace client;
+//using namespace client;
 using namespace state;
 using namespace std;
 
@@ -44,7 +44,7 @@ namespace ai {
 
         state::ActionListCommand lAction_Type[] = {state::ATTACK_1, state::ATTACK_2, state::SPELL_1, state::SPELL_2};
         
-        EngineObserver* lRunningEngine;// Actual game engine running the game
+        engine::EngineObserver* lRunningEngine;// Actual game engine running the game
             
         lRunningEngine = *(mEngineObserverList.begin());  // Get parameters and state of game engine
        
@@ -65,7 +65,7 @@ namespace ai {
         lNodeNumber.reserve(85); // Arbitrary 
         lNodeNumber.push_back(1); //Root of the tree  
 
-        SandBoxEngine lTestEngine(lGameStatus);  // Test engine in sandbox environnement to test action
+        engine::SandBoxEngine lTestEngine(lGameStatus);  // Test engine in sandbox environnement to test action
 
         Node lPrimary_Root_Node(lGameStatus, 0); // First node of the tree
         lPrimary_Root_Node.SetIndex(0);
@@ -157,21 +157,21 @@ namespace ai {
  * @brief Return an optimal command based on minimax algorithm
  * 
  * @param rDepth 
- * @return client::CommandID 
+ * @return engine::CommandID 
  */
-    client::CommandID ai::DeepAI::GenerateDeepCommand(int rDepth){
-        EngineObserver* lRunningEngine;// Actual game engine running the game           
+    engine::CommandID ai::DeepAI::GenerateDeepCommand(int rDepth){
+        engine::EngineObserver* lRunningEngine;// Actual game engine running the game           
         lRunningEngine = *(mEngineObserverList.begin());  // Get parameters and state of game engine       
         State lGameStatus = lRunningEngine->mCurrentState; // Get the state of the game
         Player_Status lPlayerTurn = lGameStatus.GetPlayerStatus();
-        CommandID lOptimal_action;
+        engine::CommandID lOptimal_action;
         int lFinal_value = 0;
         UpdateNodeTree(mMaxDepth); // First generate the tree of game possibilities from 0 to depth
         
         lFinal_value = Minimax(mPrimaryNode, 0); // Compute a minimax algorithm on the tree
       //  cout << "Finished" << endl;
 
-        lOptimal_action = (CommandID)mOptimalPath[0]; // Choose the optimal action found
+        lOptimal_action = (engine::CommandID)mOptimalPath[0]; // Choose the optimal action found
         SetStatusCommand(lOptimal_action);
     }
 
@@ -250,12 +250,12 @@ namespace ai {
     }
 
 
-    void ai::DeepAI::SetStatusCommand(client::CommandID rNewCommand){
+    void ai::DeepAI::SetStatusCommand(engine::CommandID rNewCommand){
         mInputCommand = rNewCommand;
         NotifyNewAICommand();
     }
 
-    client::CommandID ai::DeepAI::GetStatusCommand() const{
+    engine::CommandID ai::DeepAI::GetStatusCommand() const{
         return this->mInputCommand;
     }
 

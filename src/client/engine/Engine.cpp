@@ -1,4 +1,4 @@
-#include <client/Engine.h>  // Included from library shared_static
+#include <engine/Engine.h>  // Included from library shared_static
 #include "Engine.h"
 #include <algorithm>    // std::find
 #include <iostream>
@@ -9,13 +9,13 @@
 using namespace std;
 using namespace state;
 
-namespace client {
+namespace engine {
 /**
- * @brief Construct a new client::Engine::Engine object
+ * @brief Construct a new engine::Engine::Engine object
  * Setting up game state : random enemy character for each combat
  * 
  */
-    client::Engine::Engine(){
+    engine::Engine::Engine(){
         int lRandomPlayerCharacter;
         int lIndex2 = 0;
         srand (time(NULL));
@@ -50,7 +50,7 @@ namespace client {
         mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
     }
 
-    state::State* client::Engine::GameLoop(){
+    state::State* engine::Engine::GameLoop(){
        
         state::CombatStatus lGameStatus = mCurrentState.GetCombatState();
         state::Player_Status lPlayerStatus = mCurrentState.GetPlayerStatus();
@@ -58,7 +58,6 @@ namespace client {
         int lArena = mCurrentState.GetArenaNumber();
         int lMax_Combat = mCurrentState.GetCombatPerArena();
         int lCombatNumber = mCurrentState.GetCombatNumber();
-        int lAfficher=0;
 
         switch (lGameStatus)
         {
@@ -92,28 +91,20 @@ namespace client {
                 mCurrentState.SetCombatState(state::IN_COMBAT);
                 mIsRenderEnded = false;
             }
+
+            
             break;
 
         case state::IN_COMBAT:
             switch (lPlayerStatus)
             {
             case state::PLAYER_TURN:
-
-                /*if(lAfficher==0){
-                        cout << (mCurrentState.GetActivePlayerCharacter())->GetName() << endl;
-                        lAfficher=1;
-                        
-                    }*/
-                
-                
                 if(mIsNewPlayerCommand){ /// 1. Wait for input command. Add mIsNewAICommand if player is played by AI
-                    
-                    //mCurrentState.MoveActivePlayer();
+                    mCurrentState.MoveActivePlayer();
                     mCommand_Player.ComputeAction(*(mCurrentState.GetActivePlayerCharacter()), *(mCurrentState.GetEnemyCharacter()), mInputCommandID); // Le joueur attaque l'IA
                     mIsNewPlayerCommand = false; // The command has been executed
                     mCurrentState.SetPlayerStatus(state::IA_MAX_TURN); // Give the turn to opponent 
                     mCurrentState.MoveNextTurn();
-                    
                 }
 
                 // else{
@@ -154,9 +145,6 @@ namespace client {
                     }
                     
                     mCurrentState.MoveNextTurn();
-                    mCurrentState.MoveActivePlayer();
-                    cout << "************ SELECT AN ACTION FOR " << (mCurrentState.GetActivePlayerCharacter())->GetName() << " ************ " << endl;
-
                 }
 
                 break;
@@ -220,12 +208,16 @@ namespace client {
 
 
 
-    state::CombatStatus client::Engine::DEBUG_GetGameStatus(){
+    state::CombatStatus engine::Engine::GetGameStatus(){
 
         return mCurrentState.GetCombatState();
     }
 
-    void client::Engine::UpdatePlayerCommandStatus(CommandID rNewCommand){
+    state::State* engine::Engine::GetGameState(){
+        return &mCurrentState;
+    }
+
+    void engine::Engine::UpdatePlayerCommandStatus(CommandID rNewCommand){
         this->mInputCommandID = rNewCommand;
         this->mIsNewPlayerCommand = true;
     }

@@ -14,19 +14,19 @@ namespace ai {
     }
 
 
-    void ai::RandomAI::SetStatusCommand(client::CommandID NewCommand){
+    void ai::RandomAI::SetStatusCommand(engine::CommandID NewCommand){
         mInputCommand = NewCommand;
         NotifyNewAICommand();
     }
 
-    client::CommandID ai::RandomAI::GetStatusCommand () const{
+    engine::CommandID ai::RandomAI::GetStatusCommand () const{
         return this->mInputCommand;
     }
 
     void ai::RandomAI::GenerarateRandomCommand(){
-        client::CommandID lCommandIDTab[] = {client::ATTACK_1, client::ATTACK_2, client::SPELL_1, client::SPELL_2}; 
+        engine::CommandID lCommandIDTab[] = {engine::ATTACK_1, engine::ATTACK_2, engine::SPELL_1, engine::SPELL_2}; 
         int lRandomInt = 0;
-        static client::CommandID lRandomCommand;
+        static engine::CommandID lRandomCommand;
 
         lRandomInt = rand() % 4;
         lRandomCommand = lCommandIDTab[lRandomInt];

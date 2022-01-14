@@ -7,8 +7,8 @@ Stats::Stats() {
     this->mDefense = DEFAULT_STATS_VALUE;
     this->mAttack = DEFAULT_STATS_VALUE;
     this->mLife_points = DEFAULT_STATS_VALUE;
-    this->mLuck = MAX_LUCK;
-    this->mMax_life_points =MAX_LIFE_POINTS;
+    this->mLuck = DEFAULT_STATS_VALUE;
+    this->mMax_life_points = DEFAULT_STATS_VALUE;
     this->mPower = DEFAULT_STATS_VALUE;
 }
 

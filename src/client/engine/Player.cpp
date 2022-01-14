@@ -1,19 +1,18 @@
-#include <client/Player.h>  // Included from library shared_static
+#include <engine/Player.h>  // Included from library shared_static
 #include "Player.h"
 
-namespace client {
-    void client::Player::SetStatusCommand(CommandID NewCommand){
+namespace engine {
+    void engine::Player::SetStatusCommand(CommandID NewCommand){
         
         mInputCommand = NewCommand;
         NotifyNewPlayerCommand();
     }
 
-    CommandID client::Player::GetStatusCommand () const{
+    CommandID engine::Player::GetStatusCommand () const{
         return this->mInputCommand;
     }
 
-    void client::Player::ClickCommand (sf::RenderWindow& rWindow, client::WindowCursor rCursor){
-        
+    void engine::Player::ClickCommand (sf::RenderWindow& rWindow, engine::WindowCursor rCursor){
         if(rCursor.ClickAction1(rWindow)){
             SetStatusCommand( ATTACK_1 );
         }
