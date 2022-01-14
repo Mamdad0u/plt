@@ -115,14 +115,27 @@ namespace render {
         
     }
 
-    void render::RenderLayer::RefreshLifePoints() {
+    void render::RenderLayer::RefreshLifePoints(std::vector<state::Character> rPlayersCharacters) {
 
-        mUI.mRectLifePointsP1.setSize(sf::Vector2f(100,25));
-        mUI.mRectLifePointsP2.setSize(sf::Vector2f(45,25));
-        mUI.mRectLifePointsP3.setSize(sf::Vector2f(45,25));
-        mUI.mRectLifePointsP4.setSize(sf::Vector2f(45,25));
+        int LPratios[4] = {0,0,0,0};
 
-        mUI.mRectLifePointsP1.setFillColor(sf::Color::Red);
+        for (size_t k = 0; k < rPlayersCharacters.size(); k++)
+        {
+            LPratios[k] = rPlayersCharacters[k].GetCharacterStats(state::LIFE_POINTS)/rPlayersCharacters[k].GetCharacterStats(state::MAX_LIFE_POINTS);
+        }
+        
+
+        
+        mUI.mRectLifePointsP1.setSize(sf::Vector2f(static_cast<int>(LPratios[1]*100),25));
+        mUI.mRectLifePointsP2.setSize(sf::Vector2f(static_cast<int>(LPratios[2]*100),25));
+        mUI.mRectLifePointsP3.setSize(sf::Vector2f(static_cast<int>(LPratios[3]*100),25));
+        mUI.mRectLifePointsP4.setSize(sf::Vector2f(static_cast<int>(LPratios[4]*100),25));
+
+        if (LPratios[1]<0.5)
+        {
+            mUI.mRectLifePointsP1.setFillColor(sf::Color::Yellow);
+        }
+        
 
     }
 
