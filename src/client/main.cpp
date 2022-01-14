@@ -595,7 +595,7 @@ int main(int argc,char* argv[]){
                 case IN_COMBAT:
                     lIsCharacterAdd = false;
                     lRender.DEBUG_SetRenderState(IN_COMBAT);
-                    lRender.RefreshLifePoints(); //Refresh the life points of the characters
+                    lRender.RefreshLifePoints(Debug_State.mPlayersCharacters); //Refresh the life points of the characters
                     break;
                     
                 case OUT_COMBAT:
@@ -778,6 +778,7 @@ int main(int argc,char* argv[]){
                 case IN_COMBAT:
                     lIsCharacterAdd = false;
                     lRender.DEBUG_SetRenderState(IN_COMBAT);
+                    lRender.RefreshLifePoints(Debug_State.mPlayersCharacters);
                     break;
                     
                 case OUT_COMBAT:
@@ -805,6 +806,9 @@ int main(int argc,char* argv[]){
                     lPlayerCharacterPosition = Game_State->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
                     lNewEnemyCharacter = Game_State->GetEnemyCharacter();
                     lActiveEnemyCharacterNumber = lNewEnemyCharacter->GetCharacterNameNumber();
+                    lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1);
+                    lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4);
+                    lRender.DEBUG_SetRenderState(GAME_OVER);
                     
                     /*
                     lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1);
@@ -856,7 +860,7 @@ int main(int argc,char* argv[]){
             }
 
             if(lMovingProgress==1){
-                lRender.LoadUI();
+                //lRender.LoadUI();
                 lCursor.GetPositionCursor(window);
                 if(lCursor.ClickAction1(window)){
                         
