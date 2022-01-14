@@ -100,7 +100,7 @@ bool runFunctionCalled = true;
                             lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
                             lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
                             lRender.NotifyEndRendering();
-                            canRunEngine = true;
+                            EngineUpdating();
                             lIsInitiated = true;
                             }
                         
@@ -115,7 +115,7 @@ bool runFunctionCalled = true;
                                 IA_1.GenerateDeepCommand(5); // Generate optimal command
                                 IA_1.ResetTree(); // Reset game tree for next turn
                                 // lNewPlayer.ClickCommand(rWindow,lPlayerCursor);
-                                canRunEngine = true;
+                                EngineUpdating();
                             
                                
                             }
@@ -123,7 +123,7 @@ bool runFunctionCalled = true;
                             else{
                                 IA_2.GenerateDeepCommand(5);
                                 IA_2.ResetTree();
-                                canRunEngine = true;
+                                EngineUpdating();
 
                             }
                             lGameClock.restart();
@@ -160,7 +160,7 @@ bool runFunctionCalled = true;
   
                         else{
                             lMovingProgress = lRender.GoNextCombat(rWindow);
-                            canRunEngine = true;
+                            EngineUpdating();
                         }
 
                         break;
