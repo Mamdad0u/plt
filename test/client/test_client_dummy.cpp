@@ -104,7 +104,9 @@ BOOST_AUTO_TEST_CASE(TestDeepIA){
 BOOST_AUTO_TEST_CASE(TestRenderLayer){
   {
     RenderLayer lRender;
-    lRender.LoadBackground(0);
+    sf::RenderWindow window(sf::VideoMode(800, 600, 32), "ENSEAi");
+    static int lArena_Number;
+    lRender.LoadBackground(lArena_Number);
 
     lRender.LoadCharacter(1,250,250,1);
     lRender.LoadCharacter(2,200,300,1);
@@ -114,8 +116,22 @@ BOOST_AUTO_TEST_CASE(TestRenderLayer){
     lRender.LoadEnemy(3,600,325,0);
     lRender.LoadEnemy(1,600,325,0);
     lRender.LoadEnemy(2,600,325,0);
-            
+    lRender.AnimateCharacters();
+    lRender.GoNextCombat(window);
+    lRender.GoNextArena();
+
+    lRender.UpdateCharacterOnScreen(1,1);
+    lRender.LoadUI();
+
+    lRender.draw(window,1,IN_COMBAT);          
   }
 }
+
+BOOST_AUTO_TEST_CASE(TestRenderObserver){
+  {
+
+  }
+}
+
 
 BOOST_AUTO_TEST_SUITE_END()
