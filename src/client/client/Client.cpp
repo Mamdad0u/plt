@@ -72,7 +72,7 @@ bool runFunctionCalled = true;
         bool lIsInitiated = false;
         static int lArena_Number = 1;
         lRender.LoadUI();
-
+        int test = 0;
 
 
         thread GameEngine_Thread(ThreadEngine, &mGameEngine);
@@ -103,12 +103,14 @@ bool runFunctionCalled = true;
                         if(!lIsInitiated){                            
                             lNewPlayerCharacter = lGameState->GetActivePlayerCharacter();
                             lActivePlayerCharacterNumber = lNewPlayerCharacter->GetCharacterNameNumber();
-                            lPlayerCharacterPosition = lGameState->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
+                            lPlayerCharacterPosition = lGameState->GetPlayerRosterSize() - 1; // La position d'un nouveau joueur est l'index ajouté dans son roster
                             lNewEnemyCharacter = lGameState->GetEnemyCharacter();
                             lActiveEnemyCharacterNumber = lNewEnemyCharacter->GetCharacterNameNumber();
 
                             lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
-                            lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
+                            lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition); // Sprite character joueur
+
+
                             lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
                             lRender.NotifyEndRendering();
                             EngineUpdating();
@@ -125,7 +127,7 @@ bool runFunctionCalled = true;
                         lIsCharacterAdd = false;
                         lRender.DEBUG_SetRenderState(IN_COMBAT);
 
-                        if(lGameClock.getElapsedTime().asSeconds() > 1.f){
+                        if(lGameClock.getElapsedTime().asSeconds() > 0){
                             if(lTurn%2 == 0){
                                 IA_1.GenerateDeepCommand(5); // Generate optimal command
                                 IA_1.ResetTree(); // Reset game tree for next turn
@@ -165,11 +167,30 @@ bool runFunctionCalled = true;
                             * @brief Ne fonctionne plus au delà du combat 2, cf. #64
                             * 
                             */
+                            test++;
                             lPlayerCharacterPosition = lGameState->GetPlayerRosterSize() - 1; // Récupération de la taille de l'équipe du joueur
                             lNewPlayerCharacter = lGameState->GetPlayerCharacter(lPlayerCharacterPosition);
                             lNewEnemyCharacter = lGameState->GetEnemyCharacter();
-                            lRender.UpdateCharacterOnScreen((int)lNewPlayerCharacter->GetCharacterNameNumber(), lPlayerCharacterPosition);
-                            lRender.UpdateCharacterOnScreen(lNewEnemyCharacter->GetCharacterNameNumber(), 4);
+                            
+
+                            switch (lPlayerCharacterPosition)
+                            {
+                            case 1:
+                                lRender.UpdateCharacterOnScreen(2, 1);
+                          //      lRender.UpdateCharacterOnScreen(5, 2);
+                                break;
+                            case 2:
+                                
+                                lRender.LoadCharacter(5,150,350,1);
+                                break;
+                            case 3:
+                                lRender.UpdateCharacterOnScreen((int)lNewPlayerCharacter->GetCharacterNameNumber(), 3);
+                                break;
+
+                            }
+                      //     lRender.UpdateCharacterOnScreen((int)lNewPlayerCharacter->GetCharacterNameNumber(), 2);
+                            
+                          //  lRender.UpdateCharacterOnScreen(lNewEnemyCharacter->GetCharacterNameNumber(), 4);
                             lIsCharacterAdd = true;
                         }
 

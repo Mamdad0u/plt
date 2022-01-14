@@ -63,7 +63,7 @@ namespace render {
        
 
         
-        if (!mTexture.loadFromFile(lResPath))
+        if (mTexture.loadFromFile(lResPath) == false)
         {
             cout << "ERROR : Failed to load texture " << rTextureName <<endl;
             return -1;

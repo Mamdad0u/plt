@@ -8,13 +8,13 @@ namespace render {
 
 
     render::RenderLayer::RenderLayer(){
-        mPlayerCharactersSurface.reserve(4);
+        mPlayerCharactersSurface.reserve(10);
         mArenaEnemySurface.reserve(4);
 
     }
 
     render::RenderLayer::RenderLayer(engine::EngineObserver* rNewObserver){
-        mPlayerCharactersSurface.reserve(4);
+        mPlayerCharactersSurface.reserve(10);
         mArenaEnemySurface.reserve(4);
         AddEngineObserver(rNewObserver);
     }
@@ -61,7 +61,7 @@ namespace render {
         
         mPlayerCharactersSurface.push_back(*(new Surface));
         
-        if(mPlayerCharactersSurface[lLastCharacterPosition].LoadCharacterSprite(lCharacterString, rX, rY, rSide)){
+        if(mPlayerCharactersSurface[lLastCharacterPosition].LoadCharacterSprite(lCharacterString, rX, rY, rSide) == -1){
             cout << "ERROR : Failed to load character " << endl;
             return -1;
         }
@@ -216,7 +216,7 @@ namespace render {
         }
         
         rWindow.draw(mUI);
-        for(int i=0;i<mPlayerCharactersSurface.size();i++){
+        for(size_t i=0;i<mPlayerCharactersSurface.size();i++){
             
             mPlayerCharactersSurface[i].DrawSprite(rWindow);
 
