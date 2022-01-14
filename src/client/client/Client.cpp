@@ -17,12 +17,17 @@ namespace client{
 bool canRunEngine = false;
 bool runFunctionCalled = true;
 
+/**
+ * @brief Thread method of game engine. Run only when a command must be compute.
+ * 
+ * @param rEngine // Pointer to main game engine
+ */
     void ThreadEngine(engine::Engine* rEngine){
-        while(runFunctionCalled){
+        while(runFunctionCalled){ // Always true when game running
             // usleep(1000);
-            if(canRunEngine){
-                rEngine->GameLoop();
-                canRunEngine = false;
+            if(canRunEngine){ // Only true when a command is to compute
+                rEngine->GameLoop(); // Computation of command
+                canRunEngine = false; // Back to standby
             }
 
         }
@@ -34,6 +39,12 @@ bool runFunctionCalled = true;
     void client::Client::EngineUpdating(){
         canRunEngine = true;
     }
+
+    /**
+     * @brief Main thread method execution
+     * 
+     * @param rWindow Object reference to window created by sf in main()
+     */
 
     void client::Client::Run(sf::RenderWindow& rWindow){
         Clock lGameClock;
@@ -64,7 +75,7 @@ bool runFunctionCalled = true;
 
 
 
-        thread t1(ThreadEngine, &mGameEngine);
+        thread GameEngine_Thread(ThreadEngine, &mGameEngine);
 
         while(lGameStatus != GAME_OVER){  
           //  lGameState = mGameEngine.GetGameState(); // Update actual state of the game
@@ -107,6 +118,10 @@ bool runFunctionCalled = true;
                         break;
 
                     case IN_COMBAT:
+                    /**
+                     * @brief Generate AI command, or wait for player command 
+                     * 
+                     */
                         lIsCharacterAdd = false;
                         lRender.DEBUG_SetRenderState(IN_COMBAT);
 
@@ -131,12 +146,19 @@ bool runFunctionCalled = true;
                         break;
                         
                     case OUT_COMBAT:
-                    /*Ajout du sprite enemy dans la team du joueur*/
+                    /**
+                     * @brief Compute game instruction when combat finished (add enemy character in player team)
+                     * 
+                     */
                         canRunEngine = true;
 
                         break;
-                    case RENDER_PROCESSING:
 
+                    case RENDER_PROCESSING:
+                    /**
+                     * @brief Add new player team character on screen, change view to next combat zone/arena
+                     * 
+                     */
                         lRender.DEBUG_SetRenderState(RENDER_PROCESSING);
                         
                         if(!lIsCharacterAdd){/**
@@ -181,9 +203,9 @@ bool runFunctionCalled = true;
             rWindow.display();
             
         }
-
+        EngineUpdating(); //Last engine update to execute GAME_OVER instruction (print record)
         runFunctionCalled = false;
-        t1.join();
+        GameEngine_Thread.join(); // Stop game thread
 
 
 
