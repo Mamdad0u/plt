@@ -6,6 +6,7 @@
 
 using namespace client;
 using namespace render;
+using namespace engine;
 using namespace state;
 using namespace sf;
 using namespace std;
@@ -38,7 +39,8 @@ bool runFunctionCalled = true;
         Clock lGameClock;
         Clock lRenderClock;
         RenderLayer lRender(&mGameEngine);
-        
+        WindowCursor lPlayerCursor;
+        Player lNewPlayer;
         State* lGameState = mGameEngine.GetGameState();
         CombatStatus lGameStatus = mGameEngine.GetGameStatus();
         Character* lNewPlayerCharacter;
@@ -48,6 +50,7 @@ bool runFunctionCalled = true;
 
         IA_1.AddEngineObserver(&mGameEngine);
         IA_2.AddEngineObserver(&mGameEngine);
+        lNewPlayer.AddEngineObserver(&mGameEngine);
 
         int lActivePlayerCharacterNumber = 0;
         int lActiveEnemyCharacterNumber = 0;
@@ -111,9 +114,10 @@ bool runFunctionCalled = true;
                             if(lTurn%2 == 0){
                                 IA_1.GenerateDeepCommand(5); // Generate optimal command
                                 IA_1.ResetTree(); // Reset game tree for next turn
+                                // lNewPlayer.ClickCommand(rWindow,lPlayerCursor);
                                 canRunEngine = true;
                             
-                            //    NewPlayer.ClickCommand(window,lCursor);
+                               
                             }
 
                             else{
@@ -171,7 +175,7 @@ bool runFunctionCalled = true;
                 lRender.AnimateCharacters();
                 lRenderClock.restart();
             }
-
+            lPlayerCursor.GetPositionCursor(rWindow);
             lRender.draw(rWindow, 0, lGameStatus);
                 
             rWindow.display();
