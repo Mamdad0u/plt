@@ -196,5 +196,7 @@ BOOST_AUTO_TEST_CASE(TestStats){
     BOOST_CHECK_EQUAL(Stats1.Get_power(),5);
 
   }
+
+  
 }
 /* vim: set sw=2 sts=2 et : */
