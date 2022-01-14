@@ -129,6 +129,31 @@ BOOST_AUTO_TEST_CASE(TestRenderLayer){
 
 BOOST_AUTO_TEST_CASE(TestRenderObserver){
   {
+    Engine GameEngine;
+    RenderLayer lRender(&GameEngine);
+
+  }
+}
+
+BOOST_AUTO_TEST_CASE(TestSurface){
+  {
+    render::Surface lSurface;
+    sf::RenderWindow window;
+
+
+    lSurface.LoadShape("Arena1.png",0,0);
+    lSurface.LoadCharacterSprite("Character1.png",0,0,0);
+    lSurface.LoadBackgroundSprite("Arena2.png");
+    lSurface.SetCharacterAnimation(0);
+    lSurface.UpdateCharacterAnimation(1);
+
+    lSurface.MoveBackgroundView(window,0);
+    lSurface.MoveCharacterSprite();
+    lSurface.ResetSpritePosition(0);
+    lSurface.ResetViewPosition();
+
+    lSurface.DrawSprite(window);
+
 
   }
 }
