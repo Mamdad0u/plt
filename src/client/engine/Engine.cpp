@@ -1,4 +1,4 @@
-#include <client/Engine.h>  // Included from library shared_static
+#include <engine/Engine.h>  // Included from library shared_static
 #include "Engine.h"
 #include <algorithm>    // std::find
 #include <iostream>
@@ -9,13 +9,13 @@
 using namespace std;
 using namespace state;
 
-namespace client {
+namespace engine {
 /**
- * @brief Construct a new client::Engine::Engine object
+ * @brief Construct a new engine::Engine::Engine object
  * Setting up game state : random enemy character for each combat
  * 
  */
-    client::Engine::Engine(){
+    engine::Engine::Engine(){
         int lRandomPlayerCharacter;
         int lIndex2 = 0;
         srand (time(NULL));
@@ -50,7 +50,7 @@ namespace client {
         mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
     }
 
-    state::State* client::Engine::GameLoop(){
+    state::State* engine::Engine::GameLoop(){
        
         state::CombatStatus lGameStatus = mCurrentState.GetCombatState();
         state::Player_Status lPlayerStatus = mCurrentState.GetPlayerStatus();
@@ -91,6 +91,8 @@ namespace client {
                 mCurrentState.SetCombatState(state::IN_COMBAT);
                 mIsRenderEnded = false;
             }
+
+            
             break;
 
         case state::IN_COMBAT:
@@ -206,12 +208,16 @@ namespace client {
 
 
 
-    state::CombatStatus client::Engine::DEBUG_GetGameStatus(){
+    state::CombatStatus engine::Engine::GetGameStatus(){
 
         return mCurrentState.GetCombatState();
     }
 
-    void client::Engine::UpdatePlayerCommandStatus(CommandID rNewCommand){
+    state::State* engine::Engine::GetGameState(){
+        return &mCurrentState;
+    }
+
+    void engine::Engine::UpdatePlayerCommandStatus(CommandID rNewCommand){
         this->mInputCommandID = rNewCommand;
         this->mIsNewPlayerCommand = true;
     }

@@ -1,23 +1,23 @@
-#include <client/WindowCursor.h>  // Included from library shared_static
+#include <engine/WindowCursor.h>  // Included from library shared_static
 #include "WindowCursor.h"
 #include <iostream>
 
 using namespace std;
 
-namespace client {
-    client::WindowCursor::WindowCursor(){
+namespace engine {
+    engine::WindowCursor::WindowCursor(){
         mX=0;
         mY=0;
     }
 
-    void client::WindowCursor::GetPositionCursor(sf::RenderWindow& rWindow){
+    void engine::WindowCursor::GetPositionCursor(sf::RenderWindow& rWindow){
         sf::Vector2i lLocalPosition;
         lLocalPosition= sf::Mouse::getPosition(rWindow);
         mX=lLocalPosition.x;
         mY=lLocalPosition.y;
     }
 
-    bool client::WindowCursor::Click(sf::RenderWindow& rWindow){
+    bool engine::WindowCursor::Click(sf::RenderWindow& rWindow){
         sf::Vector2i lLocalPosition;
         lLocalPosition= sf::Mouse::getPosition(rWindow);
         mX=lLocalPosition.x;
@@ -33,7 +33,7 @@ namespace client {
         
     }
 
-    bool client::WindowCursor::ClickAction1(sf::RenderWindow& rWindow){
+    bool engine::WindowCursor::ClickAction1(sf::RenderWindow& rWindow){
         sf::Vector2i lLocalPosition;
         lLocalPosition= sf::Mouse::getPosition(rWindow);
         mX=lLocalPosition.x;
@@ -49,7 +49,7 @@ namespace client {
         
     }
 
-    bool client::WindowCursor::ClickAction2(sf::RenderWindow& rWindow){
+    bool engine::WindowCursor::ClickAction2(sf::RenderWindow& rWindow){
         sf::Vector2i lLocalPosition;
         lLocalPosition= sf::Mouse::getPosition(rWindow);
         mX=lLocalPosition.x;
@@ -65,7 +65,7 @@ namespace client {
         
     }
 
-    bool client::WindowCursor::ClickAction3(sf::RenderWindow& rWindow){
+    bool engine::WindowCursor::ClickAction3(sf::RenderWindow& rWindow){
         sf::Vector2i lLocalPosition;
         lLocalPosition= sf::Mouse::getPosition(rWindow);
         mX=lLocalPosition.x;
@@ -80,7 +80,7 @@ namespace client {
         return false;
         
     }
-    bool client::WindowCursor::ClickAction4(sf::RenderWindow& rWindow){
+    bool engine::WindowCursor::ClickAction4(sf::RenderWindow& rWindow){
         sf::Vector2i lLocalPosition;
         lLocalPosition= sf::Mouse::getPosition(rWindow);
         mX=lLocalPosition.x;

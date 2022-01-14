@@ -1,4 +1,4 @@
-#include <client/SandBoxEngine.h>  // Included from library shared_static
+#include <engine/SandBoxEngine.h>  // Included from library shared_static
 #include "SandBoxEngine.h"
 #include <stdio.h>
 #include <string.h>
@@ -7,10 +7,10 @@
 using namespace std;
 using namespace state;
 using namespace ai;
-namespace client {
+namespace engine {
 
 
-    client::SandBoxEngine::SandBoxEngine(state::State& rNewGameContext){
+    engine::SandBoxEngine::SandBoxEngine(state::State& rNewGameContext){
         mCurrentState.SetDebugInfo(false);
         this->mCurrentState = rNewGameContext;
 
@@ -18,7 +18,7 @@ namespace client {
 
 
 
-    ai::Node client::SandBoxEngine::TestAction(state::ActionListCommand rActionToTest){
+    ai::Node engine::SandBoxEngine::TestAction(state::ActionListCommand rActionToTest){
         Player_Status lPlayerTurn = mCurrentState.GetPlayerStatus();
         int lActionValue = 0;
         int lNode_score = 0;
@@ -96,7 +96,7 @@ namespace client {
     }
 
 
-    void client::SandBoxEngine::SetGameContext(state::State& rNewGameContext){
+    void engine::SandBoxEngine::SetGameContext(state::State& rNewGameContext){
         this->mCurrentState = rNewGameContext;
     }
 
