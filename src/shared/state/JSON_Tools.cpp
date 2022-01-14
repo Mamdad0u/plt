@@ -2,11 +2,11 @@
 #include "Character.h"
 #include <iostream>
 #include <fstream>
-#include <jsoncpp/json/json.h>
-#include <jsoncpp/json/value.h>
+//#include <jsoncpp/json/json.h>
+//#include <jsoncpp/json/value.h>
 
-//#include </usr/local/include/json/json.h> //MacOS
-//#include </usr/local/include/json/json.h> //MacOS
+#include </usr/local/include/json/json.h> //MacOS
+#include </usr/local/include/json/json.h> //MacOS
 #include <string>
 
 using namespace std;
