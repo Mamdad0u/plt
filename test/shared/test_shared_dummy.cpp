@@ -79,8 +79,8 @@ BOOST_AUTO_TEST_CASE(TestStats){
     BOOST_CHECK_EQUAL(Stats1.Get_defense(),100);
     BOOST_CHECK_EQUAL(Stats1.Get_life_points(),100);
     BOOST_CHECK_EQUAL(Stats1.Get_power(),100);
-    BOOST_CHECK_EQUAL(Stats1.Get_luck(),25);
-    BOOST_CHECK_EQUAL(Stats1.Get_max_life_points(),MAX_LIFE_POINTS);
+    BOOST_CHECK_EQUAL(Stats1.Get_luck(),100);
+    BOOST_CHECK_EQUAL(Stats1.Get_max_life_points(),100);
 
     Stats1.Set_max_life_points(120);
     Stats1.Set_attack(102);

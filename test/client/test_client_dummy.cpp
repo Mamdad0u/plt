@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_CASE(TestDeepIA){
 
 }
 
-/* ******* TEST UNITAIRE DU RENDER ********** */
+/* ******* TEST UNITAIRE DES CLASSES DU RENDER ********** */
 
 BOOST_AUTO_TEST_CASE(TestRenderLayer){
   {
