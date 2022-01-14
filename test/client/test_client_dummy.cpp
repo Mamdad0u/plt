@@ -176,5 +176,75 @@ BOOST_AUTO_TEST_CASE(TestUI){
   }
 }
 
+/*************** TEST UNITAIRE DES CLASSES DE L'ENGINE ************/
+
+BOOST_AUTO_TEST_CASE(TestCommand){
+  {
+    Command lCommand;
+
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(ELEC,ELEC),NEUTRAL);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(ELEC,INFO),NEUTRAL);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(ELEC,AUTO),WEAK);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(ELEC,SIGNAL),STRENGTH);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(ELEC,SCIENCES_HUMAINES),NEUTRAL);
+
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(INFO,ELEC),NEUTRAL);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(INFO,INFO),NEUTRAL);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(INFO,AUTO),STRENGTH);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(INFO,SIGNAL),WEAK);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(INFO,SCIENCES_HUMAINES),NEUTRAL);
+
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(AUTO,ELEC),STRENGTH);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(AUTO,INFO),WEAK);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(AUTO,AUTO),NEUTRAL);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(AUTO,SIGNAL),NEUTRAL);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(AUTO,SCIENCES_HUMAINES),NEUTRAL);
+
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(SIGNAL,ELEC),WEAK);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(SIGNAL,INFO),STRENGTH);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(SIGNAL,AUTO),NEUTRAL);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(SIGNAL,SIGNAL),NEUTRAL);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(SIGNAL,SCIENCES_HUMAINES),NEUTRAL);
+
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(SCIENCES_HUMAINES,ELEC),NEUTRAL);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(SCIENCES_HUMAINES,INFO),NEUTRAL);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(SCIENCES_HUMAINES,AUTO),NEUTRAL);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(SCIENCES_HUMAINES,SIGNAL),NEUTRAL);
+    BOOST_CHECK_EQUAL(lCommand.ComputeWeakAndStrength(SCIENCES_HUMAINES,SCIENCES_HUMAINES),STRENGTH);
+
+    Character Character1(IS);
+    Character Character2(EVE);
+    JSON_tools JSON;
+    JSON.JSON_Configure_Character(Character1);
+    JSON.JSON_Configure_Character(Character2);
+
+    int PVLost;
+    PVLost=0;
+    std::cout << "INITIALISATION" << PVLost << std::endl;
+    PVLost=lCommand.ComputeAction(Character1,Character2,engine::ATTACK_1);
+    std::cout << "D2GATS" << PVLost << std::endl;
+
+    PVLost=abs(PVLost);
+
+    std::cout << "VALEUR ASOLUE" << PVLost << std::endl;
+
+    int valeur_exacte=27;
+    std::cout << PVLost << std::endl;
+    std::cout <<"ICI JUSTE AU DESSUS*****************" << std::endl;
+    if (PVLost>50){
+      
+      BOOST_CHECK_EQUAL(PVLost,valeur_exacte*2);
+    }
+    if(PVLost<50){
+      BOOST_CHECK_EQUAL(PVLost,valeur_exacte);
+    }
+
+    
+    
+    
+    
+  }
+}
+
 
 BOOST_AUTO_TEST_SUITE_END()
