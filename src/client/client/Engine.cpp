@@ -53,8 +53,13 @@ namespace client {
 
     void client::Engine::ResetEngine() {
 
+        //mCurrentState.ResetState(IN_COMBAT, PLAYER_TURN);
+        
         int lIndex2 = 0;
         int lRandomPlayerCharacter;
+        srand (time(NULL));
+
+        lRandomPlayerCharacter = rand() % state::State::MAX_COMBAT_NB;
 
         int lRandomInt[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
 
@@ -77,6 +82,7 @@ namespace client {
             }
 
         mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
+        
 
 
     }
@@ -116,8 +122,12 @@ namespace client {
                 
                 //mCurrentState.SetAlivePlayer();
                 //mCurrentState.SetAliveEnemy();
-
+                mCurrentState.ResetCombatNumber();
                 mCurrentState.SetCombatState(state::INITIALISATION);
+                
+                
+                
+
                 
             }
 
