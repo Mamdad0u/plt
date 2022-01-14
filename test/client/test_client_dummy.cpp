@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_CASE(TestRenderObserver){
   }
 }
 
-BOOST_AUTO_TEST_CASE(TestSurface){
+BOOST_AUTO_TEST_CASE(NewTestSurface){
   {
     render::Surface lSurface;
     sf::RenderWindow window;
@@ -154,6 +154,24 @@ BOOST_AUTO_TEST_CASE(TestSurface){
 
     lSurface.DrawSprite(window);
 
+
+  }
+}
+
+BOOST_AUTO_TEST_CASE(TestUI){
+  {
+    sf::RenderWindow window;
+    UI lUI;
+    lUI.CreateWindow(0,0,100,50);
+    lUI.AddTextWindow("Test Unitaire",0,0);
+    lUI.SetTextVersion("2.0");
+    lUI.DEBUG_SetTextCombatState("En train de tester");
+    lUI.DEBUG_SetTextAction1("Test1");
+    lUI.DEBUG_SetTextAction2("Test2");
+    lUI.DEBUG_SetTextAction3("Test3");
+    lUI.DEBUG_SetTextAction4("Test4");
+    lUI.DEBUG_SetLifePoints();
+    lUI.MoveUI();
 
   }
 }
