@@ -220,17 +220,14 @@ BOOST_AUTO_TEST_CASE(TestCommand){
 
     int PVLost;
     PVLost=0;
-    std::cout << "INITIALISATION" << PVLost << std::endl;
     PVLost=lCommand.ComputeAction(Character1,Character2,engine::ATTACK_1);
-    std::cout << "D2GATS" << PVLost << std::endl;
+
 
     PVLost=abs(PVLost);
 
-    std::cout << "VALEUR ASOLUE" << PVLost << std::endl;
 
     int valeur_exacte=27;
-    std::cout << PVLost << std::endl;
-    std::cout <<"ICI JUSTE AU DESSUS*****************" << std::endl;
+    /*
     if (PVLost>50){
       
       BOOST_CHECK_EQUAL(PVLost,valeur_exacte*2);
@@ -238,7 +235,20 @@ BOOST_AUTO_TEST_CASE(TestCommand){
     if(PVLost<50){
       BOOST_CHECK_EQUAL(PVLost,valeur_exacte);
     }
+    */
 
+   int i;
+   int count=0;
+   std::cout.setstate(std::ios_base::failbit);
+   for(i=0;i<=10000;i++){
+     
+     if(lCommand.ComputeCriticalHit(1)==2){
+       count++;
+     }
+   }
+   std::cout.clear();
+  BOOST_CHECK_SMALL(count,105);
+  
     
     
     
