@@ -6,7 +6,6 @@
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/src/client/render",
                 "${workspaceFolder}/src/client/render",
-                "$/usr/local/include/bits",
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
