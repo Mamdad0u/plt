@@ -14,9 +14,11 @@ namespace render {
     }
 
     render::RenderLayer::RenderLayer(engine::EngineObserver* rNewObserver){
-        mPlayerCharactersSurface.reserve(10);
+        mPlayerCharactersSurface.reserve(1000);
         mArenaEnemySurface.reserve(4);
         AddEngineObserver(rNewObserver);
+        mBackgroundSurface = new BackgroundSurface;
+        
     }
     
     int render::RenderLayer::LoadBackground(int lArenaNumber){
@@ -24,7 +26,7 @@ namespace render {
         string lArenaPath = "backgrounds/Arena" + to_string(lArenaNumber);
         lArenaPath = lArenaPath + ".png";
 
-        if(mBackgroundSurface.LoadBackgroundSprite(lArenaPath)){
+        if(mBackgroundSurface->LoadBackgroundSprite(lArenaPath)){
             cout << "ERROR : Failed to load background " << endl;
             return -1;
         }
@@ -33,12 +35,12 @@ namespace render {
     }
 
     int render::RenderLayer::LoadEnemy(int rEnemySelected,int rX, int rY, int rSide){
-        Surface lEnemytoAdd;
+        CharacterSurface lEnemytoAdd;
         int lLastEnemyPosition=mArenaEnemySurface.size();
         string lEnemyString = "sprites/Character" + to_string(rEnemySelected);
         
         lEnemyString = lEnemyString +".png";
-        mArenaEnemySurface.push_back(*(new Surface));
+        mArenaEnemySurface.push_back(*(new CharacterSurface));
 
         if(mArenaEnemySurface[lLastEnemyPosition].LoadCharacterSprite(lEnemyString, rX, rY, rSide)){
             cout << "ERROR : Failed to load character " << endl;
@@ -51,22 +53,22 @@ namespace render {
     }
 
     int render::RenderLayer::LoadCharacter(int rCharacterSelected, int rX, int rY, int rSide){
-        Surface lCharactertoAdd;
+        CharacterSurface* lCharactertoAdd = new CharacterSurface;
         int lLastCharacterPosition = mPlayerCharactersSurface.size();
         string lCharacterString = "sprites/Character" + to_string(rCharacterSelected);
         
         lCharacterString = lCharacterString + ".png";
 
-
         
-        mPlayerCharactersSurface.push_back(*(new Surface));
         
-        if(mPlayerCharactersSurface[lLastCharacterPosition].LoadCharacterSprite(lCharacterString, rX, rY, rSide) == -1){
+       // mPlayerCharactersSurface.push_back(*(new Surface));
+        
+        if(lCharactertoAdd->LoadCharacterSprite(lCharacterString, rX, rY, rSide)== -1){
             cout << "ERROR : Failed to load character " << endl;
             return -1;
         }
 
-
+        mPlayerCharactersSurface.push_back(*(lCharactertoAdd));
 
         mPlayerCharactersSurface[lLastCharacterPosition].SetCharacterAnimation(0);
         
@@ -189,7 +191,7 @@ namespace render {
         }
 
 
-        mBackgroundSurface.MoveBackgroundView(rWindow, mMovingProgress);
+        mBackgroundSurface->MoveBackgroundView(rWindow, mMovingProgress);
         
         mUI.MoveUI();
       
@@ -199,26 +201,25 @@ namespace render {
     
     void render::RenderLayer::GoNextArena(){
         for(int i=0;i<mPlayerCharactersSurface.size();i++){
-            mPlayerCharactersSurface[i].ResetSpritePosition(i);
+            mPlayerCharactersSurface[i].ResetPosition(i);
         }
-        mBackgroundSurface.ResetViewPosition();
+        mBackgroundSurface->ResetViewPosition();
 
         
     }
 
     void render::RenderLayer::draw(sf::RenderWindow& rWindow, int rEnemyIndex, state::CombatStatus rGameStatus){
-        mBackgroundSurface.DrawSprite(rWindow);
+        mBackgroundSurface->DrawSurface(rWindow);
 
         if(rGameStatus==state::IN_COMBAT){
             
             
-            mArenaEnemySurface[rEnemyIndex].DrawSprite(rWindow);
+            mArenaEnemySurface[rEnemyIndex].DrawSurface(rWindow);
         }
         
         rWindow.draw(mUI);
         for(size_t i=0;i<mPlayerCharactersSurface.size();i++){
-            
-            mPlayerCharactersSurface[i].DrawSprite(rWindow);
+            mPlayerCharactersSurface[i].DrawSurface(rWindow);
 
 
         }
