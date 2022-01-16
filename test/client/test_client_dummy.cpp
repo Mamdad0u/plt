@@ -274,13 +274,14 @@ BOOST_AUTO_TEST_CASE(TestCommand){
 }
 
 BOOST_AUTO_TEST_CASE(TestPlayer){
+  {
   Player lPlayer;
   sf::RenderWindow window; 
 
   lPlayer.SetStatusCommand(CommandID::ATTACK_1);
 
   BOOST_CHECK_EQUAL(lPlayer.GetStatusCommand(),CommandID::ATTACK_1);
-
+  }
 }
 
 
