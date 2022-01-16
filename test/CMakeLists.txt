@@ -76,6 +76,7 @@ function(add_custom_test name)
   # Add test to CTest
   add_test(NAME ${target_name}
     COMMAND $<TARGET_FILE:${target_name}>
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     )
 
   # Add dependency to build test target before code coverage

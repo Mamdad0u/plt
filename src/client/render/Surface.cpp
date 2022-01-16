@@ -18,8 +18,8 @@ namespace render {
 
         if (!mTexture.loadFromFile(lResPath))
         {
-            cout << "ERROR : Failed to load texture " << rTextureName <<endl;
-            return -1;
+            cout << "ERROR : Failed to load texture " << lResPath <<endl;
+            throw new std::runtime_error("File not found! (" + lResPath + ")");
         }
 
         else{
@@ -65,8 +65,8 @@ namespace render {
         
         if (!mTexture.loadFromFile(lResPath))
         {
-            cout << "ERROR : Failed to load texture " << rTextureName <<endl;
-            return -1;
+            cout << "ERROR : Failed to load texture " << lResPath <<endl;
+            throw new std::runtime_error("File not found! (" + lResPath + ")");
         }
 
         else{
@@ -87,8 +87,8 @@ namespace render {
 
         if (!mTexture.loadFromFile(lResPath))
         {
-            cout << "ERROR : Failed to load texture " << rTextureName <<endl;
-            return -1;
+            cout << "ERROR : Failed to load texture " << lResPath <<endl;
+            throw new std::runtime_error("File not found! (" + lResPath + ")");
         }
 
         else{
