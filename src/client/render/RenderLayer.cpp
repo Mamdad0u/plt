@@ -115,25 +115,56 @@ namespace render {
         
     }
 
-    void render::RenderLayer::RefreshLifePoints(std::vector<state::Character> rPlayersCharacters) {
+    void render::RenderLayer::RefreshLifePoints(state::Character* rPlayersCharacters) {
 
-        int LPratios[4] = {0,0,0,0};
+        float LPratios1 = 1;
+        float LPratios2 = 1;
+        float LPratios3 = 1;
+        float LPratios4 = 1;
 
-        for (size_t k = 0; k < rPlayersCharacters.size(); k++)
-        {
-            LPratios[k] = rPlayersCharacters[k].GetCharacterStats(state::LIFE_POINTS)/rPlayersCharacters[k].GetCharacterStats(state::MAX_LIFE_POINTS);
-        }
+        //LPratios[1] = (int)(rPlayersCharacters->GetCharacterStats(state::LIFE_POINTS)/rPlayersCharacters->GetCharacterStats(state::MAX_LIFE_POINTS))*100;
+        float lpTest = rPlayersCharacters->GetCharacterStats(state::LIFE_POINTS);
+        float lpmTest = rPlayersCharacters->GetCharacterStats(state::MAX_LIFE_POINTS);
+
+        LPratios1 = (lpTest/lpmTest)*100;
+
         
 
         
-        mUI.mRectLifePointsP1.setSize(sf::Vector2f(static_cast<int>(LPratios[1]*100),25));
-        mUI.mRectLifePointsP2.setSize(sf::Vector2f(static_cast<int>(LPratios[2]*100),25));
-        mUI.mRectLifePointsP3.setSize(sf::Vector2f(static_cast<int>(LPratios[3]*100),25));
-        mUI.mRectLifePointsP4.setSize(sf::Vector2f(static_cast<int>(LPratios[4]*100),25));
+        mUI.mRectLifePointsP1.setSize(sf::Vector2f(LPratios1,25));
+        mUI.mRectLifePointsP2.setSize(sf::Vector2f(LPratios2,25));
+        mUI.mRectLifePointsP3.setSize(sf::Vector2f(LPratios3,25));
+        mUI.mRectLifePointsP4.setSize(sf::Vector2f(LPratios4,25));
+        mUI.mRectLifePointsP1.setFillColor(sf::Color::Yellow);
 
-        if (LPratios[1]<0.5)
+        if (LPratios1<50)
         {
             mUI.mRectLifePointsP1.setFillColor(sf::Color::Yellow);
+        }
+
+        if (LPratios2<50)
+        {
+            mUI.mRectLifePointsP1.setFillColor(sf::Color::Yellow);
+        }
+
+        if (LPratios3<50)
+        {
+            mUI.mRectLifePointsP1.setFillColor(sf::Color::Yellow);
+        }
+
+        if (LPratios4<50)
+        {
+            mUI.mRectLifePointsP1.setFillColor(sf::Color::Yellow);
+        }
+
+        if (LPratios1<=1)
+        {
+            mUI.mRectLifePointsP1.setFillColor(sf::Color::Transparent);
+        }
+
+        if (LPratios1=100)
+        {
+            mUI.mRectLifePointsP1.setFillColor(sf::Color::Green);
         }
         
 
@@ -144,7 +175,7 @@ namespace render {
 
         
         mUI.CreateWindow(0,500,800,100);
-        mUI.SetTextVersion("Release 3.1");
+        mUI.SetTextVersion("Release 4.1");
         mUI.DEBUG_SetTextAction1("Attack 1");
         mUI.DEBUG_SetTextAction2("Attack 2");
         mUI.DEBUG_SetTextAction3("Spell 1");
@@ -250,7 +281,7 @@ namespace render {
         }
         
         rWindow.draw(mUI);
-        for(int i=0;i<mPlayerCharactersSurface.size();i++){
+        for(int i=1;i<mPlayerCharactersSurface.size();i++){
             
             mPlayerCharactersSurface[i].DrawSprite(rWindow);
 
