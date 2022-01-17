@@ -595,7 +595,7 @@ int main(int argc,char* argv[]){
                 case IN_COMBAT:
                     lIsCharacterAdd = false;
                     lRender.DEBUG_SetRenderState(IN_COMBAT);
-                    lRender.RefreshLifePoints(lNewPlayerCharacter); //Refresh the life points of the characters
+                    lRender.RefreshLifePoints(Game_State->mPlayersCharacters); //Refresh the life points of the characters
                     break;
                     
                 case OUT_COMBAT:
@@ -778,7 +778,7 @@ int main(int argc,char* argv[]){
                 case IN_COMBAT:
                     lIsCharacterAdd = false;
                     lRender.DEBUG_SetRenderState(IN_COMBAT);
-                    lRender.RefreshLifePoints(lNewPlayerCharacter);
+                    lRender.RefreshLifePoints(Game_State->mPlayersCharacters);
                     break;
                     
                 case OUT_COMBAT:

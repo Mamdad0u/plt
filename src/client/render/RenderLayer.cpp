@@ -115,57 +115,20 @@ namespace render {
         
     }
 
-    void render::RenderLayer::RefreshLifePoints(state::Character* rPlayersCharacters) {
+    void render::RenderLayer::RefreshLifePoints(std::vector<state::Character> rPlayersCharacters) {
 
-        float LPratios1 = 1;
-        float LPratios2 = 1;
-        float LPratios3 = 1;
-        float LPratios4 = 1;
+        float LPratios[4] = {0,0,0,0};
 
-        //LPratios[1] = (int)(rPlayersCharacters->GetCharacterStats(state::LIFE_POINTS)/rPlayersCharacters->GetCharacterStats(state::MAX_LIFE_POINTS))*100;
-        float lpTest = rPlayersCharacters->GetCharacterStats(state::LIFE_POINTS);
-        float lpmTest = rPlayersCharacters->GetCharacterStats(state::MAX_LIFE_POINTS);
-
-        LPratios1 = (lpTest/lpmTest)*100;
-
+        for (size_t k = 0; k < rPlayersCharacters.size(); k++)
+        {
+            LPratios[k] = ((float)rPlayersCharacters[k].GetCharacterStats(state::LIFE_POINTS)/(float)rPlayersCharacters[k].GetCharacterStats(state::MAX_LIFE_POINTS))*100;
+        }
         
-
-        
-        mUI.mRectLifePointsP1.setSize(sf::Vector2f(LPratios1,25));
-        mUI.mRectLifePointsP2.setSize(sf::Vector2f(LPratios2,25));
-        mUI.mRectLifePointsP3.setSize(sf::Vector2f(LPratios3,25));
-        mUI.mRectLifePointsP4.setSize(sf::Vector2f(LPratios4,25));
-        mUI.mRectLifePointsP1.setFillColor(sf::Color::Yellow);
-
-        if (LPratios1<50)
-        {
-            mUI.mRectLifePointsP1.setFillColor(sf::Color::Yellow);
-        }
-
-        if (LPratios2<50)
-        {
-            mUI.mRectLifePointsP1.setFillColor(sf::Color::Yellow);
-        }
-
-        if (LPratios3<50)
-        {
-            mUI.mRectLifePointsP1.setFillColor(sf::Color::Yellow);
-        }
-
-        if (LPratios4<50)
-        {
-            mUI.mRectLifePointsP1.setFillColor(sf::Color::Yellow);
-        }
-
-        if (LPratios1<=1)
-        {
-            mUI.mRectLifePointsP1.setFillColor(sf::Color::Transparent);
-        }
-
-        if (LPratios1=100)
-        {
-            mUI.mRectLifePointsP1.setFillColor(sf::Color::Green);
-        }
+        mUI.mRectLifePointsP1.setSize(sf::Vector2f(LPratios[0],25));
+        mUI.mRectLifePointsP2.setSize(sf::Vector2f(LPratios[1],25));
+        mUI.mRectLifePointsP3.setSize(sf::Vector2f(LPratios[2],25));
+        mUI.mRectLifePointsP4.setSize(sf::Vector2f(LPratios[3],25));
+        //mUI.mRectLifePointsP1.setFillColor(sf::Color::Yellow);
         
 
     }
