@@ -41,12 +41,30 @@ BOOST_AUTO_TEST_CASE(TestElement)
   }
 }
 
-BOOST_AUTO_TEST_CASE(Action){
+BOOST_AUTO_TEST_CASE(TestAction){
+  {
+    Action UT_Action;
+
+    BOOST_CHECK_EQUAL(UT_Action.GetDamage(),0);
+    BOOST_CHECK_EQUAL(UT_Action.GetStatBuffValue(),0);
+
+    UT_Action.SetDamage(42);
+    UT_Action.SetStatBuffName(ATTACK);
+    UT_Action.SetStatBuffValue(10);
+    UT_Action.SetBuffBeneficial(BENEFICIAL_ATTACKER);
+
+    BOOST_CHECK_EQUAL(UT_Action.GetDamage(),42);
+    BOOST_CHECK_EQUAL(UT_Action.GetStatBuffValue(),10);
+    BOOST_CHECK_EQUAL(UT_Action.GetStatBuffName(),ATTACK);
+    BOOST_CHECK_EQUAL(UT_Action.GetBuffBeneficial(),BENEFICIAL_ATTACKER);    
+  }
+}
+
+BOOST_AUTO_TEST_CASE(TestActionList){
   {
     
   }
 }
-
 BOOST_AUTO_TEST_CASE(TestCharacter) 
 {
   {
