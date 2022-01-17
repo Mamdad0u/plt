@@ -8,9 +8,15 @@ namespace render {
 
 
     render::RenderLayer::RenderLayer(){
+        CharacterSurface* lInit_SpritePlayerCharacter;
         mPlayerCharactersSurface.reserve(10);
         mArenaEnemySurface.reserve(4);
         mBackgroundSurface = new BackgroundSurface;
+
+        for(int i=0;i<5;i++){
+            lInit_SpritePlayerCharacter = new CharacterSurface;
+            mPlayerCharactersSurface.push_back(*(lInit_SpritePlayerCharacter));
+        }
     }
 
     render::RenderLayer::RenderLayer(engine::EngineObserver* rNewObserver){
@@ -58,6 +64,7 @@ namespace render {
     }
 
     int render::RenderLayer::LoadCharacter(int rCharacterPosition, int rSpriteCharacter, int rX, int rY, int rSide){
+        rCharacterPosition--;
         CharacterSurface* lCharactertoAdd = new CharacterSurface;
         int lLastCharacterPosition = mPlayerCharactersSurface.size();
         string lCharacterString = "sprites/Character" + to_string(rSpriteCharacter);
@@ -235,7 +242,7 @@ namespace render {
         }
         
         rWindow.draw(mUI);
-        for(int i=1;i<=mPlayerCharacterTeamSize;i++){
+        for(int i=0;i<mPlayerCharacterTeamSize;i++){
             mPlayerCharactersSurface[i].DrawSurface(rWindow);
             
 
