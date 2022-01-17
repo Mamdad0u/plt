@@ -41,17 +41,61 @@ BOOST_AUTO_TEST_CASE(TestElement)
   }
 }
 
+BOOST_AUTO_TEST_CASE(Action){
+  {
+    
+  }
+}
+
 BOOST_AUTO_TEST_CASE(TestCharacter) 
 {
   {
        
-/*     //Character UT_Character(ELEC, DEAD, "ESE");
+    Character UT_Character(ESE);
 
     UT_Character.SetCharacterStats(ATTACK, 15);
+    UT_Character.SetCharacterStats(DEFENSE, 5);
+    UT_Character.SetCharacterStats(LUCK, 10);
+    UT_Character.SetCharacterStats(POWER, 12);
+    UT_Character.SetCharacterStats(LIFE_POINTS, 42);
+    UT_Character.SetCharacterStats(MAX_LIFE_POINTS, 150);
     
     BOOST_CHECK_EQUAL(UT_Character.GetMajor(), ELEC);
-    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStatus(), DEAD);
-    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStats(ATTACK), 15); */
+    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStatus(), ALIVE);
+    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStats(ATTACK), 15);
+    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStats(DEFENSE), 5); 
+    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStats(LUCK), 10); 
+    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStats(POWER), 12); 
+    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStats(LIFE_POINTS), 42); 
+    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStats(MAX_LIFE_POINTS), 150);
+
+    UT_Character.SetCharacterAction(ATTACK_1,50,ATTACK,10,BENEFICIAL_ATTACKER);
+    UT_Character.SetCharacterAction(ATTACK_2,60,LUCK,15,NEGATIVE_VICTIM);
+    UT_Character.SetCharacterAction(SPELL_1,55,POWER,12,BENEFICIAL_TEAM);
+    UT_Character.SetCharacterAction(SPELL_2,54,LIFE_POINTS,1,NEGATIVE_ATTACKER);
+
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_1)->GetDamage(),50);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_2)->GetDamage(),60);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_1)->GetDamage(),55);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_2)->GetDamage(),54);
+
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_1)->GetStatBuffName(),ATTACK);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_2)->GetStatBuffName(),LUCK);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_1)->GetStatBuffName(),POWER);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_2)->GetStatBuffName(),LIFE_POINTS);
+
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_1)->GetStatBuffValue(),10);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_2)->GetStatBuffValue(),15);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_1)->GetStatBuffValue(),12);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_2)->GetStatBuffValue(),1);
+
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_1)->GetBuffBeneficial(),BENEFICIAL_ATTACKER);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_2)->GetBuffBeneficial(),NEGATIVE_VICTIM);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_1)->GetBuffBeneficial(),BENEFICIAL_TEAM);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_2)->GetBuffBeneficial(),NEGATIVE_ATTACKER);
+
+    
+    
     
   }
 }
@@ -100,4 +144,5 @@ BOOST_AUTO_TEST_CASE(TestStats){
 
   
 }
+
 /* vim: set sw=2 sts=2 et : */
