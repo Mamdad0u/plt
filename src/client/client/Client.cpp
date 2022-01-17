@@ -55,7 +55,7 @@ bool runFunctionCalled = true;
         State* lGameState = mGameEngine.GetGameState();
         CombatStatus lGameStatus = mGameEngine.GetGameStatus();
         Character* lNewPlayerCharacter;
-        Character* lNewEnemyCharacter;
+        Character lNewEnemyCharacter;
         DeepAI IA_1(5);
         DeepAI IA_2(5);
 
@@ -71,8 +71,9 @@ bool runFunctionCalled = true;
         bool lIsCharacterAdd;
         bool lIsInitiated = false;
         static int lArena_Number = 1;
+        int lEnemyIndex = 0;
         lRender.LoadUI();
-        int test = 0;
+        
 
 
         thread GameEngine_Thread(ThreadEngine, &mGameEngine);
@@ -103,19 +104,19 @@ bool runFunctionCalled = true;
                         if(!lIsInitiated){                            
                             lNewPlayerCharacter = lGameState->GetActivePlayerCharacter();
                             lActivePlayerCharacterNumber = lNewPlayerCharacter->GetCharacterNameNumber();
-                            lPlayerCharacterPosition = lGameState->GetPlayerRosterSize() - 1; // La position d'un nouveau joueur est l'index ajouté dans son roster
-                            lNewEnemyCharacter = lGameState->GetEnemyCharacter();
-                            lActiveEnemyCharacterNumber = lNewEnemyCharacter->GetCharacterNameNumber();
+                            lPlayerCharacterPosition = lGameState->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
+                            lNewEnemyCharacter = *(lGameState->GetEnemyCharacter());
+                            lActiveEnemyCharacterNumber = lNewEnemyCharacter.GetCharacterNameNumber();
 
                             lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
                             lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition); // Sprite character joueur
 
 
-                            lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
+                            lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 5); // Sprite character enemy
                             lRender.NotifyEndRendering();
                             EngineUpdating();
                             lIsInitiated = true;
-                            }
+                        }
                         
                         break;
 
@@ -152,6 +153,7 @@ bool runFunctionCalled = true;
                      * @brief Compute game instruction when combat finished (add enemy character in player team)
                      * 
                      */
+                        lNewEnemyCharacter = *(lGameState->GetEnemyCharacter()); // Save Enemy character before it change
                         canRunEngine = true;
 
                         break;
@@ -162,37 +164,24 @@ bool runFunctionCalled = true;
                      * 
                      */
                         lRender.DEBUG_SetRenderState(RENDER_PROCESSING);
+                        lPlayerCharacterPosition = lGameState->GetPlayerRosterSize();
                         
-                        if(!lIsCharacterAdd){/**
+                      //  cout << "Player roster size = " << lPlayerCharacterPosition << endl;
+
+                        if((!lIsCharacterAdd) && lGameState->GetPlayerRosterSize() < lGameState->MAX_CHARACTER+1){/**
                             * @brief Ne fonctionne plus au delà du combat 2, cf. #64
                             * 
                             */
-                            test++;
-                            lPlayerCharacterPosition = lGameState->GetPlayerRosterSize() - 1; // Récupération de la taille de l'équipe du joueur
+                            
+                             // Récupération de la taille de l'équipe du joueur
                             lNewPlayerCharacter = lGameState->GetPlayerCharacter(lPlayerCharacterPosition);
-                            lNewEnemyCharacter = lGameState->GetEnemyCharacter();
+                            lRender.UpdateCharacterOnScreen((int)lNewEnemyCharacter.GetCharacterNameNumber(), lPlayerCharacterPosition);
                             
-
-                            switch (lPlayerCharacterPosition)
-                            {
-                            case 1:
-                                lRender.UpdateCharacterOnScreen(2, 1);
-                          //      lRender.UpdateCharacterOnScreen(5, 2);
-                                break;
-                            case 2:
-                                
-                                lRender.LoadCharacter(5,150,350,1);
-                                break;
-                            case 3:
-                                lRender.UpdateCharacterOnScreen((int)lNewPlayerCharacter->GetCharacterNameNumber(), 3);
-                                break;
-
-                            }
-                      //     lRender.UpdateCharacterOnScreen((int)lNewPlayerCharacter->GetCharacterNameNumber(), 2);
-                            
-                          //  lRender.UpdateCharacterOnScreen(lNewEnemyCharacter->GetCharacterNameNumber(), 4);
+                            lNewEnemyCharacter = *(lGameState->GetEnemyCharacter());
+                            lRender.UpdateCharacterOnScreen((int)lNewEnemyCharacter.GetCharacterNameNumber(), 5);        
+                            lEnemyIndex++;                    
                             lIsCharacterAdd = true;
-                        }
+                        }   
 
                         if(lArena_Number != lGameState->GetArenaNumber()){ // If arena change
                             lArena_Number = lGameState->GetArenaNumber(); // Get new arena number
@@ -219,7 +208,7 @@ bool runFunctionCalled = true;
                 lRenderClock.restart();
             }
             lPlayerCursor.GetPositionCursor(rWindow);
-            lRender.draw(rWindow, 0, lGameStatus);
+            lRender.draw(rWindow, lEnemyIndex, lGameStatus);
                 
             rWindow.display();
             

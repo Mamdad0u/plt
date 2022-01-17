@@ -10,15 +10,20 @@ namespace render {
     render::RenderLayer::RenderLayer(){
         mPlayerCharactersSurface.reserve(10);
         mArenaEnemySurface.reserve(4);
-
+        mBackgroundSurface = new BackgroundSurface;
     }
 
     render::RenderLayer::RenderLayer(engine::EngineObserver* rNewObserver){
-        mPlayerCharactersSurface.reserve(1000);
+        CharacterSurface* lInit_SpritePlayerCharacter;
+        mPlayerCharactersSurface.reserve(5);
         mArenaEnemySurface.reserve(4);
         AddEngineObserver(rNewObserver);
         mBackgroundSurface = new BackgroundSurface;
         
+        for(int i=0;i<5;i++){
+            lInit_SpritePlayerCharacter = new CharacterSurface;
+            mPlayerCharactersSurface.push_back(*(lInit_SpritePlayerCharacter));
+        }
     }
     
     int render::RenderLayer::LoadBackground(int lArenaNumber){
@@ -52,10 +57,10 @@ namespace render {
 
     }
 
-    int render::RenderLayer::LoadCharacter(int rCharacterSelected, int rX, int rY, int rSide){
+    int render::RenderLayer::LoadCharacter(int rCharacterPosition, int rSpriteCharacter, int rX, int rY, int rSide){
         CharacterSurface* lCharactertoAdd = new CharacterSurface;
         int lLastCharacterPosition = mPlayerCharactersSurface.size();
-        string lCharacterString = "sprites/Character" + to_string(rCharacterSelected);
+        string lCharacterString = "sprites/Character" + to_string(rSpriteCharacter);
         
         lCharacterString = lCharacterString + ".png";
 
@@ -63,16 +68,18 @@ namespace render {
         
        // mPlayerCharactersSurface.push_back(*(new Surface));
         
-        if(lCharactertoAdd->LoadCharacterSprite(lCharacterString, rX, rY, rSide)== -1){
+        if(mPlayerCharactersSurface[rCharacterPosition].LoadCharacterSprite(lCharacterString, rX, rY, rSide)== -1){
             cout << "ERROR : Failed to load character " << endl;
             return -1;
         }
 
-        mPlayerCharactersSurface.push_back(*(lCharactertoAdd));
+    //    mPlayerCharactersSurface.push_back(*(lCharactertoAdd));
 
-        mPlayerCharactersSurface[lLastCharacterPosition].SetCharacterAnimation(0);
+        mPlayerCharactersSurface[rCharacterPosition].SetCharacterAnimation(0);
         
         
+
+
        
 
         return 0;
@@ -90,29 +97,34 @@ namespace render {
 
             /**
              * @brief Les case {0..3} concernent les charactères du joueur
-             * Le 4ème est pour le charactere enemy
+             * Le 5ème est pour le charactere enemy
              * 
              */
-        case 0:
-            LoadCharacter(rSpriteNumber,250,250,1);
+        case 1:
+            LoadCharacter(1, rSpriteNumber,250,250,1);
+            mPlayerCharacterTeamSize++;
             break;
         
-        case 1:
-            LoadCharacter(rSpriteNumber,200,300,1);
-            break;
-
         case 2:
-            LoadCharacter(rSpriteNumber,150,350,1);
+            LoadCharacter(2, rSpriteNumber,200,300,1);
+            mPlayerCharacterTeamSize++;
             break;
 
         case 3:
-            LoadCharacter(rSpriteNumber,100,400,1);
+            LoadCharacter(3, rSpriteNumber,150,350,1);
+            mPlayerCharacterTeamSize++;
             break;
 
         case 4:
+            LoadCharacter(4, rSpriteNumber,100,400,1);
+            mPlayerCharacterTeamSize++;
+            break;
+
+        case 5:
             LoadEnemy(rSpriteNumber,600,325,0);
             break;
         }
+
 
         
     }
@@ -218,9 +230,9 @@ namespace render {
         }
         
         rWindow.draw(mUI);
-        for(size_t i=0;i<mPlayerCharactersSurface.size();i++){
+        for(int i=1;i<mPlayerCharacterTeamSize+1;i++){
             mPlayerCharactersSurface[i].DrawSurface(rWindow);
-
+            
 
         }
 
