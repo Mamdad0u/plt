@@ -227,7 +227,7 @@ BOOST_AUTO_TEST_CASE(TestCommand){
 
 
     int valeur_exacte=27;
-    /*
+    
     if (PVLost>50){
       
       BOOST_CHECK_EQUAL(PVLost,valeur_exacte*2);
@@ -235,7 +235,7 @@ BOOST_AUTO_TEST_CASE(TestCommand){
     if(PVLost<50){
       BOOST_CHECK_EQUAL(PVLost,valeur_exacte);
     }
-    */
+    
 
    int i;
    int count=0;
