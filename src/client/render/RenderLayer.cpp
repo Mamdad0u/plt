@@ -97,7 +97,7 @@ namespace render {
 
             /**
              * @brief Les case {0..3} concernent les charactères du joueur
-             * Le 5ème est pour le charactere enemy
+             * Le ème est pour le charactere enemy
              * 
              */
         case 1:
@@ -220,6 +220,11 @@ namespace render {
         
     }
 
+    void render::RenderLayer::UnloadPlayerSpriteCharacter(int rCharacterIndex){
+        mPlayerCharacterTeamSize--;
+
+    }
+
     void render::RenderLayer::draw(sf::RenderWindow& rWindow, int rEnemyIndex, state::CombatStatus rGameStatus){
         mBackgroundSurface->DrawSurface(rWindow);
 
@@ -230,7 +235,7 @@ namespace render {
         }
         
         rWindow.draw(mUI);
-        for(int i=1;i<mPlayerCharacterTeamSize+1;i++){
+        for(int i=1;i<=mPlayerCharacterTeamSize;i++){
             mPlayerCharactersSurface[i].DrawSurface(rWindow);
             
 

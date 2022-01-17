@@ -68,6 +68,7 @@ bool runFunctionCalled = true;
         int lPlayerCharacterPosition = 0;
         int lMovingProgress = 0;
         int lTurn = 0;
+        int lLastCharacterDied_Index = 0;
         bool lIsCharacterAdd;
         bool lIsInitiated = false;
         static int lArena_Number = 1;
@@ -165,7 +166,7 @@ bool runFunctionCalled = true;
                      */
                         lRender.DEBUG_SetRenderState(RENDER_PROCESSING);
                         lPlayerCharacterPosition = lGameState->GetPlayerRosterSize();
-                        
+
                       //  cout << "Player roster size = " << lPlayerCharacterPosition << endl;
 
                         if((!lIsCharacterAdd) && lGameState->GetPlayerRosterSize() < lGameState->MAX_CHARACTER+1){/**
@@ -196,12 +197,23 @@ bool runFunctionCalled = true;
                         }
 
                         break;
-                
-                            
 
             }
 
             
+            /**
+             * @brief Next lines verify if one of the character of the played died, in order to not render it anymore
+             * 
+             */
+            lLastCharacterDied_Index = lGameState->GetLastPlayerCharacterDied();
+
+            if(lLastCharacterDied_Index != -1){
+                lRender.UnloadPlayerSpriteCharacter(lLastCharacterDied_Index);
+            }
+
+
+            
+
 
             if(lRenderClock.getElapsedTime().asSeconds() > 0.1f){
                 lRender.AnimateCharacters();
@@ -213,6 +225,7 @@ bool runFunctionCalled = true;
             rWindow.display();
             
         }
+
         EngineUpdating(); //Last engine update to execute GAME_OVER instruction (print record)
         runFunctionCalled = false;
         GameEngine_Thread.join(); // Stop game thread
