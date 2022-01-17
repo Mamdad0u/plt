@@ -105,7 +105,7 @@ BOOST_AUTO_TEST_CASE(TestRenderLayer){
   {
     RenderLayer lRender;
     sf::RenderWindow window(sf::VideoMode(800, 600, 32), "ENSEAi");
-    static int lArena_Number;
+    int lArena_Number = 1;
     lRender.LoadBackground(lArena_Number);
 
     lRender.LoadCharacter(1,250,250,1);
@@ -141,9 +141,9 @@ BOOST_AUTO_TEST_CASE(NewTestSurface){
     sf::RenderWindow window;
 
 
-    lSurface.LoadShape("Arena1.png",0,0);
-    lSurface.LoadCharacterSprite("Character1.png",0,0,0);
-    lSurface.LoadBackgroundSprite("Arena2.png");
+    lSurface.LoadShape("backgrounds/Arena1.png",0,0);
+    lSurface.LoadCharacterSprite("sprites/Character1.png",0,0,0);
+    lSurface.LoadBackgroundSprite("backgrounds/Arena2.png");
     lSurface.SetCharacterAnimation(0);
     lSurface.UpdateCharacterAnimation(1);
 

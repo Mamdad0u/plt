@@ -2,11 +2,7 @@
 #include "Character.h"
 #include <iostream>
 #include <fstream>
-//#include <jsoncpp/json/json.h>
-//#include <jsoncpp/json/value.h>
-
-#include </usr/local/include/json/json.h> //MacOS
-#include </usr/local/include/json/json.h> //MacOS
+#include <json/json.h>
 #include <string>
 
 using namespace std;
@@ -21,7 +17,12 @@ namespace state {
 
     }ActionContainer;
     void JSON_tools::JSON_Configure_Character (Character& rCharacter) {
-        std::ifstream ifs("res/JSON_files/statistics.json");
+        std::string filename = "res/JSON_files/statistics.json";
+        std::ifstream ifs(filename);
+        if (!ifs.is_open()) {
+            std::cout << "failed to open " << filename << '\n';
+            throw std::runtime_error("File not found! (" + filename + ")");
+        }
         string lAction_Name[] = {"ACTION_1", "ACTION_2", "ACTION_3", "ACTION_4"};
         string lAction_Type[] = {"ATTACK_1", "ATTACK_2", "SPELL_1", "SPELL_2"};
         Json::Reader reader;
