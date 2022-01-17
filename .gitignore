@@ -6,10 +6,10 @@ nbproject
 src/*/*.h
 src/*/*/*.h
 .idea
-<<<<<<< HEAD
 *.autosave
-.vscode/
+.vscode/c_cpp_properties.json
+.vscode/configurationCache.log
+.vscode/dryrun.log
+.vscode/targets.log
 .vscode/launch.json
-=======
-*.autosave
->>>>>>> 670e6c8504b1e6739934b7c95b669947e1dd986d
+*.Identifier
