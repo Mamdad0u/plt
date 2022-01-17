@@ -1,15 +1,14 @@
-#include <state/Character.h>  // Included from library shared_static
 #include "Character.h"
 #include <iostream>
+#include <state/Character.h> // Included from library shared_static
 
 using namespace std;
 
 namespace state {
 
-state::Character::Character(){
-    mCharacterStatusStringMap[ALIVE] = "ALIVE";
-    mCharacterStatusStringMap[DEAD] = "DEAD";
-
+state::Character::Character() {
+  mCharacterStatusStringMap[ALIVE] = "ALIVE";
+  mCharacterStatusStringMap[DEAD] = "DEAD";
 }
 
 state::Character::Character(CharacterName rCharacterName) {
@@ -79,71 +78,59 @@ CharacterName state::Character::GetCharacterNameNumber(){
 }
 
 void state::Character::SetCharacterStats(StatsName rStatsName, int rValue) {
-    switch (rStatsName)
-    {
-    case MAX_LIFE_POINTS:
-        mCharacterStats.Set_max_life_points(rValue);
-        break;
+  switch (rStatsName) {
+  case MAX_LIFE_POINTS:
+    mCharacterStats.Set_max_life_points(rValue);
+    break;
 
-    case LIFE_POINTS:
-        mCharacterStats.Set_life_points(rValue);
-        break;
+  case LIFE_POINTS:
+    mCharacterStats.Set_life_points(rValue);
+    break;
 
-    case ATTACK:
-        mCharacterStats.Set_attack(rValue);
-        break;
+  case ATTACK:
+    mCharacterStats.Set_attack(rValue);
+    break;
 
-    case POWER:
-        mCharacterStats.Set_power(rValue);
-        break;
-    
-    case DEFENSE:
-        mCharacterStats.Set_defense(rValue);
-        break;
+  case POWER:
+    mCharacterStats.Set_power(rValue);
+    break;
 
-    case LUCK:
-        mCharacterStats.Set_luck(rValue);
-        break;
-        
-    default:
-        break;
-    }  
+  case DEFENSE:
+    mCharacterStats.Set_defense(rValue);
+    break;
+
+  case LUCK:
+    mCharacterStats.Set_luck(rValue);
+    break;
+
+  default:
+    break;
+  }
 }
 
 int state::Character::GetCharacterStats(StatsName rStatsName) {
-    switch (rStatsName)
-    {
-    case MAX_LIFE_POINTS:
-        return this->mCharacterStats.Get_max_life_points();
-        break;
+  switch (rStatsName) {
+  case MAX_LIFE_POINTS:
+    return this->mCharacterStats.Get_max_life_points();
 
-    case LIFE_POINTS:
-        return this->mCharacterStats.Get_life_points();
-        break;
+  case LIFE_POINTS:
+    return this->mCharacterStats.Get_life_points();
 
-    case ATTACK:
-        return this->mCharacterStats.Get_attack();
-        break;
+  case ATTACK:
+    return this->mCharacterStats.Get_attack();
 
-    case POWER:
-        return this->mCharacterStats.Get_power();
-        break;
-    
-    case DEFENSE:
-        return this->mCharacterStats.Get_defense();
-        break;
+  case POWER:
+    return this->mCharacterStats.Get_power();
 
-    case LUCK:
-        return this->mCharacterStats.Get_luck();
-        break;
+  case DEFENSE:
+    return this->mCharacterStats.Get_defense();
 
-        
-    default:
-        break;
-    } 
+  case LUCK:
+    return this->mCharacterStats.Get_luck();
 
-
-
+  default:
+    return -1;
+  }
 }
 
 void state::Character::SetCharacterAction(ActionListCommand rAction, int rDamageValue, StatsName rStatsBuffName, int rStatsBuffValue, BuffType rBeneficial){
@@ -167,54 +154,43 @@ void state::Character::SetCharacterAction(ActionListCommand rAction, int rDamage
     }
 }
 
-Major state::Character::GetMajor() {
-    return this->mCharacterMajor;
+ActionList* state::Character::GetActionList(){
+    return &mCharacterAction;
 }
 
+Major state::Character::GetMajor() { return this->mCharacterMajor; }
 
-void state::Character::SetCharacterStatus(CharacterStatus rNewStatus){
-    cout << this->mName << " is now " <<  mCharacterStatusStringMap[rNewStatus] << endl;
-    this->mCharacterStatus = rNewStatus;
-
+void state::Character::SetCharacterStatus(CharacterStatus rNewStatus) {
+  if(mDebugInfo){
+    cout << this->mName << " is now " << mCharacterStatusStringMap[rNewStatus] << endl;
+  }
+  
+  this->mCharacterStatus = rNewStatus;
 }
 
-CharacterStatus state::Character::GetCharacterStatus(){
+CharacterStatus state::Character::GetCharacterStatus() {
 
-    return this->mCharacterStatus;
-
+  return this->mCharacterStatus;
 }
 
+Action *state::Character::GetAction(ActionListCommand rActionType) {
+  switch (rActionType) {
+  case ATTACK_1:
+    return this->mCharacterAction.GetAttack(1);
+    break;
 
-Action* state::Character::GetAction(ActionListCommand rActionType){
-    switch (rActionType)
-    {
-    case ATTACK_1:
-        return this->mCharacterAction.GetAttack(1);
-        break;
-    
-    case ATTACK_2:
-        return this->mCharacterAction.GetAttack(2);
-        break;
+  case ATTACK_2:
+    return this->mCharacterAction.GetAttack(2);
+    break;
 
-    case SPELL_1:
-        return this->mCharacterAction.GetSpell(1);
-        break;
-    
-    case SPELL_2:
-        return this->mCharacterAction.GetSpell(2);
-        break;
+  case SPELL_1:
+    return this->mCharacterAction.GetSpell(1);
+    break;
 
-    }
-
-    
+  case SPELL_2:
+    return this->mCharacterAction.GetSpell(2);
+    break;
+  }
 }
 
-
-
-    
-
-
-
-
-
-}
+} // namespace state

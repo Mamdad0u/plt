@@ -42,7 +42,15 @@ int Stats::Get_attack() {
 
 void Stats::Set_attack(int rValue) {
     this->mAttack = rValue;
-}
+
+    if(mAttack > MAX_ATTACK){
+        this->mAttack = MAX_ATTACK;
+    }
+
+    if(mAttack < 0){
+        this->mAttack = 0;
+    }
+}   
 
 int Stats::Get_power() {
     return this->mPower;
@@ -71,8 +79,12 @@ int Stats::Get_luck() {
 void Stats::Set_luck(int rValue) {
     this->mLuck = rValue;
 
-    if(mLuck > 25){
-        mLuck = 25;
+    if(mLuck > MAX_LUCK){
+        mLuck = MAX_LUCK;
+    }
+
+    if(mLuck < 0){
+        mLuck = 0;
     }
 }
 

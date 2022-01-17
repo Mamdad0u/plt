@@ -27,5 +27,9 @@ void state::Element::setMName(const std::string& nName) {
     
 }
 
+void state::Element::SetDebugInfo(bool rValue){
+    mDebugInfo = rValue;
+}
+
 
 }

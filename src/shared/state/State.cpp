@@ -9,14 +9,17 @@ namespace state {
     
 
 
+
 State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
     
     mPlayerStatusStringMap[PLAYER_TURN] = "PLAYER TURN";
-    mPlayerStatusStringMap[IA_TURN] = "IA TURN";
-    
+    mPlayerStatusStringMap[IA_MIN_TURN] = "IA MIN TURN";
+    mPlayerStatusStringMap[IA_MAX_TURN] = "IA MAX TURN";
+
     mCombatStatusStringMap[IN_COMBAT] = "IN_COMBAT";
     mCombatStatusStringMap[OUT_COMBAT] = "OUT_COMBAT";
     mCombatStatusStringMap[GAME_OVER] = "GAME_OVER";
+    mCombatStatusStringMap[RENDER_PROCESSING] = "RENDER_PROCESSING";
 
     this->mCombatStatus = rCombatStatus;
     this->mPlayerStatus = rPlayerStatus;
@@ -28,7 +31,13 @@ State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
 
 
 void State::MoveNextCombat() {
+
     this->mCombatNumber++;
+
+}
+
+void State::ResetCombatNumber(){
+    this->mCombatNumber = 1;
 }
 
 void State::MoveNextTurn(){
@@ -43,9 +52,22 @@ int State::GetCombatNumber(){
     return this->mCombatNumber;
 }
 
+int State::GetArenaNumber(){
+    return this->mArenaNumber;
+}
+
+int State::GetCombatPerArena(){
+    return this->mCombatPerArena[mArenaNumber-1];
+}
+
+
 void State::SetCombatState(CombatStatus rNewCombatState) {
     this->mCombatStatus = rNewCombatState;
-    cout << "Game is now in " << mCombatStatusStringMap[mCombatStatus] << " state" << endl;;
+
+    if(mDebugInfo){
+        cout << "Game is now in " << mCombatStatusStringMap[mCombatStatus] << " state" << endl;
+    }
+
 }
 
 CombatStatus State::GetCombatState(){
@@ -59,22 +81,29 @@ Player_Status State::GetPlayerStatus(){
 void State::SetPlayerStatus(Player_Status rNewPlayerStatus){
 
     this->mPlayerStatus = rNewPlayerStatus;
-    cout << endl;
-    cout << "************ IT IS NOW " << mPlayerStatusStringMap[mPlayerStatus] << " ! ************" << endl;
+    if(mDebugInfo){
+        cout << endl;
+        cout << "************ IT IS NOW " << mPlayerStatusStringMap[mPlayerStatus] << " ! ************" << endl;
+    }
 }
 
 
 void State::GoToNextArena() {
     this->mArenaNumber++;
+    if(mDebugInfo){
+        cout << "*** NEW ARENA : ARENA " << mArenaNumber << " ***" << endl;
+    }
 }
 
 void State::AddPlayerCharacter(CharacterName rNewCharacter) {
     Character lNewCharacter(rNewCharacter);
     JSON.JSON_Configure_Character(lNewCharacter);
     
-    
+    lNewCharacter.SetDebugInfo(mDebugInfo);
     mPlayersCharacters.push_back(lNewCharacter);
-    cout << lNewCharacter.GetName() << " has joined the player team !" << endl;
+    if(mDebugInfo){
+        cout << lNewCharacter.GetName() << " has joined the player team !" << endl;
+    }
 }
 
 void State::AddEnemyCharacter(CharacterName rNewCharacter){
@@ -86,8 +115,9 @@ void State::AddEnemyCharacter(CharacterName rNewCharacter){
     }
     
     mEnemyCharacters.push_back(lNewCharacter);
-    cout << lNewCharacter.GetName() << " has joined the enemy team !" << endl;
-
+    if(mDebugInfo){
+        cout << lNewCharacter.GetName() << " has joined the enemy team !" << endl;
+    }
 }
 
 Character* State::GetActivePlayerCharacter(){
@@ -99,6 +129,11 @@ Character* State::GetActivePlayerCharacter(){
     }
 
 }
+
+Character* State::GetPlayerCharacter(int lCharacterPosition){
+    return &mPlayersCharacters[lCharacterPosition];
+}
+
 
 Character* State::GetEnemyCharacter(){
     return &this->mEnemyCharacters[0];
@@ -125,16 +160,13 @@ void State::MoveActivePlayer(){
 
 /*     if((mActivePlayerCharacter < mPlayersCharacters.size()-1) && (mActivePlayerCharacter < MAX_CHARACTER)){
         mActivePlayerCharacter++;
-
         if((mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() == DEAD)  && mActivePlayerCharacter < mPlayersCharacters.size()){
             mActivePlayerCharacter++;
         }
-
         else if((mActivePlayerCharacter == mPlayersCharacters.size()) || (mPlayersCharacters[mActivePlayerCharacter].GetCharacterStatus() == DEAD)){
             mActivePlayerCharacter = 0;
         }
     }
-
     else{
         mActivePlayerCharacter = 0;
     }
@@ -143,9 +175,19 @@ void State::MoveActivePlayer(){
 
 void State::SetAlivePlayer(){
 
-    for(int i=0;i<mPlayersCharacters.size();i++){
-        if((mPlayersCharacters[i].GetCharacterStats(LIFE_POINTS) == 0) && (mPlayersCharacters[i].GetCharacterStatus() != DEAD)){
-            mPlayersCharacters[i].SetCharacterStatus(DEAD);
+    for(int index=0;index<mPlayersCharacters.size();index++){
+        /*Looking for every characters in player team if one is dead*/
+        if((mPlayersCharacters[index].GetCharacterStats(LIFE_POINTS) == 0) && (mPlayersCharacters[index].GetCharacterStatus() != DEAD)){
+            mPlayersCharacters[index].SetCharacterStatus(DEAD);
+
+            if(index == mActivePlayerCharacter){ /**
+                * @brief If the active player is dead.
+                * Avoid a bug if IA kill a player character and mActivePlayerCharacter not refresh for next player command
+                */
+                MoveActivePlayer();
+            }
+            
+
         }
     }
 }
@@ -160,20 +202,18 @@ void State::SetAliveEnemy(){
     }
 }
 
-bool State::GetAlivePlayer(){
-    int lDeadCharacter = 0;
+int State::GetAlivePlayer(){
+    int lAliveCharacter = 0;
 
     for(int i=0;i<mPlayersCharacters.size();i++){
-        if(mPlayersCharacters[i].GetCharacterStatus() == DEAD){
-            lDeadCharacter++;
+        if(mPlayersCharacters[i].GetCharacterStatus() == ALIVE){
+            lAliveCharacter++;
         }
     }
 
-    if(lDeadCharacter == mPlayersCharacters.size()){
-        return false;
-    }
 
-    return true;
+
+    return lAliveCharacter;
 
 }
 
@@ -202,6 +242,18 @@ int State::GetEnemyRosterSize(){
     return this->mEnemyCharacters.size();
 }
 
+void State::SetDebugInfo(bool rValue){
+    mDebugInfo = rValue;
 
+    /*Update debug info value for all characters*/
+
+    for(int i=0;i<mPlayersCharacters.size();i++){
+        mPlayersCharacters[i].SetDebugInfo(rValue);
+    }
+
+    for(int i=0;i<mEnemyCharacters.size();i++){
+        mEnemyCharacters[i].SetDebugInfo(rValue);
+    }
+}
 
 }

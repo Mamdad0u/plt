@@ -1,4 +1,4 @@
-#include <state/JSON_tools.h>
+#include "JSON_tools.h"
 #include "Character.h"
 #include <iostream>
 #include <fstream>
@@ -12,6 +12,7 @@ namespace state {
     typedef struct ActionContainer{
         int damage;
         StatsName stat;
+        ActionListCommand type;
         int beneficial;
         int buff;
 
@@ -19,6 +20,7 @@ namespace state {
     void JSON_tools::JSON_Configure_Character (Character& rCharacter) {
         std::ifstream ifs("res/JSON_files/statistics.json");
         string lAction_Name[] = {"ACTION_1", "ACTION_2", "ACTION_3", "ACTION_4"};
+        string lAction_Type[] = {"ATTACK_1", "ATTACK_2", "SPELL_1", "SPELL_2"};
         Json::Reader reader;
         Json::Value obj;
         ActionContainer lActionList[4];
@@ -30,14 +32,15 @@ namespace state {
         int newPOWER = obj["Statistics"][rCharacter.GetName()]["POWER"].asInt();
         int newDEFENSE = obj["Statistics"][rCharacter.GetName()]["DEFENSE"].asInt();
         int newLUCK = obj["Statistics"][rCharacter.GetName()]["LUCK"].asInt();
+        int capacityNumber = obj["Statistics"][rCharacter.GetName()]["CAPACITY_NUMBER"].asInt();
 
-        for(int lIndex_Action=0;lIndex_Action<4; lIndex_Action++){
+        for(int lIndex_Action=0;lIndex_Action<capacityNumber; lIndex_Action++){
         
             for(int lStatToGet =0;lStatToGet<4;lStatToGet++){
                 switch (lStatToGet)
                 {
                 case 0:
-                    lActionList[lIndex_Action].damage = obj["Statistics"][rCharacter.GetName()][lAction_Name[lIndex_Action]]["DAMAGE"].asInt();
+                    lActionList[lIndex_Action].damage = obj["Statistics"][rCharacter.GetName()][lAction_Name[lIndex_Action]]["DAMAGE"].asInt();               
                     break;
                 
                 case 1:
@@ -52,26 +55,28 @@ namespace state {
                     lActionList[lIndex_Action].beneficial = (StatsName)obj["Statistics"][rCharacter.GetName()][lAction_Name[lIndex_Action]]["BENEFICIAL"].asInt();
                     break;
                 }
-
-                switch (lIndex_Action)
+            }
+                lActionList[lIndex_Action].type =  (ActionListCommand)obj["Statistics"][rCharacter.GetName()][lAction_Name[lIndex_Action]]["TYPE"].asInt();
+                
+                switch (lActionList[lIndex_Action].type)
                 {
-                case 0:
-                    rCharacter.SetCharacterAction(ATTACK_1, lActionList[0].damage, lActionList[0].stat, lActionList[0].buff, (BuffType)lActionList[0].beneficial);
+                case ATTACK_1:
+                    rCharacter.SetCharacterAction(ATTACK_1, lActionList[lIndex_Action].damage, lActionList[lIndex_Action].stat, lActionList[lIndex_Action].buff, (BuffType)lActionList[lIndex_Action].beneficial);
                     break;
 
-                case 1:
-                    rCharacter.SetCharacterAction(ATTACK_2, lActionList[1].damage, lActionList[1].stat, lActionList[1].buff, (BuffType)lActionList[1].beneficial);
+                case ATTACK_2:
+                    rCharacter.SetCharacterAction(ATTACK_2, lActionList[lIndex_Action].damage, lActionList[lIndex_Action].stat, lActionList[lIndex_Action].buff, (BuffType)lActionList[lIndex_Action].beneficial);
                     break;
 
-                case 2:
-                    rCharacter.SetCharacterAction(SPELL_1, lActionList[2].damage, lActionList[2].stat, lActionList[2].buff, (BuffType)lActionList[2].beneficial);
+                case SPELL_1:
+                    rCharacter.SetCharacterAction(SPELL_1, lActionList[lIndex_Action].damage, lActionList[lIndex_Action].stat, lActionList[lIndex_Action].buff, (BuffType)lActionList[lIndex_Action].beneficial);
                     break;
 
-                case 3:
-                    rCharacter.SetCharacterAction(SPELL_2, lActionList[3].damage, lActionList[3].stat, lActionList[3].buff, (BuffType)lActionList[3].beneficial);
+                case SPELL_2:
+                    rCharacter.SetCharacterAction(SPELL_2, lActionList[lIndex_Action].damage, lActionList[lIndex_Action].stat, lActionList[lIndex_Action].buff, (BuffType)lActionList[lIndex_Action].beneficial);
                     break;
                 }
-            }
+            
 
 
         }
@@ -91,4 +96,3 @@ namespace state {
 
 
 }
-
