@@ -62,7 +62,44 @@ BOOST_AUTO_TEST_CASE(TestAction){
 
 BOOST_AUTO_TEST_CASE(TestActionList){
   {
-    
+    ActionList UT_ActionList;
+
+    BOOST_CHECK_EQUAL(UT_ActionList.GetAttack(1)->GetDamage(),0);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetAttack(2)->GetDamage(),0);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetSpell(1)->GetDamage(),0);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetSpell(2)->GetDamage(),0);
+
+    BOOST_CHECK_EQUAL(UT_ActionList.GetAttack(1)->GetStatBuffValue(),0);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetAttack(2)->GetStatBuffValue(),0);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetSpell(1)->GetStatBuffValue(),0);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetSpell(2)->GetStatBuffValue(),0);
+
+    UT_ActionList.SetAttack(1,42,ATTACK,10,BENEFICIAL_ATTACKER);
+    UT_ActionList.SetAttack(2,44,LUCK,1,NEGATIVE_ATTACKER);
+
+    UT_ActionList.SetSpell(1,50,POWER,20,BENEFICIAL_TEAM);
+    UT_ActionList.SetSpell(2,45,LIFE_POINTS,2,NEGATIVE_ATTACKER);
+
+    BOOST_CHECK_EQUAL(UT_ActionList.GetAttack(1)->GetDamage(),42);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetAttack(2)->GetDamage(),44);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetSpell(1)->GetDamage(),50);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetSpell(2)->GetDamage(),45);
+
+    BOOST_CHECK_EQUAL(UT_ActionList.GetAttack(1)->GetStatBuffValue(),10);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetAttack(2)->GetStatBuffValue(),1);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetSpell(1)->GetStatBuffValue(),20);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetSpell(2)->GetStatBuffValue(),2);
+
+    BOOST_CHECK_EQUAL(UT_ActionList.GetAttack(1)->GetStatBuffName(),ATTACK);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetAttack(2)->GetStatBuffName(),LUCK);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetSpell(1)->GetStatBuffName(),POWER);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetSpell(2)->GetStatBuffName(),LIFE_POINTS);
+
+    BOOST_CHECK_EQUAL(UT_ActionList.GetAttack(1)->GetBuffBeneficial(),BENEFICIAL_ATTACKER);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetAttack(2)->GetBuffBeneficial(),NEGATIVE_ATTACKER);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetSpell(1)->GetBuffBeneficial(),BENEFICIAL_TEAM);
+    BOOST_CHECK_EQUAL(UT_ActionList.GetSpell(2)->GetBuffBeneficial(),NEGATIVE_ATTACKER);
+   
   }
 }
 BOOST_AUTO_TEST_CASE(TestCharacter) 
