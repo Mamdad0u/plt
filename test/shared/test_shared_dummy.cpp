@@ -102,6 +102,7 @@ BOOST_AUTO_TEST_CASE(TestActionList){
    
   }
 }
+
 BOOST_AUTO_TEST_CASE(TestCharacter) 
 {
   {
@@ -152,6 +153,45 @@ BOOST_AUTO_TEST_CASE(TestCharacter)
     
     
     
+  }
+}
+
+BOOST_AUTO_TEST_CASE(TestJSON_Tools){
+  {
+    Character UT_Character(IS);
+    JSON_tools JSON;
+
+    JSON.JSON_Configure_Character(UT_Character);
+
+    BOOST_CHECK_EQUAL(UT_Character.GetMajor(), INFO);
+    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStatus(), ALIVE);
+    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStats(ATTACK), 140);
+    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStats(DEFENSE), 80); 
+    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStats(LUCK), 5); 
+    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStats(POWER), 140); 
+    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStats(LIFE_POINTS), 80); 
+    BOOST_CHECK_EQUAL(UT_Character.GetCharacterStats(MAX_LIFE_POINTS), 100);
+
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_1)->GetDamage(),80);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_2)->GetDamage(),65);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_1)->GetDamage(),80);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_2)->GetDamage(),65);
+
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_1)->GetStatBuffName(),0);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_2)->GetStatBuffName(),POWER);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_1)->GetStatBuffName(),0);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_2)->GetStatBuffName(),ATTACK);
+
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_1)->GetStatBuffValue(),0);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_2)->GetStatBuffValue(),20);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_1)->GetStatBuffValue(),0);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_2)->GetStatBuffValue(),20);
+
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_1)->GetBuffBeneficial(),0);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(ATTACK_2)->GetBuffBeneficial(),BENEFICIAL_ATTACKER);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_1)->GetBuffBeneficial(),0);
+    BOOST_CHECK_EQUAL(UT_Character.GetAction(SPELL_2)->GetBuffBeneficial(),BENEFICIAL_ATTACKER);
+
   }
 }
 
