@@ -107,15 +107,14 @@ BOOST_AUTO_TEST_CASE(TestRenderLayer){
     sf::RenderWindow window(sf::VideoMode(800, 600, 32), "ENSEAi");
     int lArena_Number = 1;
     lRender.LoadBackground(lArena_Number);
+    lRender.UpdateCharacterOnScreen(1,1);
+    lRender.UpdateCharacterOnScreen(5,2);
+    lRender.UpdateCharacterOnScreen(10,3);
+    lRender.UpdateCharacterOnScreen(7,4);
 
-    lRender.LoadCharacter(1,250,250,1);
-    lRender.LoadCharacter(2,200,300,1);
-    lRender.LoadCharacter(5,150,350,1);
-    lRender.LoadCharacter(7,100,400,1);
-    lRender.LoadEnemy(1, 600,325,0);
-    lRender.LoadEnemy(3,600,325,0);
-    lRender.LoadEnemy(1,600,325,0);
-    lRender.LoadEnemy(2,600,325,0);
+
+    lRender.UpdateCharacterOnScreen(3,5);
+
     lRender.AnimateCharacters();
     lRender.GoNextCombat(window);
     lRender.GoNextArena();
@@ -123,7 +122,7 @@ BOOST_AUTO_TEST_CASE(TestRenderLayer){
     lRender.UpdateCharacterOnScreen(1,1);
     lRender.LoadUI();
 
-    lRender.draw(window,1,IN_COMBAT);          
+    lRender.draw(window,0,IN_COMBAT);          
   }
 }
 
@@ -137,23 +136,24 @@ BOOST_AUTO_TEST_CASE(TestRenderObserver){
 
 BOOST_AUTO_TEST_CASE(NewTestSurface){
   {
-    render::Surface lSurface;
+    render::BackgroundSurface lBackgroundSurface;
+    render::CharacterSurface lCharacterSurface;
     sf::RenderWindow window;
 
 
-    lSurface.LoadShape("backgrounds/Arena1.png",0,0);
-    lSurface.LoadCharacterSprite("sprites/Character1.png",0,0,0);
-    lSurface.LoadBackgroundSprite("backgrounds/Arena2.png");
-    lSurface.SetCharacterAnimation(0);
-    lSurface.UpdateCharacterAnimation(1);
+    lBackgroundSurface.LoadShape("backgrounds/Arena1.png",0,0);
+    lCharacterSurface.LoadCharacterSprite("sprites/Character1.png",0,0,0);
+    lBackgroundSurface.LoadBackgroundSprite("backgrounds/Arena2.png");
+    lCharacterSurface.SetCharacterAnimation(0);
+    lCharacterSurface.UpdateCharacterAnimation(1);
 
-    lSurface.MoveBackgroundView(window,0);
-    lSurface.MoveCharacterSprite();
-    lSurface.ResetSpritePosition(0);
-    lSurface.ResetViewPosition();
+    lBackgroundSurface.MoveBackgroundView(window,0);
+    lCharacterSurface.MoveCharacterSprite();
+    lCharacterSurface.ResetPosition(0);
+    lBackgroundSurface.ResetViewPosition();
 
-    lSurface.DrawSprite(window);
-
+    lCharacterSurface.DrawSurface(window);
+    lBackgroundSurface.DrawSurface(window);
 
   }
 }

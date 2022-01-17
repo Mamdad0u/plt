@@ -179,6 +179,7 @@ void State::SetAlivePlayer(){
         /*Looking for every characters in player team if one is dead*/
         if((mPlayersCharacters[index].GetCharacterStats(LIFE_POINTS) == 0) && (mPlayersCharacters[index].GetCharacterStatus() != DEAD)){
             mPlayersCharacters[index].SetCharacterStatus(DEAD);
+            mLastCharactedDiedIndex = index;
 
             if(index == mActivePlayerCharacter){ /**
                 * @brief If the active player is dead.
@@ -198,6 +199,7 @@ void State::SetAliveEnemy(){
     for(int i=0;i<mEnemyCharacters.size();i++){
         if(mEnemyCharacters[i].GetCharacterStats(LIFE_POINTS) == 0){
             mEnemyCharacters[i].SetCharacterStatus(DEAD);
+            
         }
     }
 }
@@ -254,6 +256,18 @@ void State::SetDebugInfo(bool rValue){
     for(int i=0;i<mEnemyCharacters.size();i++){
         mEnemyCharacters[i].SetDebugInfo(rValue);
     }
+}
+
+/**
+ * @brief Return the index of the last player characted died during turn
+ * 
+ * @return int -1 if no player charcter died during turb, else index of the died player character
+ */
+int state::State::GetLastPlayerCharacterDied(){
+    int lLastCharactedDiedIndex = mLastCharactedDiedIndex; // Save value for current turn
+
+    mLastCharactedDiedIndex = -1; // Reset for next turn
+    return lLastCharactedDiedIndex;
 }
 
 }

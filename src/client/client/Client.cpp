@@ -55,7 +55,7 @@ bool runFunctionCalled = true;
         State* lGameState = mGameEngine.GetGameState();
         CombatStatus lGameStatus = mGameEngine.GetGameStatus();
         Character* lNewPlayerCharacter;
-        Character* lNewEnemyCharacter;
+        Character lNewEnemyCharacter;
         DeepAI IA_1(5);
         DeepAI IA_2(5);
 
@@ -68,11 +68,13 @@ bool runFunctionCalled = true;
         int lPlayerCharacterPosition = 0;
         int lMovingProgress = 0;
         int lTurn = 0;
+        int lLastCharacterDied_Index = 0;
         bool lIsCharacterAdd;
         bool lIsInitiated = false;
         static int lArena_Number = 1;
+        int lEnemyIndex = 0;
         lRender.LoadUI();
-
+        
 
 
         thread GameEngine_Thread(ThreadEngine, &mGameEngine);
@@ -104,16 +106,18 @@ bool runFunctionCalled = true;
                             lNewPlayerCharacter = lGameState->GetActivePlayerCharacter();
                             lActivePlayerCharacterNumber = lNewPlayerCharacter->GetCharacterNameNumber();
                             lPlayerCharacterPosition = lGameState->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
-                            lNewEnemyCharacter = lGameState->GetEnemyCharacter();
-                            lActiveEnemyCharacterNumber = lNewEnemyCharacter->GetCharacterNameNumber();
+                            lNewEnemyCharacter = *(lGameState->GetEnemyCharacter());
+                            lActiveEnemyCharacterNumber = lNewEnemyCharacter.GetCharacterNameNumber();
 
                             lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
-                            lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
-                            lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
+                            lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition); // Sprite character joueur
+
+
+                            lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 5); // Sprite character enemy
                             lRender.NotifyEndRendering();
                             EngineUpdating();
                             lIsInitiated = true;
-                            }
+                        }
                         
                         break;
 
@@ -125,7 +129,7 @@ bool runFunctionCalled = true;
                         lIsCharacterAdd = false;
                         lRender.DEBUG_SetRenderState(IN_COMBAT);
 
-                        if(lGameClock.getElapsedTime().asSeconds() > 1.f){
+                        if(lGameClock.getElapsedTime().asSeconds() > 0){
                             if(lTurn%2 == 0){
                                 IA_1.GenerateDeepCommand(5); // Generate optimal command
                                 IA_1.ResetTree(); // Reset game tree for next turn
@@ -150,6 +154,7 @@ bool runFunctionCalled = true;
                      * @brief Compute game instruction when combat finished (add enemy character in player team)
                      * 
                      */
+                        lNewEnemyCharacter = *(lGameState->GetEnemyCharacter()); // Save Enemy character before it change
                         canRunEngine = true;
 
                         break;
@@ -160,18 +165,24 @@ bool runFunctionCalled = true;
                      * 
                      */
                         lRender.DEBUG_SetRenderState(RENDER_PROCESSING);
-                        
-                        if(!lIsCharacterAdd){/**
+                        lPlayerCharacterPosition = lGameState->GetPlayerRosterSize();
+
+                      //  cout << "Player roster size = " << lPlayerCharacterPosition << endl;
+
+                        if((!lIsCharacterAdd) && lGameState->GetPlayerRosterSize() < lGameState->MAX_CHARACTER+1){/**
                             * @brief Ne fonctionne plus au delà du combat 2, cf. #64
                             * 
                             */
-                            lPlayerCharacterPosition = lGameState->GetPlayerRosterSize() - 1; // Récupération de la taille de l'équipe du joueur
+                            
+                             // Récupération de la taille de l'équipe du joueur
                             lNewPlayerCharacter = lGameState->GetPlayerCharacter(lPlayerCharacterPosition);
-                            lNewEnemyCharacter = lGameState->GetEnemyCharacter();
-                            lRender.UpdateCharacterOnScreen((int)lNewPlayerCharacter->GetCharacterNameNumber(), lPlayerCharacterPosition);
-                            lRender.UpdateCharacterOnScreen(lNewEnemyCharacter->GetCharacterNameNumber(), 4);
+                            lRender.UpdateCharacterOnScreen((int)lNewEnemyCharacter.GetCharacterNameNumber(), lPlayerCharacterPosition);
+                            
+                            lNewEnemyCharacter = *(lGameState->GetEnemyCharacter());
+                            lRender.UpdateCharacterOnScreen((int)lNewEnemyCharacter.GetCharacterNameNumber(), 5);        
+                            lEnemyIndex++;                    
                             lIsCharacterAdd = true;
-                        }
+                        }   
 
                         if(lArena_Number != lGameState->GetArenaNumber()){ // If arena change
                             lArena_Number = lGameState->GetArenaNumber(); // Get new arena number
@@ -186,23 +197,35 @@ bool runFunctionCalled = true;
                         }
 
                         break;
-                
-                            
 
             }
 
             
+            /**
+             * @brief Next lines verify if one of the character of the played died, in order to not render it anymore
+             * 
+             */
+            lLastCharacterDied_Index = lGameState->GetLastPlayerCharacterDied();
+
+            if(lLastCharacterDied_Index != -1){
+                lRender.UnloadPlayerSpriteCharacter(lLastCharacterDied_Index);
+            }
+
+
+            
+
 
             if(lRenderClock.getElapsedTime().asSeconds() > 0.1f){
                 lRender.AnimateCharacters();
                 lRenderClock.restart();
             }
             lPlayerCursor.GetPositionCursor(rWindow);
-            lRender.draw(rWindow, 0, lGameStatus);
+            lRender.draw(rWindow, lEnemyIndex, lGameStatus);
                 
             rWindow.display();
             
         }
+
         EngineUpdating(); //Last engine update to execute GAME_OVER instruction (print record)
         runFunctionCalled = false;
         GameEngine_Thread.join(); // Stop game thread
