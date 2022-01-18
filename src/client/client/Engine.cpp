@@ -53,7 +53,6 @@ namespace client {
 
     void client::Engine::ResetEngine() {
 
-        //mCurrentState.ResetState(IN_COMBAT, PLAYER_TURN);
         
         int lIndex2 = 0;
         int lRandomPlayerCharacter;
