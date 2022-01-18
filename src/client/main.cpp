@@ -1,5 +1,5 @@
-#include <client.h>
-#include <client/WindowCursor.h>
+#include <engine.h>
+#include <engine/WindowCursor.h>
 #include <iostream>
 #include <render/RenderLayer.h>
 #include <stdio.h>
@@ -7,9 +7,11 @@
 #include <string.h>
 #include <unistd.h>
 #include <render/RenderLayer.h>
-#include <client.h>
+#include <engine.h>
 #include <ai.h>
-#include <client/WindowCursor.h>
+#include <engine/WindowCursor.h>
+#include <client.h>
+
 
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML
 // fonctionne
@@ -25,8 +27,9 @@ using namespace std;
 using namespace state;
 using namespace sf;
 using namespace render;
-using namespace client;
+using namespace engine;
 using namespace ai;
+using namespace client;
 
 int main(int argc,char* argv[]){
 
@@ -44,17 +47,17 @@ int main(int argc,char* argv[]){
             sf::Clock Input_Clock;
             RenderLayer lRender;
             sf:: Vector2i LocalPosition;
-            client::WindowCursor lCursor;
+            engine::WindowCursor lCursor;
             State GameStatus(IN_COMBAT, PLAYER_TURN);
             State Game_State(INITIALISATION, PLAYER_TURN);
 
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
             window.setFramerateLimit(120);
             
-            lRender.LoadCharacter(1,250,250,1);
-            lRender.LoadCharacter(2,200,300,1);
-            lRender.LoadCharacter(5,150,350,1);
-            lRender.LoadCharacter(7,100,400,1);
+            lRender.LoadCharacter(1,1,250,250,1);
+            lRender.LoadCharacter(2,2,200,300,1);
+            lRender.LoadCharacter(3,5,150,350,1);
+            lRender.LoadCharacter(4,7,100,400,1);
             lRender.LoadEnemy(1, 600,325,0);
             lRender.LoadEnemy(3,600,325,0);
             lRender.LoadEnemy(1,600,325,0);
@@ -62,7 +65,7 @@ int main(int argc,char* argv[]){
             
 
             int lEnemyIndex=0;
-            int compteur=0;
+        
 
             //lRender.LoadUI();
 
@@ -182,7 +185,7 @@ int main(int argc,char* argv[]){
             sf::Clock GameClock;
             RenderLayer lRender;
             sf:: Vector2i LocalPosition;
-            client::WindowCursor lCursor;
+            engine::WindowCursor lCursor;
             State Debug_State(IN_COMBAT, PLAYER_TURN);
             
             CombatStatus GameStatus = IN_COMBAT;
@@ -191,16 +194,16 @@ int main(int argc,char* argv[]){
             NewPlayer.AddEngineObserver(&GameEngine);
             NewIA.AddEngineObserver(&GameEngine);
 
-            CommandID PlayerCommand[] = {client::ATTACK_1, client::ATTACK_1, client::ATTACK_1};
-            CommandID IACommand[] = {client::ATTACK_2, client::SPELL_1, client::ATTACK_1};
+            CommandID PlayerCommand[] = {engine::ATTACK_1, engine::ATTACK_1, engine::ATTACK_1};
+            CommandID IACommand[] = {engine::ATTACK_2, engine::SPELL_1, engine::ATTACK_1};
 
             RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
             window.setFramerateLimit(120);
             lRender.LoadBackground(1);
-            lRender.LoadCharacter(1,250,250,1);
-            lRender.LoadCharacter(9,200,300,1);
-            lRender.LoadCharacter(12,150,350,1);
-            lRender.LoadCharacter(13,100,400,1);
+            lRender.LoadCharacter(1, 1,250,250,1);
+            lRender.LoadCharacter(2,9,200,300,1);
+            lRender.LoadCharacter(3,12,150,350,1);
+            lRender.LoadCharacter(4,13,100,400,1);
             lRender.LoadEnemy(9, 600,325,0);
             lRender.LoadEnemy(9,600,325,0);
             lRender.LoadEnemy(9,600,325,0);
@@ -209,7 +212,7 @@ int main(int argc,char* argv[]){
 
 
             int lEnemyIndex=0;
-            int compteur=0;
+
 
             //lRender.LoadUI();
 
@@ -321,7 +324,7 @@ int main(int argc,char* argv[]){
             sf::Clock GameClock;
             RenderLayer lRender(&GameEngine);
             sf:: Vector2i LocalPosition;
-            client::WindowCursor lCursor;
+            engine::WindowCursor lCursor;
             State Debug_State(IN_COMBAT, PLAYER_TURN);
             State* Game_State;
             CombatStatus GameStatus = INITIALISATION;
@@ -346,7 +349,6 @@ int main(int argc,char* argv[]){
 
 
             int lEnemyIndex=0;
-            int compteur=0;
 
             
 
@@ -501,7 +503,7 @@ int main(int argc,char* argv[]){
         sf::Clock GameClock;
         RenderLayer lRender(&GameEngine);
         sf:: Vector2i LocalPosition;
-        client::WindowCursor lCursor;
+        engine::WindowCursor lCursor;
         State Debug_State(IN_COMBAT, PLAYER_TURN);
         State* Game_State;
         CombatStatus GameStatus = INITIALISATION;
@@ -526,7 +528,6 @@ int main(int argc,char* argv[]){
 
 
         int lEnemyIndex=0;
-        int compteur=0;
 
         
 
@@ -683,7 +684,7 @@ int main(int argc,char* argv[]){
         sf::Clock GameClock;
         RenderLayer lRender(&GameEngine);
         sf:: Vector2i LocalPosition;
-        client::WindowCursor lCursor;
+        engine::WindowCursor lCursor;
         State Debug_State(IN_COMBAT, PLAYER_TURN);
         State* Game_State;
         CombatStatus GameStatus = INITIALISATION;
@@ -708,72 +709,43 @@ int main(int argc,char* argv[]){
 
 
         int lEnemyIndex=0;
-        int compteur=0;
 
         
 
 
         while (window.isOpen()){
-                Event event;
-        while (window.pollEvent(event)){
-            if ((event.type == Event::Closed)){
+            Event event;
+            while (window.pollEvent(event)){
+                if ((event.type == Event::Closed)){
+                        window.close();
+                }
+                    
+
+                }
+                window.clear();
+                if(lEnemyIndex==4){
                     window.close();
                 }
-                
 
-            }
-            window.clear();
-            if(lEnemyIndex==4){
-                window.close();
-            }
-
-            if(GameClock.getElapsedTime().asSeconds() > 1.f){
-                if(turn%2 == 0 && GameStatus == IN_COMBAT){
-                    IA_1.GenerateDeepCommand(5); // Generate optimal command
-                    IA_1.ResetTree(); // Reset game tree for next turn
-                   
-                //    NewPlayer.ClickCommand(window,lCursor);
-                }
-
-                else if(GameStatus == IN_COMBAT){
-                    IA_2.GenerateDeepCommand(5);
-                    IA_2.ResetTree();
-                }
-                GameClock.restart();
-            }
-                
-                Game_State = GameEngine.GameLoop();
-                turn = Game_State->GetTurn();
-                GameStatus = Game_State->GetCombatState();
-                
-
-                //   lActiveCharacter = Game_State->GetPlayerRosterSize();
-                
-            
-
-            /*MODIFICATION DU RENDU EN FONCTION DE L'ETAT DU JEU*/
-
-            switch(GameStatus){
-                
-                case INITIALISATION:
-                    /**
-                     * @brief Chargement du sprite personnage player et ennemi tour 1
-                     * 
-                     */
+                if(GameClock.getElapsedTime().asSeconds() > 1.f){
+                    if(turn%2 == 0 && GameStatus == IN_COMBAT){
+                        IA_1.GenerateDeepCommand(5); // Generate optimal command
+                        IA_1.ResetTree(); // Reset game tree for next turn
                     
-                    lNewPlayerCharacter = Game_State->GetActivePlayerCharacter();
-                    lActivePlayerCharacterNumber = lNewPlayerCharacter->GetCharacterNameNumber();
-                    lPlayerCharacterPosition = Game_State->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
-                    lNewEnemyCharacter = Game_State->GetEnemyCharacter();
-                    lActiveEnemyCharacterNumber = lNewEnemyCharacter->GetCharacterNameNumber();
+                    //    NewPlayer.ClickCommand(window,lCursor);
+                    }
 
-                    lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
-                    lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
-                    lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
-                    lRender.NotifyEndRendering();
-
+                    else if(GameStatus == IN_COMBAT){
+                        IA_2.GenerateDeepCommand(5);
+                        IA_2.ResetTree();
+                    }
+                    GameClock.restart();
+                }
                     
-                    break;
+                    Game_State = GameEngine.GameLoop();
+                    turn = Game_State->GetTurn();
+                    GameStatus = Game_State->GetCombatState();
+                    
 
                 case IN_COMBAT:
                     lIsCharacterAdd = false;
@@ -781,8 +753,7 @@ int main(int argc,char* argv[]){
                     lRender.RefreshLifePoints(Game_State->mPlayersCharacters);
                     break;
                     
-                case OUT_COMBAT:
-                /*Ajout du sprite enemy dans la team du joueur*/
+                
 
                     break;
 
@@ -819,67 +790,120 @@ int main(int argc,char* argv[]){
                     break;
                 case RENDER_PROCESSING:
 
-                    lRender.DEBUG_SetRenderState(RENDER_PROCESSING);
+                switch(GameStatus){
                     
-                    if(!lIsCharacterAdd){/**
-                        * @brief Ne fonctionne plus au delà du combat 2, cf. #64
-                        * 
-                        */
-                        lPlayerCharacterPosition = Game_State->GetPlayerRosterSize() - 1; // Récupération de la taille de l'équipe du joueur
-                        lNewPlayerCharacter = Game_State->GetPlayerCharacter(lPlayerCharacterPosition);
-                        lNewEnemyCharacter = Game_State->GetEnemyCharacter();
-                        lRender.UpdateCharacterOnScreen((int)lNewPlayerCharacter->GetCharacterNameNumber(), lPlayerCharacterPosition);
-                        lRender.UpdateCharacterOnScreen(lNewEnemyCharacter->GetCharacterNameNumber(), 4);
-                        lIsCharacterAdd = true;
-                    }
-
-                    if(lArena_Number != Game_State->GetArenaNumber()){ // If arena change
-                        lArena_Number = Game_State->GetArenaNumber(); // Get new arena number
-                        lRender.LoadBackground(lArena_Number); // Load it 
-                        lRender.GoNextArena();
-                        lRender.NotifyEndRendering();
-                    }
-
-                    else{
-                        lMovingProgress = lRender.GoNextCombat(window);
-                    }
-
-
-                    
-                    
-                    
-
-                    break;
-            
+                    case INITIALISATION:
+                        /**
+                         * @brief Chargement du sprite personnage player et ennemi tour 1
+                         * 
+                         */
                         
+                        lNewPlayerCharacter = Game_State->GetActivePlayerCharacter();
+                        lActivePlayerCharacterNumber = lNewPlayerCharacter->GetCharacterNameNumber();
+                        lPlayerCharacterPosition = Game_State->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
+                        lNewEnemyCharacter = Game_State->GetEnemyCharacter();
+                        lActiveEnemyCharacterNumber = lNewEnemyCharacter->GetCharacterNameNumber();
 
-        }
-            if(clock.getElapsedTime().asSeconds() > 0.1f){
-                lRender.AnimateCharacters();
-                clock.restart();
-            }
+                        lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
+                        lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
+                        lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
+                        lRender.NotifyEndRendering();
+
+                        
+                        break;
+
+                    case IN_COMBAT:
+                        lIsCharacterAdd = false;
+                        lRender.DEBUG_SetRenderState(IN_COMBAT);
+                        break;
+                        
+                    case OUT_COMBAT:
+                    /*Ajout du sprite enemy dans la team du joueur*/
+
+                        break;
+                    case RENDER_PROCESSING:
+
+                        lRender.DEBUG_SetRenderState(RENDER_PROCESSING);
+                        
+                        if(!lIsCharacterAdd){/**
+                            * @brief Ne fonctionne plus au delà du combat 2, cf. #64
+                            * 
+                            */
+                            lPlayerCharacterPosition = Game_State->GetPlayerRosterSize() - 1; // Récupération de la taille de l'équipe du joueur
+                            lNewPlayerCharacter = Game_State->GetPlayerCharacter(lPlayerCharacterPosition);
+                            lNewEnemyCharacter = Game_State->GetEnemyCharacter();
+                            lRender.UpdateCharacterOnScreen((int)lNewPlayerCharacter->GetCharacterNameNumber(), lPlayerCharacterPosition);
+                            lRender.UpdateCharacterOnScreen(lNewEnemyCharacter->GetCharacterNameNumber(), 4);
+                            lIsCharacterAdd = true;
+                        }
+
+                        if(lArena_Number != Game_State->GetArenaNumber()){ // If arena change
+                            lArena_Number = Game_State->GetArenaNumber(); // Get new arena number
+                            lRender.LoadBackground(lArena_Number); // Load it 
+                            lRender.GoNextArena();
+                            lRender.NotifyEndRendering();
+                        }
+
+                        else{
+                            lMovingProgress = lRender.GoNextCombat(window);
+                        }
+
 
             if(lMovingProgress==1){
                 //lRender.LoadUI();
                 lCursor.GetPositionCursor(window);
                 if(lCursor.ClickAction1(window)){
                         
-                        //lEnemyIndex=1;
-                        //LocalPosition = sf::Mouse::getPosition(window);
-                        LocalPosition = sf::Mouse::getPosition(window);
-                        // std::cout << LocalPosition.x << ";" << LocalPosition.y << endl;
-                
-                
-                }
-            }
-            
-            lCursor.GetPositionCursor(window);
-            
-            lRender.draw(window, lEnemyIndex, GameStatus);
-                
-            window.display();  
+                        
+                        
 
+                        break;
                 
+                            
+
+            }
+                if(clock.getElapsedTime().asSeconds() > 0.1f){
+                    lRender.AnimateCharacters();
+                    clock.restart();
+                }
+
+                if(lMovingProgress==1){
+                    lRender.LoadUI();
+                    lCursor.GetPositionCursor(window);
+                    if(lCursor.ClickAction1(window)){
+                            
+                            //lEnemyIndex=1;
+                            //LocalPosition = sf::Mouse::getPosition(window);
+                            LocalPosition = sf::Mouse::getPosition(window);
+                            // std::cout << LocalPosition.x << ";" << LocalPosition.y << endl;
+                    
+                    
+                    }
+                }
+                
+                lCursor.GetPositionCursor(window);
+                
+                lRender.draw(window, lEnemyIndex, GameStatus);
+                    
+                window.display();  
+
+                    
+            }
+    }
+
+    else if(strcmp(argv[1], "thread") == 0){
+
+        Client client;
+        
+        RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
+        window.setFramerateLimit(60);
+
+        
+        while (window.isOpen()){
+            client.Run(window);
+            sleep(2);
+            window.close();
+
         }
     }
 

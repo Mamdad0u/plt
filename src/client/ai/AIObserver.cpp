@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <vector>
 
-using namespace client;
+using namespace engine;
 
 namespace ai {
 
@@ -24,7 +24,7 @@ namespace ai {
     }
 
 
-    void ai::AIObserver::AddEngineObserver(client::EngineObserver* rNewobserver){
+    void ai::AIObserver::AddEngineObserver(engine::EngineObserver* rNewobserver){
         mEngineObserverList.push_back(rNewobserver);
         rNewobserver->AddAIObserver(this);
     }

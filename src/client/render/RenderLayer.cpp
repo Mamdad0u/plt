@@ -8,15 +8,28 @@ namespace render {
 
 
     render::RenderLayer::RenderLayer(){
-        mPlayerCharactersSurface.reserve(4);
+        CharacterSurface* lInit_SpritePlayerCharacter;
+        mPlayerCharactersSurface.reserve(10);
         mArenaEnemySurface.reserve(4);
+        mBackgroundSurface = new BackgroundSurface;
 
+        for(int i=0;i<5;i++){
+            lInit_SpritePlayerCharacter = new CharacterSurface;
+            mPlayerCharactersSurface.push_back(*(lInit_SpritePlayerCharacter));
+        }
     }
 
-    render::RenderLayer::RenderLayer(client::EngineObserver* rNewObserver){
-        mPlayerCharactersSurface.reserve(4);
+    render::RenderLayer::RenderLayer(engine::EngineObserver* rNewObserver){
+        CharacterSurface* lInit_SpritePlayerCharacter;
+        mPlayerCharactersSurface.reserve(5);
         mArenaEnemySurface.reserve(4);
         AddEngineObserver(rNewObserver);
+        mBackgroundSurface = new BackgroundSurface;
+        
+        for(int i=0;i<5;i++){
+            lInit_SpritePlayerCharacter = new CharacterSurface;
+            mPlayerCharactersSurface.push_back(*(lInit_SpritePlayerCharacter));
+        }
     }
     
     int render::RenderLayer::LoadBackground(int lArenaNumber){
@@ -24,7 +37,7 @@ namespace render {
         string lArenaPath = "backgrounds/Arena" + to_string(lArenaNumber);
         lArenaPath = lArenaPath + ".png";
 
-        if(mBackgroundSurface.LoadBackgroundSprite(lArenaPath)){
+        if(mBackgroundSurface->LoadBackgroundSprite(lArenaPath)){
             cout << "ERROR : Failed to load background " << endl;
             return -1;
         }
@@ -33,12 +46,12 @@ namespace render {
     }
 
     int render::RenderLayer::LoadEnemy(int rEnemySelected,int rX, int rY, int rSide){
-        Surface lEnemytoAdd;
+        CharacterSurface lEnemytoAdd;
         int lLastEnemyPosition=mArenaEnemySurface.size();
         string lEnemyString = "sprites/Character" + to_string(rEnemySelected);
         
         lEnemyString = lEnemyString +".png";
-        mArenaEnemySurface.push_back(*(new Surface));
+        mArenaEnemySurface.push_back(*(new CharacterSurface));
 
         if(mArenaEnemySurface[lLastEnemyPosition].LoadCharacterSprite(lEnemyString, rX, rY, rSide)){
             cout << "ERROR : Failed to load character " << endl;
@@ -50,27 +63,30 @@ namespace render {
 
     }
 
-    int render::RenderLayer::LoadCharacter(int rCharacterSelected, int rX, int rY, int rSide){
-        Surface lCharactertoAdd;
+    int render::RenderLayer::LoadCharacter(int rCharacterPosition, int rSpriteCharacter, int rX, int rY, int rSide){
+        rCharacterPosition--;
+        CharacterSurface* lCharactertoAdd = new CharacterSurface;
         int lLastCharacterPosition = mPlayerCharactersSurface.size();
-        string lCharacterString = "sprites/Character" + to_string(rCharacterSelected);
+        string lCharacterString = "sprites/Character" + to_string(rSpriteCharacter);
         
         lCharacterString = lCharacterString + ".png";
 
-
         
-        mPlayerCharactersSurface.push_back(*(new Surface));
         
-        if(mPlayerCharactersSurface[lLastCharacterPosition].LoadCharacterSprite(lCharacterString, rX, rY, rSide)){
+       // mPlayerCharactersSurface.push_back(*(new Surface));
+        
+        if(mPlayerCharactersSurface[rCharacterPosition].LoadCharacterSprite(lCharacterString, rX, rY, rSide)== -1){
             cout << "ERROR : Failed to load character " << endl;
             return -1;
         }
 
+    //    mPlayerCharactersSurface.push_back(*(lCharactertoAdd));
 
-
-        mPlayerCharactersSurface[lLastCharacterPosition].SetCharacterAnimation(0);
+        mPlayerCharactersSurface[rCharacterPosition].SetCharacterAnimation(0);
         
         
+
+
        
 
         return 0;
@@ -88,29 +104,34 @@ namespace render {
 
             /**
              * @brief Les case {0..3} concernent les charactères du joueur
-             * Le 4ème est pour le charactere enemy
+             * Le ème est pour le charactere enemy
              * 
              */
-        case 0:
-            LoadCharacter(rSpriteNumber,250,250,1);
+        case 1:
+            LoadCharacter(1, rSpriteNumber,250,250,1);
+            mPlayerCharacterTeamSize++;
             break;
         
-        case 1:
-            LoadCharacter(rSpriteNumber,200,300,1);
-            break;
-
         case 2:
-            LoadCharacter(rSpriteNumber,150,350,1);
+            LoadCharacter(2, rSpriteNumber,200,300,1);
+            mPlayerCharacterTeamSize++;
             break;
 
         case 3:
-            LoadCharacter(rSpriteNumber,100,400,1);
+            LoadCharacter(3, rSpriteNumber,150,350,1);
+            mPlayerCharacterTeamSize++;
             break;
 
         case 4:
+            LoadCharacter(4, rSpriteNumber,100,400,1);
+            mPlayerCharacterTeamSize++;
+            break;
+
+        case 5:
             LoadEnemy(rSpriteNumber,600,325,0);
             break;
         }
+
 
         
     }
@@ -215,7 +236,7 @@ namespace render {
         }
 
 
-        mBackgroundSurface.MoveBackgroundView(rWindow, mMovingProgress);
+        mBackgroundSurface->MoveBackgroundView(rWindow, mMovingProgress);
         
         mUI.MoveUI();
       
@@ -225,29 +246,31 @@ namespace render {
     
     void render::RenderLayer::GoNextArena(){
         for(int i=0;i<mPlayerCharactersSurface.size();i++){
-            mPlayerCharactersSurface[i].ResetSpritePosition(i);
+            mPlayerCharactersSurface[i].ResetPosition(i);
         }
-        mBackgroundSurface.ResetViewPosition();
+        mBackgroundSurface->ResetViewPosition();
 
         
     }
 
-    
+    void render::RenderLayer::UnloadPlayerSpriteCharacter(int rCharacterIndex){
+        mPlayerCharacterTeamSize--;
+
+    }
 
     void render::RenderLayer::draw(sf::RenderWindow& rWindow, int rEnemyIndex, state::CombatStatus rGameStatus){
-        mBackgroundSurface.DrawSprite(rWindow);
+        mBackgroundSurface->DrawSurface(rWindow);
 
         if(rGameStatus==state::IN_COMBAT){
             
             
-            mArenaEnemySurface[rEnemyIndex].DrawSprite(rWindow);
+            mArenaEnemySurface[rEnemyIndex].DrawSurface(rWindow);
         }
         
         rWindow.draw(mUI);
-        for(int i=1;i<mPlayerCharactersSurface.size();i++){
+        for(int i=0;i<mPlayerCharacterTeamSize;i++){
+            mPlayerCharactersSurface[i].DrawSurface(rWindow);
             
-            mPlayerCharactersSurface[i].DrawSprite(rWindow);
-
 
         }
 
