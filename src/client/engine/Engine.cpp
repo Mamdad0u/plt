@@ -51,7 +51,7 @@ namespace engine {
         mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
     }
 
-    void client::Engine::ResetEngine() {
+    void engine::Engine::ResetEngine() {
 
         
         int lIndex2 = 0;
@@ -86,7 +86,7 @@ namespace engine {
 
     }
 
-    state::State* client::Engine::GameLoop(){
+    state::State* engine::Engine::GameLoop(){
        
         state::CombatStatus lGameStatus = mCurrentState.GetCombatState();
         state::Player_Status lPlayerStatus = mCurrentState.GetPlayerStatus();

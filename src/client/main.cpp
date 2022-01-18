@@ -464,7 +464,7 @@ int main(int argc,char* argv[]){
                     clock.restart();
                 }
 
-               /* if(lMovingProgress==1){
+                if(lMovingProgress==1){
                     lRender.LoadUI();
                     lCursor.GetPositionCursor(window);
                     if(lCursor.ClickAction1(window)){
@@ -476,7 +476,7 @@ int main(int argc,char* argv[]){
                     
                     
                     }
-                } */
+                }
                 
                 lCursor.GetPositionCursor(window);
                
@@ -490,8 +490,6 @@ int main(int argc,char* argv[]){
     
 
     else if(strcmp(argv[1], "heuristic_ai") == 0){
-        
-        
         Engine GameEngine;
         Player NewPlayer;
         HeuristicAI IA_1;
@@ -587,7 +585,6 @@ int main(int argc,char* argv[]){
                     lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
                     lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
                     lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
-                    
                     lRender.NotifyEndRendering();
 
                     
@@ -596,7 +593,6 @@ int main(int argc,char* argv[]){
                 case IN_COMBAT:
                     lIsCharacterAdd = false;
                     lRender.DEBUG_SetRenderState(IN_COMBAT);
-                    lRender.RefreshLifePoints(Game_State->mPlayersCharacters); //Refresh the life points of the characters
                     break;
                     
                 case OUT_COMBAT:
@@ -630,11 +626,10 @@ int main(int argc,char* argv[]){
                         lMovingProgress = lRender.GoNextCombat(window);
                     }
 
-                    break;
 
-                case GAME_OVER:
-                    lRender.DEBUG_SetRenderState(GAME_OVER);
-
+                    
+                    
+                    
 
                     break;
             
@@ -747,20 +742,42 @@ int main(int argc,char* argv[]){
                     GameStatus = Game_State->GetCombatState();
                     
 
-                case IN_COMBAT:
-                    lIsCharacterAdd = false;
-                    lRender.DEBUG_SetRenderState(IN_COMBAT);
-                    lRender.RefreshLifePoints(Game_State->mPlayersCharacters);
-                    break;
+                    //   lActiveCharacter = Game_State->GetPlayerRosterSize();
                     
                 
 
-                    break;
+                /*MODIFICATION DU RENDU EN FONCTION DE L'ETAT DU JEU*/
 
-                case GAME_OVER:
+                switch(GameStatus){
+                    
+                    case INITIALISATION:
+                        /**
+                         * @brief Chargement du sprite personnage player et ennemi tour 1
+                         * 
+                         */
+                        
+                        lNewPlayerCharacter = Game_State->GetActivePlayerCharacter();
+                        lActivePlayerCharacterNumber = lNewPlayerCharacter->GetCharacterNameNumber();
+                        lPlayerCharacterPosition = Game_State->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
+                        lNewEnemyCharacter = Game_State->GetEnemyCharacter();
+                        lActiveEnemyCharacterNumber = lNewEnemyCharacter->GetCharacterNameNumber();
 
+                        lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
+                        lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
+                        lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
+                        lRender.NotifyEndRendering();
 
-                    lActivePlayerCharacterNumber = 0;
+                        
+                        break;
+
+                    case IN_COMBAT:
+                        lIsCharacterAdd = false;
+                        lRender.DEBUG_SetRenderState(IN_COMBAT);
+                        lRender.RefreshLifePoints(Game_State->mPlayersCharacters);
+                        break;
+
+                    case GAME_OVER:
+                        lActivePlayerCharacterNumber = 0;
                     lActiveEnemyCharacterNumber = 0;
                     turn = 0;
                     lArena_Number = 1;
@@ -788,34 +805,6 @@ int main(int argc,char* argv[]){
 
                     //lRender.LoadUI();
                     break;
-                case RENDER_PROCESSING:
-
-                switch(GameStatus){
-                    
-                    case INITIALISATION:
-                        /**
-                         * @brief Chargement du sprite personnage player et ennemi tour 1
-                         * 
-                         */
-                        
-                        lNewPlayerCharacter = Game_State->GetActivePlayerCharacter();
-                        lActivePlayerCharacterNumber = lNewPlayerCharacter->GetCharacterNameNumber();
-                        lPlayerCharacterPosition = Game_State->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
-                        lNewEnemyCharacter = Game_State->GetEnemyCharacter();
-                        lActiveEnemyCharacterNumber = lNewEnemyCharacter->GetCharacterNameNumber();
-
-                        lRender.LoadBackground(lArena_Number); // Load first background (Arena 1 on game init)
-                        lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1); // Sprite character joueur
-                        lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4); // Sprite character enemy
-                        lRender.NotifyEndRendering();
-
-                        
-                        break;
-
-                    case IN_COMBAT:
-                        lIsCharacterAdd = false;
-                        lRender.DEBUG_SetRenderState(IN_COMBAT);
-                        break;
                         
                     case OUT_COMBAT:
                     /*Ajout du sprite enemy dans la team du joueur*/
@@ -849,10 +838,6 @@ int main(int argc,char* argv[]){
                         }
 
 
-            if(lMovingProgress==1){
-                //lRender.LoadUI();
-                lCursor.GetPositionCursor(window);
-                if(lCursor.ClickAction1(window)){
                         
                         
                         
