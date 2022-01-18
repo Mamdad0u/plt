@@ -20,7 +20,7 @@ namespace render {
             mTextVersion.setPosition(0,0);
 
             mDebugTextState.setFont(mFont);
-            mDebugTextState.setCharacterSize(24);
+            mDebugTextState.setCharacterSize(24);     
             mDebugTextState.setPosition(sf::Vector2f(400.f,0.f));
 
             mMenuAction2.setFont(mFont);
@@ -215,6 +215,23 @@ namespace render {
 
     }
 
+    void render::UI::ResetUIPositon(){
+        mTextVersion.setPosition(0,0);
+        mDebugTextState.setPosition(400,0);
+        mMenuAction1.setPosition(35,510);
+        mMenuAction2.setPosition(35,550);
+        mMenuAction3.setPosition(180,510);
+        mMenuAction4.setPosition(180,550);
+        mRectLifePointsP1.setPosition(450,580);
+        mRectLifePointsP2.setPosition(600,580);
+        mRectLifePointsP3.setPosition(450,530);
+        mRectLifePointsP4.setPosition(600,530);
+        mRectAction1.setPosition(35,510);
+        mRectAction2.setPosition(35,550);
+        mRectAction3.setPosition(180,510);
+        mRectAction4.setPosition(180,550);
+        mRectMenu.setPosition(800,100);
+    }
 }
 
 
