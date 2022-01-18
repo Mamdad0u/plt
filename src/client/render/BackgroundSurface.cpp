@@ -37,7 +37,7 @@ namespace render {
     }
 
     void render::BackgroundSurface::ResetViewPosition(){
-        mView.setCenter(sf::Vector2f(0,0));
+        mView.reset(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
     }
 
 
