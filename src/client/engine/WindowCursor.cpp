@@ -39,7 +39,7 @@ namespace engine {
         mX=lLocalPosition.x;
         mY=lLocalPosition.y;
 
-        if((mX<165)&&(mX>35)&&(mY<535)&&(mY>510)){
+        if((mX<125)&&(mX>35)&&(mY<535)&&(mY>510)){
             if( sf::Mouse::isButtonPressed(sf::Mouse::Left)){
                 return true;
             }
@@ -55,7 +55,7 @@ namespace engine {
         mX=lLocalPosition.x;
         mY=lLocalPosition.y;
 
-        if((mX<95)&&(mX>35)&&(mY<575)&&(mY>550)){
+        if((mX<125)&&(mX>35)&&(mY<575)&&(mY>550)){
             if( sf::Mouse::isButtonPressed(sf::Mouse::Left)){
                 return true;
             }
@@ -71,7 +71,7 @@ namespace engine {
         mX=lLocalPosition.x;
         mY=lLocalPosition.y;
 
-        if((mX<225)&&(mX>180)&&(mY<535)&&(mY>510)){
+        if((mX<265)&&(mX>180)&&(mY<535)&&(mY>510)){
             if( sf::Mouse::isButtonPressed(sf::Mouse::Left)){
                 return true;
             }
@@ -86,7 +86,7 @@ namespace engine {
         mX=lLocalPosition.x;
         mY=lLocalPosition.y;
 
-        if((mX<335)&&(mX>180)&&(mY<575)&&(mY>550)){
+        if((mX<265)&&(mX>180)&&(mY<575)&&(mY>550)){
             if( sf::Mouse::isButtonPressed(sf::Mouse::Left)){
                 return true;
             }

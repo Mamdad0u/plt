@@ -29,7 +29,6 @@ State::State(CombatStatus rCombatStatus, Player_Status rPlayerStatus) {
 }
 
 
-
 void State::MoveNextCombat() {
 
     this->mCombatNumber++;
