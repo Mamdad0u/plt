@@ -892,7 +892,23 @@ int main(int argc,char* argv[]){
         }
     }
 
-     else if(strcmp(argv[1], "test") == 0){
+    else if(strcmp(argv[1], "listen") == 0){
+
+        Client client;
+        
+/*         RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
+        window.setFramerateLimit(60);
+
+        
+        while (window.isOpen()){
+            client.Run(window);
+            sleep(2);
+            window.close();
+
+        } */
+    }
+
+    else if(strcmp(argv[1], "test") == 0){
         Engine NewEngine;
         Player NewPlayer;
         HeuristicAI AI1;
