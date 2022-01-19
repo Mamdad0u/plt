@@ -93,7 +93,7 @@ namespace render {
     }
 
     void render::RenderLayer::UpdateCharacterOnScreen(int rSpriteNumber, int rPositionOnScreen){
-/*         lRender.LoadCharacter(1,250,250,1);
+    /*         lRender.LoadCharacter(1,250,250,1);
         lRender.LoadCharacter(2,200,300,1);
         lRender.LoadCharacter(5,150,350,1);
         lRender.LoadCharacter(7,100,400,1); */
@@ -136,7 +136,27 @@ namespace render {
         
     }
 
+    void render::RenderLayer::RefreshLifePoints(std::vector<state::Character> rPlayersCharacters) {
+
+        float LPratios[4] = {0,0,0,0};
+
+        for (size_t k = 0; k < rPlayersCharacters.size(); k++)
+        {
+            LPratios[k] = ((float)rPlayersCharacters[k].GetCharacterStats(state::LIFE_POINTS)/(float)rPlayersCharacters[k].GetCharacterStats(state::MAX_LIFE_POINTS))*100;
+        }
+        
+        mUI.mRectLifePointsP1.setSize(sf::Vector2f(LPratios[0],25));
+        mUI.mRectLifePointsP2.setSize(sf::Vector2f(LPratios[1],25));
+        mUI.mRectLifePointsP3.setSize(sf::Vector2f(LPratios[2],25));
+        mUI.mRectLifePointsP4.setSize(sf::Vector2f(LPratios[3],25));
+        //mUI.mRectLifePointsP1.setFillColor(sf::Color::Yellow);
+        
+
+    }
+
+
     void render::RenderLayer::LoadUI(){
+
         
         mUI.CreateWindow(0,500,800,100);
         mUI.SetTextVersion("Release 4.1");
@@ -167,6 +187,12 @@ namespace render {
             case state::RENDER_PROCESSING:
                 mUI.DEBUG_SetTextCombatState("RENDER_PROCESSING");
                 break;
+
+            case state::GAME_OVER:
+                mUI.DEBUG_SetTextCombatState("GAME_OVER");
+
+                mUI.AskNewGame();
+                
 
 
         }
@@ -251,7 +277,6 @@ namespace render {
 
         
     }
-
     
 
 }

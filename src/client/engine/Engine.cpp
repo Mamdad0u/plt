@@ -5,6 +5,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 #include <random>
+#include <string.h>
 
 using namespace std;
 using namespace state;
@@ -50,6 +51,41 @@ namespace engine {
         mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
     }
 
+    void engine::Engine::ResetEngine() {
+
+        
+        int lIndex2 = 0;
+        int lRandomPlayerCharacter;
+        srand (time(NULL));
+
+        lRandomPlayerCharacter = rand() % state::State::MAX_COMBAT_NB;
+
+        int lRandomInt[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+
+        mCurrentState.AddPlayerCharacter((state::CharacterName)lRandomPlayerCharacter);
+
+        for(int lIndex=0;lIndex<state::State::MAX_COMBAT_NB; lIndex++){
+                if((state::CharacterName)lRandomInt[lIndex] != (state::CharacterName)lRandomPlayerCharacter){
+                    mRandomEnemyList[lIndex] = (state::CharacterName)lRandomInt[lIndex2];
+                    lIndex2++;
+                }
+
+                else{
+                    lIndex2+=1;
+                    mRandomEnemyList[lIndex] = (state::CharacterName)lRandomInt[lIndex2];
+                    lIndex2+=1;
+                }
+                
+                
+
+            }
+
+        mCurrentState.AddEnemyCharacter(mRandomEnemyList[0]);
+        
+
+
+    }
+
     state::State* engine::Engine::GameLoop(){
        
         state::CombatStatus lGameStatus = mCurrentState.GetCombatState();
@@ -74,7 +110,31 @@ namespace engine {
 
 
         case state::GAME_OVER:
+            char playerAnswer[1];
             cout << "You loose on combat " << mCurrentState.GetCombatNumber() <<" , Arena " << mCurrentState.GetArenaNumber() << endl;
+            cout << "Try again ? (y/n)" << endl;
+            cin >> playerAnswer;
+
+            if(strcmp(playerAnswer,"y") == 0) {
+
+                cout << "New game will launch." << endl;
+                
+                //mCurrentState.SetAlivePlayer();
+                //mCurrentState.SetAliveEnemy();
+                mCurrentState.ResetCombatNumber();
+                mCurrentState.SetCombatState(state::INITIALISATION);
+                
+                
+                
+
+                
+            }
+
+            if(strcmp(playerAnswer,"n") == 0) {
+
+                cout << "Ok, looser." << endl;
+            }
+            
             
             break;
 

@@ -773,7 +773,38 @@ int main(int argc,char* argv[]){
                     case IN_COMBAT:
                         lIsCharacterAdd = false;
                         lRender.DEBUG_SetRenderState(IN_COMBAT);
+                        lRender.RefreshLifePoints(Game_State->mPlayersCharacters);
                         break;
+
+                    case GAME_OVER:
+                        lActivePlayerCharacterNumber = 0;
+                    lActiveEnemyCharacterNumber = 0;
+                    turn = 0;
+                    lArena_Number = 1;
+                   // lEnemyIndex=0;
+                   // compteur=0;
+
+                    
+
+                    GameEngine.ResetEngine();
+
+                    
+                    lNewPlayerCharacter = Game_State->GetActivePlayerCharacter();
+                    lActivePlayerCharacterNumber = lNewPlayerCharacter->GetCharacterNameNumber();
+                    lPlayerCharacterPosition = Game_State->GetPlayerRosterSize(); // La position d'un nouveau joueur est l'index ajouté dans son roster
+                    lNewEnemyCharacter = Game_State->GetEnemyCharacter();
+                    lActiveEnemyCharacterNumber = lNewEnemyCharacter->GetCharacterNameNumber();
+                    lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1);
+                    lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4);
+                    lRender.DEBUG_SetRenderState(GAME_OVER);
+                    
+                    /*
+                    lRender.UpdateCharacterOnScreen(lActivePlayerCharacterNumber, lPlayerCharacterPosition-1);
+                    lRender.UpdateCharacterOnScreen(lActiveEnemyCharacterNumber, 4);            
+                    lRender.DEBUG_SetRenderState(GAME_OVER); */
+
+                    //lRender.LoadUI();
+                    break;
                         
                     case OUT_COMBAT:
                     /*Ajout du sprite enemy dans la team du joueur*/
