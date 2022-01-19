@@ -129,7 +129,7 @@ bool runFunctionCalled = true;
                         lIsCharacterAdd = false;
                         lRender.DEBUG_SetRenderState(IN_COMBAT);
 
-                        if(lGameClock.getElapsedTime().asSeconds() > 0){
+                        if(lGameClock.getElapsedTime().asSeconds() > 1){
                             if(lTurn%2 == 0){
                                 IA_1.GenerateDeepCommand(5); // Generate optimal command
                                 IA_1.ResetTree(); // Reset game tree for next turn
@@ -147,6 +147,7 @@ bool runFunctionCalled = true;
                             }
                             lGameClock.restart();
                         } 
+                        lRender.RefreshLifePoints(lGameState->mPlayersCharacters);
                         break;
                         
                     case OUT_COMBAT:
@@ -197,6 +198,8 @@ bool runFunctionCalled = true;
                         }
 
                         break;
+
+                    
 
             }
 

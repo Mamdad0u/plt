@@ -9,8 +9,8 @@ namespace render {
 
     render::RenderLayer::RenderLayer(){
         CharacterSurface* lInit_SpritePlayerCharacter;
-        mPlayerCharactersSurface.reserve(10);
-        mArenaEnemySurface.reserve(4);
+        mPlayerCharactersSurface.reserve(4);
+        mArenaEnemySurface.reserve(10);
         mBackgroundSurface = new BackgroundSurface;
 
         for(int i=0;i<5;i++){
@@ -22,7 +22,7 @@ namespace render {
     render::RenderLayer::RenderLayer(engine::EngineObserver* rNewObserver){
         CharacterSurface* lInit_SpritePlayerCharacter;
         mPlayerCharactersSurface.reserve(5);
-        mArenaEnemySurface.reserve(4);
+        mArenaEnemySurface.reserve(10);
         AddEngineObserver(rNewObserver);
         mBackgroundSurface = new BackgroundSurface;
         
@@ -41,7 +41,7 @@ namespace render {
             cout << "ERROR : Failed to load background " << endl;
             return -1;
         }
-        
+        mBackgroundSurface->SetRender(true);
         return 0;
     }
 
@@ -58,7 +58,7 @@ namespace render {
             return -1;
         }
         mArenaEnemySurface[lLastEnemyPosition].SetCharacterAnimation(0);
-
+        mArenaEnemySurface[lLastEnemyPosition].SetRender(true);
         return 0;
 
     }
@@ -83,7 +83,7 @@ namespace render {
     //    mPlayerCharactersSurface.push_back(*(lCharactertoAdd));
 
         mPlayerCharactersSurface[rCharacterPosition].SetCharacterAnimation(0);
-        
+        mPlayerCharactersSurface[rCharacterPosition].SetRender(true);
         
 
 
@@ -245,15 +245,16 @@ namespace render {
     }
     
     void render::RenderLayer::GoNextArena(){
-        for(int i=0;i<mPlayerCharactersSurface.size();i++){
+        for(int i=0;i<mPlayerCharacterTeamSize;i++){
             mPlayerCharactersSurface[i].ResetPosition(i);
         }
         mBackgroundSurface->ResetViewPosition();
-
+        mUI.ResetUIPositon();
         
     }
 
     void render::RenderLayer::UnloadPlayerSpriteCharacter(int rCharacterIndex){
+        mPlayerCharactersSurface[rCharacterIndex].SetRender(false);
         mPlayerCharacterTeamSize--;
 
     }
@@ -268,7 +269,7 @@ namespace render {
         }
         
         rWindow.draw(mUI);
-        for(int i=0;i<mPlayerCharacterTeamSize;i++){
+        for(int i=0;i<4;i++){
             mPlayerCharactersSurface[i].DrawSurface(rWindow);
             
 

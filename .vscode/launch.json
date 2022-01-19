@@ -4,7 +4,6 @@
     // Pour plus d'informations, visitez : https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
         {
             "name": "(gdb) Lancer",
             "type": "cppdbg",
@@ -14,7 +13,7 @@
             "program": "${workspaceFolder}/bin/client",
             "args": ["thread"],
             "stopAtEntry": false,
-            "cwd": "/home/mamdadou/Projet_PLT/plt/plt",
+            "cwd": "/home/paul/plt",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -27,4 +26,4 @@
             ]
         }
     ]
-}
+}c

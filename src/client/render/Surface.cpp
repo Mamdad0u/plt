@@ -7,9 +7,15 @@ using namespace std;
 namespace render {
 
     // NOUVELLE VERSION
+    void render::Surface::SetRender(bool rValue){
+        mIsRender = rValue;
+    }
 
     void render::Surface::DrawSurface(sf::RenderWindow& rWindow){
-        rWindow.draw(mSprite);
+        if(mIsRender){
+            rWindow.draw(mSprite);
+        }
+        
     }
 
 }
