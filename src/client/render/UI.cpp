@@ -20,7 +20,7 @@ namespace render {
             mTextVersion.setPosition(0,0);
 
             mDebugTextState.setFont(mFont);
-            mDebugTextState.setCharacterSize(24);
+            mDebugTextState.setCharacterSize(24);     
             mDebugTextState.setPosition(sf::Vector2f(400.f,0.f));
 
             mMenuAction2.setFont(mFont);
@@ -45,25 +45,30 @@ namespace render {
             mMenuAction4.setPosition(sf::Vector2f(180.f,550.f));
             mRectAction4.setPosition(sf::Vector2f(180.f,550.f));
 
-            mRectLifePointsP1.setPosition(sf::Vector2f(450.f,580.f));
+            mRectLifePointsP1.setPosition(sf::Vector2f(450.f,570.f));
             mRectLifePointsP1.setOutlineThickness(2);
             mRectLifePointsP1.setOutlineColor(sf::Color::White);
             mRectLifePointsP1.setFillColor(sf::Color::Green);
            
-            mRectLifePointsP2.setPosition(sf::Vector2f(600.f,580.f));
+            mRectLifePointsP2.setPosition(sf::Vector2f(600.f,570.f));
             mRectLifePointsP2.setOutlineThickness(2);
             mRectLifePointsP2.setOutlineColor(sf::Color::White);
             mRectLifePointsP2.setFillColor(sf::Color::Green);
 
-            mRectLifePointsP3.setPosition(sf::Vector2f(450.f,530.f));
+            mRectLifePointsP3.setPosition(sf::Vector2f(450.f,520.f));
             mRectLifePointsP3.setOutlineThickness(2);
             mRectLifePointsP3.setOutlineColor(sf::Color::White);
             mRectLifePointsP3.setFillColor(sf::Color::Green);
 
-            mRectLifePointsP4.setPosition(sf::Vector2f(600.f,530.f));
+            mRectLifePointsP4.setPosition(sf::Vector2f(600.f,520.f));
             mRectLifePointsP4.setOutlineThickness(2);
             mRectLifePointsP4.setOutlineColor(sf::Color::White);
             mRectLifePointsP4.setFillColor(sf::Color::Green);
+
+            mRectLifePointsP1.setSize(sf::Vector2f(100,15));
+            mRectLifePointsP2.setSize(sf::Vector2f(100,15));
+            mRectLifePointsP3.setSize(sf::Vector2f(100,15));
+            mRectLifePointsP4.setSize(sf::Vector2f(100,15));
 
             mRectMenu.setPosition(sf::Vector2f(0.f,500.f));
             mRectMenu.setFillColor(sf::Color::Blue);
@@ -120,7 +125,7 @@ namespace render {
     void render::UI::DEBUG_SetTextAction1(std::string rTextAction){
 
         mMenuAction1.setString(rTextAction);
-        mRectAction1.setSize(sf::Vector2f(130,25));
+        mRectAction1.setSize(sf::Vector2f(90,25));
         mRectAction1.setFillColor(sf::Color::Transparent);
         mRectAction1.setOutlineThickness(2);
         mRectAction1.setOutlineColor(sf::Color::Red);
@@ -130,7 +135,7 @@ namespace render {
     void render::UI::DEBUG_SetTextAction2(std::string rTextAction) {
 
         mMenuAction2.setString(rTextAction);
-        mRectAction2.setSize(sf::Vector2f(60,25));
+        mRectAction2.setSize(sf::Vector2f(90,25));
         mRectAction2.setFillColor(sf::Color::Transparent);
         mRectAction2.setOutlineThickness(2);
         mRectAction2.setOutlineColor(sf::Color::Red);
@@ -141,7 +146,7 @@ namespace render {
     void render::UI::DEBUG_SetTextAction3(std::string rTextAction) {
 
         mMenuAction3.setString(rTextAction);
-        mRectAction3.setSize(sf::Vector2f(45,25));
+        mRectAction3.setSize(sf::Vector2f(85,25));
         mRectAction3.setFillColor(sf::Color::Transparent);
         mRectAction3.setOutlineThickness(2);
         mRectAction3.setOutlineColor(sf::Color::Red);
@@ -152,7 +157,7 @@ namespace render {
     void render::UI::DEBUG_SetTextAction4(std::string rTextAction) {
 
         mMenuAction4.setString(rTextAction);
-        mRectAction4.setSize(sf::Vector2f(155,25));
+        mRectAction4.setSize(sf::Vector2f(85,25));
         mRectAction4.setFillColor(sf::Color::Transparent);
         mRectAction4.setOutlineThickness(2);
         mRectAction4.setOutlineColor(sf::Color::Red);
@@ -161,16 +166,27 @@ namespace render {
 
     void render::UI::DEBUG_SetLifePoints() {
 
-        mRectLifePointsP1.setSize(sf::Vector2f(100,15));
-        mRectLifePointsP2.setSize(sf::Vector2f(100,15));
-        mRectLifePointsP3.setSize(sf::Vector2f(100,15));
-        mRectLifePointsP4.setSize(sf::Vector2f(100,15));
+        
 
     }
 
+    void render::UI::AskNewGame() {
 
+        mGameOverMenu.setSize(sf::Vector2f(450,500));
+        mGameOverMenu.setPosition(sf::Vector2f(250.f,300.f));
+        mGameOverMenu.setFillColor(sf::Color::Black);
 
-    
+        mExit.setSize(sf::Vector2f(50,25));
+        mExit.setPosition(sf::Vector2f(300.f,350.f));
+        mExit.setFillColor(sf::Color::Red);
+
+        mTryAgain.setSize(sf::Vector2f(50,25));
+        mTryAgain.setPosition(sf::Vector2f(400.f,350.f));
+        mTryAgain.setFillColor(sf::Color::Green);
+
+        
+
+    }
 
     void render::UI::MoveUI(){
         mTextVersion.move(sf::Vector2f(1.f,0.f));
@@ -211,10 +227,31 @@ namespace render {
         target.draw(mRectLifePointsP2);
         target.draw(mRectLifePointsP3);
         target.draw(mRectLifePointsP4);
+        target.draw(mGameOverMenu);
+        target.draw(mExit);
+        target.draw(mTryAgain);
+        
         
 
     }
 
+    void render::UI::ResetUIPositon(){
+        mTextVersion.setPosition(0,0);
+        mDebugTextState.setPosition(400,0);
+        mMenuAction1.setPosition(35,510);
+        mMenuAction2.setPosition(35,550);
+        mMenuAction3.setPosition(180,510);
+        mMenuAction4.setPosition(180,550);
+        mRectLifePointsP1.setPosition(450,580);
+        mRectLifePointsP2.setPosition(600,580);
+        mRectLifePointsP3.setPosition(450,530);
+        mRectLifePointsP4.setPosition(600,530);
+        mRectAction1.setPosition(35,510);
+        mRectAction2.setPosition(35,550);
+        mRectAction3.setPosition(180,510);
+        mRectAction4.setPosition(180,550);
+        mRectMenu.setPosition(800,100);
+    }
 }
 
 

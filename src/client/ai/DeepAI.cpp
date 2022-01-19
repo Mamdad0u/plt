@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <vector>
 #include<bits/stdc++.h> // min max function
-using namespace client;
+using namespace engine;
 using namespace state;
 using namespace std;
 
@@ -155,9 +155,9 @@ namespace ai {
  * @brief Return an optimal command based on minimax algorithm
  * 
  * @param rDepth 
- * @return client::CommandID 
+ * @return engine::CommandID 
  */
-    client::CommandID ai::DeepAI::GenerateDeepCommand(int rDepth){
+    engine::CommandID ai::DeepAI::GenerateDeepCommand(int rDepth){
         EngineObserver* lRunningEngine;// Actual game engine running the game           
         lRunningEngine = *(mEngineObserverList.begin());  // Get parameters and state of game engine       
         State lGameStatus = lRunningEngine->mCurrentState; // Get the state of the game
@@ -248,12 +248,12 @@ namespace ai {
     }
 
 
-    void ai::DeepAI::SetStatusCommand(client::CommandID rNewCommand){
+    void ai::DeepAI::SetStatusCommand(engine::CommandID rNewCommand){
         mInputCommand = rNewCommand;
         NotifyNewAICommand();
     }
 
-    client::CommandID ai::DeepAI::GetStatusCommand() const{
+    engine::CommandID ai::DeepAI::GetStatusCommand() const{
         return this->mInputCommand;
     }
 

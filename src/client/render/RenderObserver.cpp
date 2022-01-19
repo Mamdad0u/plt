@@ -7,7 +7,7 @@ using namespace std;
 namespace render {
 
 
-    void render::RenderObserver::AddEngineObserver(client::EngineObserver* rNewObserver) {
+    void render::RenderObserver::AddEngineObserver(engine::EngineObserver* rNewObserver) {
 
         mEngineObserverList.push_back(rNewObserver);
         rNewObserver->AddRenderObserver(this);
@@ -15,8 +15,8 @@ namespace render {
 
     void render::RenderObserver::NotifyEndRendering() {
 
-        std::list<client::EngineObserver*>::iterator lIterator; 
-        std::list<client::EngineObserver*>::const_iterator lConst_iterator;
+        std::list<engine::EngineObserver*>::iterator lIterator; 
+        std::list<engine::EngineObserver*>::const_iterator lConst_iterator;
 
         lIterator = mEngineObserverList.begin();
         lConst_iterator = mEngineObserverList.end();
