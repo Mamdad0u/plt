@@ -3,6 +3,7 @@
 #include <mutex>
 #include <iostream>
 #include <unistd.h>
+#include <sys/socket.h>
 
 using namespace client;
 using namespace render;
