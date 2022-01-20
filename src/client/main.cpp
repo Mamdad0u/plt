@@ -64,7 +64,7 @@ int main(int argc,char* argv[]){
             lRender.LoadEnemy(2,600,325,0);
             
 
-            int lEnemyIndex=0;
+            int lEnemyIndex=1;
         
 
             //lRender.LoadUI();
@@ -78,7 +78,9 @@ int main(int argc,char* argv[]){
                     }
              if(lEnemyIndex==4){
                     window.close();
-                }
+                    
+                    
+            }
             if(lCursor.ClickAction4(window)){
                 window.close();
             }
@@ -115,7 +117,7 @@ int main(int argc,char* argv[]){
                         GameStatus.SetCombatState(OUT_COMBAT);
                         lMovingProgress = lRender.GoNextCombat(window);
                         lEnemyIndex++;
-                        
+                        lRender.LoadBackground(lEnemyIndex+1);
                     }
                 }
 
@@ -137,7 +139,7 @@ int main(int argc,char* argv[]){
                     lCursor.GetPositionCursor(window);
                     if(lCursor.ClickAction1(window)){
                             GameStatus.SetCombatState(OUT_COMBAT);
-                            lEnemyIndex=1;
+                            lRender.LoadBackground(lEnemyIndex+1);
                             //LocalPosition = sf::Mouse::getPosition(window);
                             LocalPosition = sf::Mouse::getPosition(window);
                             //std::cout << LocalPosition.x << ";" << LocalPosition.y << endl;
