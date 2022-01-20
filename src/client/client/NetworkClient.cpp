@@ -46,7 +46,7 @@ namespace client{
             perror("ERROR: Failed to connect to server at connect");
             return SOCKET_ERROR;
         }
-
+        cout << "Sucessfully connected to server" << endl;
         mIsConnected = true;
     }
 

@@ -190,7 +190,7 @@ int main(int argc,char* argv[]){
             
             CombatStatus GameStatus = IN_COMBAT;
             State* Game_State;
-
+            lRender.AddEngineObserver(&GameEngine);
             NewPlayer.AddEngineObserver(&GameEngine);
             NewIA.AddEngineObserver(&GameEngine);
 
@@ -209,8 +209,8 @@ int main(int argc,char* argv[]){
             lRender.LoadEnemy(9,600,325,0);
             lRender.LoadEnemy(9,600,325,0);
             lRender.LoadUI();
-
-
+            lRender.NotifyEndRendering();
+            
             int lEnemyIndex=0;
 
 
@@ -396,7 +396,7 @@ int main(int argc,char* argv[]){
                         lIsCharacterAdd = false;
                         lRender.DEBUG_SetRenderState(IN_COMBAT);
 
-                        if(lGameClock.getElapsedTime().asSeconds() > 1){
+                        if(lGameClock.getElapsedTime().asSeconds() > 5){
                             if(lTurn%2 == 0){
                                 IA_1.GenerarateRandomCommand();
 
@@ -587,7 +587,7 @@ int main(int argc,char* argv[]){
                         lIsCharacterAdd = false;
                         lRender.DEBUG_SetRenderState(IN_COMBAT);
 
-                        if(lGameClock.getElapsedTime().asSeconds() > 1){
+                        if(lGameClock.getElapsedTime().asSeconds() > 3){
                             if(lTurn%2 == 0){
                                 IA_1.GenerateHeuristicCommand();
 

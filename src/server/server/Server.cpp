@@ -64,7 +64,7 @@ namespace server {
     }
 
     int server::Server::Run(){
-        char buffer[128];
+        char buffer[128] = {0};
         int new_client;
         socklen_t length = sizeof(client_sockaddr_in);
 
@@ -81,17 +81,25 @@ namespace server {
             if(new_client != SOCKET_ERROR){
                 cout << "New client connected" << endl;
                 mPlayersConnected++;
-
+                int ret = recv(new_client, buffer, 128, 0);
                 memcpy(buffer, &mPlayersConnected, sizeof(mPlayersConnected));
-
-                if(sendto(mSock, buffer, sizeof(buffer), 0, (SOCKADDR*)&server_sockaddr_in, length) != SOCKET_ERROR){
+                //sendto(mSock, buffer, sizeof(buffer), 0, (SOCKADDR*)&server_sockaddr_in, length)
+                
+                try{
+                    send(mSock, buffer, sizeof(buffer), 0);
+                }
+                catch(const std::invalid_argument& e){
+                    perror("ERROR: Failed to send data to client");
+                    return SOCKET_ERROR;
+                }
+/*                 if(send(mSock, buffer, sizeof(buffer), 0) != SOCKET_ERROR){
                     cout << "Successfully sent data to client" << endl;
                 }
 
                 else{
                     perror("ERROR: Failed to send data to client");
                     return SOCKET_ERROR;
-                }
+                } */
             }
 
             else{
