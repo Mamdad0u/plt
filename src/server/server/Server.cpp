@@ -5,6 +5,8 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <string.h>
+
 using namespace std;
 using namespace server;
 
@@ -16,7 +18,8 @@ typedef struct in_addr IN_ADDR;
 typedef struct addrinfo ADDRINFO;
 struct addrinfo * result;
 
-SOCKADDR_IN server_sockaddr_in;
+SOCKADDR_IN server_sockaddr_in = {0};
+SOCKADDR_IN client_sockaddr_in = {0};
 
 namespace server {
 
@@ -61,11 +64,39 @@ namespace server {
     }
 
     int server::Server::Run(){
+        char buffer[128];
+        int new_client;
+        socklen_t length = sizeof(client_sockaddr_in);
+
+        if(listen(mSock, 10) == SOCKET_ERROR){
+            perror("ERROR: Failed to listen");
+            return SOCKET_ERROR;
+        }
+
         cout << "Server is now listening on " << mHost << ":" << mPort << endl;
 
         while(1){
-            if(listen(mSock, 10) == SOCKET_ERROR){
-                perror("ERROR: Failed to listen");
+            new_client = accept(mSock, (sockaddr*)&client_sockaddr_in, &length);
+
+            if(new_client != SOCKET_ERROR){
+                cout << "New client connected" << endl;
+                mPlayersConnected++;
+
+                memcpy(buffer, &mPlayersConnected, sizeof(mPlayersConnected));
+
+                if(sendto(mSock, buffer, sizeof(buffer), 0, (SOCKADDR*)&server_sockaddr_in, length) != SOCKET_ERROR){
+                    cout << "Successfully sent data to client" << endl;
+                }
+
+                else{
+                    perror("ERROR: Failed to send data to client");
+                    return SOCKET_ERROR;
+                }
+            }
+
+            else{
+                perror("ERROR: Failed to accept connection from client");
+                return SOCKET_ERROR;
             }
             sleep(1);
         }
