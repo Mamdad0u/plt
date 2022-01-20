@@ -892,20 +892,33 @@ int main(int argc,char* argv[]){
         }
     }
 
-    else if(strcmp(argv[1], "listen") == 0){
+    else if(strcmp(argv[1], "network") == 0){
+        if(argv[2] == NULL || argv[3] == NULL){
+            cout << "Please specify host and port" << endl;
+            cout << "./bin/server network <host> <port>" << endl;
+            return -1;
+        }
+        char* lHost = argv[2];
+        char* lPort = argv[3];
 
-        Client client;
+        NetworkClient Net_client(lHost, lPort);
         
-/*         RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
+        RenderWindow window(VideoMode(800, 600, 32), "ENSEAi");
         window.setFramerateLimit(60);
 
         
         while (window.isOpen()){
-            client.Run(window);
+            if(Net_client.ConnectTo() == -1){
+                return -1;
+            }
+
+            Net_client.RunNetwork(window);
             sleep(2);
             window.close();
 
-        } */
+
+
+        }
     }
 
     else if(strcmp(argv[1], "test") == 0){
