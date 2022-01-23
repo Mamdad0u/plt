@@ -35,17 +35,7 @@ namespace client {
 
     }
 
-    void PlayerObserver::DelEngineObserver(EngineObserver* rNewobserver){
-        std::list<EngineObserver*>::iterator lIterator; 
-        std::list<EngineObserver*>::const_iterator lConst_iterator;
 
-        lIterator = mEngineObserverList.begin();
-        
-        for(;lIterator!=lConst_iterator;++lIterator)
-        {
-          (*lIterator)->DelPlayerObserver(this);
-        }
-    } 
 
 
 

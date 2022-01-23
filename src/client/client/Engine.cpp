@@ -206,15 +206,6 @@ namespace client {
 
 
 
-    state::CombatStatus client::Engine::DEBUG_GetGameStatus(){
-
-        return mCurrentState.GetCombatState();
-    }
-
-    void client::Engine::UpdatePlayerCommandStatus(CommandID rNewCommand){
-        this->mInputCommandID = rNewCommand;
-        this->mIsNewPlayerCommand = true;
-    }
 
 
     
